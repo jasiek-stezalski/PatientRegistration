@@ -6,6 +6,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.*;
+import java.sql.Time;
 import java.util.Date;
 import java.util.List;
 
@@ -26,29 +27,29 @@ public class VisitModel {
     private Date startDate;
 
     @Column(name = "end_date", nullable = false)
-    private  Date endDate;
+    private Date endDate;
 
     @Column(name = "day_interval", nullable = false)
     private Integer dayInterval;
 
     @Column(name = "begin_time", nullable = false)
-    private Date beginTime;
+    private Time beginTime;
 
     @Column(name = "end_time", nullable = false)
-    private Date endTime;
+    private Time endTime;
 
     @Column(name = "minute_interval", nullable = false)
     private Integer minuteInterval;
 
+    @Column(name = "specialization", nullable = false)
+    private String specialization;
+
     @ManyToOne
-    @JoinColumn(name = "id_user")
+    @JoinColumn(name = "id_doctor")
     private User user;
 
-    @ManyToOne
-    @JoinColumn(name = "id_clinic")
-    private Clinic clinic;
-
-    @OneToMany(mappedBy = "visitModel", cascade = CascadeType.ALL)
+    @OneToMany()
+    @JoinColumn(name = "id_visit_model")
     private List<Visit> visits;
 
 }

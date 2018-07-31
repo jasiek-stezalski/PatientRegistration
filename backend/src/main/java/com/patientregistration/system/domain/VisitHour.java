@@ -24,12 +24,4 @@ public class VisitHour {
     @Column(name = "hour", nullable = false)
     private Time hour;
 
-    @ManyToOne
-    @JoinColumn(name = "id_visit")
-    private Visit visit;
-
-    @ManyToOne
-    @JoinColumn(name = "id_user")
-    private User user;
-
 }

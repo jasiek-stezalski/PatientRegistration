@@ -30,10 +30,14 @@ public class Clinic {
     @Column(name = "address", nullable = false)
     private String address;
 
+    @Column(name = "city", nullable = false)
+    private String city;
+
     @Column(name = "phone_number")
     private String phoneNumber;
 
-    @OneToMany(mappedBy = "clinic", cascade = CascadeType.ALL)
+    @OneToMany
+    @JoinColumn(name = "id_clinic")
     private List<VisitModel> visitModels;
 
 }

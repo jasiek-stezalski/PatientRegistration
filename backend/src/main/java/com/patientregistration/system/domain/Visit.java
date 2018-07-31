@@ -25,11 +25,8 @@ public class Visit {
     @Column(name = "visit_date", nullable = false)
     private Date visitDate;
 
-    @OneToMany(mappedBy = "visit", cascade = CascadeType.ALL)
+    @OneToMany
+    @JoinColumn(name = "id_visit")
     private List<VisitHour> visitHours;
-
-    @ManyToOne
-    @JoinColumn(name = "id_visit_model")
-    private VisitModel visitModel;
 
 }

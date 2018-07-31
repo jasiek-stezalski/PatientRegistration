@@ -51,10 +51,10 @@ public class User {
     @Column(name = "phone_number")
     private String phoneNumber;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    private List<VisitModel> visitModels;
+//    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+//    private List<VisitModel> visitModels;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    @OneToMany
+    @JoinColumn(name = "id_user")
     private List<VisitHour> visitHours;
-
 }

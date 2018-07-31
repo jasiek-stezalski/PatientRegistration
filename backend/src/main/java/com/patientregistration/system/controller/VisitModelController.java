@@ -1,9 +1,7 @@
 package com.patientregistration.system.controller;
 
-import com.patientregistration.system.domain.Visit;
 import com.patientregistration.system.domain.VisitModel;
 import com.patientregistration.system.service.VisitModelService;
-import com.patientregistration.system.service.VisitService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,7 +24,17 @@ public class VisitModelController {
 
     @GetMapping("/visitModels/{id}")
     public VisitModel getVisitModelById(@PathVariable(value = "id") Long idVisitModel) {
-        return visitModelService.findByVisitId(idVisitModel);
+        return visitModelService.findByIdVisitModel(idVisitModel);
+    }
+
+    @GetMapping("/visitModel/doctor/{id}")
+    public List<VisitModel> getAllVisitModelsByDoctorId(@PathVariable(value = "id") Long idDoctor) {
+        return visitModelService.findAllByIdDoctor(idDoctor);
+    }
+
+    @GetMapping("/visitModel/specialization")
+    public List<VisitModel> getAllVisitModelsBySpecialization(@RequestParam String specialization) {
+        return visitModelService.findAllBySpecialization(specialization);
     }
 
     @PostMapping("/visitModels")

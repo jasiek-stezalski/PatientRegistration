@@ -8,10 +8,14 @@ public interface VisitModelService {
 
     List<VisitModel> findAllVisitModels();
 
-    VisitModel findByVisitId(Long idVisitModel);
+    VisitModel findByIdVisitModel(Long idVisitModel);
 
     VisitModel saveOrUpdate(VisitModel visitModel);
 
     void delete(Long idVisitModel);
+
+    List<VisitModel> findAllByIdDoctor(Long idDoctor);
+
+    List<VisitModel> findAllBySpecialization(String specialization);
 
 }
