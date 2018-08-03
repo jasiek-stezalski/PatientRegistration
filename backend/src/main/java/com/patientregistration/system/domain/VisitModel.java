@@ -6,8 +6,8 @@ import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.*;
+import java.sql.Date;
 import java.sql.Time;
-import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -43,6 +43,9 @@ public class VisitModel {
 
     @Column(name = "specialization", nullable = false)
     private String specialization;
+
+    @Column(name = "care_type", nullable = false)
+    private String careType;
 
     @ManyToOne
     @JoinColumn(name = "id_doctor")

@@ -14,8 +14,4 @@ public interface VisitModelService {
 
     void delete(Long idVisitModel);
 
-    List<VisitModel> findAllByIdDoctor(Long idDoctor);
-
-    List<VisitModel> findAllBySpecialization(String specialization);
-
 }

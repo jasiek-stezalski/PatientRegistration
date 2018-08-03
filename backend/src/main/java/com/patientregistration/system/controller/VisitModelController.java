@@ -27,16 +27,6 @@ public class VisitModelController {
         return visitModelService.findByIdVisitModel(idVisitModel);
     }
 
-    @GetMapping("/visitModel/doctor/{id}")
-    public List<VisitModel> getAllVisitModelsByDoctorId(@PathVariable(value = "id") Long idDoctor) {
-        return visitModelService.findAllByIdDoctor(idDoctor);
-    }
-
-    @GetMapping("/visitModel/specialization")
-    public List<VisitModel> getAllVisitModelsBySpecialization(@RequestParam String specialization) {
-        return visitModelService.findAllBySpecialization(specialization);
-    }
-
     @PostMapping("/visitModels")
     public VisitModel createVisitModel(@Valid @RequestBody VisitModel visitModel) {
         return visitModelService.saveOrUpdate(visitModel);
