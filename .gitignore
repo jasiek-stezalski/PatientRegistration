@@ -13,21 +13,42 @@
 .mtj.tmp/
 
 # Package Files #
+*.jar
 *.war
 *.nar
 *.ear
-*.zip
 *.tar.gz
 *.rar
 
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
 
-.mvn/
-mvnw
-mvnw.cmd
-/.idea/
-system.iml
-backend/backend.iml
-backend/target/
+.idea/
+out/
 
+backend/.mvn
+backend/mvnw
+backend/mvnw.cmd
+frontend/node_modules
+
+
+#ignore Intellij Idea IDE folder
+target
+*/*/target
+*.iml
+*.ec
+*.ipr
+*.iws
+*.swp
+log
+*/.idea
+*.ids
+*.log.*
+*.sqlite
+git.properties
+jbehave.log
+jbehave.log.*
+*.project
+*/.settings
+*/*/.settings
+*/*/.classpath
