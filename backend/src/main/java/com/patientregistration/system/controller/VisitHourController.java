@@ -24,7 +24,12 @@ public class VisitHourController {
 
     @GetMapping("/visitHours/{id}")
     public VisitHour getVisitHourById(@PathVariable(value = "id") Long idVisitHour) {
-        return visitHourService.findByVisitHourId(idVisitHour);
+        return visitHourService.findByVisitHourById(idVisitHour);
+    }
+
+    @GetMapping("visitHours/user/{id}")
+    public List<VisitHour> getVisitHoursByIdUser(@PathVariable(value = "id") Long idUser) {
+        return visitHourService.findAllVisitHoursByIdUser(idUser);
     }
 
     @PostMapping("/visitHours")

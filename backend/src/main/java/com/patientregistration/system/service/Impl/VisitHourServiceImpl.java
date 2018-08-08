@@ -1,20 +1,24 @@
 package com.patientregistration.system.service.Impl;
 
+import com.patientregistration.system.domain.User;
 import com.patientregistration.system.domain.VisitHour;
 import com.patientregistration.system.exception.ResourceNotFoundException;
 import com.patientregistration.system.repository.VisitHourRepository;
+import com.patientregistration.system.service.UserService;
 import com.patientregistration.system.service.VisitHourService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-public class VisitHourServiceimpl implements VisitHourService {
+public class VisitHourServiceImpl implements VisitHourService {
 
     private VisitHourRepository visitHourRepository;
+    private UserService userService;
 
-    public VisitHourServiceimpl(VisitHourRepository visitHourRepository) {
+    public VisitHourServiceImpl(VisitHourRepository visitHourRepository, UserService userService) {
         this.visitHourRepository = visitHourRepository;
+        this.userService = userService;
     }
 
     @Override
@@ -23,7 +27,7 @@ public class VisitHourServiceimpl implements VisitHourService {
     }
 
     @Override
-    public VisitHour findByVisitHourId(Long idVisitHour) {
+    public VisitHour findByVisitHourById(Long idVisitHour) {
         return visitHourRepository.findById(idVisitHour)
                 .orElseThrow(() -> new ResourceNotFoundException(idVisitHour.toString()));
     }
@@ -36,6 +40,12 @@ public class VisitHourServiceimpl implements VisitHourService {
     @Override
     public void delete(Long idVisitHour) {
         visitHourRepository.deleteById(idVisitHour);
+    }
+
+    @Override
+    public List<VisitHour> findAllVisitHoursByIdUser(Long idUser) {
+        User user = userService.findUserById(idUser);
+        return visitHourRepository.findAllByUser(user);
     }
 
 }

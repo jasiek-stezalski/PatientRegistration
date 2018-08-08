@@ -7,6 +7,7 @@ import lombok.ToString;
 
 import javax.persistence.*;
 import java.sql.Time;
+import java.util.List;
 
 @Entity
 @Table(name = "visit_hour")
@@ -23,5 +24,21 @@ public class VisitHour {
 
     @Column(name = "hour", nullable = false)
     private Time hour;
+
+    @Column(name = "status")
+    private String status;
+
+    @ManyToOne
+    @JoinColumn(name = "id_visit")
+    private Visit visit;
+
+    @ManyToOne
+    @JoinColumn(name = "id_user")
+    private User user;
+
+    public VisitHour(Time hour, Visit visit) {
+        this.hour = hour;
+        this.visit = visit;
+    }
 
 }

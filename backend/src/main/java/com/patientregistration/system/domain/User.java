@@ -54,7 +54,12 @@ public class User {
 //    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
 //    private List<VisitModel> visitModels;
 
+//    @OneToMany
+//    @JoinColumn(name = "id_user")
+//    private List<VisitHour> visitHours;
+
     @OneToMany
     @JoinColumn(name = "id_user")
-    private List<VisitHour> visitHours;
+    private List<Statement> statements;
+
 }

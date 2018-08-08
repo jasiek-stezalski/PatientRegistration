@@ -30,7 +30,7 @@ public class VisitController {
 
     @PostMapping("/visits")
     public Visit createVisit(@Valid @RequestBody Visit visit) {
-        return visitService.saveOrUpdate(visit);
+        return visitService.save(visit);
     }
 
     @DeleteMapping("/visits/{id}")

@@ -10,7 +10,7 @@ public interface VisitModelService {
 
     VisitModel findByIdVisitModel(Long idVisitModel);
 
-    VisitModel saveOrUpdate(VisitModel visitModel);
+    VisitModel save(VisitModel visitModel);
 
     void delete(Long idVisitModel);
 

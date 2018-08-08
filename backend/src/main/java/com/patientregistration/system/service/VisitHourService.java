@@ -8,10 +8,12 @@ public interface VisitHourService {
 
     List<VisitHour> findAllVisitHours();
 
-    VisitHour findByVisitHourId(Long idVisitHour);
+    VisitHour findByVisitHourById(Long idVisitHour);
 
     VisitHour saveOrUpdate(VisitHour visitHour);
 
     void delete(Long idVisitHour);
+
+    List<VisitHour> findAllVisitHoursByIdUser(Long idUser);
 
 }

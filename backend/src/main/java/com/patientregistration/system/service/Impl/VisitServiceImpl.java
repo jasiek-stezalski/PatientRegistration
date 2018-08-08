@@ -1,21 +1,27 @@
 package com.patientregistration.system.service.Impl;
 
 import com.patientregistration.system.domain.Visit;
+import com.patientregistration.system.domain.VisitHour;
 import com.patientregistration.system.exception.ResourceNotFoundException;
+import com.patientregistration.system.repository.VisitHourRepository;
 import com.patientregistration.system.repository.VisitRepository;
 import com.patientregistration.system.service.VisitService;
 import org.springframework.stereotype.Service;
 
 import java.sql.Date;
+import java.sql.Time;
+import java.time.LocalTime;
 import java.util.List;
 
 @Service
 public class VisitServiceImpl implements VisitService {
 
     private VisitRepository visitRepository;
+    private VisitHourRepository visitHourRepository;
 
-    public VisitServiceImpl(VisitRepository visitRepository) {
+    public VisitServiceImpl(VisitRepository visitRepository, VisitHourRepository visitHourRepository) {
         this.visitRepository = visitRepository;
+        this.visitHourRepository = visitHourRepository;
     }
 
     @Override
@@ -30,8 +36,18 @@ public class VisitServiceImpl implements VisitService {
     }
 
     @Override
-    public Visit saveOrUpdate(Visit visit) {
-        return visitRepository.save(visit);
+    public Visit save(Visit visit) {
+        Visit newVisit = visitRepository.save(visit);
+
+        LocalTime visitHour = newVisit.getVisitModel().getBeginTime().toLocalTime();
+        LocalTime endHour = newVisit.getVisitModel().getEndTime().toLocalTime();
+
+        while (visitHour.isBefore(endHour)) {
+            visitHourRepository.save(new VisitHour(Time.valueOf(visitHour), newVisit));
+            visitHour = visitHour.plusMinutes(newVisit.getVisitModel().getMinuteInterval());
+        }
+
+        return newVisit;
     }
 
     @Override

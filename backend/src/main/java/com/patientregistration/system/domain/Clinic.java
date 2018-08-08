@@ -36,8 +36,8 @@ public class Clinic {
     @Column(name = "phone_number")
     private String phoneNumber;
 
-    @OneToMany
-    @JoinColumn(name = "id_clinic")
-    private List<VisitModel> visitModels;
+//    @OneToMany
+//    @JoinColumn(name = "id_clinic")
+//    private List<VisitModel> visitModels;
 
 }

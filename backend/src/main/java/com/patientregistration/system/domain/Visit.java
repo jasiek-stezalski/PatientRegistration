@@ -1,18 +1,15 @@
 package com.patientregistration.system.domain;
 
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import javax.persistence.*;
 import java.sql.Date;
-import java.util.List;
 
 @Entity
 @Table(name = "visit")
 @Getter
 @Setter
+@NoArgsConstructor
 @ToString
 @EqualsAndHashCode
 public class Visit {
@@ -25,8 +22,17 @@ public class Visit {
     @Column(name = "visit_date", nullable = false)
     private Date visitDate;
 
-    @OneToMany
-    @JoinColumn(name = "id_visit")
-    private List<VisitHour> visitHours;
+    @ManyToOne
+    @JoinColumn(name = "id_visit_model")
+    private VisitModel visitModel;
+
+//    @OneToMany
+//    @JoinColumn(name = "id_visit")
+//    private List<VisitHour> visitHours;
+
+    public Visit(Date visitDate, VisitModel visitModel) {
+        this.visitDate = visitDate;
+        this.visitModel = visitModel;
+    }
 
 }

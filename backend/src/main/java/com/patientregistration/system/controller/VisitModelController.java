@@ -29,7 +29,7 @@ public class VisitModelController {
 
     @PostMapping("/visitModels")
     public VisitModel createVisitModel(@Valid @RequestBody VisitModel visitModel) {
-        return visitModelService.saveOrUpdate(visitModel);
+        return visitModelService.save(visitModel);
     }
 
     @DeleteMapping("/visitModels/{id}")

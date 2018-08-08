@@ -51,8 +51,12 @@ public class VisitModel {
     @JoinColumn(name = "id_doctor")
     private User user;
 
-    @OneToMany()
-    @JoinColumn(name = "id_visit_model")
-    private List<Visit> visits;
+    @ManyToOne
+    @JoinColumn(name = "id_clinic")
+    private Clinic clinic;
+
+//    @OneToMany()
+//    @JoinColumn(name = "id_visit_model")
+//    private List<Visit> visits;
 
 }
