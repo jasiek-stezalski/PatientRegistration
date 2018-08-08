@@ -52,3 +52,4 @@ jbehave.log.*
 */.settings
 */*/.settings
 */*/.classpath
+/frontend/frontend.iml
