@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.List;
 
+@CrossOrigin(origins = "http://localhost:4200", maxAge = 3600)
 @RestController
 public class UserController {
 
@@ -27,7 +28,7 @@ public class UserController {
         return userService.findUserById(idUser);
     }
 
-    @GetMapping("/users/username")
+    @GetMapping("/username")
     public User getUserByUsername(@RequestParam String username) {
         return userService.findUserByUsername(username);
     }
