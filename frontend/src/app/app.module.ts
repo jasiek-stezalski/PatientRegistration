@@ -8,20 +8,23 @@ import {AppRoutingModule} from './app.routing.module';
 import {UserService} from './user/user.service';
 import {HttpClientModule} from '@angular/common/http';
 import {AddUserComponent} from './user/add-user.component';
+import {CalendarService} from './calendar/calendar.service';
+import {CalendarModule} from './calendar/calendar.module';
 
 @NgModule({
   declarations: [
     AppComponent,
     UserComponent,
-    AddUserComponent
+    AddUserComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    CalendarModule
   ],
-  providers: [UserService],
+  providers: [UserService, CalendarService],
   bootstrap: [AppComponent]
 })
 export class AppModule {

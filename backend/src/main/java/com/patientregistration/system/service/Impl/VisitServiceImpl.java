@@ -1,32 +1,37 @@
 package com.patientregistration.system.service.Impl;
 
+import com.patientregistration.system.domain.User;
 import com.patientregistration.system.domain.Visit;
-import com.patientregistration.system.domain.VisitHour;
 import com.patientregistration.system.exception.ResourceNotFoundException;
-import com.patientregistration.system.repository.VisitHourRepository;
 import com.patientregistration.system.repository.VisitRepository;
+import com.patientregistration.system.service.UserService;
 import com.patientregistration.system.service.VisitService;
 import org.springframework.stereotype.Service;
 
 import java.sql.Date;
-import java.sql.Time;
-import java.time.LocalTime;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
 public class VisitServiceImpl implements VisitService {
 
     private VisitRepository visitRepository;
-    private VisitHourRepository visitHourRepository;
+    private UserService userService;
 
-    public VisitServiceImpl(VisitRepository visitRepository, VisitHourRepository visitHourRepository) {
+    public VisitServiceImpl(VisitRepository visitRepository, UserService userService) {
         this.visitRepository = visitRepository;
-        this.visitHourRepository = visitHourRepository;
+        this.userService = userService;
     }
 
     @Override
-    public List<Visit> findAllVisits() {
-        return visitRepository.findAll();
+    public List<Visit> findBetween(LocalDateTime from, LocalDateTime to) {
+        return visitRepository.findBetween(from, to);
+    }
+
+    @Override
+    public List<Visit> findAllVisitsByIdUser(Long idUser) {
+        User user = userService.findUserById(idUser);
+        return visitRepository.findAllByUser(user);
     }
 
     @Override
@@ -37,17 +42,7 @@ public class VisitServiceImpl implements VisitService {
 
     @Override
     public Visit save(Visit visit) {
-        Visit newVisit = visitRepository.save(visit);
-
-        LocalTime visitHour = newVisit.getVisitModel().getBeginTime().toLocalTime();
-        LocalTime endHour = newVisit.getVisitModel().getEndTime().toLocalTime();
-
-        while (visitHour.isBefore(endHour)) {
-            visitHourRepository.save(new VisitHour(Time.valueOf(visitHour), newVisit));
-            visitHour = visitHour.plusMinutes(newVisit.getVisitModel().getMinuteInterval());
-        }
-
-        return newVisit;
+        return visitRepository.save(visit);
     }
 
     @Override

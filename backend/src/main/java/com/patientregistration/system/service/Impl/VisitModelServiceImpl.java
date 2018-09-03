@@ -8,8 +8,10 @@ import com.patientregistration.system.service.VisitModelService;
 import com.patientregistration.system.service.VisitService;
 import org.springframework.stereotype.Service;
 
-import java.sql.Date;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Service
@@ -24,8 +26,8 @@ public class VisitModelServiceImpl implements VisitModelService {
     }
 
     @Override
-    public List<VisitModel> findAllVisitModels() {
-        return visitModelRepository.findAll();
+    public List<VisitModel> findBetween(LocalDateTime from, LocalDateTime to) {
+        return visitModelRepository.findBetween(from, to);
     }
 
     @Override
@@ -38,11 +40,22 @@ public class VisitModelServiceImpl implements VisitModelService {
     public VisitModel save(VisitModel visitModel) {
         VisitModel newVisitModel = visitModelRepository.save(visitModel);
 
-        LocalDate visitDate = visitModel.getStartDate().toLocalDate();
+        LocalDate visitDate = visitModel.getStart().toLocalDate();
         LocalDate endDate = visitModel.getEndDate().toLocalDate();
 
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+
         while (visitDate.isBefore(endDate) || visitDate.isEqual(endDate)) {
-            visitService.save(new Visit(Date.valueOf(visitDate), newVisitModel));
+
+            LocalTime visitHour = visitModel.getStart().toLocalTime();
+            LocalTime endHour = visitModel.getEnd().toLocalTime();
+
+            while (visitHour.isBefore(endHour)) {
+                LocalDateTime term = LocalDateTime.parse(visitDate.toString() + " " + visitHour.toString(), formatter);
+                visitService.save(new Visit(term, visitModel));
+                visitHour = visitHour.plusMinutes(visitModel.getMinuteInterval());
+            }
+
             visitDate = visitDate.plusDays(visitModel.getDayInterval());
         }
 

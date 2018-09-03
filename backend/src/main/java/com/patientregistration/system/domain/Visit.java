@@ -1,17 +1,15 @@
 package com.patientregistration.system.domain;
 
-import lombok.*;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.sql.Date;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "visit")
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
-@ToString
-@EqualsAndHashCode
 public class Visit {
 
     @Id
@@ -19,20 +17,22 @@ public class Visit {
     @Column(name = "id_visit", nullable = false)
     private Long idVisit;
 
-    @Column(name = "visit_date", nullable = false)
-    private Date visitDate;
+    @Column(name = "term", nullable = false)
+    private LocalDateTime term;
+
+    @Column(name = "status")
+    private String status;
 
     @ManyToOne
     @JoinColumn(name = "id_visit_model")
     private VisitModel visitModel;
 
-//    @OneToMany
-//    @JoinColumn(name = "id_visit")
-//    private List<VisitHour> visitHours;
+    @ManyToOne
+    @JoinColumn(name = "id_user")
+    private User user;
 
-    public Visit(Date visitDate, VisitModel visitModel) {
-        this.visitDate = visitDate;
+    public Visit(LocalDateTime term, VisitModel visitModel) {
+        this.term = term;
         this.visitModel = visitModel;
     }
-
 }

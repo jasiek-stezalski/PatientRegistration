@@ -1,0 +1,37 @@
+<daypilot-modal #modal (close)="closed($event)">
+  <div class="center">
+    <h1>Dodaj model wizyty:</h1>
+    <form [formGroup]="form">
+      <div class="form-item">
+        <input formControlName="text" type="text" placeholder="Nazwa">
+      </div>
+      <div class="form-item">
+        <input formControlName="endDate" type="date" placeholder="Termin ostatniej wizyty">
+      </div>
+      <div class="form-item">
+        <input formControlName="dayInterval" type="number" placeholder="Cykliczność wizyt (w dniach)">
+      </div>
+      <div class="form-item">
+        <input formControlName="minuteInterval" type="number" placeholder="Czas trwania wizyty">
+      </div>
+      <div class="form-item">
+        <input formControlName="specialization" type="text" placeholder="Specializacja">
+      </div>
+      <div class="form-item">
+        <select formControlName="careType" type="text">
+          <option value="Publiczna">Publiczna</option>
+          <option value="Prywatna">Prywatna</option>
+        </select>
+      </div>
+      <div class="form-item">
+        <select formControlName="clinic" type="text" *ngFor="let clinic of clinics">
+          <option value={{clinic.idClinic}}>{{clinic.name}}</option>
+        </select>
+      </div>
+      <div class="form-item">
+        <button (click)="submit()">Zapisz</button>
+        <button (click)="cancel()">Zakończ</button>
+      </div>
+    </form>
+  </div>
+</daypilot-modal>

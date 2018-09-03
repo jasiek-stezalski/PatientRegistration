@@ -1,19 +1,13 @@
 package com.patientregistration.system.domain;
 
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.Data;
 
 import javax.persistence.*;
 import java.util.Date;
 
 @Entity
 @Table(name = "statement")
-@Getter
-@Setter
-@ToString
-@EqualsAndHashCode
+@Data
 public class Statement {
 
     @Id

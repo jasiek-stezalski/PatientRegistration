@@ -1,21 +1,15 @@
 package com.patientregistration.system.domain;
 
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.Data;
 
 import javax.persistence.*;
 import java.sql.Date;
-import java.sql.Time;
-import java.util.List;
+import java.time.LocalDateTime;
+
 
 @Entity
 @Table(name = "visit_model")
-@Getter
-@Setter
-@ToString
-@EqualsAndHashCode
+@Data
 public class VisitModel {
 
     @Id
@@ -23,20 +17,20 @@ public class VisitModel {
     @Column(name = "id_visit_model", nullable = false)
     private Long idVisitModel;
 
-    @Column(name = "start_date", nullable = false)
-    private Date startDate;
+    @Column(name = "text", nullable = false)
+    private String text;
+
+    @Column(name = "start", nullable = false)
+    private LocalDateTime start;
+
+    @Column(name = "end_", nullable = false)
+    private LocalDateTime end;
 
     @Column(name = "end_date", nullable = false)
     private Date endDate;
 
     @Column(name = "day_interval", nullable = false)
     private Integer dayInterval;
-
-    @Column(name = "begin_time", nullable = false)
-    private Time beginTime;
-
-    @Column(name = "end_time", nullable = false)
-    private Time endTime;
 
     @Column(name = "minute_interval", nullable = false)
     private Integer minuteInterval;

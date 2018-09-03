@@ -1,14 +1,19 @@
 package com.patientregistration.system.controller;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 import com.patientregistration.system.domain.Visit;
 import com.patientregistration.system.service.VisitService;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.sql.Date;
+import java.time.LocalDateTime;
 import java.util.List;
 
+@CrossOrigin(origins = "http://localhost:4200", maxAge = 3600)
 @RestController
 public class VisitController {
 
@@ -19,13 +24,20 @@ public class VisitController {
     }
 
     @GetMapping("/visits")
-    public List<Visit> getAllVisits() {
-        return visitService.findAllVisits();
+    @JsonSerialize(using = LocalDateTimeSerializer.class)
+    public List<Visit> getAllVisitsInWeek(@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime from,
+                                               @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime to) {
+        return visitService.findBetween(from, to);
     }
 
     @GetMapping("/visits/{id}")
     public Visit getVisitById(@PathVariable(value = "id") Long idVisit) {
         return visitService.findByVisitId(idVisit);
+    }
+
+    @GetMapping("visits/user/{id}")
+    public List<Visit> getVisitHoursByIdUser(@PathVariable(value = "id") Long idUser) {
+        return visitService.findAllVisitsByIdUser(idUser);
     }
 
     @PostMapping("/visits")

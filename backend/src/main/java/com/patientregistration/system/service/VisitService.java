@@ -3,11 +3,14 @@ package com.patientregistration.system.service;
 import com.patientregistration.system.domain.Visit;
 
 import java.sql.Date;
+import java.time.LocalDateTime;
 import java.util.List;
 
 public interface VisitService {
 
-    List<Visit> findAllVisits();
+    List<Visit> findBetween(LocalDateTime from, LocalDateTime to);
+
+    List<Visit> findAllVisitsByIdUser(Long idUser);
 
     Visit findByVisitId(Long idVisit);
 

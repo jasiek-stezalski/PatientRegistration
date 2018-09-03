@@ -1,8 +1,8 @@
 --
--- PostgreSQL database dump
+-- PostgreSQL db dump
 --
 
--- Dumped from database version 10.4
+-- Dumped from db version 10.4
 -- Dumped by pg_dump version 10.4
 
 -- Started on 2018-08-08 18:12:08
@@ -517,6 +517,6 @@ ALTER TABLE ONLY public.visit_hour
 -- Completed on 2018-08-08 18:12:09
 
 --
--- PostgreSQL database dump complete
+-- PostgreSQL db dump complete
 --
 
