@@ -4,6 +4,7 @@ import {FormBuilder, FormGroup} from '@angular/forms';
 import {CalendarService} from '../calendar.service';
 import {VisitModel} from '../../models/visitModel.model';
 import {Clinic} from '../../models/clinic.model';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'create-dialog',
@@ -15,19 +16,13 @@ export class CreateComponent implements OnInit {
   @Output() close = new EventEmitter();
 
   form: FormGroup;
+  visitModel: VisitModel = new VisitModel;
   clinics: Clinic[];
 
-  constructor(private fb: FormBuilder, private service: CalendarService) {
+  constructor(private fb: FormBuilder, private router: Router, private service: CalendarService) {
     this.form = this.fb.group({
-      text: [''],
       start: [''],
       end: [''],
-      endDate: [''],
-      dayInterval: [''],
-      minuteInterval: [''],
-      specialization: [''],
-      careType: [''],
-      clinic: ['']
     });
   }
 
@@ -40,42 +35,22 @@ export class CreateComponent implements OnInit {
 
   show(args: any) {
     this.form.setValue({
-      text: '',
       start: args.start.toString(),
       end: args.end.toString(),
-      endDate: Date.now(),
-      dayInterval: '',
-      minuteInterval: '',
-      specialization: '',
-      careType: '',
-      clinic: ''
     });
     this.modal.show();
   }
 
   submit() {
     let data = this.form.getRawValue();
-
-    let params: VisitModel = {
-      text: data.text,
-      start: data.start,
-      end: data.end,
-      endDate: data.endDate,
-      dayInterval: data.dayInterval,
-      minuteInterval: data.minuteInterval,
-      specialization: data.specialization,
-      careType: data.careType,
-      clinic: {
-        idClinic: data.clinic,
-      },
-
-      // Do zmiany na użytkownika zalogowanego
-      user: {
-        idUser: 2
-      }
-
+    this.visitModel.start = data.start;
+    this.visitModel.end = data.end;
+    let clinic: Clinic = {
+      idClinic: this.visitModel.idVisitModel,
     };
-    this.service.createVisitModel(params).subscribe(result => {
+    this.visitModel.clinic = clinic;
+
+    this.service.createVisitModel(this.visitModel).subscribe(result => {
       this.modal.hide(result);
     });
 

@@ -1,37 +1,58 @@
 <daypilot-modal #modal (close)="closed($event)">
-  <div class="center">
-    <h1>Dodaj model wizyty:</h1>
-    <form [formGroup]="form">
-      <div class="form-item">
-        <input formControlName="text" type="text" placeholder="Nazwa">
+
+  <div class="col-md-6">
+    <h2 class="text-center">Dodaj model wizyty:</h2>
+    <form>
+
+      <div class="form-group">
+        <label for="text">Nazwa: </label>
+        <input [(ngModel)]="visitModel.text" name="text" class="form-control" id="text">
       </div>
-      <div class="form-item">
-        <input formControlName="endDate" type="date" placeholder="Termin ostatniej wizyty">
+      <div class="form-group">
+        <label for="endDate">Termin ostatniej wizyty: </label>
+        <input [(ngModel)]="visitModel.endDate" name="endDate" class="form-control" id="endDate" type="date">
       </div>
-      <div class="form-item">
-        <input formControlName="dayInterval" type="number" placeholder="Cykliczność wizyt (w dniach)">
+      <div class="form-group">
+        <label for="dayInterval">Cykliczność wizyt: </label>
+        <select [(ngModel)]="visitModel.dayInterval" name="dayInterval" id="dayInterval" type="text">
+          <option value="1">Codziennie (od poniedziałku do piątku)</option>
+          <option value="7">Co tydzień</option>
+          <option value="14">Co 2 tygodnie</option>
+          <option value="21">Co 3 tygodnie</option>
+          <option value="27">Co 4 tygodnie</option>
+        </select>
       </div>
-      <div class="form-item">
-        <input formControlName="minuteInterval" type="number" placeholder="Czas trwania wizyty">
+      <div class="form-group">
+        <label for="minuteInterval">Czas trwania wizyty: </label>
+        <select [(ngModel)]="visitModel.minuteInterval" name="minuteInterval" id="minuteInterval" type="text">
+          <option value="15">15 minut</option>
+          <option value="30">30 minut</option>
+          <option value="45">45 minut</option>
+          <option value="60">60 minut</option>
+        </select>
       </div>
-      <div class="form-item">
-        <input formControlName="specialization" type="text" placeholder="Specializacja">
+      <div class="form-group">
+        <label for="specialization">Specializacja: </label>
+        <input [(ngModel)]="visitModel.specialization" name="specialization" class="form-control" id="specialization">
       </div>
-      <div class="form-item">
-        <select formControlName="careType" type="text">
+      <div class="form-group">
+        <label for="careType">Rodzaj usługi: </label>
+        <select [(ngModel)]="visitModel.careType" name="careType" id="careType" type="text">
           <option value="Publiczna">Publiczna</option>
           <option value="Prywatna">Prywatna</option>
         </select>
       </div>
-      <div class="form-item">
-        <select formControlName="clinic" type="text" *ngFor="let clinic of clinics">
+      <div class="form-group">
+        <label for="clinic">Placówka: </label>
+        <select [(ngModel)]="visitModel.idVisitModel" name="clinic" type="text" *ngFor="let clinic of clinics"
+                id="clinic">
           <option value={{clinic.idClinic}}>{{clinic.name}}</option>
         </select>
       </div>
-      <div class="form-item">
-        <button (click)="submit()">Zapisz</button>
-        <button (click)="cancel()">Zakończ</button>
-      </div>
+
+      <button class="btn btn-success" (click)="submit()">Zapisz</button>
+      <button class="btn btn-success" (click)="cancel()">Zakończ</button>
     </form>
   </div>
+
 </daypilot-modal>
