@@ -1,12 +1,12 @@
 import {AfterViewInit, Component, ViewChild} from '@angular/core';
 import {CalendarService} from './calendar.service';
-import {DayPilotCalendarComponent} from 'daypilot-pro-angular';
+import {DayPilot, DayPilotCalendarComponent} from 'daypilot-pro-angular';
 import {CreateComponent} from './create/create.component';
 
 @Component({
   selector: 'calendar-component',
   templateUrl: './calendar.component.html',
-  styles: [``]
+  styleUrls: ['./calendar.component.css']
 })
 export class CalendarComponent implements AfterViewInit {
 
@@ -15,7 +15,19 @@ export class CalendarComponent implements AfterViewInit {
 
   events: any[] = [];
 
+  navigatorConfig: any = {
+    locale: 'pl-pl',
+    showMonths: 3,
+    skipMonths: 3,
+    selectMode: "week",
+    cellWidth: 30,
+    cellHeight: 25,
+    dayHeaderHeight: 23,
+    titleHeight: 23
+  };
+
   config: any = {
+    startDate: DayPilot.Date.today(),
     locale: 'pl-pl',
     viewType: 'Week',
     businessBeginsHour: 7,
@@ -87,6 +99,21 @@ export class CalendarComponent implements AfterViewInit {
       this.calendar.control.message('Utworzono.');
     }
     this.calendar.control.clearSelection();
+  }
+
+  navigatePrevious(event): void {
+    event.preventDefault();
+    this.config.startDate = this.config.startDate.addDays(-7);
+  }
+
+  navigateNext(event): void {
+    event.preventDefault();
+    this.config.startDate = this.config.startDate.addDays(7);
+  }
+
+  navigateToday(event): void {
+    event.preventDefault();
+    this.config.startDate = DayPilot.Date.today();
   }
 
 }
