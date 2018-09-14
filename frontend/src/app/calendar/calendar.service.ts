@@ -3,6 +3,7 @@ import {Observable} from 'rxjs';
 import {DayPilot} from 'daypilot-pro-angular';
 import {HttpClient} from '@angular/common/http';
 import {Clinic} from '../models/clinic.model';
+import {VisitModel} from '../models/visitModel.model';
 
 @Injectable()
 export class CalendarService {
@@ -12,9 +13,9 @@ export class CalendarService {
   constructor(private http: HttpClient) {
   }
 
-  // moveEvent(data: any): Observable<Event> {
-  //   return this.http.post(this.url + '/events/move', data) as Observable<any>;
-  // }
+  moveVisitModel(data: any): Observable<VisitModel> {
+    return this.http.put(this.url + '/visitModels', data) as Observable<any>;
+  }
 
   createVisitModel(data) {
     return this.http.post(this.url + '/visitModels', data);
@@ -30,6 +31,10 @@ export class CalendarService {
 
   getClinics() {
     return this.http.get<Clinic[]>(this.url + '/clinics');
+  }
+
+  deleteVisitModel(idVisitModel: String): Observable<VisitModel> {
+    return this.http.delete(this.url + '/visitModels/' + idVisitModel) as Observable<any>;
   }
 
 }

@@ -60,7 +60,7 @@ public interface VisitRepository extends JpaRepository<Visit, Long> {
                     "WHERE vm.id_clinic =:idClinic " +
                     "AND v.visit_date >= :startDate " +
                     "AND v.visit_date < CAST(:startDate AS DATE) + INTERVAL '7' DAY")
-    List<Visit> findAllByIdClinicForWeek(@Param(value = "idClinic") Long idClinic, @Param(value = "startDate") Date startDate);
+    List<Visit> findAllByIdClinicForWeek(@Param(value = "id") Long idClinic, @Param(value = "startDate") Date startDate);
 
     @Query(nativeQuery = true,
             value = "SELECT v.* " +
@@ -100,7 +100,7 @@ public interface VisitRepository extends JpaRepository<Visit, Long> {
                     "AND vm.id_clinic =:idClinic " +
                     "AND v.visit_date >= :startDate " +
                     "AND v.visit_date < CAST(:startDate AS DATE) + INTERVAL '7' DAY")
-    List<Visit> findAllByIdDoctorByIdClinicForWeek(@Param(value = "idDoctor") Long idDoctor, @Param(value = "idClinic") Long idClinic, @Param("startDate") Date startDate);
+    List<Visit> findAllByIdDoctorByIdClinicForWeek(@Param(value = "idDoctor") Long idDoctor, @Param(value = "id") Long idClinic, @Param("startDate") Date startDate);
 
     @Query(nativeQuery = true,
             value = "SELECT v.* " +
@@ -131,7 +131,7 @@ public interface VisitRepository extends JpaRepository<Visit, Long> {
                     "AND vm.id_clinic =:idClinic " +
                     "AND v.visit_date >= :startDate " +
                     "AND v.visit_date < CAST(:startDate AS DATE) + INTERVAL '7' DAY")
-    List<Visit> findAllBySpecializationByIdClinicForWeek(@Param("specialization") String specialization, @Param(value = "idClinic") Long idClinic, @Param("startDate") Date startDate);
+    List<Visit> findAllBySpecializationByIdClinicForWeek(@Param("specialization") String specialization, @Param(value = "id") Long idClinic, @Param("startDate") Date startDate);
 
     @Query(nativeQuery = true,
             value = "SELECT v.* " +
@@ -152,7 +152,7 @@ public interface VisitRepository extends JpaRepository<Visit, Long> {
                     "AND vm.id_clinic =:idClinic " +
                     "AND v.visit_date >= :startDate " +
                     "AND v.visit_date < CAST(:startDate AS DATE) + INTERVAL '7' DAY")
-    List<Visit> findAllByCityByIdClinicForWeek(@Param(value = "city") String city, @Param(value = "idClinic") Long idClinic, @Param("startDate") Date startDate);
+    List<Visit> findAllByCityByIdClinicForWeek(@Param(value = "city") String city, @Param(value = "id") Long idClinic, @Param("startDate") Date startDate);
 
     @Query(nativeQuery = true,
             value = "SELECT v.* " +
@@ -174,7 +174,7 @@ public interface VisitRepository extends JpaRepository<Visit, Long> {
                     "AND LOWER(vm.care_type) =:careType " +
                     "AND v.visit_date >= :startDate " +
                     "AND v.visit_date < CAST(:startDate AS DATE) + INTERVAL '7' DAY")
-    List<Visit> findAllByIdClinicByCareTypeForWeek(@Param(value = "idClinic") Long idClinic, @Param(value = "careType") String careType, @Param("startDate") Date startDate);
+    List<Visit> findAllByIdClinicByCareTypeForWeek(@Param(value = "id") Long idClinic, @Param(value = "careType") String careType, @Param("startDate") Date startDate);
 
     @Query(nativeQuery = true,
             value = "SELECT v.* " +
@@ -197,7 +197,7 @@ public interface VisitRepository extends JpaRepository<Visit, Long> {
                     "AND vm.id_clinic =:idClinic " +
                     "AND v.visit_date >= :startDate " +
                     "AND v.visit_date < CAST(:startDate AS DATE) + INTERVAL '7' DAY")
-    List<Visit> findAllByIdDoctorBySpecializationByIdClinicForWeek(@Param(value = "idDoctor") Long idDoctor, @Param("specialization") String specialization, @Param(value = "idClinic") Long idClinic, @Param("startDate") Date startDate);
+    List<Visit> findAllByIdDoctorBySpecializationByIdClinicForWeek(@Param(value = "idDoctor") Long idDoctor, @Param("specialization") String specialization, @Param(value = "id") Long idClinic, @Param("startDate") Date startDate);
 
     @Query(nativeQuery = true,
             value = "SELECT v.* " +
@@ -220,7 +220,7 @@ public interface VisitRepository extends JpaRepository<Visit, Long> {
                     "AND vm.id_clinic =:idClinic " +
                     "AND v.visit_date >= :startDate " +
                     "AND v.visit_date < CAST(:startDate AS DATE) + INTERVAL '7' DAY")
-    List<Visit> findAllByIdDoctorByCityByIdClinicForWeek(@Param(value = "idDoctor") Long idDoctor, @Param(value = "city") String city, @Param(value = "idClinic") Long idClinic, @Param("startDate") Date startDate);
+    List<Visit> findAllByIdDoctorByCityByIdClinicForWeek(@Param(value = "idDoctor") Long idDoctor, @Param(value = "city") String city, @Param(value = "id") Long idClinic, @Param("startDate") Date startDate);
 
     @Query(nativeQuery = true,
             value = "SELECT v.* " +
@@ -243,7 +243,7 @@ public interface VisitRepository extends JpaRepository<Visit, Long> {
                     "AND LOWER(vm.care_type) =:careType " +
                     "AND v.visit_date >= :startDate " +
                     "AND v.visit_date < CAST(:startDate AS DATE) + INTERVAL '7' DAY")
-    List<Visit> findAllByIdDoctorByIdClinicByCareTypeForWeek(@Param(value = "idDoctor") Long idDoctor, @Param(value = "idClinic") Long idClinic, @Param(value = "careType") String careType, @Param("startDate") Date startDate);
+    List<Visit> findAllByIdDoctorByIdClinicByCareTypeForWeek(@Param(value = "idDoctor") Long idDoctor, @Param(value = "id") Long idClinic, @Param(value = "careType") String careType, @Param("startDate") Date startDate);
 
     @Query(nativeQuery = true,
             value = "SELECT v.* " +
@@ -255,7 +255,7 @@ public interface VisitRepository extends JpaRepository<Visit, Long> {
                     "AND vm.id_clinic =:idClinic " +
                     "AND v.visit_date >= :startDate " +
                     "AND v.visit_date < CAST(:startDate AS DATE) + INTERVAL '7' DAY")
-    List<Visit> findAllBySpecializationByCityByIdClinicForWeek(@Param("specialization") String specialization, @Param(value = "city") String city, @Param(value = "idClinic") Long idClinic, @Param("startDate") Date startDate);
+    List<Visit> findAllBySpecializationByCityByIdClinicForWeek(@Param("specialization") String specialization, @Param(value = "city") String city, @Param(value = "id") Long idClinic, @Param("startDate") Date startDate);
 
     @Query(nativeQuery = true,
             value = "SELECT v.* " +
@@ -278,7 +278,7 @@ public interface VisitRepository extends JpaRepository<Visit, Long> {
                     "AND LOWER(vm.care_type) =:careType " +
                     "AND v.visit_date >= :startDate " +
                     "AND v.visit_date < CAST(:startDate AS DATE) + INTERVAL '7' DAY")
-    List<Visit> findAllBySpecializationByIdClinicByCareTypeForWeek(@Param("specialization") String specialization, @Param(value = "idClinic") Long idClinic, @Param(value = "careType") String careType, @Param("startDate") Date startDate);
+    List<Visit> findAllBySpecializationByIdClinicByCareTypeForWeek(@Param("specialization") String specialization, @Param(value = "id") Long idClinic, @Param(value = "careType") String careType, @Param("startDate") Date startDate);
 
     @Query(nativeQuery = true,
             value = "SELECT v.* " +
@@ -290,7 +290,7 @@ public interface VisitRepository extends JpaRepository<Visit, Long> {
                     "AND LOWER(vm.care_type) =:careType " +
                     "AND v.visit_date >= :startDate " +
                     "AND v.visit_date < CAST(:startDate AS DATE) + INTERVAL '7' DAY")
-    List<Visit> getAllByCityByIdClinicByCareTypeForWeek(@Param(value = "city") String city, @Param(value = "idClinic") Long idClinic, @Param(value = "careType") String careType, @Param("startDate") Date startDate);
+    List<Visit> getAllByCityByIdClinicByCareTypeForWeek(@Param(value = "city") String city, @Param(value = "id") Long idClinic, @Param(value = "careType") String careType, @Param("startDate") Date startDate);
 
     @Query(nativeQuery = true,
             value = "SELECT v.* " +
@@ -303,7 +303,7 @@ public interface VisitRepository extends JpaRepository<Visit, Long> {
                     "AND vm.id_clinic =:idClinic " +
                     "AND v.visit_date >= :startDate " +
                     "AND v.visit_date < CAST(:startDate AS DATE) + INTERVAL '7' DAY")
-    List<Visit> findAllByIdDoctorBySpecializationByCityByIdClinicForWeek(@Param(value = "idDoctor") Long idDoctor, @Param("specialization") String specialization, @Param(value = "city") String city, @Param(value = "idClinic") Long idClinic, @Param("startDate") Date startDate);
+    List<Visit> findAllByIdDoctorBySpecializationByCityByIdClinicForWeek(@Param(value = "idDoctor") Long idDoctor, @Param("specialization") String specialization, @Param(value = "city") String city, @Param(value = "id") Long idClinic, @Param("startDate") Date startDate);
 
     @Query(nativeQuery = true,
             value = "SELECT v.* " +
@@ -328,7 +328,7 @@ public interface VisitRepository extends JpaRepository<Visit, Long> {
                     "AND LOWER(vm.care_type) =:careType " +
                     "AND v.visit_date >= :startDate " +
                     "AND v.visit_date < CAST(:startDate AS DATE) + INTERVAL '7' DAY")
-    List<Visit> findAllByIdDoctorBySpecializationByIdClinicByCareTypeForWeek(@Param(value = "idDoctor") Long idDoctor, @Param("specialization") String specialization, @Param(value = "idClinic") Long idClinic, @Param(value = "careType") String careType, @Param("startDate") Date startDate);
+    List<Visit> findAllByIdDoctorBySpecializationByIdClinicByCareTypeForWeek(@Param(value = "idDoctor") Long idDoctor, @Param("specialization") String specialization, @Param(value = "id") Long idClinic, @Param(value = "careType") String careType, @Param("startDate") Date startDate);
 
     @Query(nativeQuery = true,
             value = "SELECT v.* " +
@@ -341,7 +341,7 @@ public interface VisitRepository extends JpaRepository<Visit, Long> {
                     "AND LOWER(vm.care_type) =:careType " +
                     "AND v.visit_date >= :startDate " +
                     "AND v.visit_date < CAST(:startDate AS DATE) + INTERVAL '7' DAY")
-    List<Visit> findAllByIdDoctorByCityByIdClinicByCareTypeForWeek(@Param(value = "idDoctor") Long idDoctor, @Param(value = "city") String city, @Param(value = "idClinic") Long idClinic, @Param(value = "careType") String careType, @Param("startDate") Date startDate);
+    List<Visit> findAllByIdDoctorByCityByIdClinicByCareTypeForWeek(@Param(value = "idDoctor") Long idDoctor, @Param(value = "city") String city, @Param(value = "id") Long idClinic, @Param(value = "careType") String careType, @Param("startDate") Date startDate);
 
     @Query(nativeQuery = true,
             value = "SELECT v.* " +
@@ -354,7 +354,7 @@ public interface VisitRepository extends JpaRepository<Visit, Long> {
                     "AND LOWER(vm.care_type) =:careType " +
                     "AND v.visit_date >= :startDate " +
                     "AND v.visit_date < CAST(:startDate AS DATE) + INTERVAL '7' DAY")
-    List<Visit> findAllBySpecializationByCityByIdClinicByCareTypeForWeek(@Param("specialization") String specialization, @Param(value = "city") String city, @Param(value = "idClinic") Long idClinic, @Param(value = "careType") String careType, @Param("startDate") Date startDate);
+    List<Visit> findAllBySpecializationByCityByIdClinicByCareTypeForWeek(@Param("specialization") String specialization, @Param(value = "city") String city, @Param(value = "id") Long idClinic, @Param(value = "careType") String careType, @Param("startDate") Date startDate);
 
     @Query(nativeQuery = true,
             value = "SELECT v.* " +
@@ -368,6 +368,6 @@ public interface VisitRepository extends JpaRepository<Visit, Long> {
                     "AND LOWER(vm.care_type) =:careType " +
                     "AND v.visit_date >= :startDate " +
                     "AND v.visit_date < CAST(:startDate AS DATE) + INTERVAL '7' DAY")
-    List<Visit> findAllByIdDoctorBySpecializationByCityByIdClinicByCareTypeForWeek(@Param(value = "idDoctor") Long idDoctor, @Param("specialization") String specialization, @Param(value = "city") String city, @Param(value = "idClinic") Long idClinic, @Param(value = "careType") String careType, @Param("startDate") Date startDate);
+    List<Visit> findAllByIdDoctorBySpecializationByCityByIdClinicByCareTypeForWeek(@Param(value = "idDoctor") Long idDoctor, @Param("specialization") String specialization, @Param(value = "city") String city, @Param(value = "id") Long idClinic, @Param(value = "careType") String careType, @Param("startDate") Date startDate);
 
 }

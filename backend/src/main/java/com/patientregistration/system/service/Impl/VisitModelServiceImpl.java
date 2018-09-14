@@ -6,13 +6,14 @@ import com.patientregistration.system.exception.ResourceNotFoundException;
 import com.patientregistration.system.repository.VisitModelRepository;
 import com.patientregistration.system.service.VisitModelService;
 import com.patientregistration.system.service.VisitService;
+import org.joda.time.Days;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
+import java.time.*;
 import java.time.format.DateTimeFormatter;
+import java.util.EnumSet;
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class VisitModelServiceImpl implements VisitModelService {
@@ -40,23 +41,30 @@ public class VisitModelServiceImpl implements VisitModelService {
     public VisitModel save(VisitModel visitModel) {
         VisitModel newVisitModel = visitModelRepository.save(visitModel);
 
-        LocalDate visitDate = visitModel.getStart().toLocalDate();
-        LocalDate endDate = visitModel.getEndDate().toLocalDate();
+        LocalDate visitDate = newVisitModel.getStart().toLocalDate();
+        LocalDate endDate = newVisitModel.getEndDate().toLocalDate();
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
-        while (visitDate.isBefore(endDate) || visitDate.isEqual(endDate)) {
+        Set<DayOfWeek> weekend = EnumSet.of(DayOfWeek.SATURDAY, DayOfWeek.SUNDAY);
 
-            LocalTime visitHour = visitModel.getStart().toLocalTime();
-            LocalTime endHour = visitModel.getEnd().toLocalTime();
+        while (visitDate.isBefore(endDate) || visitDate.isEqual(endDate)) {
+            // Chcek if it is a weekend
+            if (newVisitModel.getDayInterval() == 1 && weekend.contains(visitDate.getDayOfWeek())) {
+                visitDate = visitDate.plusDays(newVisitModel.getDayInterval());
+                continue;
+            }
+
+            LocalTime visitHour = newVisitModel.getStart().toLocalTime();
+            LocalTime endHour = newVisitModel.getEnd().toLocalTime();
 
             while (visitHour.isBefore(endHour)) {
                 LocalDateTime term = LocalDateTime.parse(visitDate.toString() + " " + visitHour.toString(), formatter);
-                visitService.save(new Visit(term, visitModel));
-                visitHour = visitHour.plusMinutes(visitModel.getMinuteInterval());
+                visitService.save(new Visit(term, newVisitModel));
+                visitHour = visitHour.plusMinutes(newVisitModel.getMinuteInterval());
             }
 
-            visitDate = visitDate.plusDays(visitModel.getDayInterval());
+            visitDate = visitDate.plusDays(newVisitModel.getDayInterval());
         }
 
         return newVisitModel;

@@ -2,6 +2,7 @@ import {AfterViewInit, Component, ViewChild} from '@angular/core';
 import {CalendarService} from './calendar.service';
 import {DayPilot, DayPilotCalendarComponent} from 'daypilot-pro-angular';
 import {CreateComponent} from './create/create.component';
+import {VisitModel} from '../models/visitModel.model';
 
 @Component({
   selector: 'calendar-component',
@@ -14,6 +15,9 @@ export class CalendarComponent implements AfterViewInit {
   @ViewChild('create') create: CreateComponent;
 
   events: any[] = [];
+
+  constructor(private service: CalendarService) {
+  }
 
   navigatorConfig: any = {
     locale: 'pl-pl',
@@ -36,67 +40,37 @@ export class CalendarComponent implements AfterViewInit {
     dayEndsHour: 20,
     onTimeRangeSelected: args => {
       this.create.show(args);
-    }
-    // onTimeRangeSelected: args => {
-    //   let endDate = prompt('Data ostatniej wizyty:', Date.now().toString());
-    //   let specialization = prompt('Specializacja:', 'Stomatologia');
-    //   let careType = prompt('Rodzaj opieki:', 'Publiczna');
-    //   this.calendar.control.clearSelection();
-    //   if (!endDate || !specialization || !careType) {
-    //     return;
-    //   }
-    //   let data: VisitModel = {
-    //     start: args.start.toString(),
-    //     end: args.end.toString(),
-    //     endDate: endDate,
-    //     dayInterval: 7,
-    //     minuteInterval: 30,
-    //     specialization: specialization,
-    //     careType: careType,
-    //     // Do zmiany na użytkownika zalogowanego
-    //     user: {
-    //       idUser: 2,
-    //     },
-    //     // Do zmiany na wybraną klinikę
-    //     clinic: {
-    //       idClinic: 1,
-    //     }
-    //   };
-    //   this.ds.createVisitModel(data).subscribe(result => {
-    //     this.events.push(result);
-    //     this.calendar.control.message('Model wizyty utworzony!');
-    //   });
-    // },
-
-    // onEventMove: args => {
-    //   let r: Resource = {
-    //     id: args.newResource
-    //   };
-    //   let data: Event = {
-    //     id: args.e.id(),
-    //     start: args.newStart.toString(),
-    //     end: args.newEnd.toString(),
-    //     resource: r,
-    //   };
-    //   this.ds.moveEvent(data).subscribe(result => {
-    //     this.calendar.control.message('Event moved');
-    //   });
-    // }
+    },
+    eventMoveHandling: "Update",
+    onEventMove: args => {
+      let data: VisitModel = {
+        id: args.e.id(),
+        start: args.newStart.toString(),
+        end: args.newEnd.toString()
+      };
+      this.service.moveVisitModel(data).subscribe(result => {
+        this.calendar.control.message('Model wizyty został zmieniony');
+      });
+    },
+    eventDeleteHandling: "Update",
+    onEventDelete: args => {
+      this.service.deleteVisitModel(args.e.id()).subscribe(result => {
+        this.calendar.control.message('Model wizyty został usunięty');
+      });
+    },
   };
 
-  constructor(private ds: CalendarService) {
-  }
 
   ngAfterViewInit(): void {
     let from = this.calendar.control.visibleStart();
     let to = this.calendar.control.visibleEnd();
-    this.ds.getVisitModelsInWeek(from, to).subscribe(result => this.events = result);
+    this.service.getVisitModelsInWeek(from, to).subscribe(result => this.events = result);
   }
 
   createClosed(args) {
     if (args.result) {
       this.events.push(args.result);
-      this.calendar.control.message('Utworzono.');
+      this.calendar.control.message('Model wizyty został utworzony.');
     }
     this.calendar.control.clearSelection();
   }

@@ -3,7 +3,7 @@ import {Clinic} from './clinic.model';
 
 export class VisitModel {
 
-  idVisitModel?: number;
+  id?: string | number;
   text?: string;
   start?: string;
   end?: string;

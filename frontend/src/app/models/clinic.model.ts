@@ -1,6 +1,6 @@
 export class Clinic {
 
-  idClinic?: number;
+  id?: string | number;
   name?: string;
   medicalCenter?: string;
   address?: string;

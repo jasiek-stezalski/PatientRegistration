@@ -39,11 +39,11 @@ export class PatientCalendarComponent implements AfterViewInit {
     //     careType: careType,
     //     // Do zmiany na użytkownika zalogowanego
     //     user: {
-    //       idUser: 2,
+    //       id: 2,
     //     },
     //     // Do zmiany na wybraną klinikę
     //     clinic: {
-    //       idClinic: 1,
+    //       id: 1,
     //     }
     //   };
     //   this.ds.createVisitModel(data).subscribe(result => {
@@ -62,7 +62,7 @@ export class PatientCalendarComponent implements AfterViewInit {
     //     end: args.newEnd.toString(),
     //     resource: r,
     //   };
-    //   this.ds.moveEvent(data).subscribe(result => {
+    //   this.ds.moveVisitModel(data).subscribe(result => {
     //     this.calendar.control.message('Event moved');
     //   });
     // }

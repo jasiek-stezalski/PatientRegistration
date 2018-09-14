@@ -15,7 +15,7 @@ public class Visit {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_visit", nullable = false)
-    private Long idVisit;
+    private Long id;
 
     @Column(name = "term", nullable = false)
     private LocalDateTime term;

@@ -44,9 +44,9 @@
       </div>
       <div class="form-group">
         <label for="clinic">Placówka: </label>
-        <select [(ngModel)]="visitModel.idVisitModel" name="clinic" type="text" *ngFor="let clinic of clinics"
+        <select [(ngModel)]="visitModel.id" name="clinic" type="text" *ngFor="let clinic of clinics"
                 id="clinic">
-          <option value={{clinic.idClinic}}>{{clinic.name}}</option>
+          <option value={{clinic.id}}>{{clinic.name}}</option>
         </select>
       </div>
 

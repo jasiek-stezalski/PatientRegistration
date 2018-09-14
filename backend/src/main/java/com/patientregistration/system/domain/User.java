@@ -13,7 +13,7 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "id_user", nullable = false)
-    private Long idUser;
+    private Long id;
 
     @Column(name = "username")
     private String username;

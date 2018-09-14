@@ -3,7 +3,7 @@ import {VisitModel} from './visitModel.model';
 
 export class Visit {
 
-  idVisit?: number;
+  id?: string | number;
   term?: string;
   status?: string;
   visitModel?: VisitModel;

@@ -41,14 +41,26 @@ export class CreateComponent implements OnInit {
     this.modal.show();
   }
 
+  showEdit(args: VisitModel) {
+    this.form.setValue({
+      start: args.start.toString(),
+      end: args.end.toString(),
+    });
+    this.modal.show();
+  }
+
   submit() {
     let data = this.form.getRawValue();
     this.visitModel.start = data.start;
     this.visitModel.end = data.end;
-    let clinic: Clinic = {
-      idClinic: this.visitModel.idVisitModel,
+    this.visitModel.clinic = {
+      id: this.visitModel.id,
     };
-    this.visitModel.clinic = clinic;
+
+    // Do zmiany na wybranego lekarza
+    this.visitModel.user = {
+      id: 2,
+    };
 
     this.service.createVisitModel(this.visitModel).subscribe(result => {
       this.modal.hide(result);

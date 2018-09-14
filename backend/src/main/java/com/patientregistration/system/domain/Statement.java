@@ -13,7 +13,7 @@ public class Statement {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "id_statement", nullable = false)
-    private long idStatement;
+    private long id;
 
     @Lob
     @Column(name = "content", nullable = false)
