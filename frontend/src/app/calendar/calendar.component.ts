@@ -38,6 +38,8 @@ export class CalendarComponent implements AfterViewInit {
     businessEndsHour: 20,
     dayBeginsHour: 7,
     dayEndsHour: 20,
+    cellDuration: 15,
+
     onTimeRangeSelected: args => {
       this.create.show(args);
     },
@@ -48,13 +50,13 @@ export class CalendarComponent implements AfterViewInit {
         start: args.newStart.toString(),
         end: args.newEnd.toString()
       };
-      this.service.moveVisitModel(data).subscribe(result => {
+      this.service.moveVisitModel(data).subscribe(() => {
         this.calendar.control.message('Model wizyty został zmieniony');
       });
     },
     eventDeleteHandling: "Update",
     onEventDelete: args => {
-      this.service.deleteVisitModel(args.e.id()).subscribe(result => {
+      this.service.deleteVisitModel(args.e.id()).subscribe(() => {
         this.calendar.control.message('Model wizyty został usunięty');
       });
     },

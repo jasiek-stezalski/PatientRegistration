@@ -6,10 +6,12 @@ import com.patientregistration.system.exception.ResourceNotFoundException;
 import com.patientregistration.system.repository.VisitModelRepository;
 import com.patientregistration.system.service.VisitModelService;
 import com.patientregistration.system.service.VisitService;
-import org.joda.time.Days;
 import org.springframework.stereotype.Service;
 
-import java.time.*;
+import java.time.DayOfWeek;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.EnumSet;
 import java.util.List;
@@ -49,7 +51,7 @@ public class VisitModelServiceImpl implements VisitModelService {
         Set<DayOfWeek> weekend = EnumSet.of(DayOfWeek.SATURDAY, DayOfWeek.SUNDAY);
 
         while (visitDate.isBefore(endDate) || visitDate.isEqual(endDate)) {
-            // Chcek if it is a weekend
+            // Check if it is a weekend
             if (newVisitModel.getDayInterval() == 1 && weekend.contains(visitDate.getDayOfWeek())) {
                 visitDate = visitDate.plusDays(newVisitModel.getDayInterval());
                 continue;
@@ -59,9 +61,21 @@ public class VisitModelServiceImpl implements VisitModelService {
             LocalTime endHour = newVisitModel.getEnd().toLocalTime();
 
             while (visitHour.isBefore(endHour)) {
-                LocalDateTime term = LocalDateTime.parse(visitDate.toString() + " " + visitHour.toString(), formatter);
-                visitService.save(new Visit(term, newVisitModel));
+                LocalDateTime startTerm = LocalDateTime.parse(visitDate.toString() + " " + visitHour.toString(), formatter);
                 visitHour = visitHour.plusMinutes(newVisitModel.getMinuteInterval());
+                LocalDateTime endTerm = LocalDateTime.parse(visitDate.toString() + " " + visitHour.toString(), formatter);
+                if (endTerm.toLocalTime().isAfter(endHour)) {
+                    newVisitModel.setEnd(startTerm);
+                    visitModelRepository.save(newVisitModel);
+                    break;
+                } else {
+                    visitService.save(new Visit(
+                            startTerm,
+                            endTerm,
+                            startTerm.getHour() + " : " + (startTerm.getMinute() < 10 ? startTerm.getMinute() + "0" : startTerm.getMinute())
+                            , newVisitModel));
+                }
+
             }
 
             visitDate = visitDate.plusDays(newVisitModel.getDayInterval());

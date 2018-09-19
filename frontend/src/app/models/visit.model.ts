@@ -4,8 +4,9 @@ import {VisitModel} from './visitModel.model';
 export class Visit {
 
   id?: string | number;
-  term?: string;
-  status?: string;
+  start?: string;
+  end?: string;
+  text?: string;
   visitModel?: VisitModel;
   user?: User;
 

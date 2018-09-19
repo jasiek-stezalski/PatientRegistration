@@ -13,7 +13,7 @@ import java.util.List;
 
 public interface VisitRepository extends JpaRepository<Visit, Long> {
 
-    @Query("from Visit v where not(v.term < :from and v.term > :to)")
+    @Query("from Visit v where not(v.start < :from and v.start > :to)")
     List<Visit> findBetween(@Param("from") LocalDateTime start, @Param("to") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime end);
 
     List<Visit> findAllByUser(User user);
