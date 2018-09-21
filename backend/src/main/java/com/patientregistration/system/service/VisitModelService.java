@@ -15,4 +15,5 @@ public interface VisitModelService {
 
     void delete(Long idVisitModel);
 
+    VisitModel move(VisitModel data);
 }

@@ -89,4 +89,51 @@ public class VisitModelServiceImpl implements VisitModelService {
         visitModelRepository.deleteById(idVisitModel);
     }
 
+    @Override
+    public VisitModel move(VisitModel data) {
+
+        VisitModel visitModel = findByIdVisitModel(data.getId());
+
+        visitModel.setEnd(data.getEnd());
+        visitModel.setStart(data.getStart());
+
+        LocalDate visitDate = visitModel.getStart().toLocalDate();
+        LocalDate endDate = visitModel.getEndDate().toLocalDate();
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+
+        Set<DayOfWeek> weekend = EnumSet.of(DayOfWeek.SATURDAY, DayOfWeek.SUNDAY);
+
+        int index = 0;
+
+        while (visitDate.isBefore(endDate) || visitDate.isEqual(endDate)) {
+            // Check if it is a weekend
+            if (visitModel.getDayInterval() == 1 && weekend.contains(visitDate.getDayOfWeek())) {
+                visitDate = visitDate.plusDays(visitModel.getDayInterval());
+                continue;
+            }
+
+            LocalTime visitHour = visitModel.getStart().toLocalTime();
+            LocalTime endHour = visitModel.getEnd().toLocalTime();
+
+            while (visitHour.isBefore(endHour)) {
+                LocalDateTime startTerm = LocalDateTime.parse(visitDate.toString() + " " + visitHour.toString(), formatter);
+                visitHour = visitHour.plusMinutes(visitModel.getMinuteInterval());
+                LocalDateTime endTerm = LocalDateTime.parse(visitDate.toString() + " " + visitHour.toString(), formatter);
+
+                visitModel.getVisits().get(index).setStart(startTerm);
+                visitModel.getVisits().get(index).setEnd(endTerm);
+                visitModel.getVisits().get(index).setText(startTerm.getHour() + " : " + (startTerm.getMinute() < 10 ? startTerm.getMinute() + "0" : startTerm.getMinute()));
+                index++;
+
+
+            }
+
+            visitDate = visitDate.plusDays(visitModel.getDayInterval());
+        }
+
+
+        return visitModelRepository.save(visitModel);
+    }
+
 }

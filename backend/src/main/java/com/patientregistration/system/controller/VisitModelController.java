@@ -48,13 +48,7 @@ public class VisitModelController {
     @JsonSerialize(using = LocalDateTimeSerializer.class)
     @JsonView(Views.Basic.class)
     public VisitModel moveEvent(@RequestBody VisitModel data) {
-        VisitModel visitModel = visitModelService.findByIdVisitModel(data.getId());
-
-        visitModel.setEnd(data.getEnd());
-        visitModel.setStart(data.getStart());
-
-        visitModelService.delete(data.getId());
-        return visitModelService.save(visitModel);
+        return visitModelService.move(data);
     }
 
     @DeleteMapping("/visitModels/{id}")
