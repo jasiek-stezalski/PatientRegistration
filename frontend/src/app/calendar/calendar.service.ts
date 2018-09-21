@@ -37,6 +37,9 @@ export class CalendarService {
     return this.http.delete(this.url + '/visitModels/' + idVisitModel) as Observable<any>;
   }
 
+  bookVisit(idVisit: String) {
+    return this.http.get(this.url + "/visits/book/" + idVisit);
+  }
 }
 
 

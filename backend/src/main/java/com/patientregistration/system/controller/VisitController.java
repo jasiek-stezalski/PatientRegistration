@@ -38,6 +38,14 @@ public class VisitController {
         return visitService.findByVisitId(idVisit);
     }
 
+    @GetMapping("/visits/book/{id}")
+    @JsonView(Views.Basic.class)
+    public Visit bookVisit(@PathVariable(value = "id") Long idVisit) {
+        Visit byVisitId = visitService.findByVisitId(idVisit);
+        byVisitId.setText("Zajęte");
+        return visitService.save(byVisitId);
+    }
+
     @GetMapping("visits/user/{id}")
     public List<Visit> getVisitHoursByIdUser(@PathVariable(value = "id") Long idUser) {
         return visitService.findAllVisitsByIdUser(idUser);

@@ -44,6 +44,15 @@ export class PatientCalendarComponent implements AfterViewInit {
     eventResizeHandling: "Disabled",
     eventHoverHandling: "Disabled",
 
+    eventClickHandling: "Enabled",
+    onEventClicked: args => {
+      this.service.bookVisit(args.e.id()).subscribe(() => {
+        this.calendar.control.message('Model wizyty został zmieniony');
+      });
+      location.reload();
+    },
+
+
   };
 
   ngAfterViewInit(): void {
