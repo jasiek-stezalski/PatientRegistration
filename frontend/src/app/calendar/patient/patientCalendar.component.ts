@@ -2,6 +2,7 @@ import {AfterViewInit, Component, ViewChild} from '@angular/core';
 import {CalendarService} from '../calendar.service';
 import {DayPilot, DayPilotCalendarComponent} from 'daypilot-pro-angular';
 import {CreateComponent} from '../create/create.component';
+import {Visit} from "../../models/visit.model";
 
 @Component({
   selector: 'patientCalendar-component',
@@ -13,7 +14,7 @@ export class PatientCalendarComponent implements AfterViewInit {
   @ViewChild('calendar') calendar: DayPilotCalendarComponent;
   @ViewChild('create') create: CreateComponent;
 
-  events: any[] = [];
+  events: Visit[] = [];
 
   constructor(private service: CalendarService) {
   }
@@ -43,13 +44,19 @@ export class PatientCalendarComponent implements AfterViewInit {
     eventMoveHandling: "Disabled",
     eventResizeHandling: "Disabled",
     eventHoverHandling: "Disabled",
-
     eventClickHandling: "Enabled",
+
     onEventClicked: args => {
-      this.service.bookVisit(args.e.id()).subscribe(() => {
-        this.calendar.control.message('Model wizyty został zmieniony');
-      });
-      location.reload();
+      let visit: Visit = this.events.find(a => a.id == args.e.id());
+      if (visit.user != null)
+        this.calendar.control.message('Ten termin jest już zarezerwowany!');
+      else {
+        this.service.bookVisit(args.e.id()).subscribe(() => {
+          this.calendar.control.message('Zostałeś zapisany na wizytę!');
+          this.ngAfterViewInit();
+        });
+      }
+
     },
 
 

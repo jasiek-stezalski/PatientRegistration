@@ -38,8 +38,9 @@ export class CalendarService {
   }
 
   bookVisit(idVisit: String) {
-    return this.http.get(this.url + "/visits/book/" + idVisit);
+    return this.http.get(this.url + '/visits/book/' + idVisit);
   }
+
 }
 
 

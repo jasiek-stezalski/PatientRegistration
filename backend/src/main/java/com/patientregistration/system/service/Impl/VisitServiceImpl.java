@@ -37,11 +37,20 @@ public class VisitServiceImpl implements VisitService {
     @Override
     public Visit findByVisitId(Long idVisit) {
         return visitRepository.findById(idVisit)
-                .orElseThrow(() -> new ResourceNotFoundException(idVisit.toString()));
+                .orElseThrow(() -> new ResourceNotFoundException("There is no Visit with id: " + idVisit.toString()));
     }
 
     @Override
     public Visit save(Visit visit) {
+        return visitRepository.save(visit);
+    }
+
+    @Override
+    public Visit bookVisit(Long idVisit) {
+        Visit visit = findByVisitId(idVisit);
+        visit.setText("Zajęte");
+        User user = userService.findUserById(1L);
+        visit.setUser(user);
         return visitRepository.save(visit);
     }
 

@@ -16,6 +16,8 @@ public interface VisitService {
 
     Visit save(Visit visit);
 
+    Visit bookVisit(Long idVisit);
+
     void delete(Long idVisit);
 
     // More accurate search

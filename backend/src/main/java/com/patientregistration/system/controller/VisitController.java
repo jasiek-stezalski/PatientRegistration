@@ -41,13 +41,11 @@ public class VisitController {
     @GetMapping("/visits/book/{id}")
     @JsonView(Views.Basic.class)
     public Visit bookVisit(@PathVariable(value = "id") Long idVisit) {
-        Visit byVisitId = visitService.findByVisitId(idVisit);
-        byVisitId.setText("Zajęte");
-        return visitService.save(byVisitId);
+        return visitService.bookVisit(idVisit);
     }
 
     @GetMapping("visits/user/{id}")
-    public List<Visit> getVisitHoursByIdUser(@PathVariable(value = "id") Long idUser) {
+    public List<Visit> getVisitByIdUser(@PathVariable(value = "id") Long idUser) {
         return visitService.findAllVisitsByIdUser(idUser);
     }
 
@@ -62,6 +60,13 @@ public class VisitController {
 
         return ResponseEntity.ok().build();
     }
+
+
+
+
+
+
+
 
     // More accurate search
 
