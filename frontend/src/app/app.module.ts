@@ -10,12 +10,21 @@ import {HttpClientModule} from '@angular/common/http';
 import {AddUserComponent} from './user/add-user.component';
 import {CalendarService} from './calendar/calendar.service';
 import {CalendarModule} from './calendar/calendar.module';
+import {LoginComponent} from './authentication/components/login/login.component';
+import {AuthService} from './authentication/services/auth.service';
+import {UrlPermission} from './authentication/urlPermission/url.permission';
+import {AccountService} from './authentication/services/account.service';
+import {ProfileComponent} from './authentication/components/profile/profile.component';
+import {RegisterComponent} from './authentication/components/register/register.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     UserComponent,
     AddUserComponent,
+    LoginComponent,
+    RegisterComponent,
+    ProfileComponent,
   ],
   imports: [
     BrowserModule,
@@ -24,7 +33,7 @@ import {CalendarModule} from './calendar/calendar.module';
     FormsModule,
     CalendarModule
   ],
-  providers: [UserService, CalendarService],
+  providers: [UserService, CalendarService, AuthService, AccountService, UrlPermission],
   bootstrap: [AppComponent]
 })
 export class AppModule {
