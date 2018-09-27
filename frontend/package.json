@@ -25,7 +25,8 @@
     "core-js": "^2.5.4",
     "daypilot-pro-angular": "https://npm.daypilot.org/daypilot-pro-angular/trial/2018.3.3353.tar.gz",
     "install": "^0.12.1",
-    "rxjs": "^6.0.0",
+    "rxjs": "^6.3.3",
+    "rxjs-compat": "^6.3.3",
     "zone.js": "^0.8.26"
   },
   "devDependencies": {

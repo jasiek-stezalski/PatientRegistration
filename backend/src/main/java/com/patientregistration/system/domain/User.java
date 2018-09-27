@@ -1,5 +1,6 @@
 package com.patientregistration.system.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
@@ -60,6 +61,7 @@ public class User implements UserDetails {
 
     @OneToMany
     @JoinColumn(name = "id_user")
+    @JsonBackReference
     private List<Statement> statements;
 
 

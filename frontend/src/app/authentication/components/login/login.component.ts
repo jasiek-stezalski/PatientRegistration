@@ -1,7 +1,7 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import {Component, OnInit, ViewEncapsulation} from '@angular/core';
 import {AuthService} from "../../services/auth.service";
 import {Router} from "@angular/router";
-import {User} from '../../../models/user.model';
+import {User} from "../../../models/user.model";
 
 
 @Component({
@@ -11,21 +11,21 @@ import {User} from '../../../models/user.model';
   encapsulation: ViewEncapsulation.None
 })
 export class LoginComponent implements OnInit {
-  user: User=new User();
-  errorMessage:string;
-  constructor(private authService :AuthService, private router: Router) { }
+  user: User = new User();
+  errorMessage: string;
 
-
+  constructor(private authService: AuthService, private router: Router) {
+  }
 
   ngOnInit() {
   }
 
-  login(){
+  login() {
     this.authService.logIn(this.user)
-      .subscribe(()=>{
+      .subscribe(() => {
           this.router.navigate(['/profile']);
-        },()=>{
-          this.errorMessage="error :  Username or password is incorrect";
+        }, () => {
+          this.errorMessage = "error :  Username or password is incorrect";
         }
       )
   }

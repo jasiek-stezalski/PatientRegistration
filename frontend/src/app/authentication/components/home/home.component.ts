@@ -5,14 +5,24 @@ import {User} from '../../../models/user.model';
 
 @Component({
   selector: 'app-profile',
-  templateUrl: './profile.component.html',
-  styleUrls: ['./profile.component.css'],
+  templateUrl: './home.component.html',
+  styleUrls: ['./home.component.css'],
   encapsulation: ViewEncapsulation.None
 })
-export class ProfileComponent implements OnInit {
+export class HomeComponent implements OnInit {
   currentUser: User;
+  login: String;
+  url: String;
+
   constructor(public authService: AuthService, public router: Router) {
     this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    if (localStorage.getItem('currentUser')) {
+      this.url = 'home';
+      this.login = 'Wyloguj';
+    } else {
+      this.url = 'login';
+      this.login = 'Zaloguj';
+    }
 
 
   }
@@ -21,14 +31,17 @@ export class ProfileComponent implements OnInit {
   }
 
 // login out from the app
-  logOut() {
+  logInOut() {
     this.authService.logOut()
       .subscribe(
         () => {
-          this.router.navigate(['/login']);
+          this.router.navigate(['/home']);
         },
         () => {
 
         });
+
+
   }
+
 }

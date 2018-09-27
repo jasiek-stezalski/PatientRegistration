@@ -24,12 +24,12 @@ public class UserController {
         this.userService = userService;
     }
 
-    @PostMapping("account/register")
+    @PostMapping("/account/register")
     public ResponseEntity<?> createUser(@RequestBody User newUser) {
         if (userService.findUserByUsername(newUser.getUsername()) != null) {
             logger.error("username Already exist " + newUser.getUsername());
             return new ResponseEntity<>(
-                    new ResourceNotFoundException("user with username " + newUser.getUsername() + "already exist "),
+                    new ResourceNotFoundException("User with username " + newUser.getUsername() + "already exist "),
                     HttpStatus.CONFLICT);
         }
         newUser.setRole("USER");
@@ -38,12 +38,11 @@ public class UserController {
     }
 
     // this is the login api/service
-    @GetMapping("account/login")
+    @GetMapping("/account/login")
     public Principal user(Principal principal) {
         logger.info("user logged " + principal);
         return principal;
     }
-
 
     @GetMapping("/users")
     public List<User> getAllUsers() {
@@ -59,11 +58,6 @@ public class UserController {
     public User getUserByUsername(@RequestParam String username) {
         return userService.findUserByUsername(username);
     }
-
-//    @PostMapping("/users")
-//    public User createUser(@Valid @RequestBody User user) {
-//        return userService.saveOrUpdate(user);
-//    }
 
     @DeleteMapping("/users/{id}")
     public ResponseEntity<?> deleteUser(@PathVariable(value = "id") Long idUser) {

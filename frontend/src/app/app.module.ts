@@ -14,8 +14,10 @@ import {LoginComponent} from './authentication/components/login/login.component'
 import {AuthService} from './authentication/services/auth.service';
 import {UrlPermission} from './authentication/urlPermission/url.permission';
 import {AccountService} from './authentication/services/account.service';
-import {ProfileComponent} from './authentication/components/profile/profile.component';
+import {HomeComponent} from './authentication/components/home/home.component';
 import {RegisterComponent} from './authentication/components/register/register.component';
+import {HttpModule} from "@angular/http";
+import {UrlPermissionDoctor} from "./authentication/urlPermission/url.permissionDoctor";
 
 @NgModule({
   declarations: [
@@ -24,16 +26,17 @@ import {RegisterComponent} from './authentication/components/register/register.c
     AddUserComponent,
     LoginComponent,
     RegisterComponent,
-    ProfileComponent,
+    HomeComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
+    HttpModule,
     FormsModule,
     CalendarModule
   ],
-  providers: [UserService, CalendarService, AuthService, AccountService, UrlPermission],
+  providers: [UserService, CalendarService, AuthService, AccountService, UrlPermission, UrlPermissionDoctor],
   bootstrap: [AppComponent]
 })
 export class AppModule {

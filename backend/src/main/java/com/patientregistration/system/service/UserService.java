@@ -1,10 +1,11 @@
 package com.patientregistration.system.service;
 
 import com.patientregistration.system.domain.User;
+import org.springframework.security.core.userdetails.UserDetailsService;
 
 import java.util.List;
 
-public interface UserService {
+public interface UserService extends UserDetailsService {
 
     List<User> findAllUsers();
 

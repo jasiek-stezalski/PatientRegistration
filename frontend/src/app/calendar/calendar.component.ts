@@ -1,13 +1,16 @@
-import {AfterViewInit, Component, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, ViewChild, ViewEncapsulation} from '@angular/core';
 import {CalendarService} from './calendar.service';
 import {DayPilot, DayPilotCalendarComponent} from 'daypilot-pro-angular';
 import {CreateComponent} from './create/create.component';
 import {VisitModel} from '../models/visitModel.model';
+import {User} from "../models/user.model";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'calendar-component',
   templateUrl: './calendar.component.html',
-  styleUrls: ['./calendar.component.css']
+  styleUrls: ['./calendar.component.css'],
+  encapsulation: ViewEncapsulation.None
 })
 export class CalendarComponent implements AfterViewInit {
 
@@ -15,9 +18,12 @@ export class CalendarComponent implements AfterViewInit {
   @ViewChild('create') create: CreateComponent;
 
   events: any[] = [];
+  currentUser: User;
 
-  constructor(private service: CalendarService) {
+  constructor(public router: Router, private service: CalendarService) {
+    this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
   }
+
 
   navigatorConfig: any = {
     locale: 'pl-pl',

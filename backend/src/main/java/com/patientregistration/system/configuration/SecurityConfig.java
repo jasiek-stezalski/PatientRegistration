@@ -1,6 +1,7 @@
 package com.patientregistration.system.configuration;
 
-import com.patientregistration.system.service.Impl.AppUserDetailsService;
+import com.patientregistration.system.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -9,6 +10,8 @@ import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -18,18 +21,24 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    private AppUserDetailsService appUserDetailsService;
+    private UserService userService;
 
-    public SecurityConfig(AppUserDetailsService appUserDetailsService) {
-        this.appUserDetailsService = appUserDetailsService;
+    @Autowired
+    public void setUserService(UserService userService) {
+        this.userService = userService;
+    }
+
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
     }
 
     // This method is for overriding the default AuthenticationManagerBuilder.
     // We can specify how the user details are kept in the application. It may
     // be in a database, LDAP or in memory.
     @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(appUserDetailsService);
+    public void configure(AuthenticationManagerBuilder builder) throws Exception {
+        builder.userDetailsService(userService);
     }
 
     // this configuration allow the client app to access the this api
@@ -61,9 +70,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 // starts authorizing configurations
                 .authorizeRequests()
                 // ignoring the guest's urls "
-                .antMatchers("/account/register", "/account/login", "/logout").permitAll()
-                // authenticate all remaining URLS
-                .anyRequest().fullyAuthenticated().and()
+                .anyRequest().permitAll()
+                .and()
                 /* "/logout" will log the user out by invalidating the HTTP Session,
                  * cleaning up any {link rememberMe()} authentication that was configured, */
                 .logout()
