@@ -1,6 +1,6 @@
 import {Component, OnInit, ViewEncapsulation} from '@angular/core';
-import {AccountService} from "../../services/account.service";
-import {Router} from "@angular/router";
+import {AccountService} from '../../services/account.service';
+import {Router} from '@angular/router';
 import {User} from '../../../models/user.model';
 
 @Component({
@@ -20,12 +20,17 @@ export class RegisterComponent implements OnInit {
   }
 
   register() {
-    this.accountService.createAccount(this.user).subscribe(() => {
-        this.router.navigate(['/login']);
-      }, err => {
-        console.log(err);
-        this.errorMessage = "Błąd : Taki użytkownik już istnieje";
-      }
-    )
+    if (this.user.password == this.user.confirmPassword) {
+      this.accountService.createAccount(this.user).subscribe(() => {
+          this.router.navigate(['/login']);
+        }, err => {
+          console.log(err);
+          this.errorMessage = 'Błąd : Taki użytkownik już istnieje';
+        }
+      );
+    } else {
+      this.errorMessage = 'Błąd : Hasła muszą być takie same';
+    }
   }
+
 }
