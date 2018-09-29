@@ -10,6 +10,7 @@ export class UrlPermissionDoctor implements CanActivate {
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
     let user: User = JSON.parse(localStorage.getItem('currentUser'));
+    console.log(user.role);
     if(localStorage.getItem('currentUser') && user.role == 'DOCTOR') {
       // logged in so return true
       return true;

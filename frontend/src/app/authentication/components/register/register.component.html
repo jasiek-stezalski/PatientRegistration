@@ -1,54 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+
+</head>
+
+<body>
+
 <div class="container">
   <div class="card card-container">
-    <img id="profile-img" class="profile-img-card" src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"/>
-    <p id="profile-name" class="profile-name-card"></p>
 
-    <form name="form" (ngSubmit)="f.form.valid && register()" #f="ngForm" novalidate>
+    <form name="form" (ngSubmit)="f.form.valid && register()" #f="ngForm" novalidate class="form-signin">
+
+      <h2 class="form-signin-heading">Rejestracja</h2>
+
       <div class="alert alert-danger" role="alert" *ngIf="errorMessage">{{errorMessage}}</div>
-      <span id="reauth-email" class="reauth-email"></span>
+
       <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !firstName.valid }">
-        <label for="firstName">First Name</label>
+        <label for="firstName">Imię*</label>
         <input type="text" class="form-control" name="firstName" id="firstName" [(ngModel)]="user.firstName"
                #firstName="ngModel" required/>
-        <div *ngIf="f.submitted && !firstName.valid" class="help-block">The firstName is required</div>
+        <div *ngIf="f.submitted && !firstName.valid" class="help-block">Imię jest wymagane</div>
       </div>
+
+      <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !lastName.valid }">
+        <label for="lastName">Nazwisko*</label>
+        <input type="text" class="form-control" name="lastName" id="lastName" [(ngModel)]="user.lastName"
+               #lastName="ngModel" required/>
+        <div *ngIf="f.submitted && !lastName.valid" class="help-block">Nazwisko jest wymagane</div>
+      </div>
+
       <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !username.valid }">
-        <label for="username">Email Address</label>
-        <input type="text" class="form-control" name="username" id="username" pattern="[^ @]*@[^ @]*"
-               [(ngModel)]="user.username" #username="ngModel" required/>
-        <div *ngIf="f.submitted && !username.valid" class="help-block">
-
-          <div *ngIf="username.errors.required">
-            Email is required.
-          </div>
-          <div *ngIf="username.errors.pattern">
-            A valid email address is required
-          </div>
-
-        </div>
+        <label for="username">Login*</label>
+        <input type="text" class="form-control" name="username" id="username" [(ngModel)]="user.username"
+               #username="ngModel" required/>
+        <div *ngIf="f.submitted && !username.valid" class="help-block">Login jest wymagany</div>
       </div>
+
       <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !password.valid }">
-        <label for="password">Password</label>
+        <label for="password">Hasło*</label>
         <input type="password" class="form-control" name="password" id="password" [(ngModel)]="user.password"
                #password="ngModel" required minlength="4"/>
         <div *ngIf="f.submitted && !password.valid" class="help-block">
 
           <div *ngIf="password.errors.required">
-            password is required.
+            Hasło jest wymagane
           </div>
           <div *ngIf="password.errors.minlength">
-            password must be at least 4 characters long.
+            Hasło musi mieć co najmniej 4 znaki
           </div>
 
         </div>
       </div>
-      <div id="remember" class="checkbox">
 
+      <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !confirmPassword.valid }">
+        <label for="confirmPassword">Powtórz hasło*</label>
+        <input type="password" class="form-control" name="confirmPassword" id="confirmPassword"
+               [(ngModel)]="user.confirmPassword" #confirmPassword="ngModel" required minlength="4"/>
+        <div *ngIf="f.submitted && !confirmPassword.valid" class="help-block">
+
+          <div *ngIf="confirmPassword.errors.required">Powtórzone hasło jest wymagane</div>
+          <div *ngIf="confirmPassword.errors.minlength">Hasło musi mieć co najmniej 4 znaki</div>
+
+        </div>
       </div>
-      <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit">Create Account</button>
-      <button [routerLink]="['/login']" class="btn btn-lg btn-danger btn-block btn-cancel" type="button">Cancel</button>
 
-    </form><!-- /form -->
+      <span id="reauth-email" class="reauth-email"></span>
+      <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !email.valid }">
+        <label for="email">Adres e-mail*</label>
+        <input type="text" class="form-control" name="email" id="email" pattern="[^ @]*@[^ @]*"
+               [(ngModel)]="user.email" #email="ngModel" required/>
+        <div *ngIf="f.submitted && !email.valid" class="help-block">
 
-  </div><!-- /card-container -->
-</div><!-- /container -->
+          <div *ngIf="email.errors.required">E-mail jest wymagany</div>
+          <div *ngIf="email.errors.pattern">Niepoprawny e-mail</div>
+
+        </div>
+      </div>
+
+      <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !pesel.valid }">
+        <label for="pesel">Pesel</label>
+        <input type="text" class="form-control" name="pesel" id="pesel" [(ngModel)]="user.pesel"
+               #pesel="ngModel"/>
+      </div>
+
+      <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !phoneNumber.valid }">
+        <label for="phoneNumber">Numer telefonu</label>
+        <input type="text" class="form-control" name="phoneNumber" id="phoneNumber" [(ngModel)]="user.phoneNumber"
+               #phoneNumber="ngModel"/>
+      </div>
+
+
+      <div id="remember" class="checkbox"></div>
+
+      <button class="btn btn-lg btn-primary btn-block" type="submit">Utwórz konto</button>
+      <button [routerLink]="['/login']" class="btn btn-lg btn-danger btn-block btn-cancel" type="button">Anuluj</button>
+
+    </form>
+
+  </div>
+</div>
+
+</body>
+</html>

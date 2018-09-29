@@ -33,7 +33,7 @@ public class UserController {
                     HttpStatus.CONFLICT);
         }
         newUser.setRole("USER");
-        newUser.setLastName("patient2");
+        newUser.setBlocked(false);
         return new ResponseEntity<>(userService.saveOrUpdate(newUser), HttpStatus.CREATED);
     }
 
