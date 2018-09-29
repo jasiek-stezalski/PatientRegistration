@@ -7,6 +7,7 @@ import com.patientregistration.system.repository.VisitRepository;
 import com.patientregistration.system.service.UserService;
 import com.patientregistration.system.service.VisitService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Date;
 import java.time.LocalDateTime;
@@ -46,10 +47,11 @@ public class VisitServiceImpl implements VisitService {
     }
 
     @Override
-    public Visit bookVisit(Long idVisit) {
+    @Transactional
+    public Visit bookVisit(Long idVisit, Long idUser) {
         Visit visit = findByVisitId(idVisit);
         visit.setText("Zajęte");
-        User user = userService.findUserById(1L);
+        User user = userService.findUserById(idUser);
         visit.setUser(user);
         return visitRepository.save(visit);
     }

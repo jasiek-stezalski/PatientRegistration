@@ -40,8 +40,8 @@ public class VisitController {
 
     @GetMapping("/visits/book/{id}")
     @JsonView(Views.Basic.class)
-    public Visit bookVisit(@PathVariable(value = "id") Long idVisit) {
-        return visitService.bookVisit(idVisit);
+    public Visit bookVisit(@PathVariable(value = "id") Long idVisit, @RequestParam Long idUser) {
+        return visitService.bookVisit(idVisit, idUser);
     }
 
     @GetMapping("visits/user/{id}")

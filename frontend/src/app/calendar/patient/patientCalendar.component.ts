@@ -2,7 +2,8 @@ import {AfterViewInit, Component, ViewChild} from '@angular/core';
 import {CalendarService} from '../calendar.service';
 import {DayPilot, DayPilotCalendarComponent} from 'daypilot-pro-angular';
 import {CreateComponent} from '../create/create.component';
-import {Visit} from "../../models/visit.model";
+import {Visit} from '../../models/visit.model';
+import {User} from '../../models/user.model';
 
 @Component({
   selector: 'patientCalendar-component',
@@ -39,19 +40,20 @@ export class PatientCalendarComponent implements AfterViewInit {
     dayEndsHour: 20,
     cellDuration: 15,
 
-    timeRangeSelectedHandling: "Disabled",
-    eventDeleteHandling: "Disabled",
-    eventMoveHandling: "Disabled",
-    eventResizeHandling: "Disabled",
-    eventHoverHandling: "Disabled",
-    eventClickHandling: "Enabled",
+    timeRangeSelectedHandling: 'Disabled',
+    eventDeleteHandling: 'Disabled',
+    eventMoveHandling: 'Disabled',
+    eventResizeHandling: 'Disabled',
+    eventHoverHandling: 'Disabled',
+    eventClickHandling: 'Enabled',
 
     onEventClicked: args => {
       let visit: Visit = this.events.find(a => a.id == args.e.id());
       if (visit.user != null)
         this.calendar.control.message('Ten termin jest już zarezerwowany!');
       else {
-        this.service.bookVisit(args.e.id()).subscribe(() => {
+        let user: User = JSON.parse(sessionStorage.getItem('currentUser'));
+        this.service.bookVisit(args.e.id(), user.id).subscribe(() => {
           this.calendar.control.message('Zostałeś zapisany na wizytę!');
           this.ngAfterViewInit();
         });

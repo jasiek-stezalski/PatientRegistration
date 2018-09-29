@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonView;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 import com.patientregistration.system.domain.View.Views;
-import com.patientregistration.system.domain.Visit;
 import com.patientregistration.system.domain.VisitModel;
 import com.patientregistration.system.service.VisitModelService;
 import org.springframework.format.annotation.DateTimeFormat;

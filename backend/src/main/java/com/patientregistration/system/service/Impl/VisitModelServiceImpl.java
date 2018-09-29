@@ -7,15 +7,18 @@ import com.patientregistration.system.repository.VisitModelRepository;
 import com.patientregistration.system.service.VisitModelService;
 import com.patientregistration.system.service.VisitService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.sql.Date;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-import java.util.EnumSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
+
+import static java.time.temporal.ChronoUnit.DAYS;
+import static java.util.Calendar.DATE;
 
 @Service
 public class VisitModelServiceImpl implements VisitModelService {
@@ -40,6 +43,7 @@ public class VisitModelServiceImpl implements VisitModelService {
     }
 
     @Override
+    @Transactional
     public VisitModel save(VisitModel visitModel) {
         VisitModel newVisitModel = visitModelRepository.save(visitModel);
 
@@ -90,28 +94,29 @@ public class VisitModelServiceImpl implements VisitModelService {
     }
 
     @Override
+    @Transactional
     public VisitModel move(VisitModel data) {
 
         VisitModel visitModel = findByIdVisitModel(data.getId());
 
+        int daysBetween = (int) DAYS.between(visitModel.getStart().toLocalDate(), data.getStart().toLocalDate());
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(visitModel.getEndDate());
+        calendar.add(DATE, daysBetween);
+        visitModel.setEndDate(convertFromJAVADateToSQLDate(calendar.getTime()));
+
         visitModel.setEnd(data.getEnd());
         visitModel.setStart(data.getStart());
 
+        List<Visit> visits = visitModel.getVisits();
+        visits.sort(Comparator.comparing(Visit::getStart));
+
         LocalDate visitDate = visitModel.getStart().toLocalDate();
         LocalDate endDate = visitModel.getEndDate().toLocalDate();
-
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
-        Set<DayOfWeek> weekend = EnumSet.of(DayOfWeek.SATURDAY, DayOfWeek.SUNDAY);
-
         int index = 0;
-
         while (visitDate.isBefore(endDate) || visitDate.isEqual(endDate)) {
-            // Check if it is a weekend
-            if (visitModel.getDayInterval() == 1 && weekend.contains(visitDate.getDayOfWeek())) {
-                visitDate = visitDate.plusDays(visitModel.getDayInterval());
-                continue;
-            }
 
             LocalTime visitHour = visitModel.getStart().toLocalTime();
             LocalTime endHour = visitModel.getEnd().toLocalTime();
@@ -120,20 +125,28 @@ public class VisitModelServiceImpl implements VisitModelService {
                 LocalDateTime startTerm = LocalDateTime.parse(visitDate.toString() + " " + visitHour.toString(), formatter);
                 visitHour = visitHour.plusMinutes(visitModel.getMinuteInterval());
                 LocalDateTime endTerm = LocalDateTime.parse(visitDate.toString() + " " + visitHour.toString(), formatter);
-
-                visitModel.getVisits().get(index).setStart(startTerm);
-                visitModel.getVisits().get(index).setEnd(endTerm);
-                visitModel.getVisits().get(index).setText(startTerm.getHour() + " : " + (startTerm.getMinute() < 10 ? startTerm.getMinute() + "0" : startTerm.getMinute()));
+                visits.get(index).setStart(startTerm);
+                visits.get(index).setEnd(endTerm);
+                if (visits.get(index).getUser() != null)
+                    visits.get(index).setText("Zajęte");
+                else
+                    visits.get(index).setText(startTerm.getHour() + " : " + (startTerm.getMinute() < 10 ? startTerm.getMinute() + "0" : startTerm.getMinute()));
                 index++;
-
-
             }
-
             visitDate = visitDate.plusDays(visitModel.getDayInterval());
         }
 
+        visitModel.setVisits(visits);
 
         return visitModelRepository.save(visitModel);
+    }
+
+    private static java.sql.Date convertFromJAVADateToSQLDate(java.util.Date javaDate) {
+        java.sql.Date sqlDate = null;
+        if (javaDate != null) {
+            sqlDate = new Date(javaDate.getTime());
+        }
+        return sqlDate;
     }
 
 }

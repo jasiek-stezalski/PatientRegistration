@@ -56,12 +56,7 @@ export class CreateComponent implements OnInit {
     this.visitModel.clinic = {
       id: this.visitModel.id,
     };
-
-    // Do zmiany na wybranego lekarza
-    this.visitModel.user = {
-      id: 2,
-    };
-
+    this.visitModel.user = JSON.parse(sessionStorage.getItem('currentUser'));
     this.service.createVisitModel(this.visitModel).subscribe(result => {
       this.modal.hide(result);
     });

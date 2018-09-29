@@ -16,7 +16,7 @@ public interface VisitService {
 
     Visit save(Visit visit);
 
-    Visit bookVisit(Long idVisit);
+    Visit bookVisit(Long idVisit, Long idUser);
 
     void delete(Long idVisit);
 
