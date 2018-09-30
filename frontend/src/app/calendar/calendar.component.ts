@@ -3,8 +3,8 @@ import {CalendarService} from './calendar.service';
 import {DayPilot, DayPilotCalendarComponent} from 'daypilot-pro-angular';
 import {CreateComponent} from './create/create.component';
 import {VisitModel} from '../models/visitModel.model';
-import {User} from "../models/user.model";
-import {Router} from "@angular/router";
+import {User} from '../models/user.model';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'calendar-component',
@@ -29,7 +29,7 @@ export class CalendarComponent implements AfterViewInit {
     locale: 'pl-pl',
     showMonths: 3,
     skipMonths: 3,
-    selectMode: "week",
+    selectMode: 'week',
     cellWidth: 30,
     cellHeight: 25,
     dayHeaderHeight: 23,
@@ -47,9 +47,13 @@ export class CalendarComponent implements AfterViewInit {
     cellDuration: 15,
 
     onTimeRangeSelected: args => {
-      this.create.show(args);
+      if (args.start < CalendarService.minimalDate())
+        this.calendar.control.message('Model wizyty nie może być utworzony ze wsteczną datą!');
+      else
+        this.create.show(args);
     },
-    eventMoveHandling: "Update",
+
+    eventMoveHandling: 'Update',
     onEventMove: args => {
       let data: VisitModel = {
         id: args.e.id(),
@@ -60,7 +64,8 @@ export class CalendarComponent implements AfterViewInit {
         this.calendar.control.message('Model wizyty został zmieniony');
       });
     },
-    eventDeleteHandling: "Update",
+
+    eventDeleteHandling: 'Update',
     onEventDelete: args => {
       this.service.deleteVisitModel(args.e.id()).subscribe(() => {
         this.calendar.control.message('Model wizyty został usunięty');

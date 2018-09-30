@@ -41,6 +41,24 @@ export class CalendarService {
     return this.http.get(this.url + '/visits/book/' + idVisit + '?idUser=' + idUser);
   }
 
+  public static minimalDate() {
+    let today = new Date();
+    let dd;
+    let mm;
+    if (today.getDate() < 10) {
+      dd = '0' + today.getDate();
+    } else {
+      dd = today.getDate();
+    }
+    if (today.getMonth() + 1 < 10) {
+      mm = '0' + (today.getMonth() + 1);
+    } else {
+      mm = today.getMonth() + 1;
+    }
+
+    return today.getFullYear() + '-' + mm + '-' + dd;
+  }
+
 }
 
 

@@ -18,6 +18,7 @@ export class CreateComponent implements OnInit {
   form: FormGroup;
   visitModel: VisitModel = new VisitModel;
   clinics: Clinic[];
+  minDate: String;
 
   constructor(private fb: FormBuilder, private router: Router, private service: CalendarService) {
     this.form = this.fb.group({
@@ -31,17 +32,10 @@ export class CreateComponent implements OnInit {
       .subscribe(data => {
         this.clinics = data;
       });
+    this.minDate = CalendarService.minimalDate();
   };
 
   show(args: any) {
-    this.form.setValue({
-      start: args.start.toString(),
-      end: args.end.toString(),
-    });
-    this.modal.show();
-  }
-
-  showEdit(args: VisitModel) {
     this.form.setValue({
       start: args.start.toString(),
       end: args.end.toString(),

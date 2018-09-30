@@ -49,7 +49,10 @@ export class PatientCalendarComponent implements AfterViewInit {
 
     onEventClicked: args => {
       let visit: Visit = this.events.find(a => a.id == args.e.id());
-      if (visit.user != null)
+      if (('' + visit.start + '').substring(0, 10) <= ('' + DayPilot.Date.today() + '').substring(0, 10)) {
+        this.calendar.control.message('Ten termin jest już nieaktualny!');
+      }
+      else if (visit.user != null)
         this.calendar.control.message('Ten termin jest już zarezerwowany!');
       else {
         let user: User = JSON.parse(sessionStorage.getItem('currentUser'));

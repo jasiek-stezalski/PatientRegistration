@@ -1,8 +1,8 @@
 <daypilot-modal #modal (close)="closed($event)">
 
   <div class="col-md-6">
-    <h2 class="text-center">Dodaj model wizyty:</h2>
-    <form>
+    <form class="form-signin">
+      <h2 class="text-center">Dodaj model wizyty:</h2>
 
       <div class="form-group">
         <label for="text">Nazwa: </label>
@@ -10,7 +10,7 @@
       </div>
       <div class="form-group">
         <label for="endDate">Termin ostatniej wizyty: </label>
-        <input [(ngModel)]="visitModel.endDate" name="endDate" class="form-control" id="endDate" type="date">
+        <input [(ngModel)]="visitModel.endDate" name="endDate" class="form-control" id="endDate" type="date" min="{{minDate}}">
       </div>
       <div class="form-group">
         <label for="dayInterval">Cykliczność wizyt: </label>
