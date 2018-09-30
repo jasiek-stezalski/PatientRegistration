@@ -1,20 +1,27 @@
 <daypilot-modal #modal (close)="closed($event)">
 
   <div class="col-md-6">
-    <form class="form-signin">
-      <h2 class="text-center">Dodaj model wizyty:</h2>
+    <form name="form" (ngSubmit)="f.form.valid && submit()" #f="ngForm" novalidate class="form-signin">
+      <h2 class="form-signin-heading">Dodaj model wizyty:</h2>
 
-      <div class="form-group">
-        <label for="text">Nazwa: </label>
-        <input [(ngModel)]="visitModel.text" name="text" class="form-control" id="text">
+      <div class="help-block" role="alert" *ngIf="f.submitted">Wypełnij wszystkie pola!<br><br></div>
+
+      <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !text.valid }">
+        <label for="text">Nazwa </label>
+        <input type="text" class="form-control" name="text" id="text" [(ngModel)]="visitModel.text"
+               #text="ngModel" required/>
       </div>
-      <div class="form-group">
-        <label for="endDate">Termin ostatniej wizyty: </label>
-        <input [(ngModel)]="visitModel.endDate" name="endDate" class="form-control" id="endDate" type="date" min="{{minDate}}">
+
+      <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !endDate.valid }">
+        <label for="endDate">Termin ostatniej wizyty </label>
+        <input type="date" class="form-control" name="endDate" id="endDate" [(ngModel)]="visitModel.endDate"
+               #endDate="ngModel" min="{{minDate}}" required/>
       </div>
-      <div class="form-group">
-        <label for="dayInterval">Cykliczność wizyt: </label>
-        <select [(ngModel)]="visitModel.dayInterval" name="dayInterval" id="dayInterval" type="text">
+
+      <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !dayInterval.valid }">
+        <label for="dayInterval">Cykliczność wizyt </label>
+        <select [(ngModel)]="visitModel.dayInterval" name="dayInterval" id="dayInterval" type="text"
+                #dayInterval="ngModel" required>
           <option value="1">Codziennie (od poniedziałku do piątku)</option>
           <option value="7">Co tydzień</option>
           <option value="14">Co 2 tygodnie</option>
@@ -22,36 +29,43 @@
           <option value="27">Co 4 tygodnie</option>
         </select>
       </div>
-      <div class="form-group">
-        <label for="minuteInterval">Czas trwania wizyty: </label>
-        <select [(ngModel)]="visitModel.minuteInterval" name="minuteInterval" id="minuteInterval" type="text">
+
+      <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !minuteInterval.valid }">
+        <label for="minuteInterval">Czas trwania wizyty </label>
+        <select [(ngModel)]="visitModel.minuteInterval" name="minuteInterval" id="minuteInterval" type="text"
+                #minuteInterval="ngModel" required>
           <option value="15">15 minut</option>
           <option value="30">30 minut</option>
           <option value="45">45 minut</option>
           <option value="60">60 minut</option>
         </select>
       </div>
-      <div class="form-group">
-        <label for="specialization">Specializacja: </label>
-        <input [(ngModel)]="visitModel.specialization" name="specialization" class="form-control" id="specialization">
+
+      <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !specialization.valid }">
+        <label for="specialization">Specializacja </label>
+        <input [(ngModel)]="visitModel.specialization" name="specialization" class="form-control" id="specialization"
+               #specialization="ngModel" required>
       </div>
-      <div class="form-group">
-        <label for="careType">Rodzaj usługi: </label>
-        <select [(ngModel)]="visitModel.careType" name="careType" id="careType" type="text">
+
+      <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !careType.valid }">
+        <label for="careType">Rodzaj usługi </label>
+        <select [(ngModel)]="visitModel.careType" name="careType" id="careType" type="text" #careType="ngModel"
+                required>
           <option value="Publiczna">Publiczna</option>
           <option value="Prywatna">Prywatna</option>
         </select>
       </div>
+
       <div class="form-group">
-        <label for="clinic">Placówka: </label>
-        <select [(ngModel)]="visitModel.id" name="clinic" type="text" *ngFor="let clinic of clinics"
-                id="clinic">
+        <label for="clinic">Placówka </label>
+        <select [(ngModel)]="visitModel.id" name="clinic" type="text" *ngFor="let clinic of clinics" id="clinic"
+                required>
           <option value={{clinic.id}}>{{clinic.name}}</option>
         </select>
       </div>
 
-      <button class="btn btn-success" (click)="submit()">Zapisz</button>
-      <button class="btn btn-success" (click)="cancel()">Zakończ</button>
+      <button class="btn btn-lg btn-primary btn-block" type="submit">Zapisz</button>
+      <button class="btn btn-lg btn-danger btn-block btn-cancel" type="button" (click)="cancel()">Zakończ</button>
     </form>
   </div>
 
