@@ -32,7 +32,6 @@ export class CreateComponent implements OnInit {
       .subscribe(data => {
         this.clinics = data;
       });
-    this.minDate = CalendarService.minimalDate();
   };
 
   show(args: any) {
@@ -40,6 +39,7 @@ export class CreateComponent implements OnInit {
       start: args.start.toString(),
       end: args.end.toString(),
     });
+    this.minDate = ('' + args.start + '').substring(0, 10);
     this.modal.show();
   }
 
