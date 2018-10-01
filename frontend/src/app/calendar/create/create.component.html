@@ -4,6 +4,8 @@
     <form name="form" (ngSubmit)="f.form.valid && submit()" #f="ngForm" novalidate class="form-signin">
       <h2 class="form-signin-heading">Dodaj model wizyty:</h2>
 
+      <div class="alert alert-danger" role="alert" *ngIf="errorMessage">{{errorMessage}}</div>
+
       <div class="help-block" role="alert" *ngIf="f.submitted">Wypełnij wszystkie pola!<br><br></div>
 
       <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !text.valid }">

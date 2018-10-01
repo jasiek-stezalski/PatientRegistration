@@ -19,6 +19,7 @@ export class CreateComponent implements OnInit {
   visitModel: VisitModel = new VisitModel;
   clinics: Clinic[];
   minDate: String;
+  errorMessage: string;
 
   constructor(private fb: FormBuilder, private router: Router, private service: CalendarService) {
     this.form = this.fb.group({
@@ -45,18 +46,21 @@ export class CreateComponent implements OnInit {
 
   submit() {
     let data = this.form.getRawValue();
-    if (data.start > this.visitModel.endDate)
-      console.log("cos nie tak");
-    this.visitModel.start = data.start;
-    this.visitModel.end = data.end;
-    this.visitModel.clinic = {
-      id: this.visitModel.id,
-    };
-    this.visitModel.user = JSON.parse(sessionStorage.getItem('currentUser'));
-    this.service.createVisitModel(this.visitModel).subscribe(result => {
-      this.modal.hide(result);
-    });
-
+    console.log(this.visitModel.endDate);
+    console.log(('' + data.start + '').substring(0, 10));
+    if (this.visitModel.endDate < ('' + data.start + '').substring(0, 10)) {
+      this.errorMessage = 'Błąd : Termin ostatniej wizyty nie może być wcześniej niż termin pierwszej wizyty!';
+    } else {
+      this.visitModel.start = data.start;
+      this.visitModel.end = data.end;
+      this.visitModel.clinic = {
+        id: this.visitModel.id,
+      };
+      this.visitModel.user = JSON.parse(sessionStorage.getItem('currentUser'));
+      this.service.createVisitModel(this.visitModel).subscribe(result => {
+        this.modal.hide(result);
+      });
+    }
   }
 
   cancel() {
