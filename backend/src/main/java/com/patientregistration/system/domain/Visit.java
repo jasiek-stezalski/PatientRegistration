@@ -38,8 +38,8 @@ public class Visit {
     private VisitModel visitModel;
 
     @ManyToOne
-    @JsonView(Views.Basic.class)
     @JoinColumn(name = "id_user")
+    @JsonView(Views.Basic.class)
     private User user;
 
     public Visit(LocalDateTime start, LocalDateTime end, String text, VisitModel visitModel) {

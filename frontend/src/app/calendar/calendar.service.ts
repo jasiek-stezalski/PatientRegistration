@@ -25,6 +25,10 @@ export class CalendarService {
     return this.http.get(this.url + '/visitModels?from=' + from.toString() + '&to=' + to.toString()) as Observable<any>;
   }
 
+  getVisitModel(idVisitModel: String | Number) {
+    return this.http.get(this.url + '/visitModels/' + idVisitModel);
+  }
+
   getVisitsInWeek(from: DayPilot.Date, to: DayPilot.Date) {
     return this.http.get(this.url + '/visits?from=' + from.toString() + '&to=' + to.toString()) as Observable<any>;
   }

@@ -7,6 +7,10 @@
   <select (ngModelChange)="changeCareType($event)" [ngModel]="filter.careType">
     <option *ngFor="let cat of careType" [ngValue]="cat">{{cat}}</option>
   </select>
+  Placówka:
+  <select (ngModelChange)="changeClinic($event)" [ngModel]="filter.clinic">
+    <option *ngFor="let cli of clinics" [ngValue]="cli">{{cli}}</option>
+  </select>
 
 
   <!--Filter: <input type="text" [ngModel]="filter.text" (ngModelChange)="changeText($event)"/>-->

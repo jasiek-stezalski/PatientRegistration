@@ -18,25 +18,32 @@ export class PatientCalendarComponent implements AfterViewInit {
   events: Visit[] = [];
   events2: Visit[] = [];
 
-  ////////
-
-  //mapa key = nazwa pola, value = (info czy używamy tego pola do filtracji + ewentualne dane jak filtrować)
+  itemMap: Map<String, Item> = new Map<String, Item>();
 
   careType: any[] = [
-    "-",
-    "Publiczna",
-    "Prywatna",
+    '-',
+    'Publiczna',
+    'Prywatna',
   ];
 
+  clinics: Array<String> = [];
+
   filter: any = {
-    careType: "-",
-    text: "",
-    shortOnly: false
+    careType: '-',
+    clinic: '-',
   };
 
-  ////////
-
   constructor(private service: CalendarService) {
+    let item: Item = {
+      isFilter: false,
+      name: '',
+    };
+    this.itemMap.set('careType', item);
+    let item2: Item = {
+      isFilter: false,
+      name: '',
+    };
+    this.itemMap.set('clinic', item2);
   }
 
   navigatorConfig: any = {
@@ -85,30 +92,30 @@ export class PatientCalendarComponent implements AfterViewInit {
 
     onBeforeEventRender: args => {
       switch (args.data.careType) {
-        case "cat1":
-          args.data.barColor = "#45818e";
+        case 'cat1':
+          args.data.barColor = '#45818e';
           break;
-        case "cat2":
-          args.data.barColor = "#f1c232";
+        case 'cat2':
+          args.data.barColor = '#f1c232';
           break;
-        case "cat3":
-          args.data.barColor = "#6aa84f";
+        case 'cat3':
+          args.data.barColor = '#6aa84f';
           break;
       }
       let careType = this.careType.find(c => c.id == args.data.careType);
       if (careType) {
         args.data.areas = [
-          {bottom: 5, left: 3, html: careType.name, style: "color: " + args.data.barColor}
+          {bottom: 5, left: 3, html: careType.name, style: 'color: ' + args.data.barColor}
         ];
       }
     },
 
     onEventFilter: args => {
-      var params = args.filter;
+      let params = args.filter;
       if (params.text && args.e.text().toLowerCase().indexOf(params.text.toLowerCase()) < 0) {
         args.visible = false;
       }
-      if (params.careType !== "any" && args.e.data.careType !== params.careType) {
+      if (params.careType !== 'any' && args.e.data.careType !== params.careType) {
         args.visible = false;
       }
       if (params.shortOnly && args.e.duration() > DayPilot.Duration.days(2)) {
@@ -126,6 +133,12 @@ export class PatientCalendarComponent implements AfterViewInit {
       this.events = result;
       this.events2 = result;
     });
+    this.service.getClinics()
+      .subscribe(data => {
+        data.forEach(i => {
+          this.clinics.push(i.name);
+        });
+      });
   }
 
   createClosed(args) {
@@ -152,39 +165,39 @@ export class PatientCalendarComponent implements AfterViewInit {
   }
 
 
-  //////////
-
-  changeText(val) {
-    this.filter.text = val;
-    this.applyFilter();
-  }
-
   changeCareType(val) {
-    this.events = this.events2;
-    if (val != "-")
-      this.events = this.events.filter(value => value.visitModel.careType == val);
+    this.itemMap.get('careType').name = val;
+    this.itemMap.get('careType').isFilter = val != '-';
+    this.doFilter();
   }
 
-  changeShort(val) {
-    this.filter.shortOnly = val;
-    this.applyFilter();
+  changeClinic(val) {
+    this.itemMap.get('clinic').name = val;
+    this.itemMap.get('clinic').isFilter = val != '-';
+    this.doFilter();
   }
+
+  doFilter() {
+    this.events = this.events2;
+
+    if (this.itemMap.get('careType').isFilter)
+      this.events = this.events.filter(value => value.visitModel.careType == this.itemMap.get('careType').name);
+    if (this.itemMap.get('clinic').isFilter)
+      this.events = this.events.filter(value => value.visitModel.clinic.name == this.itemMap.get('clinic').name);
+  }
+
 
   clearFilter() {
-    this.filter.careType = "any";
-    this.filter.text = "";
-    this.filter.shortOnly = false;
+    this.filter.careType = '';
+    this.filter.clinic = '';
     this.events = this.events2;
-    this.applyFilter();
+    this.itemMap.forEach(i => i.isFilter = false);
     return false;
   }
 
-  applyFilter() {
-    // @ts-ignore
-    this.calendar.control.events.filter(this.filter);
-  }
+}
 
-  ////////
-
-
+export class Item {
+  isFilter: Boolean;
+  name: String;
 }

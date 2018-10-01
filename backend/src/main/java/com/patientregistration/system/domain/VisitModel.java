@@ -58,6 +58,7 @@ public class VisitModel {
 
     @ManyToOne
     @JoinColumn(name = "id_clinic")
+    @JsonView(Views.Basic.class)
     private Clinic clinic;
 
     @OneToMany(mappedBy = "visitModel", cascade = CascadeType.ALL)
