@@ -62,12 +62,6 @@ public class VisitController {
     }
 
 
-
-
-
-
-
-
     // More accurate search
 
     @GetMapping("/visits/date")

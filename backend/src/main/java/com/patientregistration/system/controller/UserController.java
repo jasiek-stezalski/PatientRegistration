@@ -32,8 +32,6 @@ public class UserController {
                     new ResourceNotFoundException("User with username " + newUser.getUsername() + "already exist "),
                     HttpStatus.CONFLICT);
         }
-        newUser.setRole("USER");
-        newUser.setBlocked(false);
         return new ResponseEntity<>(userService.saveOrUpdate(newUser), HttpStatus.CREATED);
     }
 

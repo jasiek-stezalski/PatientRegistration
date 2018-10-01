@@ -2,6 +2,23 @@
   <daypilot-navigator [config]="navigatorConfig" [(date)]="config.startDate" #navigator></daypilot-navigator>
 </div>
 <div class="main">
+
+  Rodzaj usługi:
+  <select (ngModelChange)="changeCareType($event)" [ngModel]="filter.careType">
+    <option *ngFor="let cat of careType" [ngValue]="cat">{{cat}}</option>
+  </select>
+
+
+  <!--Filter: <input type="text" [ngModel]="filter.text" (ngModelChange)="changeText($event)"/>-->
+
+  <!--<label for="shortonly"><input type="checkbox" id="shortonly" [ngModel]="filter.shortOnly"-->
+  <!--(ngModelChange)="changeShort($event)"> Short Events Only</label>-->
+
+
+  <br><br>
+  <a href="" (click)="clearFilter()">Anuluj wyszukiwanie</a><br><br>
+
+
   <div class="buttons">
     <a href="#" (click)="navigatePrevious($event)"><<< Poprzedni tydzień</a>
     <a href="#" (click)="navigateToday($event)">Aktualny tydzień</a>

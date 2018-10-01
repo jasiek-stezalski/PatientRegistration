@@ -16,6 +16,25 @@ export class PatientCalendarComponent implements AfterViewInit {
   @ViewChild('create') create: CreateComponent;
 
   events: Visit[] = [];
+  events2: Visit[] = [];
+
+  ////////
+
+  //mapa key = nazwa pola, value = (info czy używamy tego pola do filtracji + ewentualne dane jak filtrować)
+
+  careType: any[] = [
+    "-",
+    "Publiczna",
+    "Prywatna",
+  ];
+
+  filter: any = {
+    careType: "-",
+    text: "",
+    shortOnly: false
+  };
+
+  ////////
 
   constructor(private service: CalendarService) {
   }
@@ -64,13 +83,49 @@ export class PatientCalendarComponent implements AfterViewInit {
 
     },
 
+    onBeforeEventRender: args => {
+      switch (args.data.careType) {
+        case "cat1":
+          args.data.barColor = "#45818e";
+          break;
+        case "cat2":
+          args.data.barColor = "#f1c232";
+          break;
+        case "cat3":
+          args.data.barColor = "#6aa84f";
+          break;
+      }
+      let careType = this.careType.find(c => c.id == args.data.careType);
+      if (careType) {
+        args.data.areas = [
+          {bottom: 5, left: 3, html: careType.name, style: "color: " + args.data.barColor}
+        ];
+      }
+    },
+
+    onEventFilter: args => {
+      var params = args.filter;
+      if (params.text && args.e.text().toLowerCase().indexOf(params.text.toLowerCase()) < 0) {
+        args.visible = false;
+      }
+      if (params.careType !== "any" && args.e.data.careType !== params.careType) {
+        args.visible = false;
+      }
+      if (params.shortOnly && args.e.duration() > DayPilot.Duration.days(2)) {
+        args.visible = false;
+      }
+    }
+
 
   };
 
   ngAfterViewInit(): void {
     let from = this.calendar.control.visibleStart();
     let to = this.calendar.control.visibleEnd();
-    this.service.getVisitsInWeek(from, to).subscribe(result => this.events = result);
+    this.service.getVisitsInWeek(from, to).subscribe(result => {
+      this.events = result;
+      this.events2 = result;
+    });
   }
 
   createClosed(args) {
@@ -95,5 +150,41 @@ export class PatientCalendarComponent implements AfterViewInit {
     event.preventDefault();
     this.config.startDate = DayPilot.Date.today();
   }
+
+
+  //////////
+
+  changeText(val) {
+    this.filter.text = val;
+    this.applyFilter();
+  }
+
+  changeCareType(val) {
+    this.events = this.events2;
+    if (val != "-")
+      this.events = this.events.filter(value => value.visitModel.careType == val);
+  }
+
+  changeShort(val) {
+    this.filter.shortOnly = val;
+    this.applyFilter();
+  }
+
+  clearFilter() {
+    this.filter.careType = "any";
+    this.filter.text = "";
+    this.filter.shortOnly = false;
+    this.events = this.events2;
+    this.applyFilter();
+    return false;
+  }
+
+  applyFilter() {
+    // @ts-ignore
+    this.calendar.control.events.filter(this.filter);
+  }
+
+  ////////
+
 
 }
