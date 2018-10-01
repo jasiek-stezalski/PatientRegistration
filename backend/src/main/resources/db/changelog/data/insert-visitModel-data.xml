@@ -28,7 +28,7 @@
             <column name="day_interval" value="7"/>
             <column name="minute_interval" value="60"/>
             <column name="specialization" value="Kardiologia"/>
-            <column name="care_type" value="prywatna"/>
+            <column name="care_type" value="Prywatna"/>
             <column name="id_clinic" value="2"/>
             <column name="id_doctor" value="2"/>
         </insert>
