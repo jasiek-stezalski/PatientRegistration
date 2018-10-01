@@ -16,7 +16,7 @@ public class VisitModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_visit_model", nullable = false)
+    @Column(name = "id", nullable = false)
     @JsonView(Views.Basic.class)
     private Long id;
 

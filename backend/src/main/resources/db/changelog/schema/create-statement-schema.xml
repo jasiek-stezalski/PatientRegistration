@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet id="1" author="jstezalski" context="default">
+
+        <createTable tableName="STATEMENT">
+            <column name="ID" type="BIGINT">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="CONTENT" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="DATE" type="DATE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="READ" type="BOOLEAN">
+                <constraints nullable="false"/>
+            </column>
+            <column name="ID_USER" type="BIGINT">
+                <constraints foreignKeyName="ID_USER" nullable="false"/>
+            </column>
+        </createTable>
+        <addAutoIncrement tableName="STATEMENT" columnDataType="BIGINT" columnName="ID"/>
+    </changeSet>
+
+</databaseChangeLog>

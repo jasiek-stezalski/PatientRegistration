@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet id="1" author="jstezalski" context="default">
+
+        <insert tableName="users">
+            <column name="username" value="doctor1"/>
+            <!--Password: doctor1-->
+            <column name="password" value="$2a$10$ddAt87QuE/cqw74BAdjWJOHPbAomcsoMhhliMaiwqD5r0hqvQIyMC"/>
+            <column name="first_name" value="doctor1"/>
+            <column name="last_name" value="doctor1"/>
+            <column name="role" value="DOCTOR"/>
+            <column name="email" value="doctor1@email.com"/>
+            <column name="blocked" value="false"/>
+            <column name="pesel" value="11111111111"/>
+            <column name="phone_number" value="111111111"/>
+        </insert>
+        <insert tableName="users">
+            <column name="username" value="doctor2"/>
+            <!--Password: doctor2-->
+            <column name="password" value="$2a$10$kxdpA4jh9mpPGeRpYhz/uePwpty4tmfGDlrej76NlbncoGS2Yj9lq"/>
+            <column name="first_name" value="doctor2"/>
+            <column name="last_name" value="doctor2"/>
+            <column name="role" value="DOCTOR"/>
+            <column name="email" value="doctor2@email.com"/>
+            <column name="blocked" value="false"/>
+            <column name="pesel" value="22222222222"/>
+            <column name="phone_number" value="222222222"/>
+        </insert>
+        <insert tableName="users">
+            <column name="username" value="doctor3"/>
+            <!--Password: doctor3-->
+            <column name="password" value="$2a$10$quuBY2C2wt41bMX7KP968OgrSpxAjWkzcRNaMF6E.b6gbimUBO3ay"/>
+            <column name="first_name" value="doctor3"/>
+            <column name="last_name" value="doctor3"/>
+            <column name="role" value="DOCTOR"/>
+            <column name="email" value="doctor3@email.com"/>
+            <column name="blocked" value="false"/>
+            <column name="pesel" value="33333333333"/>
+            <column name="phone_number" value="333333333"/>
+        </insert>
+        <insert tableName="users">
+            <column name="username" value="user1"/>
+            <!--Password: user1-->
+            <column name="password" value="$2a$10$28cqPSFV1V8WQpVZxbxwFuWlFDjvrddKQHbbUY9kLRCQkI1/aD9Oe"/>
+            <column name="first_name" value="user1"/>
+            <column name="last_name" value="user1"/>
+            <column name="role" value="USER"/>
+            <column name="email" value="user1@email.com"/>
+            <column name="blocked" value="false"/>
+            <column name="pesel" value="44444444444"/>
+            <column name="phone_number" value="444444444"/>
+        </insert>
+        <insert tableName="users">
+            <column name="username" value="user2"/>
+            <!--Password: user2-->
+            <column name="password" value="$2a$10$z.gvGyKRd75KEgiCsTpy1eaakaLun/apsh8MNdiRQtMOwcJDEKvAa"/>
+            <column name="first_name" value="user2"/>
+            <column name="last_name" value="user2"/>
+            <column name="role" value="USER"/>
+            <column name="email" value="user2@email.com"/>
+            <column name="blocked" value="false"/>
+            <column name="pesel" value="55555555555"/>
+            <column name="phone_number" value="555555555"/>
+        </insert>
+        <insert tableName="users">
+            <column name="username" value="user3"/>
+            <!--Password: user3-->
+            <column name="password" value="$2a$10$0xMl2A6ot2OgxiefuiCkiux3IjwBV6zEp9Rcp5G8Cp6nuvRaOHwbO"/>
+            <column name="first_name" value="user3"/>
+            <column name="last_name" value="user3"/>
+            <column name="role" value="USER"/>
+            <column name="email" value="user3@email.com"/>
+            <column name="blocked" value="false"/>
+            <column name="pesel" value="66666666666"/>
+            <column name="phone_number" value="666666666"/>
+        </insert>
+
+
+    </changeSet>
+
+</databaseChangeLog>

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet id="1" author="jstezalski" context="default">
+
+        <createTable tableName="VISIT_MODEL">
+            <column name="ID" type="BIGINT">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="TEXT" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="START" type="DATETIME">
+                <constraints nullable="false"/>
+            </column>
+            <column name="END_" type="DATETIME">
+                <constraints nullable="false"/>
+            </column>
+            <column name="END_DATE" type="DATE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="DAY_INTERVAL" type="INTEGER(10)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="MINUTE_INTERVAL" type="INTEGER(10)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="SPECIALIZATION" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="CARE_TYPE" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="ID_CLINIC" type="BIGINT">
+                <constraints foreignKeyName="ID_CLINIC" nullable="false"/>
+            </column>
+            <column name="ID_DOCTOR" type="BIGINT">
+                <constraints foreignKeyName="ID_DOCTOR" nullable="false"/>
+            </column>
+        </createTable>
+        <addAutoIncrement tableName="VISIT_MODEL" columnDataType="BIGINT" columnName="ID"/>
+    </changeSet>
+
+</databaseChangeLog>

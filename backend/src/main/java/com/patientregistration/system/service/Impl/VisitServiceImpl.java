@@ -2,6 +2,7 @@ package com.patientregistration.system.service.Impl;
 
 import com.patientregistration.system.domain.User;
 import com.patientregistration.system.domain.Visit;
+import com.patientregistration.system.domain.VisitModel;
 import com.patientregistration.system.exception.ResourceNotFoundException;
 import com.patientregistration.system.repository.VisitRepository;
 import com.patientregistration.system.service.UserService;
@@ -59,6 +60,11 @@ public class VisitServiceImpl implements VisitService {
     @Override
     public void delete(Long idVisit) {
         visitRepository.deleteById(idVisit);
+    }
+
+    @Override
+    public List<Visit> findAllByVisitModel(VisitModel visitModel) {
+        return visitRepository.findAllByVisitModel(visitModel);
     }
 
     // More accurate search

@@ -9,7 +9,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
-import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -21,16 +20,15 @@ import java.util.List;
 public class User implements UserDetails {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @Column(name = "id_user", nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", nullable = false)
     private Long id;
 
     @NotEmpty
-    @Column(name = "username", nullable = false)
+    @Column(name = "username", nullable = false, unique = true)
     private String username;
 
     @NotEmpty
-    @Min(6)
     @Column(name = "password", nullable = false)
     private String password;
 
@@ -63,19 +61,10 @@ public class User implements UserDetails {
     @Column(name = "phone_number")
     private String phoneNumber;
 
-//    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-//    private List<VisitModel> visitModels;
-
-//    @OneToMany
-//    @JoinColumn(name = "id_user")
-//    private List<VisitHour> visitHours;
-
     @OneToMany
     @JoinColumn(name = "id_user")
     @JsonBackReference
     private List<Statement> statements;
-
-
 
 
     @JsonIgnore

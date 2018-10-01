@@ -70,7 +70,16 @@ public class VisitModelServiceImpl implements VisitModelService {
                 LocalDateTime endTerm = LocalDateTime.parse(visitDate.toString() + " " + visitHour.toString(), formatter);
                 if (endTerm.toLocalTime().isAfter(endHour)) {
                     newVisitModel.setEnd(startTerm);
-                    visitModelRepository.save(newVisitModel);
+                    VisitModel savedVisitModel = visitModelRepository.save(newVisitModel);
+                    if (visitService.findAllByVisitModel(savedVisitModel).isEmpty()) {
+                        visitService.save(new Visit(
+                                startTerm,
+                                endTerm,
+                                startTerm.getHour() + " : " + (startTerm.getMinute() < 10 ? startTerm.getMinute() + "0" : startTerm.getMinute())
+                                , newVisitModel));
+                        newVisitModel.setEnd(endTerm);
+                        visitModelRepository.save(newVisitModel);
+                    }
                     break;
                 } else {
                     visitService.save(new Visit(

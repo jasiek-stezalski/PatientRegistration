@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet id="1" author="jstezalski" context="default">
+
+        <insert tableName="CLINIC">
+            <column name="name" value="clinic1"/>
+            <column name="medical_center" value="mediacalCenter1"/>
+            <column name="address" value="address1"/>
+            <column name="city" value="city1"/>
+            <column name="phone_number" value="111222333"/>
+        </insert>
+        <insert tableName="CLINIC">
+            <column name="name" value="clinic2"/>
+            <column name="medical_center" value="mediacalCenter1"/>
+            <column name="address" value="address2"/>
+            <column name="city" value="city2"/>
+            <column name="phone_number" value="333222111"/>
+        </insert>
+        <insert tableName="CLINIC">
+            <column name="name" value="clinic3"/>
+            <column name="medical_center" value="mediacalCenter1"/>
+            <column name="address" value="address3"/>
+            <column name="city" value="city1"/>
+            <column name="phone_number" value="222333111"/>
+        </insert>
+        <insert tableName="CLINIC">
+            <column name="name" value="clinic4"/>
+            <column name="medical_center" value="mediacalCenter2"/>
+            <column name="address" value="address4"/>
+            <column name="city" value="city2"/>
+            <column name="phone_number" value="222111333"/>
+        </insert>
+        <insert tableName="CLINIC">
+            <column name="name" value="clinic5"/>
+            <column name="medical_center" value="mediacalCenter2"/>
+            <column name="address" value="address5"/>
+            <column name="city" value="city2"/>
+            <column name="phone_number" value="444333222"/>
+        </insert>
+        <insert tableName="CLINIC">
+            <column name="name" value="clinic6"/>
+            <column name="medical_center" value="mediacalCenter2"/>
+            <column name="address" value="address6"/>
+            <column name="city" value="city1"/>
+            <column name="phone_number" value="222333444"/>
+        </insert>
+
+    </changeSet>
+
+</databaseChangeLog>

@@ -37,7 +37,6 @@ public class UserController {
         return new ResponseEntity<>(userService.saveOrUpdate(newUser), HttpStatus.CREATED);
     }
 
-    // this is the login api/service
     @GetMapping("/account/login")
     public Principal user(Principal principal) {
         logger.info("user logged " + principal);

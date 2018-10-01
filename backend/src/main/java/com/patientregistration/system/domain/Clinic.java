@@ -12,7 +12,7 @@ public class Clinic {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_clinic", nullable = false)
+    @Column(name = "id", nullable = false)
     private Long id;
 
     @Column(name = "name", nullable = false)
@@ -29,9 +29,5 @@ public class Clinic {
 
     @Column(name = "phone_number")
     private String phoneNumber;
-
-//    @OneToMany
-//    @JoinColumn(name = "id_clinic")
-//    private List<VisitModel> visitModels;
 
 }

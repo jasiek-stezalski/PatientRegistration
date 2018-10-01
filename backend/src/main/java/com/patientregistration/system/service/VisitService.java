@@ -1,6 +1,7 @@
 package com.patientregistration.system.service;
 
 import com.patientregistration.system.domain.Visit;
+import com.patientregistration.system.domain.VisitModel;
 
 import java.sql.Date;
 import java.time.LocalDateTime;
@@ -19,6 +20,8 @@ public interface VisitService {
     Visit bookVisit(Long idVisit, Long idUser);
 
     void delete(Long idVisit);
+
+    List<Visit> findAllByVisitModel(VisitModel savedVisitModel);
 
     // More accurate search
 
@@ -85,5 +88,4 @@ public interface VisitService {
     List<Visit> findAllBySpecializationByCityByIdClinicByCareTypeForWeek(String specialization, String city, Long idClinic, String careType, Date startDate);
 
     List<Visit> findAllByIdDoctorBySpecializationByCityByIdClinicByCareTypeForWeek(Long idDoctor, String specialization, String city, Long idClinic, String careType, Date startDate);
-
 }

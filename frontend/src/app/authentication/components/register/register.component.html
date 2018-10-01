@@ -43,7 +43,7 @@
       <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !password.valid }">
         <label for="password">Hasło*</label>
         <input type="password" class="form-control" name="password" id="password" [(ngModel)]="user.password"
-               #password="ngModel" required minlength="4"/>
+               #password="ngModel" required minlength="6"/>
         <div *ngIf="f.submitted && !password.valid" class="help-block">
 
           <div *ngIf="password.errors.required">Hasło jest wymagane</div>
@@ -55,7 +55,7 @@
       <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !confirmPassword.valid }">
         <label for="confirmPassword">Powtórz hasło*</label>
         <input type="password" class="form-control" name="confirmPassword" id="confirmPassword"
-               [(ngModel)]="user.confirmPassword" #confirmPassword="ngModel" required minlength="4"/>
+               [(ngModel)]="user.confirmPassword" #confirmPassword="ngModel" required minlength="6"/>
         <div *ngIf="f.submitted && !confirmPassword.valid" class="help-block">
 
           <div *ngIf="confirmPassword.errors.required">Powtórzone hasło jest wymagane</div>

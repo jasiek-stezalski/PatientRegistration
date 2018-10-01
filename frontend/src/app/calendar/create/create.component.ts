@@ -45,6 +45,8 @@ export class CreateComponent implements OnInit {
 
   submit() {
     let data = this.form.getRawValue();
+    if (data.start > this.visitModel.endDate)
+      console.log("cos nie tak");
     this.visitModel.start = data.start;
     this.visitModel.end = data.end;
     this.visitModel.clinic = {
