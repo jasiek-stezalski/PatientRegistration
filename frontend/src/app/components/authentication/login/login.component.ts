@@ -1,7 +1,7 @@
 import {Component, OnInit, ViewEncapsulation} from '@angular/core';
-import {AuthService} from "../../services/auth.service";
-import {Router} from "@angular/router";
-import {User} from "../../../models/user.model";
+import {Router} from '@angular/router';
+import {User} from '../../../models/user.model';
+import {UserService} from '../../../services/user.service';
 
 
 @Component({
@@ -14,19 +14,19 @@ export class LoginComponent implements OnInit {
   user: User = new User();
   errorMessage: string;
 
-  constructor(private authService: AuthService, private router: Router) {
+  constructor(private userService: UserService, private router: Router) {
   }
 
   ngOnInit() {
   }
 
   login() {
-    this.authService.logIn(this.user)
+    this.userService.logIn(this.user)
       .subscribe(() => {
           this.router.navigate(['/profile']);
         }, () => {
-          this.errorMessage = "Błąd : Login lub hasło są nieprawidłowe";
+          this.errorMessage = 'Błąd : Login lub hasło są nieprawidłowe';
         }
-      )
+      );
   }
 }

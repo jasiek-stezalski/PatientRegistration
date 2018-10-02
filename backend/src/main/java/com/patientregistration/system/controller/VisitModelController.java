@@ -15,6 +15,7 @@ import java.util.List;
 
 @CrossOrigin(origins = "http://localhost:4200", maxAge = 3600)
 @RestController
+@RequestMapping("/visitModels")
 public class VisitModelController {
 
     private VisitModelService visitModelService;
@@ -23,7 +24,7 @@ public class VisitModelController {
         this.visitModelService = visitModelService;
     }
 
-    @GetMapping("/visitModels")
+    @GetMapping("/")
     @JsonSerialize(using = LocalDateTimeSerializer.class)
     @JsonView(Views.Basic.class)
     public List<VisitModel> getAllVisitModelsInWeek(@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime from,
@@ -31,7 +32,7 @@ public class VisitModelController {
         return visitModelService.findBetween(from, to);
     }
 
-    @GetMapping("/visitModels/{id}")
+    @GetMapping("/{id}")
     @JsonView(Views.Basic.class)
     public VisitModel getVisitModelById(@PathVariable(value = "id") Long idVisitModel) {
         System.out.println("to się wywołuje");
@@ -40,20 +41,20 @@ public class VisitModelController {
         return byIdVisitModel;
     }
 
-    @PostMapping("/visitModels")
+    @PostMapping("/")
     @JsonSerialize(using = LocalDateTimeSerializer.class)
     public VisitModel createVisitModel(@RequestBody VisitModel data) {
         return visitModelService.save(data);
     }
 
-    @PutMapping("/visitModels")
+    @PutMapping("/")
     @JsonSerialize(using = LocalDateTimeSerializer.class)
     @JsonView(Views.Basic.class)
     public VisitModel moveEvent(@RequestBody VisitModel data) {
         return visitModelService.move(data);
     }
 
-    @DeleteMapping("/visitModels/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteVisitModel(@PathVariable(value = "id") Long idVisitModel) {
         visitModelService.delete(idVisitModel);
 

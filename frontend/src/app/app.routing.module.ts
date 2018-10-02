@@ -1,14 +1,14 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 
-import {UserComponent} from './user/user.component';
-import {AddUserComponent} from './user/add-user.component';
-import {CalendarComponent} from './calendar/calendar.component';
-import {PatientCalendarComponent} from './calendar/patient/patientCalendar.component';
-import {UrlPermission} from './authentication/urlPermission/url.permission';
-import {LoginComponent} from './authentication/components/login/login.component';
-import {HomeComponent} from './authentication/components/home/home.component';
-import {RegisterComponent} from './authentication/components/register/register.component';
+import {UserComponent} from './components/user/user.component';
+import {AddUserComponent} from './components/user/add/add-user.component';
+import {CalendarComponent} from './components/calendar/calendar.component';
+import {PatientCalendarComponent} from './components/calendar/patient/patientCalendar.component';
+import {UrlPermission} from './components/authentication/urlPermission/url.permission';
+import {LoginComponent} from './components/authentication/login/login.component';
+import {HomeComponent} from './components/authentication/home/home.component';
+import {RegisterComponent} from './components/authentication/register/register.component';
 
 const routes: Routes = [
   {path: 'users', component: UserComponent},

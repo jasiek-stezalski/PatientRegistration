@@ -3,21 +3,21 @@ import {NgModule} from '@angular/core';
 import {FormsModule} from '@angular/forms';
 
 import {AppComponent} from './app.component';
-import {UserComponent} from './user/user.component';
+import {UserComponent} from './components/user/user.component';
 import {AppRoutingModule} from './app.routing.module';
-import {UserService} from './user/user.service';
+import {UserService} from './services/user.service';
 import {HttpClientModule} from '@angular/common/http';
-import {AddUserComponent} from './user/add-user.component';
-import {CalendarService} from './calendar/calendar.service';
-import {CalendarModule} from './calendar/calendar.module';
-import {LoginComponent} from './authentication/components/login/login.component';
-import {AuthService} from './authentication/services/auth.service';
-import {UrlPermission} from './authentication/urlPermission/url.permission';
-import {AccountService} from './authentication/services/account.service';
-import {HomeComponent} from './authentication/components/home/home.component';
-import {RegisterComponent} from './authentication/components/register/register.component';
-import {HttpModule} from "@angular/http";
-import {UrlPermissionDoctor} from "./authentication/urlPermission/url.permissionDoctor";
+import {AddUserComponent} from './components/user/add/add-user.component';
+import {VisitModelService} from './services/visitModel.service';
+import {CalendarModule} from './components/calendar/calendar.module';
+import {LoginComponent} from './components/authentication/login/login.component';
+import {UrlPermission} from './components/authentication/urlPermission/url.permission';
+import {HomeComponent} from './components/authentication/home/home.component';
+import {RegisterComponent} from './components/authentication/register/register.component';
+import {HttpModule} from '@angular/http';
+import {UrlPermissionDoctor} from './components/authentication/urlPermission/url.permissionDoctor';
+import {VisitService} from './services/visit.services';
+import {ClinicService} from './services/clinic.service';
 
 @NgModule({
   declarations: [
@@ -36,7 +36,7 @@ import {UrlPermissionDoctor} from "./authentication/urlPermission/url.permission
     FormsModule,
     CalendarModule
   ],
-  providers: [UserService, CalendarService, AuthService, AccountService, UrlPermission, UrlPermissionDoctor],
+  providers: [UserService, VisitModelService, VisitService, ClinicService, UrlPermission, UrlPermissionDoctor],
   bootstrap: [AppComponent]
 })
 export class AppModule {

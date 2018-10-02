@@ -54,6 +54,7 @@ public class VisitModel {
 
     @ManyToOne
     @JoinColumn(name = "id_doctor")
+    @JsonView(Views.Basic.class)
     private User user;
 
     @ManyToOne

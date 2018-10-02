@@ -1,9 +1,9 @@
 import {AfterViewInit, Component, ViewChild, ViewEncapsulation} from '@angular/core';
-import {CalendarService} from './calendar.service';
+import {VisitModelService} from '../../services/visitModel.service';
 import {DayPilot, DayPilotCalendarComponent} from 'daypilot-pro-angular';
 import {CreateComponent} from './create/create.component';
-import {VisitModel} from '../models/visitModel.model';
-import {User} from '../models/user.model';
+import {VisitModel} from '../../models/visitModel.model';
+import {User} from '../../models/user.model';
 import {Router} from '@angular/router';
 
 @Component({
@@ -20,7 +20,7 @@ export class CalendarComponent implements AfterViewInit {
   events: any[] = [];
   currentUser: User;
 
-  constructor(public router: Router, private service: CalendarService) {
+  constructor(public router: Router, private service: VisitModelService) {
     this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
   }
 
@@ -47,7 +47,7 @@ export class CalendarComponent implements AfterViewInit {
     cellDuration: 15,
 
     onTimeRangeSelected: args => {
-      if (args.start < CalendarService.minimalDate())
+      if (args.start < VisitModelService.minimalDate())
         this.calendar.control.message('Model wizyty nie może być utworzony ze wsteczną datą!');
       else
         this.create.show(args);

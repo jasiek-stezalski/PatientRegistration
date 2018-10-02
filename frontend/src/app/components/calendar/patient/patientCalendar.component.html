@@ -4,20 +4,17 @@
 <div class="main">
 
   Rodzaj usługi:
-  <select (ngModelChange)="changeCareType($event)" [ngModel]="filter.careType">
+  <select (ngModelChange)="changeCareType($event)" [ngModel]="filter.careType" id="DropList">
     <option *ngFor="let cat of careType" [ngValue]="cat">{{cat}}</option>
   </select>
   Placówka:
   <select (ngModelChange)="changeClinic($event)" [ngModel]="filter.clinic">
     <option *ngFor="let cli of clinics" [ngValue]="cli">{{cli}}</option>
   </select>
-
-
-  <!--Filter: <input type="text" [ngModel]="filter.text" (ngModelChange)="changeText($event)"/>-->
-
-  <!--<label for="shortonly"><input type="checkbox" id="shortonly" [ngModel]="filter.shortOnly"-->
-  <!--(ngModelChange)="changeShort($event)"> Short Events Only</label>-->
-
+  Lekarz:
+  <select (ngModelChange)="changeDoctor($event)" [ngModel]="filter.doctor">
+    <option *ngFor="let doc of doctors" [ngValue]="doc">{{doc}}</option>
+  </select>
 
   <br><br>
   <a href="" (click)="clearFilter()">Anuluj wyszukiwanie</a><br><br>

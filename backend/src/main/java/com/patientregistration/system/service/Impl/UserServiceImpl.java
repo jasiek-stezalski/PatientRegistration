@@ -57,4 +57,9 @@ public class UserServiceImpl implements UserService {
         userRepository.deleteById(idUser);
     }
 
+    @Override
+    public List<User> findUsersByRole(String role) {
+        return userRepository.findAllByRole(role);
+    }
+
 }

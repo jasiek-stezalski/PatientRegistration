@@ -3,7 +3,7 @@ import {NgModule} from "@angular/core";
 import {CalendarComponent} from "./calendar.component";
 import {DayPilotModule} from "daypilot-pro-angular";
 import {HttpClientModule} from "@angular/common/http";
-import {CalendarService} from './calendar.service';
+import {VisitModelService} from '../../services/visitModel.service';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {PatientCalendarComponent} from './patient/patientCalendar.component';
 import {CreateComponent} from './create/create.component';
@@ -22,6 +22,6 @@ import {CreateComponent} from './create/create.component';
     CreateComponent
   ],
   exports:      [ CalendarComponent, PatientCalendarComponent ],
-  providers:    [ CalendarService ]
+  providers:    [ VisitModelService ]
 })
 export class CalendarModule { }

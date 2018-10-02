@@ -1,5 +1,6 @@
 package com.patientregistration.system.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonView;
 import com.patientregistration.system.domain.View.Views;
 import lombok.Data;
@@ -39,6 +40,7 @@ public class Clinic {
     private String phoneNumber;
 
     @OneToMany(mappedBy = "clinic", cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<VisitModel> visitModels;
 
 }

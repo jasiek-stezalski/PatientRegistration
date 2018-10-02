@@ -9,6 +9,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
+@RequestMapping("/statements")
 public class StatementController {
 
     private StatementService statementService;
@@ -17,22 +18,22 @@ public class StatementController {
         this.statementService = statementService;
     }
 
-    @GetMapping("/statements")
+    @GetMapping("/")
     public List<Statement> getAllStatements() {
         return statementService.findAllStatements();
     }
 
-    @GetMapping("/statements/{id}")
+    @GetMapping("/{id}")
     public Statement getStatementById(@PathVariable(value = "id") Long idStatement) {
         return statementService.findByStatementId(idStatement);
     }
 
-    @PostMapping("/statements")
+    @PostMapping("/")
     public Statement createStatement(@Valid @RequestBody Statement statement) {
         return statementService.saveOrUpdate(statement);
     }
 
-    @DeleteMapping("/statements/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteStatement(@PathVariable(value = "id") Long idStatement) {
         statementService.delete(idStatement);
 

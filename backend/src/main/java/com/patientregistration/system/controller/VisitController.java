@@ -16,6 +16,7 @@ import java.util.List;
 
 @CrossOrigin(origins = "http://localhost:4200", maxAge = 3600)
 @RestController
+@RequestMapping("/visits")
 public class VisitController {
 
     private VisitService visitService;
@@ -24,7 +25,7 @@ public class VisitController {
         this.visitService = visitService;
     }
 
-    @GetMapping("/visits")
+    @GetMapping("/")
     @JsonSerialize(using = LocalDateTimeSerializer.class)
     @JsonView(Views.Basic.class)
     public List<Visit> getAllVisitsInWeek(@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime from,
@@ -32,28 +33,28 @@ public class VisitController {
         return visitService.findBetween(from, to);
     }
 
-    @GetMapping("/visits/{id}")
+    @GetMapping("/{id}")
     public Visit getVisitById(@PathVariable(value = "id") Long idVisit) {
         return visitService.findByVisitId(idVisit);
     }
 
-    @GetMapping("/visits/book/{id}")
+    @GetMapping("/book/{id}")
     @JsonView(Views.Basic.class)
     public Visit bookVisit(@PathVariable(value = "id") Long idVisit, @RequestParam Long idUser) {
         return visitService.bookVisit(idVisit, idUser);
     }
 
-    @GetMapping("visits/user/{id}")
+    @GetMapping("/user/{id}")
     public List<Visit> getVisitByIdUser(@PathVariable(value = "id") Long idUser) {
         return visitService.findAllVisitsByIdUser(idUser);
     }
 
-    @PostMapping("/visits")
+    @PostMapping("/")
     public Visit createVisit(@Valid @RequestBody Visit visit) {
         return visitService.save(visit);
     }
 
-    @DeleteMapping("/visits/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteVisit(@PathVariable(value = "id") Long idVisit) {
         visitService.delete(idVisit);
 

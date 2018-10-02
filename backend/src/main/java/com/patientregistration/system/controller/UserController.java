@@ -14,6 +14,7 @@ import java.util.List;
 
 @CrossOrigin(origins = "http://localhost:4200", maxAge = 3600)
 @RestController
+@RequestMapping("/users")
 public class UserController {
 
     private UserService userService;
@@ -24,7 +25,7 @@ public class UserController {
         this.userService = userService;
     }
 
-    @PostMapping("/account/register")
+    @PostMapping("/")
     public ResponseEntity<?> createUser(@RequestBody User newUser) {
         if (userService.findUserByUsername(newUser.getUsername()) != null) {
             logger.error("username Already exist " + newUser.getUsername());
@@ -35,18 +36,18 @@ public class UserController {
         return new ResponseEntity<>(userService.saveOrUpdate(newUser), HttpStatus.CREATED);
     }
 
-    @GetMapping("/account/login")
+    @GetMapping("/login")
     public Principal user(Principal principal) {
         logger.info("user logged " + principal);
         return principal;
     }
 
-    @GetMapping("/users")
+    @GetMapping("/")
     public List<User> getAllUsers() {
         return userService.findAllUsers();
     }
 
-    @GetMapping("/users/{id}")
+    @GetMapping("/{id}")
     public User getUserById(@PathVariable(value = "id") Long idUser) {
         return userService.findUserById(idUser);
     }
@@ -56,7 +57,12 @@ public class UserController {
         return userService.findUserByUsername(username);
     }
 
-    @DeleteMapping("/users/{id}")
+    @GetMapping("/role")
+    public List<User> getUsersByRole(@RequestParam String role) {
+        return userService.findUsersByRole(role);
+    }
+
+    @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteUser(@PathVariable(value = "id") Long idUser) {
         userService.delete(idUser);
 

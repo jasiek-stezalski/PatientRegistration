@@ -1,9 +1,12 @@
 import {AfterViewInit, Component, ViewChild} from '@angular/core';
-import {CalendarService} from '../calendar.service';
+import {VisitModelService} from '../../../services/visitModel.service';
 import {DayPilot, DayPilotCalendarComponent} from 'daypilot-pro-angular';
 import {CreateComponent} from '../create/create.component';
-import {Visit} from '../../models/visit.model';
-import {User} from '../../models/user.model';
+import {Visit} from '../../../models/visit.model';
+import {User} from '../../../models/user.model';
+import {VisitService} from '../../../services/visit.services';
+import {UserService} from '../../../services/user.service';
+import {ClinicService} from '../../../services/clinic.service';
 
 @Component({
   selector: 'patientCalendar-component',
@@ -27,13 +30,16 @@ export class PatientCalendarComponent implements AfterViewInit {
   ];
 
   clinics: Array<String> = [];
+  doctors: Array<String> = [];
 
   filter: any = {
-    careType: '-',
-    clinic: '-',
+    careType: '',
+    clinic: '',
+    doctor: '',
   };
 
-  constructor(private service: CalendarService) {
+  constructor(private visitModelService: VisitModelService, private visitService: VisitService,
+              private userService: UserService, private clinicService: ClinicService) {
     let item: Item = {
       isFilter: false,
       name: '',
@@ -44,6 +50,34 @@ export class PatientCalendarComponent implements AfterViewInit {
       name: '',
     };
     this.itemMap.set('clinic', item2);
+    let item3: Item = {
+      isFilter: false,
+      name: '',
+    };
+    this.itemMap.set('doctor', item3);
+  }
+
+  ngAfterViewInit(): void {
+    let from = this.calendar.control.visibleStart();
+    let to = this.calendar.control.visibleEnd();
+    this.visitService.getVisitsInWeek(from, to).subscribe(result => {
+      this.events = result;
+      this.events2 = result;
+    });
+    this.clinics.push('-');
+    this.clinicService.getClinics()
+      .subscribe(data => {
+        data.forEach(i => {
+          this.clinics.push(i.name);
+        });
+      });
+    this.doctors.push('-');
+    this.userService.getUsersByRole('DOCTOR')
+      .subscribe(data => {
+        data.forEach(i => {
+          this.doctors.push(i.firstName + ' ' + i.lastName);
+        });
+      });
   }
 
   navigatorConfig: any = {
@@ -82,7 +116,7 @@ export class PatientCalendarComponent implements AfterViewInit {
         this.calendar.control.message('Ten termin jest już zarezerwowany!');
       else {
         let user: User = JSON.parse(sessionStorage.getItem('currentUser'));
-        this.service.bookVisit(args.e.id(), user.id).subscribe(() => {
+        this.visitService.bookVisit(args.e.id(), user.id).subscribe(() => {
           this.calendar.control.message('Zostałeś zapisany na wizytę!');
           this.ngAfterViewInit();
         });
@@ -90,56 +124,7 @@ export class PatientCalendarComponent implements AfterViewInit {
 
     },
 
-    onBeforeEventRender: args => {
-      switch (args.data.careType) {
-        case 'cat1':
-          args.data.barColor = '#45818e';
-          break;
-        case 'cat2':
-          args.data.barColor = '#f1c232';
-          break;
-        case 'cat3':
-          args.data.barColor = '#6aa84f';
-          break;
-      }
-      let careType = this.careType.find(c => c.id == args.data.careType);
-      if (careType) {
-        args.data.areas = [
-          {bottom: 5, left: 3, html: careType.name, style: 'color: ' + args.data.barColor}
-        ];
-      }
-    },
-
-    onEventFilter: args => {
-      let params = args.filter;
-      if (params.text && args.e.text().toLowerCase().indexOf(params.text.toLowerCase()) < 0) {
-        args.visible = false;
-      }
-      if (params.careType !== 'any' && args.e.data.careType !== params.careType) {
-        args.visible = false;
-      }
-      if (params.shortOnly && args.e.duration() > DayPilot.Duration.days(2)) {
-        args.visible = false;
-      }
-    }
-
-
   };
-
-  ngAfterViewInit(): void {
-    let from = this.calendar.control.visibleStart();
-    let to = this.calendar.control.visibleEnd();
-    this.service.getVisitsInWeek(from, to).subscribe(result => {
-      this.events = result;
-      this.events2 = result;
-    });
-    this.service.getClinics()
-      .subscribe(data => {
-        data.forEach(i => {
-          this.clinics.push(i.name);
-        });
-      });
-  }
 
   createClosed(args) {
     if (args.result) {
@@ -177,6 +162,12 @@ export class PatientCalendarComponent implements AfterViewInit {
     this.doFilter();
   }
 
+  changeDoctor(val) {
+    this.itemMap.get('doctor').name = val;
+    this.itemMap.get('doctor').isFilter = val != '-';
+    this.doFilter();
+  }
+
   doFilter() {
     this.events = this.events2;
 
@@ -184,12 +175,13 @@ export class PatientCalendarComponent implements AfterViewInit {
       this.events = this.events.filter(value => value.visitModel.careType == this.itemMap.get('careType').name);
     if (this.itemMap.get('clinic').isFilter)
       this.events = this.events.filter(value => value.visitModel.clinic.name == this.itemMap.get('clinic').name);
+    if (this.itemMap.get('doctor').isFilter)
+      this.events = this.events.filter(value =>
+        (value.visitModel.user.firstName + ' ' + value.visitModel.user.lastName) == this.itemMap.get('doctor').name);
   }
 
 
   clearFilter() {
-    this.filter.careType = '';
-    this.filter.clinic = '';
     this.events = this.events2;
     this.itemMap.forEach(i => i.isFilter = false);
     return false;
