@@ -31,11 +31,13 @@ export class PatientCalendarComponent implements AfterViewInit {
 
   clinics: Array<String> = [];
   doctors: Array<String> = [];
+  specialization = JSON.parse(JSON.stringify(this.visitModelService.specialization));
 
   filter: any = {
     careType: '',
     clinic: '',
     doctor: '',
+    specialization: '',
   };
 
   constructor(private visitModelService: VisitModelService, private visitService: VisitService,
@@ -55,6 +57,11 @@ export class PatientCalendarComponent implements AfterViewInit {
       name: '',
     };
     this.itemMap.set('doctor', item3);
+    let item4: Item = {
+      isFilter: false,
+      name: '',
+    };
+    this.itemMap.set('specialization', item4);
   }
 
   ngAfterViewInit(): void {
@@ -68,7 +75,7 @@ export class PatientCalendarComponent implements AfterViewInit {
     this.clinicService.getClinics()
       .subscribe(data => {
         data.forEach(i => {
-          this.clinics.push(i.name);
+          this.clinics.push(i.name + ', ' + i.address);
         });
       });
     this.doctors.push('-');
@@ -78,6 +85,8 @@ export class PatientCalendarComponent implements AfterViewInit {
           this.doctors.push(i.firstName + ' ' + i.lastName);
         });
       });
+    this.specialization.push('-');
+    this.specialization.sort();
   }
 
   navigatorConfig: any = {
@@ -168,16 +177,25 @@ export class PatientCalendarComponent implements AfterViewInit {
     this.doFilter();
   }
 
+  changeSpecialization(val) {
+    this.itemMap.get('specialization').name = val;
+    this.itemMap.get('specialization').isFilter = val != '-';
+    this.doFilter();
+  }
+
   doFilter() {
     this.events = this.events2;
 
     if (this.itemMap.get('careType').isFilter)
       this.events = this.events.filter(value => value.visitModel.careType == this.itemMap.get('careType').name);
     if (this.itemMap.get('clinic').isFilter)
-      this.events = this.events.filter(value => value.visitModel.clinic.name == this.itemMap.get('clinic').name);
+      this.events = this.events.filter(value =>
+        (value.visitModel.clinic.name + ', ' + value.visitModel.clinic.address) == this.itemMap.get('clinic').name);
     if (this.itemMap.get('doctor').isFilter)
       this.events = this.events.filter(value =>
         (value.visitModel.user.firstName + ' ' + value.visitModel.user.lastName) == this.itemMap.get('doctor').name);
+    if (this.itemMap.get('specialization').isFilter)
+      this.events = this.events.filter(value => value.visitModel.specialization == this.itemMap.get('specialization').name);
   }
 
 

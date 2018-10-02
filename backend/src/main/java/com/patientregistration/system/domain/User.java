@@ -1,5 +1,6 @@
 package com.patientregistration.system.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonView;
 import com.patientregistration.system.domain.View.Views;
@@ -74,6 +75,7 @@ public class User implements UserDetails {
 
     @OneToMany
     @JoinColumn(name = "id_user")
+    @JsonBackReference
     private List<Statement> statements;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)

@@ -43,10 +43,12 @@
         </select>
       </div>
 
-      <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !specialization.valid }">
+      <div class="form-group">
         <label for="specialization">Specializacja </label>
-        <input [(ngModel)]="visitModel.specialization" name="specialization" class="form-control" id="specialization"
-               #specialization="ngModel" required>
+        <select [(ngModel)]="visitModel.specialization" name="specialization" type="text" id="specialization"
+                required>
+          <option *ngFor="let clinic of specialization" value={{clinic}}>{{clinic}}</option>
+        </select>
       </div>
 
       <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !careType.valid }">

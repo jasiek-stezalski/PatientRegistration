@@ -7,13 +7,20 @@
   <select (ngModelChange)="changeCareType($event)" [ngModel]="filter.careType" id="DropList">
     <option *ngFor="let cat of careType" [ngValue]="cat">{{cat}}</option>
   </select>
+  <br><br>
   Placówka:
   <select (ngModelChange)="changeClinic($event)" [ngModel]="filter.clinic">
     <option *ngFor="let cli of clinics" [ngValue]="cli">{{cli}}</option>
   </select>
+  <br><br>
   Lekarz:
   <select (ngModelChange)="changeDoctor($event)" [ngModel]="filter.doctor">
     <option *ngFor="let doc of doctors" [ngValue]="doc">{{doc}}</option>
+  </select>
+  <br><br>
+  Specjalizacja:
+  <select (ngModelChange)="changeSpecialization($event)" [ngModel]="filter.specialization">
+    <option *ngFor="let spec of specialization" [ngValue]="spec">{{spec}}</option>
   </select>
 
   <br><br>

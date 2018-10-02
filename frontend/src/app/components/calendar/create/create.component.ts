@@ -19,6 +19,7 @@ export class CreateComponent implements OnInit {
   form: FormGroup;
   visitModel: VisitModel = new VisitModel;
   clinics: Clinic[];
+  specialization = this.visitModelService.specialization;
   minDate: String;
   errorMessage: string;
 
@@ -35,6 +36,7 @@ export class CreateComponent implements OnInit {
       .subscribe(data => {
         this.clinics = data;
       });
+    this.specialization = this.visitModelService.specialization;
   };
 
   show(args: any) {

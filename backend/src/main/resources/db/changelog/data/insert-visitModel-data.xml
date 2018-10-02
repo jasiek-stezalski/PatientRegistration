@@ -15,7 +15,7 @@
             <column name="end_date" value="2018-10-31"/>
             <column name="day_interval" value="7"/>
             <column name="minute_interval" value="60"/>
-            <column name="specialization" value="Kardiologia"/>
+            <column name="specialization" value="Kardiolog"/>
             <column name="care_type" value="Publiczna"/>
             <column name="id_clinic" value="1"/>
             <column name="id_doctor" value="1"/>
@@ -27,7 +27,7 @@
             <column name="end_date" value="2018-10-31"/>
             <column name="day_interval" value="7"/>
             <column name="minute_interval" value="60"/>
-            <column name="specialization" value="Kardiologia"/>
+            <column name="specialization" value="Stomatolog"/>
             <column name="care_type" value="Prywatna"/>
             <column name="id_clinic" value="2"/>
             <column name="id_doctor" value="2"/>
@@ -39,7 +39,7 @@
             <column name="end_date" value="2018-10-31"/>
             <column name="day_interval" value="7"/>
             <column name="minute_interval" value="60"/>
-            <column name="specialization" value="Kardiologia"/>
+            <column name="specialization" value="Urolog"/>
             <column name="care_type" value="Publiczna"/>
             <column name="id_clinic" value="3"/>
             <column name="id_doctor" value="3"/>
@@ -51,7 +51,7 @@
             <column name="end_date" value="2018-10-31"/>
             <column name="day_interval" value="7"/>
             <column name="minute_interval" value="60"/>
-            <column name="specialization" value="Dermatologia"/>
+            <column name="specialization" value="Dermatolog"/>
             <column name="care_type" value="Publiczna"/>
             <column name="id_clinic" value="4"/>
             <column name="id_doctor" value="1"/>
@@ -63,7 +63,7 @@
             <column name="end_date" value="2018-10-31"/>
             <column name="day_interval" value="7"/>
             <column name="minute_interval" value="60"/>
-            <column name="specialization" value="Dermatologia"/>
+            <column name="specialization" value="Dermatolog"/>
             <column name="care_type" value="Publiczna"/>
             <column name="id_clinic" value="3"/>
             <column name="id_doctor" value="1"/>
@@ -75,7 +75,7 @@
             <column name="end_date" value="2018-10-31"/>
             <column name="day_interval" value="7"/>
             <column name="minute_interval" value="60"/>
-            <column name="specialization" value="Stomatologia"/>
+            <column name="specialization" value="Stomatolog"/>
             <column name="care_type" value="Prywatna"/>
             <column name="id_clinic" value="1"/>
             <column name="id_doctor" value="3"/>

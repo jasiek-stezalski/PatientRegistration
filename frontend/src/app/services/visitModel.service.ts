@@ -46,6 +46,19 @@ export class VisitModelService {
     return today.getFullYear() + '-' + mm + '-' + dd;
   }
 
+  specialization: String[] = [
+    'Alergolog',
+    'Dermatolog',
+    'Diabetolog',
+    'Ginekolog',
+    'Kardiolog',
+    'Lekarz rodzinny',
+    'Okulista',
+    'Psychiatra',
+    'Stomatolog',
+    'Urolog',
+  ];
+
 }
 
 
