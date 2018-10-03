@@ -9,7 +9,7 @@ import {PatientCalendarComponent} from './patient/patientCalendar.component';
 import {CreateComponent} from './create/create.component';
 
 @NgModule({
-  imports:      [
+  imports: [
     BrowserModule,
     HttpClientModule,
     DayPilotModule,
@@ -21,7 +21,8 @@ import {CreateComponent} from './create/create.component';
     PatientCalendarComponent,
     CreateComponent
   ],
-  exports:      [ CalendarComponent, PatientCalendarComponent ],
-  providers:    [ VisitModelService ]
+  exports: [CalendarComponent, PatientCalendarComponent],
+  providers: [VisitModelService]
 })
-export class CalendarModule { }
+export class CalendarModule {
+}

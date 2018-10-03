@@ -127,21 +127,13 @@ export class PatientCalendarComponent implements AfterViewInit {
         let user: User = JSON.parse(sessionStorage.getItem('currentUser'));
         this.visitService.bookVisit(args.e.id(), user.id).subscribe(() => {
           this.calendar.control.message('Zostałeś zapisany na wizytę!');
-          this.ngAfterViewInit();
+          visit.text = 'Zajęte';
         });
       }
 
     },
 
   };
-
-  createClosed(args) {
-    if (args.result) {
-      this.events.push(args.result);
-      this.calendar.control.message('Zostałeś zapisany na wizytę.');
-    }
-    this.calendar.control.clearSelection();
-  }
 
   navigatePrevious(event): void {
     event.preventDefault();

@@ -30,8 +30,6 @@ public class VisitController {
     @JsonView(Views.Basic.class)
     public List<Visit> getAllVisitsInWeek(@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime from,
                                           @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime to) {
-        System.out.println(from);
-        System.out.println(to);
         return visitService.findBetween(from, to);
     }
 

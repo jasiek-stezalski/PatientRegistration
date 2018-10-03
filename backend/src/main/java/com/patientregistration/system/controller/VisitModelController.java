@@ -35,10 +35,7 @@ public class VisitModelController {
     @GetMapping("/{id}")
     @JsonView(Views.Basic.class)
     public VisitModel getVisitModelById(@PathVariable(value = "id") Long idVisitModel) {
-        System.out.println("to się wywołuje");
-        VisitModel byIdVisitModel = visitModelService.findByIdVisitModel(idVisitModel);
-        System.out.println(byIdVisitModel.getClinic());
-        return byIdVisitModel;
+        return visitModelService.findByIdVisitModel(idVisitModel);
     }
 
     @PostMapping("/")

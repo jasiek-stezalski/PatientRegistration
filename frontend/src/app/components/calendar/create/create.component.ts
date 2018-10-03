@@ -23,8 +23,7 @@ export class CreateComponent implements OnInit {
   minDate: String;
   errorMessage: string;
 
-  constructor(private fb: FormBuilder, private router: Router
-              , private visitModelService: VisitModelService, private clinicService: ClinicService) {
+  constructor(private fb: FormBuilder, private router: Router, private visitModelService: VisitModelService, private clinicService: ClinicService) {
     this.form = this.fb.group({
       start: [''],
       end: [''],
