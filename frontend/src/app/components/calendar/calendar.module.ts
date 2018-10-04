@@ -7,6 +7,7 @@ import {VisitModelService} from '../../services/visitModel.service';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {PatientCalendarComponent} from './patient/patientCalendar.component';
 import {CreateComponent} from './create/create.component';
+import {BookComponent} from "./patient/book/book.component";
 
 @NgModule({
   imports: [
@@ -19,7 +20,8 @@ import {CreateComponent} from './create/create.component';
   declarations: [
     CalendarComponent,
     PatientCalendarComponent,
-    CreateComponent
+    CreateComponent,
+    BookComponent
   ],
   exports: [CalendarComponent, PatientCalendarComponent],
   providers: [VisitModelService]

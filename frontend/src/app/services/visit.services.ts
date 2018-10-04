@@ -15,7 +15,7 @@ export class VisitService {
     return this.http.get(this.url + '?from=' + from.toString() + '&to=' + to.toString()) as Observable<any>;
   }
 
-  bookVisit(idVisit: String, idUser: String | Number) {
+  bookVisit(idVisit: String | Number, idUser: String | Number) {
     return this.http.get(this.url + 'book/' + idVisit + '?idUser=' + idUser);
   }
 

@@ -4,22 +4,22 @@
 <div class="main">
 
   Rodzaj usługi:
-  <select (ngModelChange)="changeCareType($event)" [ngModel]="filter.careType" id="DropList">
+  <select (ngModelChange)="changeCareType($event)" [ngModel]="filter.careType" id="DropList" title="careType">
     <option *ngFor="let cat of careType" [ngValue]="cat">{{cat}}</option>
   </select>
   <br><br>
   Placówka:
-  <select (ngModelChange)="changeClinic($event)" [ngModel]="filter.clinic">
+  <select (ngModelChange)="changeClinic($event)" [ngModel]="filter.clinic" title="clinic">
     <option *ngFor="let cli of clinics" [ngValue]="cli">{{cli}}</option>
   </select>
   <br><br>
   Lekarz:
-  <select (ngModelChange)="changeDoctor($event)" [ngModel]="filter.doctor">
+  <select (ngModelChange)="changeDoctor($event)" [ngModel]="filter.doctor" title="doctor">
     <option *ngFor="let doc of doctors" [ngValue]="doc">{{doc}}</option>
   </select>
   <br><br>
   Specjalizacja:
-  <select (ngModelChange)="changeSpecialization($event)" [ngModel]="filter.specialization">
+  <select (ngModelChange)="changeSpecialization($event)" [ngModel]="filter.specialization" title="specialization">
     <option *ngFor="let spec of specialization" [ngValue]="spec">{{spec}}</option>
   </select>
 
@@ -34,4 +34,4 @@
   </div>
   <daypilot-calendar [config]="config" [events]="events" #calendar></daypilot-calendar>
 </div>
-<create-dialog #create (close)="createClosed($event)"></create-dialog>
+<book-dialog #book (close)="createClosed($event)"></book-dialog>

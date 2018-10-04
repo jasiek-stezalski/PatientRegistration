@@ -1,12 +1,11 @@
 import {AfterViewInit, Component, ViewChild} from '@angular/core';
 import {VisitModelService} from '../../../services/visitModel.service';
 import {DayPilot, DayPilotCalendarComponent} from 'daypilot-pro-angular';
-import {CreateComponent} from '../create/create.component';
 import {Visit} from '../../../models/visit.model';
-import {User} from '../../../models/user.model';
 import {VisitService} from '../../../services/visit.services';
 import {UserService} from '../../../services/user.service';
 import {ClinicService} from '../../../services/clinic.service';
+import {BookComponent} from "./book/book.component";
 
 @Component({
   selector: 'patientCalendar-component',
@@ -16,7 +15,7 @@ import {ClinicService} from '../../../services/clinic.service';
 export class PatientCalendarComponent implements AfterViewInit {
 
   @ViewChild('calendar') calendar: DayPilotCalendarComponent;
-  @ViewChild('create') create: CreateComponent;
+  @ViewChild('book') book: BookComponent;
 
   events: Visit[] = [];
   events2: Visit[] = [];
@@ -109,12 +108,11 @@ export class PatientCalendarComponent implements AfterViewInit {
     dayEndsHour: 20,
     cellDuration: 15,
 
-    timeRangeSelectedHandling: 'Disabled',
-    eventDeleteHandling: 'Disabled',
-    eventMoveHandling: 'Disabled',
-    eventResizeHandling: 'Disabled',
-    eventHoverHandling: 'Disabled',
-    eventClickHandling: 'Enabled',
+    timeRangeSelectedHandling: "Disabled",
+    eventDeleteHandling: "Disabled",
+    eventMoveHandling: "Disabled",
+    eventResizeHandling: "Disabled",
+    eventClickHandling: "Enabled",
 
     onEventClicked: args => {
       let visit: Visit = this.events.find(a => a.id == args.e.id());
@@ -123,17 +121,18 @@ export class PatientCalendarComponent implements AfterViewInit {
       }
       else if (visit.user != null)
         this.calendar.control.message('Ten termin jest już zarezerwowany!');
-      else {
-        let user: User = JSON.parse(sessionStorage.getItem('currentUser'));
-        this.visitService.bookVisit(args.e.id(), user.id).subscribe(() => {
-          this.calendar.control.message('Zostałeś zapisany na wizytę!');
-          visit.text = 'Zajęte';
-        });
-      }
+      else
+        this.book.show(visit);
 
     },
 
   };
+
+  createClosed(args) {
+    if (args.result) {
+      this.calendar.control.message('Zostałeś zapisany na wizytę!');
+    }
+  }
 
   navigatePrevious(event): void {
     event.preventDefault();
@@ -189,7 +188,6 @@ export class PatientCalendarComponent implements AfterViewInit {
     if (this.itemMap.get('specialization').isFilter)
       this.events = this.events.filter(value => value.visitModel.specialization == this.itemMap.get('specialization').name);
   }
-
 
   clearFilter() {
     this.events = this.events2;
