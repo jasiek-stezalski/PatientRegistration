@@ -6,6 +6,7 @@ import {VisitModel} from '../../../models/visitModel.model';
 import {Clinic} from '../../../models/clinic.model';
 import {Router} from '@angular/router';
 import {ClinicService} from '../../../services/clinic.service';
+import {HttpErrorResponse} from '@angular/common/http';
 
 @Component({
   selector: 'create-dialog',
@@ -60,6 +61,9 @@ export class CreateComponent implements OnInit {
       this.visitModel.user = JSON.parse(sessionStorage.getItem('currentUser'));
       this.visitModelService.createVisitModel(this.visitModel).subscribe(result => {
         this.modal.hide(result);
+      }, err => {
+        console.log(err);
+        this.errorMessage = 'Błąd : Żadna wizyta nie pasuje do tego modelu!';
       });
     }
   }

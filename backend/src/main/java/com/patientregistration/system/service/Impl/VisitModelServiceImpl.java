@@ -94,6 +94,10 @@ public class VisitModelServiceImpl implements VisitModelService {
             visitDate = visitDate.plusDays(newVisitModel.getDayInterval());
         }
 
+        if (visitModelRepository.findById(newVisitModel.getId()).get().getVisits() == null) {
+            visitModelRepository.deleteById(newVisitModel.getId());
+            throw new ResourceNotFoundException("Empty list of visits");
+        }
         return newVisitModel;
     }
 

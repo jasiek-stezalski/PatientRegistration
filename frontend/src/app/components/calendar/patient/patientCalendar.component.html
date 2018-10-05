@@ -3,29 +3,42 @@
 </div>
 <div class="main">
 
-  Rodzaj usługi:
-  <select (ngModelChange)="changeCareType($event)" [ngModel]="filter.careType" id="DropList" title="careType">
-    <option *ngFor="let cat of careType" [ngValue]="cat">{{cat}}</option>
-  </select>
-  <br><br>
-  Placówka:
-  <select (ngModelChange)="changeClinic($event)" [ngModel]="filter.clinic" title="clinic">
-    <option *ngFor="let cli of clinics" [ngValue]="cli">{{cli}}</option>
-  </select>
-  <br><br>
-  Lekarz:
-  <select (ngModelChange)="changeDoctor($event)" [ngModel]="filter.doctor" title="doctor">
-    <option *ngFor="let doc of doctors" [ngValue]="doc">{{doc}}</option>
-  </select>
-  <br><br>
-  Specjalizacja:
-  <select (ngModelChange)="changeSpecialization($event)" [ngModel]="filter.specialization" title="specialization">
-    <option *ngFor="let spec of specialization" [ngValue]="spec">{{spec}}</option>
-  </select>
+  <table>
+    <tr>
+      <td>
+        Rodzaj usługi:
+        <select (ngModelChange)="changeCareType($event)" [ngModel]="filter.careType" id="DropList" title="careType">
+          <option *ngFor="let cat of careType" [ngValue]="cat">{{cat}}</option>
+        </select>
+      </td>
+      <td>
+        Placówka:
+        <select (ngModelChange)="changeClinic($event)" [ngModel]="filter.clinic" title="clinic">
+          <option *ngFor="let cli of clinics" [ngValue]="cli">{{cli}}</option>
+        </select>
 
-  <br><br>
-  <a href="" (click)="clearFilter()">Anuluj wyszukiwanie</a><br><br>
-
+      </td>
+      <td>
+        Lekarz:
+        <select (ngModelChange)="changeDoctor($event)" [ngModel]="filter.doctor" title="doctor">
+          <option *ngFor="let doc of doctors" [ngValue]="doc">{{doc}}</option>
+        </select>
+      </td>
+      <td>
+        Specjalizacja:
+        <select (ngModelChange)="changeSpecialization($event)" [ngModel]="filter.specialization"
+                title="specialization">
+          <option *ngFor="let spec of specialization" [ngValue]="spec">{{spec}}</option>
+        </select>
+      </td>
+      <td>
+        <br>
+        <button class="btn btn-lg btn-danger btn-block btn-cancel" type="submit" (click)="clearFilter()">Anuluj
+          wyszukiwanie
+        </button>
+      </td>
+    </tr>
+  </table>
 
   <div class="buttons">
     <a href="#" (click)="navigatePrevious($event)"><<< Poprzedni tydzień</a>
