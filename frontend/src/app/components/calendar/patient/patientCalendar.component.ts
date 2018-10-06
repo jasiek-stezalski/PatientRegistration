@@ -5,7 +5,7 @@ import {Visit} from '../../../models/visit.model';
 import {VisitService} from '../../../services/visit.services';
 import {UserService} from '../../../services/user.service';
 import {ClinicService} from '../../../services/clinic.service';
-import {BookComponent} from "./book/book.component";
+import {BookComponent} from './book/book.component';
 
 @Component({
   selector: 'patientCalendar-component',
@@ -37,6 +37,8 @@ export class PatientCalendarComponent implements AfterViewInit {
     clinic: '',
     doctor: '',
     specialization: '',
+    minPrice: '',
+    maxPrice: ''
   };
 
   constructor(private visitModelService: VisitModelService, private visitService: VisitService,
@@ -61,6 +63,16 @@ export class PatientCalendarComponent implements AfterViewInit {
       name: '',
     };
     this.itemMap.set('specialization', item4);
+    let item5: Item = {
+      isFilter: false,
+      name: '',
+    };
+    this.itemMap.set('minPrice', item5);
+    let item6: Item = {
+      isFilter: false,
+      name: '',
+    };
+    this.itemMap.set('maxPrice', item6);
   }
 
   ngAfterViewInit(): void {
@@ -108,11 +120,11 @@ export class PatientCalendarComponent implements AfterViewInit {
     dayEndsHour: 20,
     cellDuration: 15,
 
-    timeRangeSelectedHandling: "Disabled",
-    eventDeleteHandling: "Disabled",
-    eventMoveHandling: "Disabled",
-    eventResizeHandling: "Disabled",
-    eventClickHandling: "Enabled",
+    timeRangeSelectedHandling: 'Disabled',
+    eventDeleteHandling: 'Disabled',
+    eventMoveHandling: 'Disabled',
+    eventResizeHandling: 'Disabled',
+    eventClickHandling: 'Enabled',
 
     onEventClicked: args => {
       let visit: Visit = this.events.find(a => a.id == args.e.id());
@@ -174,6 +186,18 @@ export class PatientCalendarComponent implements AfterViewInit {
     this.doFilter();
   }
 
+  changeMinPrice(val) {
+    this.itemMap.get('minPrice').name = val;
+    this.itemMap.get('minPrice').isFilter = val != '-';
+    this.doFilter();
+  }
+
+  changeMaxPrice(val) {
+    this.itemMap.get('maxPrice').name = val;
+    this.itemMap.get('maxPrice').isFilter = val != '-';
+    this.doFilter();
+  }
+
   doFilter() {
     this.events = this.events2;
 
@@ -187,6 +211,10 @@ export class PatientCalendarComponent implements AfterViewInit {
         (value.visitModel.user.firstName + ' ' + value.visitModel.user.lastName) == this.itemMap.get('doctor').name);
     if (this.itemMap.get('specialization').isFilter)
       this.events = this.events.filter(value => value.visitModel.specialization == this.itemMap.get('specialization').name);
+    if (this.itemMap.get('minPrice').isFilter)
+      this.events = this.events.filter(value => value.visitModel.price >= +this.itemMap.get('minPrice').name);
+    if (this.itemMap.get('maxPrice').isFilter)
+      this.events = this.events.filter(value => value.visitModel.price <= +this.itemMap.get('maxPrice').name);
   }
 
   clearFilter() {
@@ -194,7 +222,6 @@ export class PatientCalendarComponent implements AfterViewInit {
     this.itemMap.forEach(i => i.isFilter = false);
     return false;
   }
-
 }
 
 export class Item {

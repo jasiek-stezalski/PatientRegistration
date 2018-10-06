@@ -6,7 +6,6 @@ import {VisitModel} from '../../../models/visitModel.model';
 import {Clinic} from '../../../models/clinic.model';
 import {Router} from '@angular/router';
 import {ClinicService} from '../../../services/clinic.service';
-import {HttpErrorResponse} from '@angular/common/http';
 
 @Component({
   selector: 'create-dialog',
@@ -55,9 +54,12 @@ export class CreateComponent implements OnInit {
     } else {
       this.visitModel.start = data.start;
       this.visitModel.end = data.end;
+      if (this.visitModel.price == null)
+        this.visitModel.price = 0;
       this.visitModel.clinic = {
         id: this.visitModel.id,
       };
+      this.visitModel.id = null;
       this.visitModel.user = JSON.parse(sessionStorage.getItem('currentUser'));
       this.visitModelService.createVisitModel(this.visitModel).subscribe(result => {
         this.modal.hide(result);

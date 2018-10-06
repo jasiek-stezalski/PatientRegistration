@@ -32,6 +32,13 @@
         </select>
       </td>
       <td>
+        Cena za wizytę:<br>
+        <input type="number" class="form-control" name="minPrice" id="minPrice" [ngModel]="filter.minPrice"
+               (ngModelChange)="changeMinPrice($event)" placeholder="min"/>
+        <input type="number" class="form-control" name="maxPrice" id="maxPrice" [ngModel]="filter.maxPrice"
+               (ngModelChange)="changeMaxPrice($event)" placeholder="max"/>
+      </td>
+      <td>
         <br>
         <button class="btn btn-lg btn-danger btn-block btn-cancel" type="submit" (click)="clearFilter()">Anuluj
           wyszukiwanie

@@ -5,6 +5,7 @@ import com.patientregistration.system.domain.View.Views;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.sql.Date;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -51,6 +52,10 @@ public class VisitModel {
     @Column(name = "care_type", nullable = false)
     @JsonView(Views.Basic.class)
     private String careType;
+
+    @Column(name = "price", nullable = false)
+    @JsonView(Views.Basic.class)
+    private BigDecimal price;
 
     @ManyToOne
     @JoinColumn(name = "id_doctor")

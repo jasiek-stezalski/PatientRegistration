@@ -60,6 +60,12 @@
         </select>
       </div>
 
+      <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !price.valid }">
+        <label for="text">Cena za wizytę </label>
+        <input type="number" class="form-control" name="price" id="price" [(ngModel)]="visitModel.price"
+               #price="ngModel"/>
+      </div>
+
       <div class="form-group">
         <label for="clinic">Placówka </label>
         <select [(ngModel)]="visitModel.id" name="clinic" type="text" id="clinic"

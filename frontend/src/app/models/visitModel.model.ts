@@ -12,6 +12,7 @@ export class VisitModel {
   minuteInterval?: number;
   specialization?: string;
   careType?: string;
+  price?: Number;
   user?: User;
   clinic?: Clinic;
 

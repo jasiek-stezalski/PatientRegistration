@@ -36,6 +36,9 @@
             <column name="CARE_TYPE" type="VARCHAR(255)">
                 <constraints nullable="false"/>
             </column>
+            <column name="PRICE" type="DECIMAL(19, 2)">
+                <constraints nullable="false"/>
+            </column>
             <column name="ID_CLINIC" type="BIGINT">
                 <constraints foreignKeyName="ID_CLINIC" nullable="false"/>
             </column>

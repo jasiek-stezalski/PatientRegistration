@@ -54,6 +54,8 @@ public class VisitModelServiceImpl implements VisitModelService {
 
         Set<DayOfWeek> weekend = EnumSet.of(DayOfWeek.SATURDAY, DayOfWeek.SUNDAY);
 
+        int visitCounter = 0;
+
         while (visitDate.isBefore(endDate) || visitDate.isEqual(endDate)) {
             // Check if it is a weekend
             if (newVisitModel.getDayInterval() == 1 && weekend.contains(visitDate.getDayOfWeek())) {
@@ -77,8 +79,10 @@ public class VisitModelServiceImpl implements VisitModelService {
                                 endTerm,
                                 startTerm.getHour() + " : " + (startTerm.getMinute() < 10 ? startTerm.getMinute() + "0" : startTerm.getMinute())
                                 , newVisitModel));
+                        visitCounter++;
                         newVisitModel.setEnd(endTerm);
                         visitModelRepository.save(newVisitModel);
+
                     }
                     break;
                 } else {
@@ -87,6 +91,7 @@ public class VisitModelServiceImpl implements VisitModelService {
                             endTerm,
                             startTerm.getHour() + " : " + (startTerm.getMinute() < 10 ? startTerm.getMinute() + "0" : startTerm.getMinute())
                             , newVisitModel));
+                    visitCounter++;
                 }
 
             }
@@ -94,9 +99,9 @@ public class VisitModelServiceImpl implements VisitModelService {
             visitDate = visitDate.plusDays(newVisitModel.getDayInterval());
         }
 
-        if (visitModelRepository.findById(newVisitModel.getId()).get().getVisits() == null) {
+        if (visitCounter == 0) {
             visitModelRepository.deleteById(newVisitModel.getId());
-            throw new ResourceNotFoundException("Empty list of visits");
+            throw new ResourceNotFoundException("No matching visits to visit model");
         }
         return newVisitModel;
     }
