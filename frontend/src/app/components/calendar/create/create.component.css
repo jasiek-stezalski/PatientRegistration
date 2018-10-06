@@ -74,9 +74,10 @@ div {
 
 .buttons {
   margin-bottom: 10px;
+  display: inline-block;
 }
 
-.buttons a {
+.buttons button {
   display: inline-block;
   text-align: center;
   background-color: #84abd8;
@@ -88,6 +89,7 @@ div {
   cursor: pointer;
   margin-right: 5px;
   margin-left: 5px;
-  width: 237px;
+  width: 130px;
   text-decoration: none;
 }
+

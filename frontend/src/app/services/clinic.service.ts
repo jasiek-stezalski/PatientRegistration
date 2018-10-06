@@ -14,6 +14,10 @@ export class ClinicService {
     return this.http.get<Clinic[]>(this.url);
   }
 
+  getClinicByIdUser(idUser : String | Number) {
+    return this.http.get<Clinic[]>(this.url + 'user?idUser=' + idUser);
+  }
+
 }
 
 

@@ -82,6 +82,11 @@ public class User implements UserDetails {
     @JsonIgnore
     private List<VisitModel> visitModels;
 
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "user", cascade = CascadeType.ALL)
+    @JsonIgnore
+    private List<DoctorClinic> doctorClinics;
+
+
     @JsonIgnore
     @Override
     public boolean isEnabled() {

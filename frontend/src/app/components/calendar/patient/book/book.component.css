@@ -76,7 +76,7 @@ div {
   margin-bottom: 10px;
 }
 
-.buttons a {
+.buttons button {
   display: inline-block;
   text-align: center;
   background-color: #84abd8;

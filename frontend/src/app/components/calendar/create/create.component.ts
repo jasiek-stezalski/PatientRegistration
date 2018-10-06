@@ -5,6 +5,7 @@ import {VisitModelService} from '../../../services/visitModel.service';
 import {VisitModel} from '../../../models/visitModel.model';
 import {Clinic} from '../../../models/clinic.model';
 import {Router} from '@angular/router';
+import {User} from '../../../models/user.model';
 import {ClinicService} from '../../../services/clinic.service';
 
 @Component({
@@ -31,7 +32,8 @@ export class CreateComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.clinicService.getClinics()
+    let user: User = JSON.parse(sessionStorage.getItem('currentUser'));
+    this.clinicService.getClinicByIdUser(user.id)
       .subscribe(data => {
         this.clinics = data;
       });

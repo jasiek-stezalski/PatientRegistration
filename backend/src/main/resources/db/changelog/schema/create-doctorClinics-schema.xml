@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet id="1" author="jstezalski" context="default">
+
+        <createTable tableName="DOCTOR_CLINICS">
+            <column name="ID_DOCTOR" type="BIGINT">
+                <constraints foreignKeyName="ID_DOCTOR" nullable="false"/>
+            </column>
+            <column name="ID_CLINIC" type="BIGINT">
+                <constraints foreignKeyName="ID_CLINIC" nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+</databaseChangeLog>

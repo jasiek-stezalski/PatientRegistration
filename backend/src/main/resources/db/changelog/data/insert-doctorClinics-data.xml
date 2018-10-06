@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet id="1" author="jstezalski" context="default">
+
+        <insert tableName="DOCTOR_CLINICS">
+            <column name="ID_DOCTOR" value="1"/>
+            <column name="ID_CLINIC" value="1"/>
+        </insert>
+        <insert tableName="DOCTOR_CLINICS">
+            <column name="ID_DOCTOR" value="1"/>
+            <column name="ID_CLINIC" value="3"/>
+        </insert>
+        <insert tableName="DOCTOR_CLINICS">
+            <column name="ID_DOCTOR" value="1"/>
+            <column name="ID_CLINIC" value="5"/>
+        </insert>
+        <insert tableName="DOCTOR_CLINICS">
+            <column name="ID_DOCTOR" value="2"/>
+            <column name="ID_CLINIC" value="2"/>
+        </insert>
+        <insert tableName="DOCTOR_CLINICS">
+            <column name="ID_DOCTOR" value="2"/>
+            <column name="ID_CLINIC" value="4"/>
+        </insert>
+        <insert tableName="DOCTOR_CLINICS">
+            <column name="ID_DOCTOR" value="2"/>
+            <column name="ID_CLINIC" value="6"/>
+        </insert>
+        <insert tableName="DOCTOR_CLINICS">
+            <column name="ID_DOCTOR" value="3"/>
+            <column name="ID_CLINIC" value="3"/>
+        </insert>
+        <insert tableName="DOCTOR_CLINICS">
+            <column name="ID_DOCTOR" value="3"/>
+            <column name="ID_CLINIC" value="1"/>
+        </insert>
+        <insert tableName="DOCTOR_CLINICS">
+            <column name="ID_DOCTOR" value="3"/>
+            <column name="ID_CLINIC" value="6"/>
+        </insert>
+
+    </changeSet>
+
+</databaseChangeLog>

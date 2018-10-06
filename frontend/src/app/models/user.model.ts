@@ -1,3 +1,5 @@
+import {DoctorClinic} from './doctorClinic.model';
+
 export class User {
 
   id?: string | number;
@@ -11,5 +13,6 @@ export class User {
   email?: string;
   blocked?: boolean;
   phoneNumber?: string;
+  doctorClinic?: DoctorClinic[];
 
 }

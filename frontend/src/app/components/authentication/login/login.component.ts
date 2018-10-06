@@ -23,7 +23,7 @@ export class LoginComponent implements OnInit {
   login() {
     this.userService.logIn(this.user)
       .subscribe(() => {
-          this.router.navigate(['/profile']);
+          this.router.navigate(['/home']);
         }, () => {
           this.errorMessage = 'Błąd : Login lub hasło są nieprawidłowe';
         }

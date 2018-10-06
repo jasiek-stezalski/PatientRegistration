@@ -1,3 +1,5 @@
+import {DoctorClinic} from './doctorClinic.model';
+
 export class Clinic {
 
   id?: string | number;
@@ -6,5 +8,6 @@ export class Clinic {
   address?: string;
   city?: string;
   phoneNumber?: string;
+  doctorClinic?: DoctorClinic[];
 
 }

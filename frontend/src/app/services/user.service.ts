@@ -17,7 +17,7 @@ export class UserService {
     return this.httpClient.get<User[]>(this.url);
   }
 
-  getUsersByRole(role: String) {
+  public getUsersByRole(role: String) {
     return this.httpClient.get<User[]>(this.url + 'role?role=' + role);
   }
 

@@ -27,6 +27,12 @@ public class ClinicController {
         return clinicService.findAllClinics();
     }
 
+    @GetMapping("/user")
+    public List<Clinic> getAllClinicsByUser(@RequestParam String idUser) {
+        return clinicService.findAllClinicsByUser(Long.valueOf(idUser));
+    }
+
+
     @GetMapping("/{id}")
     @JsonView(Views.Basic.class)
     public Clinic getClinicById(@PathVariable(value = "id") Long idClinic) {

@@ -43,4 +43,7 @@ public class Clinic {
     @JsonIgnore
     private List<VisitModel> visitModels;
 
+    @OneToMany(mappedBy = "clinic", cascade = CascadeType.ALL)
+    @JsonIgnore
+    private List<DoctorClinic> doctorClinics;
 }

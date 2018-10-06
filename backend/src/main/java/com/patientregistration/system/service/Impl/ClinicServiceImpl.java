@@ -23,6 +23,11 @@ public class ClinicServiceImpl implements ClinicService {
     }
 
     @Override
+    public List<Clinic> findAllClinicsByUser(Long idUser) {
+        return clinicRepository.findAllByIdUser(idUser);
+    }
+
+    @Override
     public Clinic findByClinicId(Long idClinic) {
         return clinicRepository.findById(idClinic)
                 .orElseThrow(() -> new ResourceNotFoundException(idClinic.toString()));
