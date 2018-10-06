@@ -39,10 +39,13 @@
                (ngModelChange)="changeMaxPrice($event)" placeholder="max"/>
       </td>
       <td>
-        <br>
-        <button class="btn btn-lg btn-danger btn-block btn-cancel" type="submit" (click)="clearFilter()">Anuluj
-          wyszukiwanie
-        </button>
+        <div class="buttons2">
+          <a href="#" (click)="clearFilter()">Anuluj wyszukiwanie</a>
+        </div>
+        <!--<br>-->
+        <!--<button class="btn btn-lg btn-danger btn-block btn-cancel" type="submit" (click)="clearFilter()">Anuluj-->
+        <!--wyszukiwanie-->
+        <!--</button>-->
       </td>
     </tr>
   </table>

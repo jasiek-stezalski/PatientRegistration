@@ -71,3 +71,23 @@ div {
   background-color: #f2f2f2;
   padding: 10px;
 }
+
+.buttons {
+  margin-bottom: 10px;
+}
+
+.buttons a {
+  display: inline-block;
+  text-align: center;
+  background-color: #84abd8;
+  border: 1px solid #c6ccc6;
+  color: #fff;
+  padding: 6px 20px;
+  margin-bottom: 5px;
+  border-radius: 2px;
+  cursor: pointer;
+  margin-right: 5px;
+  width: 150px;
+  text-decoration: none;
+}
+

@@ -43,7 +43,7 @@
 
 input[type=text], select {
   width: 100%;
-  padding: 12px 20px;
+  padding: 6px 20px;
   margin: 8px 0;
   display: inline-block;
   border: 1px solid #ccc;
@@ -55,7 +55,7 @@ input[type=submit] {
   width: 100%;
   background-color: #4CAF50;
   color: white;
-  padding: 14px 20px;
+  padding: 6px 20px;
   margin: 8px 0;
   border: none;
   border-radius: 4px;
@@ -72,16 +72,22 @@ div {
   padding: 10px;
 }
 
-.column {
-  float: left;
-  width: 50%;
-  padding: 10px;
-  height: 300px; /* Should be removed. Only for demonstration */
+.buttons {
+  margin-bottom: 10px;
 }
 
-/* Clear floats after the columns */
-.row:after {
-  content: "";
-  display: table;
-  clear: both;
+.buttons a {
+  display: inline-block;
+  text-align: center;
+  background-color: #84abd8;
+  border: 1px solid #c6ccc6;
+  color: #fff;
+  padding: 6px 20px;
+  margin-bottom: 5px;
+  border-radius: 2px;
+  cursor: pointer;
+  margin-right: 5px;
+  margin-left: 5px;
+  width: 237px;
+  text-decoration: none;
 }

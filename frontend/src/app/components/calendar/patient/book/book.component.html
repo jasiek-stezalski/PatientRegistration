@@ -13,8 +13,12 @@
       <div>Placówka: {{clinic.name + ', ' +clinic.address}}</div>
       <div>Lekarz: {{user.firstName + ' ' + user.lastName}}</div>
       <br>
-      <button class="btn btn-lg btn-primary btn-block" type="submit">Zarezerwuj wizytę</button>
-      <button class="btn btn-lg btn-danger btn-block btn-cancel" type="button" (click)="cancel()">Anuluj</button>
+
+      <div class="buttons">
+        <a href="#" (click)="submit()">Zarezerwuj wizytę</a>
+        <a href="#" (click)="cancel()">Anuluj</a>
+      </div>
+
     </form>
   </div>
 

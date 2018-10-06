@@ -70,12 +70,15 @@
         <label for="clinic">Placówka </label>
         <select [(ngModel)]="visitModel.id" name="clinic" type="text" id="clinic"
                 required>
-            <option *ngFor="let clinic of clinics" value={{clinic.id}}>{{clinic.name}}</option>
+          <option *ngFor="let clinic of clinics" value={{clinic.id}}>{{clinic.name}}</option>
         </select>
       </div>
 
-      <button class="btn btn-lg btn-primary btn-block" type="submit">Zapisz</button>
-      <button class="btn btn-lg btn-danger btn-block btn-cancel" type="button" (click)="cancel()">Zakończ</button>
+      <div class="buttons">
+        <a href="#" (click)="submit()">Zapisz</a>
+        <a href="#" (click)="cancel()">Anuluj</a>
+      </div>
+
     </form>
   </div>
 
