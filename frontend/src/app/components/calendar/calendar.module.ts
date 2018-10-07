@@ -1,13 +1,14 @@
 import {BrowserModule} from "@angular/platform-browser";
 import {NgModule} from "@angular/core";
-import {CalendarComponent} from "./calendar.component";
+import {ModelCalendarComponent} from "./modelCalendar/modelCalendar.component";
 import {DayPilotModule} from "daypilot-pro-angular";
 import {HttpClientModule} from "@angular/common/http";
 import {VisitModelService} from '../../services/visitModel.service';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {PatientCalendarComponent} from './patient/patientCalendar.component';
-import {CreateComponent} from './create/create.component';
+import {CreateComponent} from './modelCalendar/create/create.component';
 import {BookComponent} from "./patient/book/book.component";
+import {DoctorCalendarComponent} from './doctorCalendar/doctorCalendar.component';
 
 @NgModule({
   imports: [
@@ -18,12 +19,13 @@ import {BookComponent} from "./patient/book/book.component";
     ReactiveFormsModule
   ],
   declarations: [
-    CalendarComponent,
+    ModelCalendarComponent,
     PatientCalendarComponent,
+    DoctorCalendarComponent,
     CreateComponent,
     BookComponent
   ],
-  exports: [CalendarComponent, PatientCalendarComponent],
+  exports: [ModelCalendarComponent, PatientCalendarComponent, DoctorCalendarComponent],
   providers: [VisitModelService]
 })
 export class CalendarModule {

@@ -1,12 +1,12 @@
 import {Component, EventEmitter, OnInit, Output, ViewChild} from '@angular/core';
 import {DayPilotModalComponent} from 'daypilot-pro-angular';
 import {FormBuilder, FormGroup} from '@angular/forms';
-import {VisitModelService} from '../../../services/visitModel.service';
-import {VisitModel} from '../../../models/visitModel.model';
-import {Clinic} from '../../../models/clinic.model';
+import {VisitModelService} from '../../../../services/visitModel.service';
+import {VisitModel} from '../../../../models/visitModel.model';
+import {Clinic} from '../../../../models/clinic.model';
 import {Router} from '@angular/router';
-import {User} from '../../../models/user.model';
-import {ClinicService} from '../../../services/clinic.service';
+import {User} from '../../../../models/user.model';
+import {ClinicService} from '../../../../services/clinic.service';
 
 @Component({
   selector: 'create-dialog',

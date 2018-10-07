@@ -1,18 +1,18 @@
 import {AfterViewInit, Component, ViewChild, ViewEncapsulation} from '@angular/core';
-import {VisitModelService} from '../../services/visitModel.service';
+import {VisitModelService} from '../../../services/visitModel.service';
 import {DayPilot, DayPilotCalendarComponent} from 'daypilot-pro-angular';
 import {CreateComponent} from './create/create.component';
-import {VisitModel} from '../../models/visitModel.model';
-import {User} from '../../models/user.model';
+import {VisitModel} from '../../../models/visitModel.model';
+import {User} from '../../../models/user.model';
 import {Router} from '@angular/router';
 
 @Component({
-  selector: 'calendar-component',
-  templateUrl: './calendar.component.html',
-  styleUrls: ['./calendar.component.css'],
+  selector: 'modelCalendar-component',
+  templateUrl: './modelCalendar.component.html',
+  styleUrls: ['./modelCalendar.component.css'],
   encapsulation: ViewEncapsulation.None
 })
-export class CalendarComponent implements AfterViewInit {
+export class ModelCalendarComponent implements AfterViewInit {
 
   @ViewChild('calendar') calendar: DayPilotCalendarComponent;
   @ViewChild('create') create: CreateComponent;
@@ -67,9 +67,11 @@ export class CalendarComponent implements AfterViewInit {
 
     eventDeleteHandling: 'Update',
     onEventDelete: args => {
-      this.service.deleteVisitModel(args.e.id()).subscribe(() => {
-        this.calendar.control.message('Model wizyty został usunięty');
-      });
+      if (confirm('Czy na pewno chcesz usunąć ten model wizyty wraz z wszystkimi wizytami?')) {
+        this.service.deleteVisitModel(args.e.id()).subscribe(() => {
+          this.calendar.control.message('Model wizyty został usunięty');
+        });
+      } else this.ngAfterViewInit();
     },
   };
 

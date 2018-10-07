@@ -1,0 +1,76 @@
+:host ::ng-deep .calendar_default_colheader_inner {
+  padding: 5px;
+}
+
+:host ::ng-deep .calendar_default_rowheader_inner {
+  padding: 5px;
+}
+
+.left {
+  float: left;
+  width: 200px;
+}
+
+.main {
+  margin-left: 220px;
+}
+
+.buttons {
+  margin-bottom: 10px;
+}
+
+.buttons a {
+  display: inline-block;
+  text-align: center;
+  background-color: #84abd8;
+  border: 1px solid #c6ccc6;
+  color: #fff;
+  padding: 6px 20px;
+  border-radius: 2px;
+  cursor: pointer;
+  margin-right: 5px;
+  margin-left: 5px;
+  width: 237px;
+  text-decoration: none;
+}
+
+input[type=text], select {
+  width: 100%;
+  padding: 6px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+input[type=number] {
+  width: 50%;
+  padding: 6px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+input[type=submit] {
+  width: 100%;
+  background-color: #4CAF50;
+  color: white;
+  padding: 6px 20px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+input[type=submit]:hover {
+  background-color: #45a049;
+}
+
+div {
+  border-radius: 5px;
+  background-color: #f2f2f2;
+  padding: 3px;
+}

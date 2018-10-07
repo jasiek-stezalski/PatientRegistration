@@ -3,17 +3,19 @@ import {RouterModule, Routes} from '@angular/router';
 
 import {UserComponent} from './components/user/user.component';
 import {AddUserComponent} from './components/user/add/add-user.component';
-import {CalendarComponent} from './components/calendar/calendar.component';
+import {ModelCalendarComponent} from './components/calendar/modelCalendar/modelCalendar.component';
 import {PatientCalendarComponent} from './components/calendar/patient/patientCalendar.component';
 import {LoginComponent} from './components/authentication/login/login.component';
 import {RegisterComponent} from './components/authentication/register/register.component';
 import {UrlPermissionDoctor} from './components/authentication/urlPermission/url.permissionDoctor';
+import {DoctorCalendarComponent} from './components/calendar/doctorCalendar/doctorCalendar.component';
 
 const routes: Routes = [
   {path: 'users', component: UserComponent},
   {path: 'add', component: AddUserComponent},
-  {path: 'calendar', component: CalendarComponent, canActivate: [UrlPermissionDoctor]},
+  {path: 'modelCalendar', component: ModelCalendarComponent, canActivate: [UrlPermissionDoctor]},
   {path: 'patientCalendar', component: PatientCalendarComponent},
+  {path: 'doctorCalendar', component: DoctorCalendarComponent, canActivate: [UrlPermissionDoctor]},
   {path: 'login', component: LoginComponent},
   {path: 'register', component: RegisterComponent},
 
