@@ -9,7 +9,7 @@
     <changeSet id="1" author="jstezalski" context="default">
 
         <insert tableName="VISIT_MODEL">
-            <column name="text" value="wizyta1"/>
+            <column name="name" value="wizyta1"/>
             <column name="start" value="2018-10-02 08:00:00"/>
             <column name="end_" value="2018-10-02 09:00:00"/>
             <column name="end_date" value="2018-10-31"/>
@@ -22,7 +22,7 @@
             <column name="id_doctor" value="1"/>
         </insert>
         <insert tableName="VISIT_MODEL">
-            <column name="text" value="wizyta2"/>
+            <column name="name" value="wizyta2"/>
             <column name="start" value="2018-10-03 10:15:00"/>
             <column name="end_" value="2018-10-03 11:15:00"/>
             <column name="end_date" value="2018-10-31"/>
@@ -35,7 +35,7 @@
             <column name="id_doctor" value="2"/>
         </insert>
         <insert tableName="VISIT_MODEL">
-            <column name="text" value="wizyta3"/>
+            <column name="name" value="wizyta3"/>
             <column name="start" value="2018-10-02 15:00:00"/>
             <column name="end_" value="2018-10-02 16:00:00"/>
             <column name="end_date" value="2018-10-31"/>
@@ -48,7 +48,7 @@
             <column name="id_doctor" value="3"/>
         </insert>
         <insert tableName="VISIT_MODEL">
-            <column name="text" value="wizyta4"/>
+            <column name="name" value="wizyta4"/>
             <column name="start" value="2018-10-05 12:45:00"/>
             <column name="end_" value="2018-10-05 13:45:00"/>
             <column name="end_date" value="2018-10-31"/>
@@ -61,7 +61,7 @@
             <column name="id_doctor" value="1"/>
         </insert>
         <insert tableName="VISIT_MODEL">
-            <column name="text" value="wizyta5"/>
+            <column name="name" value="wizyta5"/>
             <column name="start" value="2018-10-05 09:30:00"/>
             <column name="end_" value="2018-10-05 10:30:00"/>
             <column name="end_date" value="2018-10-31"/>
@@ -74,7 +74,7 @@
             <column name="id_doctor" value="1"/>
         </insert>
         <insert tableName="VISIT_MODEL">
-            <column name="text" value="wizyta6"/>
+            <column name="name" value="wizyta6"/>
             <column name="start" value="2018-10-04 15:30:00"/>
             <column name="end_" value="2018-10-04 16:30:00"/>
             <column name="end_date" value="2018-10-31"/>

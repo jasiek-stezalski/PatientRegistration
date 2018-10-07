@@ -8,39 +8,39 @@
 
     <changeSet id="1" author="jstezalski" context="default">
 
-        <insert tableName="DOCTOR_CLINICS">
+        <insert tableName="DOCTOR_CLINIC">
             <column name="ID_DOCTOR" value="1"/>
             <column name="ID_CLINIC" value="1"/>
         </insert>
-        <insert tableName="DOCTOR_CLINICS">
+        <insert tableName="DOCTOR_CLINIC">
             <column name="ID_DOCTOR" value="1"/>
             <column name="ID_CLINIC" value="3"/>
         </insert>
-        <insert tableName="DOCTOR_CLINICS">
+        <insert tableName="DOCTOR_CLINIC">
             <column name="ID_DOCTOR" value="1"/>
             <column name="ID_CLINIC" value="5"/>
         </insert>
-        <insert tableName="DOCTOR_CLINICS">
+        <insert tableName="DOCTOR_CLINIC">
             <column name="ID_DOCTOR" value="2"/>
             <column name="ID_CLINIC" value="2"/>
         </insert>
-        <insert tableName="DOCTOR_CLINICS">
+        <insert tableName="DOCTOR_CLINIC">
             <column name="ID_DOCTOR" value="2"/>
             <column name="ID_CLINIC" value="4"/>
         </insert>
-        <insert tableName="DOCTOR_CLINICS">
+        <insert tableName="DOCTOR_CLINIC">
             <column name="ID_DOCTOR" value="2"/>
             <column name="ID_CLINIC" value="6"/>
         </insert>
-        <insert tableName="DOCTOR_CLINICS">
+        <insert tableName="DOCTOR_CLINIC">
             <column name="ID_DOCTOR" value="3"/>
             <column name="ID_CLINIC" value="3"/>
         </insert>
-        <insert tableName="DOCTOR_CLINICS">
+        <insert tableName="DOCTOR_CLINIC">
             <column name="ID_DOCTOR" value="3"/>
             <column name="ID_CLINIC" value="1"/>
         </insert>
-        <insert tableName="DOCTOR_CLINICS">
+        <insert tableName="DOCTOR_CLINIC">
             <column name="ID_DOCTOR" value="3"/>
             <column name="ID_CLINIC" value="6"/>
         </insert>

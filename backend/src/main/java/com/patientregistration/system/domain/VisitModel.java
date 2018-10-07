@@ -21,7 +21,7 @@ public class VisitModel {
     @JsonView(Views.Basic.class)
     private Long id;
 
-    @Column(name = "text", nullable = false)
+    @Column(name = "name", nullable = false)
     @JsonView(Views.Basic.class)
     private String text;
 

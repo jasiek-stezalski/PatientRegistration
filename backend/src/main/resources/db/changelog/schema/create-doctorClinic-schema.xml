@@ -8,7 +8,7 @@
 
     <changeSet id="1" author="jstezalski" context="default">
 
-        <createTable tableName="DOCTOR_CLINICS">
+        <createTable tableName="DOCTOR_CLINIC">
             <column name="ID_DOCTOR" type="BIGINT">
                 <constraints foreignKeyName="ID_DOCTOR" nullable="false"/>
             </column>

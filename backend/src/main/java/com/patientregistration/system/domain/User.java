@@ -1,6 +1,5 @@
 package com.patientregistration.system.domain;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonView;
 import com.patientregistration.system.domain.View.Views;
@@ -55,15 +54,15 @@ public class User implements UserDetails {
     @JsonView(Views.Basic.class)
     private String role;
 
+    @Email
+    @NotEmpty
+    @Column(name = "email", nullable = false)
+    @JsonView(Views.Basic.class)
+    private String email;
+
     @Column(name = "pesel")
     @JsonView(Views.Basic.class)
     private String pesel;
-
-    @Email
-    @NotEmpty
-    @Column(name = "email")
-    @JsonView(Views.Basic.class)
-    private String email;
 
     @Column(name = "blocked")
     @JsonView(Views.Basic.class)
@@ -72,11 +71,6 @@ public class User implements UserDetails {
     @Column(name = "phone_number")
     @JsonView(Views.Basic.class)
     private String phoneNumber;
-
-    @OneToMany
-    @JoinColumn(name = "id_user")
-    @JsonBackReference
-    private List<Statement> statements;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     @JsonIgnore
