@@ -23,12 +23,7 @@ export class PatientCalendarComponent implements AfterViewInit {
 
   itemMap: Map<String, Item> = new Map<String, Item>();
 
-  careType: any[] = [
-    '-',
-    'Publiczna',
-    'Prywatna',
-  ];
-
+  careType: any[] = ['-', 'Publiczna', 'Prywatna',];
   cities: Set<String> = new Set<String>();
   clinics: Array<String> = [];
   doctors: Array<String> = [];
@@ -46,41 +41,13 @@ export class PatientCalendarComponent implements AfterViewInit {
 
   constructor(private visitModelService: VisitModelService, private visitService: VisitService,
               private userService: UserService, private clinicService: ClinicService, private router: Router) {
-    let item: Item = {
-      isFilter: false,
-      name: '',
-    };
-    this.itemMap.set('careType', item);
-    let item2: Item = {
-      isFilter: false,
-      name: '',
-    };
-    this.itemMap.set('city', item2);
-    let item3: Item = {
-      isFilter: false,
-      name: '',
-    };
-    this.itemMap.set('clinic', item3);
-    let item4: Item = {
-      isFilter: false,
-      name: '',
-    };
-    this.itemMap.set('doctor', item4);
-    let item5: Item = {
-      isFilter: false,
-      name: '',
-    };
-    this.itemMap.set('specialization', item5);
-    let item6: Item = {
-      isFilter: false,
-      name: '',
-    };
-    this.itemMap.set('minPrice', item6);
-    let item7: Item = {
-      isFilter: false,
-      name: '',
-    };
-    this.itemMap.set('maxPrice', item7);
+    this.itemMap.set('careType', {isFilter: false, name: '',});
+    this.itemMap.set('city', {isFilter: false, name: '',});
+    this.itemMap.set('clinic', {isFilter: false, name: '',});
+    this.itemMap.set('doctor', {isFilter: false, name: '',});
+    this.itemMap.set('specialization', {isFilter: false, name: '',});
+    this.itemMap.set('minPrice', {isFilter: false, name: '',});
+    this.itemMap.set('maxPrice', {isFilter: false, name: '',});
   }
 
   ngAfterViewInit(): void {
