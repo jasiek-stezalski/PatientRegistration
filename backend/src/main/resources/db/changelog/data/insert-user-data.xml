@@ -12,8 +12,8 @@
             <column name="username" value="doctor1"/>
             <!--Password: doctor1-->
             <column name="password" value="$2a$10$ddAt87QuE/cqw74BAdjWJOHPbAomcsoMhhliMaiwqD5r0hqvQIyMC"/>
-            <column name="first_name" value="doctor1"/>
-            <column name="last_name" value="doctor1"/>
+            <column name="first_name" value="Jan"/>
+            <column name="last_name" value="Nowak"/>
             <column name="role" value="DOCTOR"/>
             <column name="email" value="doctor1@email.com"/>
             <column name="blocked" value="false"/>
@@ -24,8 +24,8 @@
             <column name="username" value="doctor2"/>
             <!--Password: doctor2-->
             <column name="password" value="$2a$10$kxdpA4jh9mpPGeRpYhz/uePwpty4tmfGDlrej76NlbncoGS2Yj9lq"/>
-            <column name="first_name" value="doctor2"/>
-            <column name="last_name" value="doctor2"/>
+            <column name="first_name" value="Stanisław"/>
+            <column name="last_name" value="Kowalski"/>
             <column name="role" value="DOCTOR"/>
             <column name="email" value="doctor2@email.com"/>
             <column name="blocked" value="false"/>
@@ -36,8 +36,8 @@
             <column name="username" value="doctor3"/>
             <!--Password: doctor3-->
             <column name="password" value="$2a$10$quuBY2C2wt41bMX7KP968OgrSpxAjWkzcRNaMF6E.b6gbimUBO3ay"/>
-            <column name="first_name" value="doctor3"/>
-            <column name="last_name" value="doctor3"/>
+            <column name="first_name" value="Andrzej"/>
+            <column name="last_name" value="Wiśniewski"/>
             <column name="role" value="DOCTOR"/>
             <column name="email" value="doctor3@email.com"/>
             <column name="blocked" value="false"/>
@@ -48,8 +48,8 @@
             <column name="username" value="user1"/>
             <!--Password: user1-->
             <column name="password" value="$2a$10$28cqPSFV1V8WQpVZxbxwFuWlFDjvrddKQHbbUY9kLRCQkI1/aD9Oe"/>
-            <column name="first_name" value="user1"/>
-            <column name="last_name" value="user1"/>
+            <column name="first_name" value="Józef"/>
+            <column name="last_name" value="Wójcik"/>
             <column name="role" value="USER"/>
             <column name="email" value="user1@email.com"/>
             <column name="blocked" value="false"/>
@@ -60,8 +60,8 @@
             <column name="username" value="user2"/>
             <!--Password: user2-->
             <column name="password" value="$2a$10$z.gvGyKRd75KEgiCsTpy1eaakaLun/apsh8MNdiRQtMOwcJDEKvAa"/>
-            <column name="first_name" value="user2"/>
-            <column name="last_name" value="user2"/>
+            <column name="first_name" value="Tadeusz"/>
+            <column name="last_name" value="Kowalczyk"/>
             <column name="role" value="USER"/>
             <column name="email" value="user2@email.com"/>
             <column name="blocked" value="false"/>
@@ -72,15 +72,14 @@
             <column name="username" value="user3"/>
             <!--Password: user3-->
             <column name="password" value="$2a$10$0xMl2A6ot2OgxiefuiCkiux3IjwBV6zEp9Rcp5G8Cp6nuvRaOHwbO"/>
-            <column name="first_name" value="user3"/>
-            <column name="last_name" value="user3"/>
+            <column name="first_name" value="Jerzy"/>
+            <column name="last_name" value="Kamiński"/>
             <column name="role" value="USER"/>
             <column name="email" value="user3@email.com"/>
             <column name="blocked" value="false"/>
             <column name="pesel" value="66666666666"/>
             <column name="phone_number" value="666666666"/>
         </insert>
-
 
     </changeSet>
 

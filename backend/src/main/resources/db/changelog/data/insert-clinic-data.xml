@@ -9,45 +9,45 @@
     <changeSet id="1" author="jstezalski" context="default">
 
         <insert tableName="CLINIC">
-            <column name="name" value="clinic1"/>
-            <column name="medical_center" value="mediacalCenter1"/>
-            <column name="address" value="address1"/>
-            <column name="city" value="city1"/>
+            <column name="name" value="Centrum Medyczne Vadimed - oddział główny"/>
+            <column name="medical_center" value="Vadimed"/>
+            <column name="address" value="Fiołkowa 6"/>
+            <column name="city" value="Kraków"/>
             <column name="phone_number" value="111222333"/>
         </insert>
         <insert tableName="CLINIC">
-            <column name="name" value="clinic2"/>
-            <column name="medical_center" value="mediacalCenter1"/>
-            <column name="address" value="address2"/>
-            <column name="city" value="city2"/>
+            <column name="name" value="Ars-Medica. Przychodnia Medyczna Kraków"/>
+            <column name="medical_center" value="Ars-Medica"/>
+            <column name="address" value="Warszawska 17"/>
+            <column name="city" value="Kraków"/>
             <column name="phone_number" value="333222111"/>
         </insert>
         <insert tableName="CLINIC">
-            <column name="name" value="clinic3"/>
-            <column name="medical_center" value="mediacalCenter1"/>
-            <column name="address" value="address3"/>
-            <column name="city" value="city1"/>
+            <column name="name" value="Poradnia dziecięca NZOZ Vadimed"/>
+            <column name="medical_center" value="Vadimed"/>
+            <column name="address" value="Osiedle Piastów 40"/>
+            <column name="city" value="Kraków"/>
             <column name="phone_number" value="222333111"/>
         </insert>
         <insert tableName="CLINIC">
-            <column name="name" value="clinic4"/>
-            <column name="medical_center" value="mediacalCenter2"/>
-            <column name="address" value="address4"/>
-            <column name="city" value="city2"/>
+            <column name="name" value="Przychodnia Medycyna Pracy Alfa-Med NZOZ Katowice"/>
+            <column name="medical_center" value="Alfa-Med"/>
+            <column name="address" value="Teatralna 10"/>
+            <column name="city" value="Katowice"/>
             <column name="phone_number" value="222111333"/>
         </insert>
         <insert tableName="CLINIC">
-            <column name="name" value="clinic5"/>
-            <column name="medical_center" value="mediacalCenter2"/>
-            <column name="address" value="address5"/>
-            <column name="city" value="city2"/>
+            <column name="name" value="Ars-Medica. Przychodnia Kochanowskiego"/>
+            <column name="medical_center" value="Ars-Medica"/>
+            <column name="address" value="Generała Kazimierza Sosnkowskiego 18"/>
+            <column name="city" value="Warszawa"/>
             <column name="phone_number" value="444333222"/>
         </insert>
         <insert tableName="CLINIC">
-            <column name="name" value="clinic6"/>
-            <column name="medical_center" value="mediacalCenter2"/>
-            <column name="address" value="address6"/>
-            <column name="city" value="city1"/>
+            <column name="name" value="Alkamed Przychodnia"/>
+            <column name="medical_center" value="Alkamed"/>
+            <column name="address" value="Broniewskiego 23"/>
+            <column name="city" value="Warszawa"/>
             <column name="phone_number" value="222333444"/>
         </insert>
 
