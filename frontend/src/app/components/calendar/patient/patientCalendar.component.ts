@@ -28,12 +28,14 @@ export class PatientCalendarComponent implements AfterViewInit {
     'Prywatna',
   ];
 
+  cities: Set<String> = new Set<String>();
   clinics: Array<String> = [];
   doctors: Array<String> = [];
   specialization = JSON.parse(JSON.stringify(this.visitModelService.specialization));
 
   filter: any = {
     careType: '',
+    cities: '',
     clinic: '',
     doctor: '',
     specialization: '',
@@ -52,27 +54,32 @@ export class PatientCalendarComponent implements AfterViewInit {
       isFilter: false,
       name: '',
     };
-    this.itemMap.set('clinic', item2);
+    this.itemMap.set('city', item2);
     let item3: Item = {
       isFilter: false,
       name: '',
     };
-    this.itemMap.set('doctor', item3);
+    this.itemMap.set('clinic', item3);
     let item4: Item = {
       isFilter: false,
       name: '',
     };
-    this.itemMap.set('specialization', item4);
+    this.itemMap.set('doctor', item4);
     let item5: Item = {
       isFilter: false,
       name: '',
     };
-    this.itemMap.set('minPrice', item5);
+    this.itemMap.set('specialization', item5);
     let item6: Item = {
       isFilter: false,
       name: '',
     };
-    this.itemMap.set('maxPrice', item6);
+    this.itemMap.set('minPrice', item6);
+    let item7: Item = {
+      isFilter: false,
+      name: '',
+    };
+    this.itemMap.set('maxPrice', item7);
   }
 
   ngAfterViewInit(): void {
@@ -82,13 +89,16 @@ export class PatientCalendarComponent implements AfterViewInit {
       this.events = result;
       this.events2 = result;
     });
+    this.cities.add('-');
     this.clinics.push('-');
     this.clinicService.getClinics()
       .subscribe(data => {
         data.forEach(i => {
+          this.cities.add(i.city);
           this.clinics.push(i.name + ', ' + i.address);
         });
       });
+
     this.doctors.push('-');
     this.userService.getUsersByRole('DOCTOR')
       .subscribe(data => {
@@ -168,6 +178,12 @@ export class PatientCalendarComponent implements AfterViewInit {
     this.doFilter();
   }
 
+  changeCity(val) {
+    this.itemMap.get('city').name = val;
+    this.itemMap.get('city').isFilter = val != '-';
+    this.doFilter();
+  }
+
   changeClinic(val) {
     this.itemMap.get('clinic').name = val;
     this.itemMap.get('clinic').isFilter = val != '-';
@@ -203,6 +219,8 @@ export class PatientCalendarComponent implements AfterViewInit {
 
     if (this.itemMap.get('careType').isFilter)
       this.events = this.events.filter(value => value.visitModel.careType == this.itemMap.get('careType').name);
+    if (this.itemMap.get('city').isFilter)
+      this.events = this.events.filter(value => value.visitModel.clinic.city == this.itemMap.get('city').name);
     if (this.itemMap.get('clinic').isFilter)
       this.events = this.events.filter(value =>
         (value.visitModel.clinic.name + ', ' + value.visitModel.clinic.address) == this.itemMap.get('clinic').name);

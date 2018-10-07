@@ -78,11 +78,10 @@ div {
 .buttons2 a {
   display: inline-block;
   text-align: center;
-  background-color: #9ba1a3;
+  background-color: #b1b8ba;
   border: 1px solid #c6ccc6;
   color: #fff;
   padding: 6px 15px;
-  margin-top: 10px;
   border-radius: 2px;
   cursor: pointer;
   margin-right: 5px;
