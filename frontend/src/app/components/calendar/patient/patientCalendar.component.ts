@@ -6,6 +6,7 @@ import {VisitService} from '../../../services/visit.services';
 import {UserService} from '../../../services/user.service';
 import {ClinicService} from '../../../services/clinic.service';
 import {BookComponent} from './book/book.component';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'patientCalendar-component',
@@ -44,7 +45,7 @@ export class PatientCalendarComponent implements AfterViewInit {
   };
 
   constructor(private visitModelService: VisitModelService, private visitService: VisitService,
-              private userService: UserService, private clinicService: ClinicService) {
+              private userService: UserService, private clinicService: ClinicService, private router: Router) {
     let item: Item = {
       isFilter: false,
       name: '',
@@ -143,9 +144,12 @@ export class PatientCalendarComponent implements AfterViewInit {
       }
       else if (visit.user != null)
         this.calendar.control.message('Ten termin jest już zarezerwowany!');
-      else
-        this.book.show(visit);
-
+      else {
+        if (sessionStorage.getItem('currentUser') != null)
+          this.book.show(visit);
+        else
+          this.router.navigate(['/login']);
+      }
     },
 
   };

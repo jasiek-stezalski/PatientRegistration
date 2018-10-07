@@ -12,7 +12,6 @@ import {VisitModelService} from './services/visitModel.service';
 import {CalendarModule} from './components/calendar/calendar.module';
 import {LoginComponent} from './components/authentication/login/login.component';
 import {UrlPermission} from './components/authentication/urlPermission/url.permission';
-import {HomeComponent} from './components/authentication/home/home.component';
 import {RegisterComponent} from './components/authentication/register/register.component';
 import {HttpModule} from '@angular/http';
 import {UrlPermissionDoctor} from './components/authentication/urlPermission/url.permissionDoctor';
@@ -26,7 +25,6 @@ import {ClinicService} from './services/clinic.service';
     AddUserComponent,
     LoginComponent,
     RegisterComponent,
-    HomeComponent,
   ],
   imports: [
     BrowserModule,
