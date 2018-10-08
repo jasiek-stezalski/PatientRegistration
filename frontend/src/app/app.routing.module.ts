@@ -4,7 +4,7 @@ import {RouterModule, Routes} from '@angular/router';
 import {UserComponent} from './components/user/user.component';
 import {AddUserComponent} from './components/user/add/add-user.component';
 import {ModelCalendarComponent} from './components/calendar/modelCalendar/modelCalendar.component';
-import {PatientCalendarComponent} from './components/calendar/patient/patientCalendar.component';
+import {PatientCalendarComponent} from './components/calendar/patientCalendar/patientCalendar.component';
 import {LoginComponent} from './components/authentication/login/login.component';
 import {RegisterComponent} from './components/authentication/register/register.component';
 import {UrlPermissionDoctor} from './components/authentication/urlPermission/url.permissionDoctor';

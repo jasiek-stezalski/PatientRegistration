@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class VisitServiceImpl implements VisitService {
@@ -27,6 +28,15 @@ public class VisitServiceImpl implements VisitService {
     @Override
     public List<Visit> findBetween(LocalDateTime from, LocalDateTime to) {
         return visitRepository.findBetween(from, to);
+    }
+
+    @Override
+    public List<Visit> findBetweenByDoctor(LocalDateTime from, LocalDateTime to, Long idUser) {
+        List<Visit> visits = visitRepository.findBetween(from, to);
+        return visits
+                .stream()
+                .filter(v -> v.getVisitModel().getUser().getId().equals(idUser))
+                .collect(Collectors.toList());
     }
 
     @Override

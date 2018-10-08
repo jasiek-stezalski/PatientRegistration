@@ -5,9 +5,9 @@ import {DayPilotModule} from "daypilot-pro-angular";
 import {HttpClientModule} from "@angular/common/http";
 import {VisitModelService} from '../../services/visitModel.service';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {PatientCalendarComponent} from './patient/patientCalendar.component';
+import {PatientCalendarComponent} from './patientCalendar/patientCalendar.component';
 import {CreateComponent} from './modelCalendar/create/create.component';
-import {BookComponent} from "./patient/book/book.component";
+import {BookComponent} from "./patientCalendar/book/book.component";
 import {DoctorCalendarComponent} from './doctorCalendar/doctorCalendar.component';
 
 @NgModule({

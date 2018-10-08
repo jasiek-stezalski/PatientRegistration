@@ -21,7 +21,7 @@ export class ModelCalendarComponent implements AfterViewInit {
   currentUser: User;
 
   constructor(public router: Router, private service: VisitModelService) {
-    this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    this.currentUser = JSON.parse(sessionStorage.getItem('currentUser'));
   }
 
 

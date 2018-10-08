@@ -19,4 +19,5 @@ public interface VisitRepository extends JpaRepository<Visit, Long> {
     List<Visit> findAllByUser(User user);
 
     List<Visit> findAllByVisitModel(VisitModel visitModel);
+
 }

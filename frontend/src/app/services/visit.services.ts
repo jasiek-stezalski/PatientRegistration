@@ -16,6 +16,10 @@ export class VisitService {
     return this.http.get(this.url + '?from=' + from.toString() + '&to=' + to.toString()) as Observable<any>;
   }
 
+  getVisitsInWeekByDoctor(from: DayPilot.Date, to: DayPilot.Date, idUser: string | number) {
+    return this.http.get(this.url + 'doctor/' + idUser + '?from=' + from.toString() + '&to=' + to.toString()) as Observable<any>;
+  }
+
   bookVisit(idVisit: String | Number, idUser: String | Number) {
     return this.http.get(this.url + 'book/' + idVisit + '?idUser=' + idUser);
   }

@@ -2,6 +2,7 @@ import {AfterViewInit, Component, ViewChild} from '@angular/core';
 import {DayPilot, DayPilotCalendarComponent} from 'daypilot-pro-angular';
 import {Visit} from '../../../models/visit.model';
 import {VisitService} from '../../../services/visit.services';
+import {User} from "../../../models/user.model";
 
 @Component({
   selector: 'doctorCalendar-component',
@@ -20,7 +21,8 @@ export class DoctorCalendarComponent implements AfterViewInit {
   ngAfterViewInit(): void {
     let from = this.calendar.control.visibleStart();
     let to = this.calendar.control.visibleEnd();
-    this.visitService.getVisitsInWeek(from, to).subscribe(result => {
+    let user: User = JSON.parse(sessionStorage.getItem('currentUser'));
+    this.visitService.getVisitsInWeekByDoctor(from, to, user.id).subscribe(result => {
       this.events = result;
     });
 
