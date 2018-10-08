@@ -9,6 +9,8 @@ import {PatientCalendarComponent} from './patientCalendar/patientCalendar.compon
 import {CreateComponent} from './modelCalendar/create/create.component';
 import {BookComponent} from "./patientCalendar/book/book.component";
 import {DoctorCalendarComponent} from './doctorCalendar/doctorCalendar.component';
+import {InfoComponent} from "./doctorCalendar/info/info.component";
+import {BookByDoctorComponent} from "./doctorCalendar/bookByDoctor/bookByDoctor.component";
 
 @NgModule({
   imports: [
@@ -23,7 +25,9 @@ import {DoctorCalendarComponent} from './doctorCalendar/doctorCalendar.component
     PatientCalendarComponent,
     DoctorCalendarComponent,
     CreateComponent,
-    BookComponent
+    BookComponent,
+    InfoComponent,
+    BookByDoctorComponent
   ],
   exports: [ModelCalendarComponent, PatientCalendarComponent, DoctorCalendarComponent],
   providers: [VisitModelService]

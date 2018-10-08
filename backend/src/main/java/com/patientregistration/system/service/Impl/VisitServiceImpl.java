@@ -67,6 +67,14 @@ public class VisitServiceImpl implements VisitService {
     }
 
     @Override
+    public Visit move(Visit data) {
+        Visit visit = findByVisitId(data.getId());
+        visit.setEnd(data.getEnd());
+        visit.setStart(data.getStart());
+        return visitRepository.save(visit);
+    }
+
+    @Override
     public void delete(Long idVisit) {
         visitRepository.deleteById(idVisit);
     }

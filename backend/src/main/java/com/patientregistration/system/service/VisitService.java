@@ -20,6 +20,8 @@ public interface VisitService {
 
     Visit bookVisit(Long idVisit, Long idUser);
 
+    Visit move(Visit data);
+
     void delete(Long idVisit);
 
     List<Visit> findAllByVisitModel(VisitModel savedVisitModel);

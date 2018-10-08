@@ -3,6 +3,9 @@ import {DayPilot, DayPilotCalendarComponent} from 'daypilot-pro-angular';
 import {Visit} from '../../../models/visit.model';
 import {VisitService} from '../../../services/visit.services';
 import {User} from "../../../models/user.model";
+import {VisitModel} from "../../../models/visitModel.model";
+import {InfoComponent} from "./info/info.component";
+import {BookByDoctorComponent} from "./bookByDoctor/bookByDoctor.component";
 
 @Component({
   selector: 'doctorCalendar-component',
@@ -12,6 +15,8 @@ import {User} from "../../../models/user.model";
 export class DoctorCalendarComponent implements AfterViewInit {
 
   @ViewChild('calendar') calendar: DayPilotCalendarComponent;
+  @ViewChild('info') info: InfoComponent;
+  @ViewChild('bookByDoctor') book: BookByDoctorComponent;
 
   events: Visit[] = [];
 
@@ -49,10 +54,20 @@ export class DoctorCalendarComponent implements AfterViewInit {
     cellDuration: 15,
 
     timeRangeSelectedHandling: 'Disabled',
-    eventMoveHandling: 'Disabled',
     eventResizeHandling: 'Disabled',
-    eventClickHandling: 'Disabled',
     eventHoverHandling: 'Disabled',
+
+    onEventClicked: args => {
+      let visit: Visit = this.events.find(a => a.id == args.e.id());
+      if (visit.user != null)
+        this.info.show(visit);
+      else if (('' + visit.start + '').substring(0, 10) <= ('' + DayPilot.Date.today() + '').substring(0, 10)) {
+        this.calendar.control.message('Ten termin jest już nieaktualny!');
+      }
+      else if (this.info.user.id != null)  {
+        this.book.show(visit, this.info.user);
+      }
+    },
 
     eventDeleteHandling: 'Update',
     onEventDelete: args => {
@@ -69,7 +84,42 @@ export class DoctorCalendarComponent implements AfterViewInit {
       } else this.ngAfterViewInit();
     },
 
+    eventMoveHandling: 'Update',
+    onEventMove: args => {
+      let visit: Visit = this.events.find(a => a.id == args.e.id());
+      if (('' + visit.start + '').substring(0, 10) <= ('' + DayPilot.Date.today() + '').substring(0, 10)) {
+        this.calendar.control.message('Nie można zmienić terminu wizyty która się już odbyła!');
+        this.ngAfterViewInit();
+        return;
+      }
+      if (confirm('Czy na pewno chcesz odwołać tą wizytę?')) {
+        let data: VisitModel = {
+          id: args.e.id(),
+          start: args.newStart.toString(),
+          end: args.newEnd.toString()
+        };
+        this.visitService.moveVisit(data).subscribe(() => {
+          this.calendar.control.message('Termin wizyty został zmieniony');
+        });
+      } else this.ngAfterViewInit();
+    },
+
   };
+
+  bookClosed(args) {
+    if (args.result) {
+      this.info.user.id = null;
+      this.calendar.control.message('Model wizyty został utworzony.');
+    }
+    this.calendar.control.clearSelection();
+  }
+
+  infoClosed(args) {
+    if (this.info.user.id != null) {
+      this.calendar.control.message('Wybierz termin następnej wizyty');
+    }
+    this.calendar.control.clearSelection();
+  }
 
   navigatePrevious(event): void {
     event.preventDefault();

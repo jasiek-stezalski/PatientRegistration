@@ -58,6 +58,13 @@ public class VisitController {
         return visitService.findAllVisitsByIdUser(idUser);
     }
 
+    @PutMapping("/")
+    @JsonSerialize(using = LocalDateTimeSerializer.class)
+    @JsonView(Views.Basic.class)
+    public Visit moveEvent(@RequestBody Visit data) {
+        return visitService.move(data);
+    }
+
     @PostMapping("/")
     public Visit createVisit(@Valid @RequestBody Visit visit) {
         return visitService.save(visit);

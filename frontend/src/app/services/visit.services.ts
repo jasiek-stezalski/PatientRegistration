@@ -24,6 +24,10 @@ export class VisitService {
     return this.http.get(this.url + 'book/' + idVisit + '?idUser=' + idUser);
   }
 
+  moveVisit(data: any): Observable<Visit> {
+    return this.http.put(this.url, data) as Observable<any>;
+  }
+
   deleteVisit(idVisit: String): Observable<Visit> {
     return this.http.delete(this.url + idVisit) as Observable<any>;
   }

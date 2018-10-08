@@ -7,6 +7,7 @@ import {UserService} from '../../../services/user.service';
 import {ClinicService} from '../../../services/clinic.service';
 import {BookComponent} from './book/book.component';
 import {Router} from '@angular/router';
+import {User} from "../../../models/user.model";
 
 @Component({
   selector: 'patientCalendar-component',
@@ -112,8 +113,11 @@ export class PatientCalendarComponent implements AfterViewInit {
       else if (visit.user != null)
         this.calendar.control.message('Ten termin jest już zarezerwowany!');
       else {
-        if (sessionStorage.getItem('currentUser') != null)
+        if (sessionStorage.getItem('currentUser') != null) {
           this.book.show(visit);
+          visit.user = new User();
+          this.calendar.control.clearSelection();
+        }
         else
           this.router.navigate(['/login']);
       }

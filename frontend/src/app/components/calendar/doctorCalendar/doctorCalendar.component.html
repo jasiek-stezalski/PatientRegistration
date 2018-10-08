@@ -10,3 +10,5 @@
   </div>
   <daypilot-calendar [config]="config" [events]="events" #calendar></daypilot-calendar>
 </div>
+<info-dialog #info (close)="infoClosed($event)"></info-dialog>
+<bookByDoctor-dialog #bookByDoctor (close)="bookClosed($event)"></bookByDoctor-dialog>
