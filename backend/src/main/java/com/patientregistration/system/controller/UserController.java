@@ -38,16 +38,6 @@ public class UserController {
 
     @GetMapping("/login")
     public Principal user(Principal principal) {
-
-//        new Thread(() -> {
-//            try {
-//                emailService.sendSimpleMessage("registratinforsystem@gmail.com", "costam", "costam");
-//                logger.info("The e-mail has been sent");
-//            } catch (MessagingException | IOException e) {
-//                logger.warn("The email could not be sent");
-//            }
-//        }).start();
-
         logger.info("user logged " + principal);
         return principal;
     }

@@ -5,12 +5,14 @@ import com.patientregistration.system.domain.Visit;
 import com.patientregistration.system.domain.VisitModel;
 import com.patientregistration.system.exception.ResourceNotFoundException;
 import com.patientregistration.system.repository.VisitRepository;
+import com.patientregistration.system.service.EmailService;
 import com.patientregistration.system.service.UserService;
 import com.patientregistration.system.service.VisitService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -19,10 +21,12 @@ public class VisitServiceImpl implements VisitService {
 
     private VisitRepository visitRepository;
     private UserService userService;
+    private EmailService emailService;
 
-    public VisitServiceImpl(VisitRepository visitRepository, UserService userService) {
+    public VisitServiceImpl(VisitRepository visitRepository, UserService userService, EmailService emailService) {
         this.visitRepository = visitRepository;
         this.userService = userService;
+        this.emailService = emailService;
     }
 
     @Override
@@ -69,13 +73,17 @@ public class VisitServiceImpl implements VisitService {
     @Override
     public Visit move(Visit data) {
         Visit visit = findByVisitId(data.getId());
+        LocalDateTime term = visit.getStart();
         visit.setEnd(data.getEnd());
         visit.setStart(data.getStart());
-        return visitRepository.save(visit);
+        Visit savedVisit = visitRepository.save(visit);
+        emailService.moveVisitEmail(Collections.singletonList(visit), Collections.singletonList(term));
+        return savedVisit;
     }
 
     @Override
     public void delete(Long idVisit) {
+        emailService.cancelVisitEmail(Collections.singletonList(findByVisitId(idVisit)));
         visitRepository.deleteById(idVisit);
     }
 

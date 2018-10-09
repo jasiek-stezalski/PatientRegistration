@@ -4,6 +4,7 @@ import com.patientregistration.system.domain.Visit;
 import com.patientregistration.system.domain.VisitModel;
 import com.patientregistration.system.exception.ResourceNotFoundException;
 import com.patientregistration.system.repository.VisitModelRepository;
+import com.patientregistration.system.service.EmailService;
 import com.patientregistration.system.service.VisitModelService;
 import com.patientregistration.system.service.VisitService;
 import org.springframework.stereotype.Service;
@@ -16,6 +17,7 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
+import java.util.stream.Collectors;
 
 import static java.time.temporal.ChronoUnit.DAYS;
 import static java.util.Calendar.DATE;
@@ -25,10 +27,12 @@ public class VisitModelServiceImpl implements VisitModelService {
 
     private VisitModelRepository visitModelRepository;
     private VisitService visitService;
+    private EmailService emailService;
 
-    public VisitModelServiceImpl(VisitModelRepository visitModelRepository, VisitService visitService) {
+    public VisitModelServiceImpl(VisitModelRepository visitModelRepository, VisitService visitService, EmailService emailService) {
         this.visitModelRepository = visitModelRepository;
         this.visitService = visitService;
+        this.emailService = emailService;
     }
 
     @Override
@@ -107,7 +111,9 @@ public class VisitModelServiceImpl implements VisitModelService {
     }
 
     @Override
+    @Transactional
     public void delete(Long idVisitModel) {
+        emailService.cancelVisitEmail(findByIdVisitModel(idVisitModel).getVisits());
         visitModelRepository.deleteById(idVisitModel);
     }
 
@@ -128,6 +134,8 @@ public class VisitModelServiceImpl implements VisitModelService {
 
         List<Visit> visits = visitModel.getVisits();
         visits.sort(Comparator.comparing(Visit::getStart));
+
+        List<LocalDateTime> term = visits.stream().map(Visit::getStart).collect(Collectors.toList());
 
         LocalDate visitDate = visitModel.getStart().toLocalDate();
         LocalDate endDate = visitModel.getEndDate().toLocalDate();
@@ -163,7 +171,9 @@ public class VisitModelServiceImpl implements VisitModelService {
 
         visitModel.setVisits(visits);
 
-        return visitModelRepository.save(visitModel);
+        VisitModel savedVisitModel = visitModelRepository.save(visitModel);
+        emailService.moveVisitEmail(savedVisitModel.getVisits(), term);
+        return savedVisitModel;
     }
 
     private static java.sql.Date convertFromJAVADateToSQLDate(java.util.Date javaDate) {
