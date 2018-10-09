@@ -25,11 +25,10 @@ public class EmailServiceImpl implements EmailService {
 
         new Thread(() -> {
 
-            message.setSubject("Wizyta została odwołana");
+            message.setSubject("Rejestracja on-line. Wizyta została odwołana");
 
             for (Visit visit : visits) {
                 if (visit.getUser() != null) {
-                    message.setText("");
                     message.setText("Z przykrością informujemy że wizyta z dnia "
                             + visit.getStart().toLocalDate()
                             + " z godziny "
@@ -51,11 +50,10 @@ public class EmailServiceImpl implements EmailService {
 
         new Thread(() -> {
 
-            message.setSubject("Termin wizyty uległ zmianie");
+            message.setSubject("Rejestracja on-line. Termin wizyty uległ zmianie");
 
             for (int i = 0; i < visits.size(); i++) {
                 if (visits.get(i).getUser() != null) {
-                    message.setText("");
                     message.setText("Informujemy że wizyta z dnia "
                             + term.get(i).toLocalDate()
                             + " z godziny "
@@ -64,11 +62,40 @@ public class EmailServiceImpl implements EmailService {
                             + visits.get(i).getStart().toLocalDate()
                             + " na godzinę "
                             + visits.get(i).getStart().toLocalTime()
-                            + ". Jeżeli nowy termin pani/panu nie odpowiada zachęcamy do zmiany terminu.");
+                            + ". Jeżeli nowy termin panu nie odpowiada zachęcamy do zmiany terminu.");
                     message.setTo(visits.get(i).getUser().getEmail());
                     emailSender.send(message);
                 }
             }
+
+        }).start();
+    }
+
+    @Override
+    public void bookVisitEmail(Visit visit) {
+        SimpleMailMessage message = new SimpleMailMessage();
+
+        new Thread(() -> {
+
+            message.setSubject("Rejestracja on-line");
+            message.setText("Dziękujemy. Twoja rezerwacja została potwierdzona przez placówkę medyczną. \n" +
+                    "Zapraszamy na wizytę. \n\nTermin wizyty to: "
+                    + visit.getStart().toLocalDate() + " "
+                    + visit.getStart().toLocalTime()
+                    + ". \nLekarz: "
+                    + visit.getVisitModel().getUser().getFirstName() + " "
+                    + visit.getVisitModel().getUser().getLastName()
+                    + "\nTyp wizyty: "
+                    + visit.getVisitModel().getCareType()
+                    + "\nPlacówka medyczna: "
+                    + visit.getVisitModel().getClinic().getName()
+                    + "\nAdress: "
+                    + visit.getVisitModel().getClinic().getAddress() + ", "
+                    + visit.getVisitModel().getClinic().getCity()
+                    + "\nTelefon: "
+                    + visit.getVisitModel().getClinic().getPhoneNumber());
+            message.setTo(visit.getUser().getEmail());
+            emailSender.send(message);
 
         }).start();
     }

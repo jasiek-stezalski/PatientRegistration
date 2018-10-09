@@ -10,4 +10,6 @@ public interface EmailService {
     void cancelVisitEmail(List<Visit> visit);
 
     void moveVisitEmail(List<Visit> visits, List<LocalDateTime> term);
+
+    void bookVisitEmail(Visit visit);
 }

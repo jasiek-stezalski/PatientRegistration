@@ -67,7 +67,9 @@ public class VisitServiceImpl implements VisitService {
         visit.setText("Zajęte");
         User user = userService.findUserById(idUser);
         visit.setUser(user);
-        return visitRepository.save(visit);
+        Visit save = visitRepository.save(visit);
+        emailService.bookVisitEmail(visit);
+        return save;
     }
 
     @Override
