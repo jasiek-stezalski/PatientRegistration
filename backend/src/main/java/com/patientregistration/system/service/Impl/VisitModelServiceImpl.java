@@ -131,28 +131,35 @@ public class VisitModelServiceImpl implements VisitModelService {
 
         LocalDate visitDate = visitModel.getStart().toLocalDate();
         LocalDate endDate = visitModel.getEndDate().toLocalDate();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
         int index = 0;
+
         while (visitDate.isBefore(endDate) || visitDate.isEqual(endDate)) {
 
             LocalTime visitHour = visitModel.getStart().toLocalTime();
             LocalTime endHour = visitModel.getEnd().toLocalTime();
 
             while (visitHour.isBefore(endHour)) {
-                LocalDateTime startTerm = LocalDateTime.parse(visitDate.toString() + " " + visitHour.toString(), formatter);
+
+                LocalDateTime startTerm = LocalDateTime.parse(visitDate.toString() + " " + visitHour.toString(), dateTimeFormatter);
                 visitHour = visitHour.plusMinutes(visitModel.getMinuteInterval());
-                LocalDateTime endTerm = LocalDateTime.parse(visitDate.toString() + " " + visitHour.toString(), formatter);
-                visits.get(index).setStart(startTerm);
-                visits.get(index).setEnd(endTerm);
-                if (visits.get(index).getUser() != null)
-                    visits.get(index).setText("Zajęte");
-                else
-                    visits.get(index).setText(startTerm.getHour() + " : " + (startTerm.getMinute() < 10 ? startTerm.getMinute() + "0" : startTerm.getMinute()));
+                LocalDateTime endTerm = LocalDateTime.parse(visitDate.toString() + " " + visitHour.toString(), dateTimeFormatter);
+
+                if (!visitDate.isBefore(LocalDate.now().plusDays(1L))) {
+                    visits.get(index).setStart(startTerm);
+                    visits.get(index).setEnd(endTerm);
+                    if (visits.get(index).getUser() != null)
+                        visits.get(index).setText("Zajęte");
+                    else
+                        visits.get(index).setText(startTerm.getHour() + " : " + (startTerm.getMinute() < 10 ? startTerm.getMinute() + "0" : startTerm.getMinute()));
+                }
+
                 index++;
             }
             visitDate = visitDate.plusDays(visitModel.getDayInterval());
         }
+
 
         visitModel.setVisits(visits);
 

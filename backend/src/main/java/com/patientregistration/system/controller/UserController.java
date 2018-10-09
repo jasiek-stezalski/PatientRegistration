@@ -9,8 +9,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.mail.MessagingException;
-import java.io.IOException;
 import java.security.Principal;
 import java.util.List;
 
@@ -41,14 +39,14 @@ public class UserController {
     @GetMapping("/login")
     public Principal user(Principal principal) {
 
-        new Thread(() -> {
-            try {
-                userService.sendSimpleMessage();
-            } catch (MessagingException | IOException e) {
-                System.out.println("Nie udało się wysłać emaila");
-            }
-        }).start();
-
+//        new Thread(() -> {
+//            try {
+//                emailService.sendSimpleMessage("registratinforsystem@gmail.com", "costam", "costam");
+//                logger.info("The e-mail has been sent");
+//            } catch (MessagingException | IOException e) {
+//                logger.warn("The email could not be sent");
+//            }
+//        }).start();
 
         logger.info("user logged " + principal);
         return principal;

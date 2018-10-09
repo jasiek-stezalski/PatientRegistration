@@ -22,5 +22,4 @@ public interface UserService extends UserDetailsService {
 
     List<User> findUsersByRole(String role);
 
-    void sendSimpleMessage() throws MessagingException, IOException;
 }
