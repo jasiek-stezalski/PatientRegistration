@@ -4,6 +4,7 @@ import 'rxjs/add/operator/map';
 
 import {User} from '../models/user.model';
 import {Headers, Http, RequestOptions, Response} from '@angular/http';
+import {Observable} from 'rxjs';
 
 @Injectable()
 export class UserService {
@@ -13,12 +14,12 @@ export class UserService {
 
   private url = 'http://localhost:8080/users/';
 
-  public getUsers() {
-    return this.httpClient.get<User[]>(this.url);
+  public getUsers(): Observable<User[]> {
+    return this.httpClient.get(this.url) as Observable<User[]>;
   }
 
-  public getUsersByRole(role: String) {
-    return this.httpClient.get<User[]>(this.url + 'role?role=' + role);
+  public getUsersByRole(role: String): Observable<User[]> {
+    return this.httpClient.get(this.url + 'role?role=' + role) as Observable<User[]>;
   }
 
   public deleteUser(user) {

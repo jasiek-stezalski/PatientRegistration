@@ -12,20 +12,20 @@ export class VisitModelService {
   constructor(private http: HttpClient) {
   }
 
-  getVisitModelsInWeek(from: DayPilot.Date, to: DayPilot.Date): Observable<any[]> {
-    return this.http.get(this.url + '?from=' + from.toString() + '&to=' + to.toString()) as Observable<any>;
+  getVisitModelsInWeek(from: DayPilot.Date, to: DayPilot.Date): Observable<VisitModel[]> {
+    return this.http.get(this.url + '?from=' + from.toString() + '&to=' + to.toString()) as Observable<VisitModel[]>;
   }
 
-  createVisitModel(data) {
-    return this.http.post(this.url, data);
+  createVisitModel(data): Observable<VisitModel> {
+    return this.http.post(this.url, data) as Observable<VisitModel>;
   }
 
   moveVisitModel(data: any): Observable<VisitModel> {
-    return this.http.put(this.url, data) as Observable<any>;
+    return this.http.put(this.url, data) as Observable<VisitModel>;
   }
 
-  deleteVisitModel(idVisitModel: String): Observable<VisitModel> {
-    return this.http.delete(this.url + idVisitModel) as Observable<any>;
+  deleteVisitModel(idVisitModel: String) {
+    return this.http.delete(this.url + idVisitModel);
   }
 
   public static minimalDate() {

@@ -12,24 +12,24 @@ export class VisitService {
   constructor(private http: HttpClient) {
   }
 
-  getVisitsInWeek(from: DayPilot.Date, to: DayPilot.Date) {
-    return this.http.get(this.url + '?from=' + from.toString() + '&to=' + to.toString()) as Observable<any>;
+  getVisitsInWeek(from: DayPilot.Date, to: DayPilot.Date): Observable<Visit[]> {
+    return this.http.get(this.url + '?from=' + from.toString() + '&to=' + to.toString()) as Observable<Visit[]>;
   }
 
-  getVisitsInWeekByDoctor(from: DayPilot.Date, to: DayPilot.Date, idUser: string | number) {
-    return this.http.get(this.url + 'doctor/' + idUser + '?from=' + from.toString() + '&to=' + to.toString()) as Observable<any>;
+  getVisitsInWeekByDoctor(from: DayPilot.Date, to: DayPilot.Date, idUser: string | number): Observable<Visit[]> {
+    return this.http.get(this.url + 'doctor/' + idUser + '?from=' + from.toString() + '&to=' + to.toString()) as Observable<Visit[]>;
   }
 
-  bookVisit(idVisit: String | Number, idUser: String | Number) {
-    return this.http.get(this.url + 'book/' + idVisit + '?idUser=' + idUser);
+  bookVisit(idVisit: String | Number, idUser: String | Number): Observable<Visit> {
+    return this.http.get(this.url + 'book/' + idVisit + '?idUser=' + idUser) as Observable<Visit>;
   }
 
-  moveVisit(data: any): Observable<Visit> {
-    return this.http.put(this.url, data) as Observable<any>;
+  moveVisit(data: Visit): Observable<Visit> {
+    return this.http.put(this.url, data) as Observable<Visit>;
   }
 
-  deleteVisit(idVisit: String): Observable<Visit> {
-    return this.http.delete(this.url + idVisit) as Observable<any>;
+  deleteVisit(idVisit: String) {
+    return this.http.delete(this.url + idVisit);
   }
 
 }
