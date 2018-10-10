@@ -17,7 +17,7 @@ export class ModelCalendarComponent implements AfterViewInit {
   @ViewChild('calendar') calendar: DayPilotCalendarComponent;
   @ViewChild('create') create: CreateComponent;
 
-  events: any[] = [];
+  events: VisitModel[] = [];
   currentUser: User;
 
   constructor(public router: Router, private service: VisitModelService) {
