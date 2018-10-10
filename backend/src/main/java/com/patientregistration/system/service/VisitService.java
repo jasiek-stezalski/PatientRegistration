@@ -18,6 +18,8 @@ public interface VisitService {
 
     Visit save(Visit visit);
 
+    List<Visit> saveAll(List<Visit> visits);
+
     Visit bookVisit(Long idVisit, Long idUser);
 
     Visit move(Visit data);

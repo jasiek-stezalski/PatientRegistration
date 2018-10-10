@@ -61,6 +61,11 @@ public class VisitServiceImpl implements VisitService {
     }
 
     @Override
+    public List<Visit> saveAll(List<Visit> visits) {
+        return visitRepository.saveAll(visits);
+    }
+
+    @Override
     @Transactional
     public Visit bookVisit(Long idVisit, Long idUser) {
         Visit visit = findByVisitId(idVisit);

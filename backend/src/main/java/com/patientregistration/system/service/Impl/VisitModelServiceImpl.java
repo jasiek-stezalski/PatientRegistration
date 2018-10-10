@@ -28,6 +28,8 @@ public class VisitModelServiceImpl implements VisitModelService {
     private VisitModelRepository visitModelRepository;
     private VisitService visitService;
     private EmailService emailService;
+    private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+    public static final Set<DayOfWeek> WEEKEND = EnumSet.of(DayOfWeek.SATURDAY, DayOfWeek.SUNDAY);
 
     public VisitModelServiceImpl(VisitModelRepository visitModelRepository, VisitService visitService, EmailService emailService) {
         this.visitModelRepository = visitModelRepository;
@@ -49,66 +51,113 @@ public class VisitModelServiceImpl implements VisitModelService {
     @Override
     @Transactional
     public VisitModel save(VisitModel visitModel) {
-        VisitModel newVisitModel = visitModelRepository.save(visitModel);
 
-        LocalDate visitDate = newVisitModel.getStart().toLocalDate();
-        LocalDate endDate = newVisitModel.getEndDate().toLocalDate();
+        // Problem when we want to create visit that is not perfectly fit
+        // visits are good created but model not
+        // more than one problem xD
 
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        List<Visit> visits = new ArrayList<>();
 
-        Set<DayOfWeek> weekend = EnumSet.of(DayOfWeek.SATURDAY, DayOfWeek.SUNDAY);
+        LocalDate visitDate = visitModel.getStart().toLocalDate();
 
-        int visitCounter = 0;
+        while (!visitDate.isAfter(visitModel.getEndDate().toLocalDate())) {
 
-        while (visitDate.isBefore(endDate) || visitDate.isEqual(endDate)) {
             // Check if it is a weekend
-            if (newVisitModel.getDayInterval() == 1 && weekend.contains(visitDate.getDayOfWeek())) {
-                visitDate = visitDate.plusDays(newVisitModel.getDayInterval());
+            System.out.println(visitDate.getDayOfWeek());
+            if (visitModel.getDayInterval() == 1 && WEEKEND.contains(visitDate.getDayOfWeek())) {
+                System.out.println("jetem tu");
+                visitDate = visitDate.plusDays(visitModel.getDayInterval());
                 continue;
             }
 
-            LocalTime visitHour = newVisitModel.getStart().toLocalTime();
-            LocalTime endHour = newVisitModel.getEnd().toLocalTime();
+            LocalTime visitHour = visitModel.getStart().toLocalTime();
+            LocalTime endHour = visitModel.getEnd().toLocalTime();
 
             while (visitHour.isBefore(endHour)) {
-                LocalDateTime startTerm = LocalDateTime.parse(visitDate.toString() + " " + visitHour.toString(), formatter);
-                visitHour = visitHour.plusMinutes(newVisitModel.getMinuteInterval());
-                LocalDateTime endTerm = LocalDateTime.parse(visitDate.toString() + " " + visitHour.toString(), formatter);
-                if (endTerm.toLocalTime().isAfter(endHour)) {
-                    newVisitModel.setEnd(startTerm);
-                    VisitModel savedVisitModel = visitModelRepository.save(newVisitModel);
-                    if (visitService.findAllByVisitModel(savedVisitModel).isEmpty()) {
-                        visitService.save(new Visit(
-                                startTerm,
-                                endTerm,
-                                startTerm.getHour() + " : " + (startTerm.getMinute() < 10 ? startTerm.getMinute() + "0" : startTerm.getMinute())
-                                , newVisitModel));
-                        visitCounter++;
-                        newVisitModel.setEnd(endTerm);
-                        visitModelRepository.save(newVisitModel);
 
-                    }
-                    break;
-                } else {
-                    visitService.save(new Visit(
-                            startTerm,
-                            endTerm,
-                            startTerm.getHour() + " : " + (startTerm.getMinute() < 10 ? startTerm.getMinute() + "0" : startTerm.getMinute())
-                            , newVisitModel));
-                    visitCounter++;
-                }
+                LocalDateTime startTerm = LocalDateTime.parse(visitDate.toString() + " " + visitHour.toString(), FORMATTER);
+                visitHour = visitHour.plusMinutes(visitModel.getMinuteInterval());
+                LocalDateTime endTerm = LocalDateTime.parse(visitDate.toString() + " " + visitHour.toString(), FORMATTER);
+
+                visits.add(new Visit(
+                        startTerm,
+                        endTerm,
+                        startTerm.getHour() + " : " + (startTerm.getMinute() < 10 ? startTerm.getMinute() + "0" : startTerm.getMinute())
+                        , visitModel));
+
+                if (endTerm.toLocalTime().isAfter(endHour)) visitModel.setEnd(startTerm);
 
             }
 
-            visitDate = visitDate.plusDays(newVisitModel.getDayInterval());
+            visitDate = visitDate.plusDays(visitModel.getDayInterval());
+
         }
 
-        if (visitCounter == 0) {
-            visitModelRepository.deleteById(newVisitModel.getId());
-            throw new ResourceNotFoundException("No matching visits to visit model");
-        }
-        return newVisitModel;
+        if (visits.isEmpty()) throw new ResourceNotFoundException("No matching visits to visit model");
+
+        VisitModel savedVisitModel = visitModelRepository.save(visitModel);
+        visitService.saveAll(visits);
+        return savedVisitModel;
     }
+
+//
+//        VisitModel newVisitModel = visitModelRepository.save(visitModel);
+//
+//        LocalDate visitDate = newVisitModel.getStart().toLocalDate();
+//
+//        Set<DayOfWeek> weekend = EnumSet.of(DayOfWeek.SATURDAY, DayOfWeek.SUNDAY);
+//
+//        int visitCounter = 0;
+//
+//        while (!visitDate.isAfter(newVisitModel.getEndDate().toLocalDate())) {
+//            // Check if it is a weekend
+//            if (newVisitModel.getDayInterval() == 1 && weekend.contains(visitDate.getDayOfWeek())) {
+//                visitDate = visitDate.plusDays(newVisitModel.getDayInterval());
+//                continue;
+//            }
+//
+//            LocalTime visitHour = newVisitModel.getStart().toLocalTime();
+//            LocalTime endHour = newVisitModel.getEnd().toLocalTime();
+//
+//            while (visitHour.isBefore(endHour)) {
+//                LocalDateTime startTerm = LocalDateTime.parse(visitDate.toString() + " " + visitHour.toString(), FORMATTER);
+//                visitHour = visitHour.plusMinutes(newVisitModel.getMinuteInterval());
+//                LocalDateTime endTerm = LocalDateTime.parse(visitDate.toString() + " " + visitHour.toString(), FORMATTER);
+//                if (endTerm.toLocalTime().isAfter(endHour)) {
+//                    newVisitModel.setEnd(startTerm);
+//                    VisitModel savedVisitModel = visitModelRepository.save(newVisitModel);
+//                    if (visitService.findAllByVisitModel(savedVisitModel).isEmpty()) {
+//                        visitService.save(new Visit(
+//                                startTerm,
+//                                endTerm,
+//                                startTerm.getHour() + " : " + (startTerm.getMinute() < 10 ? startTerm.getMinute() + "0" : startTerm.getMinute())
+//                                , newVisitModel));
+//                        visitCounter++;
+//                        newVisitModel.setEnd(endTerm);
+//                        visitModelRepository.save(newVisitModel);
+//
+//                    }
+//                    break;
+//                } else {
+//                    visitService.save(new Visit(
+//                            startTerm,
+//                            endTerm,
+//                            startTerm.getHour() + " : " + (startTerm.getMinute() < 10 ? startTerm.getMinute() + "0" : startTerm.getMinute())
+//                            , newVisitModel));
+//                    visitCounter++;
+//                }
+//
+//            }
+//
+//            visitDate = visitDate.plusDays(newVisitModel.getDayInterval());
+//        }
+//
+//        if (visitCounter == 0) {
+//            visitModelRepository.deleteById(newVisitModel.getId());
+//            throw new ResourceNotFoundException("No matching visits to visit model");
+//        }
+//        return newVisitModel;
+//    }
 
     @Override
     @Transactional
@@ -138,21 +187,19 @@ public class VisitModelServiceImpl implements VisitModelService {
         List<LocalDateTime> term = visits.stream().map(Visit::getStart).collect(Collectors.toList());
 
         LocalDate visitDate = visitModel.getStart().toLocalDate();
-        LocalDate endDate = visitModel.getEndDate().toLocalDate();
-        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
         int index = 0;
 
-        while (visitDate.isBefore(endDate) || visitDate.isEqual(endDate)) {
+        while (!visitDate.isAfter(visitModel.getEndDate().toLocalDate())) {
 
             LocalTime visitHour = visitModel.getStart().toLocalTime();
             LocalTime endHour = visitModel.getEnd().toLocalTime();
 
             while (visitHour.isBefore(endHour)) {
 
-                LocalDateTime startTerm = LocalDateTime.parse(visitDate.toString() + " " + visitHour.toString(), dateTimeFormatter);
+                LocalDateTime startTerm = LocalDateTime.parse(visitDate.toString() + " " + visitHour.toString(), FORMATTER);
                 visitHour = visitHour.plusMinutes(visitModel.getMinuteInterval());
-                LocalDateTime endTerm = LocalDateTime.parse(visitDate.toString() + " " + visitHour.toString(), dateTimeFormatter);
+                LocalDateTime endTerm = LocalDateTime.parse(visitDate.toString() + " " + visitHour.toString(), FORMATTER);
 
                 if (!visitDate.isBefore(LocalDate.now().plusDays(1L))) {
                     visits.get(index).setStart(startTerm);
