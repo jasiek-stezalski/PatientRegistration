@@ -8,6 +8,7 @@ import {ClinicService} from '../../../services/clinic.service';
 import {BookComponent} from './book/book.component';
 import {Router} from '@angular/router';
 import {User} from "../../../models/user.model";
+import {Clinic} from "../../../models/clinic.model";
 
 @Component({
   selector: 'patientCalendar-component',
@@ -21,6 +22,7 @@ export class PatientCalendarComponent implements AfterViewInit {
 
   events: Visit[] = [];
   events2: Visit[] = [];
+  clinicsBase: Clinic[] = [];
 
   itemMap: Map<String, Item> = new Map<String, Item>();
 
@@ -62,6 +64,7 @@ export class PatientCalendarComponent implements AfterViewInit {
     this.clinics.push('-');
     this.clinicService.getClinics()
       .subscribe(data => {
+        this.clinicsBase = data;
         data.forEach(i => {
           this.cities.add(i.city);
           this.clinics.push(i.name + ', ' + i.address);
@@ -156,6 +159,21 @@ export class PatientCalendarComponent implements AfterViewInit {
   changeCity(val) {
     this.itemMap.get('city').name = val;
     this.itemMap.get('city').isFilter = val != '-';
+
+    this.clinics = [];
+    this.clinics.push('-');
+    this.itemMap.get('clinic').isFilter = false;
+    if (val === '-') {
+      this.filter.clinic = '-';
+      this.clinicsBase
+        .forEach(i => this.clinics.push(i.name + ', ' + i.address));
+    }
+    else {
+      this.clinicsBase
+        .filter(v => v.city === val)
+        .forEach(i => this.clinics.push(i.name + ', ' + i.address));
+    }
+
     this.doFilter();
   }
 
@@ -193,17 +211,17 @@ export class PatientCalendarComponent implements AfterViewInit {
     this.events = this.events2;
 
     if (this.itemMap.get('careType').isFilter)
-      this.events = this.events.filter(value => value.visitModel.careType == this.itemMap.get('careType').name);
+      this.events = this.events.filter(value => value.visitModel.careType === this.itemMap.get('careType').name);
     if (this.itemMap.get('city').isFilter)
-      this.events = this.events.filter(value => value.visitModel.clinic.city == this.itemMap.get('city').name);
+      this.events = this.events.filter(value => value.visitModel.clinic.city === this.itemMap.get('city').name);
     if (this.itemMap.get('clinic').isFilter)
       this.events = this.events.filter(value =>
-        (value.visitModel.clinic.name + ', ' + value.visitModel.clinic.address) == this.itemMap.get('clinic').name);
+        (value.visitModel.clinic.name + ', ' + value.visitModel.clinic.address) === this.itemMap.get('clinic').name);
     if (this.itemMap.get('doctor').isFilter)
       this.events = this.events.filter(value =>
-        (value.visitModel.user.firstName + ' ' + value.visitModel.user.lastName) == this.itemMap.get('doctor').name);
+        (value.visitModel.user.firstName + ' ' + value.visitModel.user.lastName) === this.itemMap.get('doctor').name);
     if (this.itemMap.get('specialization').isFilter)
-      this.events = this.events.filter(value => value.visitModel.specialization == this.itemMap.get('specialization').name);
+      this.events = this.events.filter(value => value.visitModel.specialization === this.itemMap.get('specialization').name);
     if (this.itemMap.get('minPrice').isFilter)
       this.events = this.events.filter(value => value.visitModel.price >= +this.itemMap.get('minPrice').name);
     if (this.itemMap.get('maxPrice').isFilter)
