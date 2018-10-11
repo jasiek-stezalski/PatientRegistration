@@ -20,6 +20,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 import static java.time.temporal.ChronoUnit.DAYS;
+import static java.time.temporal.ChronoUnit.MINUTES;
 import static java.util.Calendar.DATE;
 
 @Service
@@ -29,7 +30,7 @@ public class VisitModelServiceImpl implements VisitModelService {
     private VisitService visitService;
     private EmailService emailService;
     private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-    public static final Set<DayOfWeek> WEEKEND = EnumSet.of(DayOfWeek.SATURDAY, DayOfWeek.SUNDAY);
+    private static final Set<DayOfWeek> WEEKEND = EnumSet.of(DayOfWeek.SATURDAY, DayOfWeek.SUNDAY);
 
     public VisitModelServiceImpl(VisitModelRepository visitModelRepository, VisitService visitService, EmailService emailService) {
         this.visitModelRepository = visitModelRepository;
@@ -52,10 +53,6 @@ public class VisitModelServiceImpl implements VisitModelService {
     @Transactional
     public VisitModel save(VisitModel visitModel) {
 
-        // Problem when we want to create visit that is not perfectly fit
-        // visits are good created but model not
-        // more than one problem xD
-
         List<Visit> visits = new ArrayList<>();
 
         LocalDate visitDate = visitModel.getStart().toLocalDate();
@@ -63,9 +60,7 @@ public class VisitModelServiceImpl implements VisitModelService {
         while (!visitDate.isAfter(visitModel.getEndDate().toLocalDate())) {
 
             // Check if it is a weekend
-            System.out.println(visitDate.getDayOfWeek());
             if (visitModel.getDayInterval() == 1 && WEEKEND.contains(visitDate.getDayOfWeek())) {
-                System.out.println("jetem tu");
                 visitDate = visitDate.plusDays(visitModel.getDayInterval());
                 continue;
             }
@@ -85,7 +80,10 @@ public class VisitModelServiceImpl implements VisitModelService {
                         startTerm.getHour() + " : " + (startTerm.getMinute() < 10 ? startTerm.getMinute() + "0" : startTerm.getMinute())
                         , visitModel));
 
-                if (endTerm.toLocalTime().isAfter(endHour)) visitModel.setEnd(startTerm);
+                if (endTerm.toLocalTime().isAfter(endHour)) {
+                    visitModel.setEnd(LocalDateTime.parse(visitModel.getStart().toLocalDate().toString() + " " + visitHour.toString(), FORMATTER));
+                    break;
+                }
 
             }
 
@@ -100,64 +98,24 @@ public class VisitModelServiceImpl implements VisitModelService {
         return savedVisitModel;
     }
 
-//
-//        VisitModel newVisitModel = visitModelRepository.save(visitModel);
-//
-//        LocalDate visitDate = newVisitModel.getStart().toLocalDate();
-//
-//        Set<DayOfWeek> weekend = EnumSet.of(DayOfWeek.SATURDAY, DayOfWeek.SUNDAY);
-//
-//        int visitCounter = 0;
-//
-//        while (!visitDate.isAfter(newVisitModel.getEndDate().toLocalDate())) {
-//            // Check if it is a weekend
-//            if (newVisitModel.getDayInterval() == 1 && weekend.contains(visitDate.getDayOfWeek())) {
-//                visitDate = visitDate.plusDays(newVisitModel.getDayInterval());
-//                continue;
-//            }
-//
-//            LocalTime visitHour = newVisitModel.getStart().toLocalTime();
-//            LocalTime endHour = newVisitModel.getEnd().toLocalTime();
-//
-//            while (visitHour.isBefore(endHour)) {
-//                LocalDateTime startTerm = LocalDateTime.parse(visitDate.toString() + " " + visitHour.toString(), FORMATTER);
-//                visitHour = visitHour.plusMinutes(newVisitModel.getMinuteInterval());
-//                LocalDateTime endTerm = LocalDateTime.parse(visitDate.toString() + " " + visitHour.toString(), FORMATTER);
-//                if (endTerm.toLocalTime().isAfter(endHour)) {
-//                    newVisitModel.setEnd(startTerm);
-//                    VisitModel savedVisitModel = visitModelRepository.save(newVisitModel);
-//                    if (visitService.findAllByVisitModel(savedVisitModel).isEmpty()) {
-//                        visitService.save(new Visit(
-//                                startTerm,
-//                                endTerm,
-//                                startTerm.getHour() + " : " + (startTerm.getMinute() < 10 ? startTerm.getMinute() + "0" : startTerm.getMinute())
-//                                , newVisitModel));
-//                        visitCounter++;
-//                        newVisitModel.setEnd(endTerm);
-//                        visitModelRepository.save(newVisitModel);
-//
-//                    }
-//                    break;
-//                } else {
-//                    visitService.save(new Visit(
-//                            startTerm,
-//                            endTerm,
-//                            startTerm.getHour() + " : " + (startTerm.getMinute() < 10 ? startTerm.getMinute() + "0" : startTerm.getMinute())
-//                            , newVisitModel));
-//                    visitCounter++;
-//                }
-//
-//            }
-//
-//            visitDate = visitDate.plusDays(newVisitModel.getDayInterval());
-//        }
-//
-//        if (visitCounter == 0) {
-//            visitModelRepository.deleteById(newVisitModel.getId());
-//            throw new ResourceNotFoundException("No matching visits to visit model");
-//        }
-//        return newVisitModel;
-//    }
+    @Override
+    @Transactional
+    public VisitModel move(VisitModel data) {
+
+        VisitModel visitModel = findByIdVisitModel(data.getId());
+
+        List<LocalDateTime> term = visitModel.getVisits().stream().map(Visit::getStart).collect(Collectors.toList());
+
+        updateDate(data, visitModel);
+
+        visitModel.setEndDate(updateEndDate(data, visitModel));
+        visitModel.setEnd(data.getEnd());
+        visitModel.setStart(data.getStart());
+
+        VisitModel savedVisitModel = visitModelRepository.save(visitModel);
+        emailService.moveVisitEmail(savedVisitModel.getVisits(), term);
+        return savedVisitModel;
+    }
 
     @Override
     @Transactional
@@ -166,63 +124,50 @@ public class VisitModelServiceImpl implements VisitModelService {
         visitModelRepository.deleteById(idVisitModel);
     }
 
-    @Override
-    @Transactional
-    public VisitModel move(VisitModel data) {
-
-        VisitModel visitModel = findByIdVisitModel(data.getId());
-
-        int daysBetween = (int) DAYS.between(visitModel.getStart().toLocalDate(), data.getStart().toLocalDate());
+    /**
+     * Method move endDate adding days between old start date and new start date
+     *
+     * @return updated endDate
+     */
+    private Date updateEndDate(VisitModel newVisitModel, VisitModel oldVisitModel) {
+        int daysBetween = (int) DAYS.between(oldVisitModel.getStart().toLocalDate(), newVisitModel.getStart().toLocalDate());
         Calendar calendar = Calendar.getInstance();
-        calendar.setTime(visitModel.getEndDate());
+        calendar.setTime(oldVisitModel.getEndDate());
         calendar.add(DATE, daysBetween);
-        visitModel.setEndDate(convertFromJAVADateToSQLDate(calendar.getTime()));
-
-        visitModel.setEnd(data.getEnd());
-        visitModel.setStart(data.getStart());
-
-        List<Visit> visits = visitModel.getVisits();
-        visits.sort(Comparator.comparing(Visit::getStart));
-
-        List<LocalDateTime> term = visits.stream().map(Visit::getStart).collect(Collectors.toList());
-
-        LocalDate visitDate = visitModel.getStart().toLocalDate();
-
-        int index = 0;
-
-        while (!visitDate.isAfter(visitModel.getEndDate().toLocalDate())) {
-
-            LocalTime visitHour = visitModel.getStart().toLocalTime();
-            LocalTime endHour = visitModel.getEnd().toLocalTime();
-
-            while (visitHour.isBefore(endHour)) {
-
-                LocalDateTime startTerm = LocalDateTime.parse(visitDate.toString() + " " + visitHour.toString(), FORMATTER);
-                visitHour = visitHour.plusMinutes(visitModel.getMinuteInterval());
-                LocalDateTime endTerm = LocalDateTime.parse(visitDate.toString() + " " + visitHour.toString(), FORMATTER);
-
-                if (!visitDate.isBefore(LocalDate.now().plusDays(1L))) {
-                    visits.get(index).setStart(startTerm);
-                    visits.get(index).setEnd(endTerm);
-                    if (visits.get(index).getUser() != null)
-                        visits.get(index).setText("Zajęte");
-                    else
-                        visits.get(index).setText(startTerm.getHour() + " : " + (startTerm.getMinute() < 10 ? startTerm.getMinute() + "0" : startTerm.getMinute()));
-                }
-
-                index++;
-            }
-            visitDate = visitDate.plusDays(visitModel.getDayInterval());
-        }
-
-
-        visitModel.setVisits(visits);
-
-        VisitModel savedVisitModel = visitModelRepository.save(visitModel);
-        emailService.moveVisitEmail(savedVisitModel.getVisits(), term);
-        return savedVisitModel;
+        return convertFromJAVADateToSQLDate(calendar.getTime());
     }
 
+    private void updateDate(VisitModel oldVisitModel, VisitModel newVisitModel) {
+
+        long daysBetween = DAYS.between(newVisitModel.getStart().toLocalDate(), oldVisitModel.getStart().toLocalDate());
+        long minutesBetween = MINUTES.between(newVisitModel.getStart().toLocalTime(), oldVisitModel.getStart().toLocalTime());
+
+
+        for (Visit visit : newVisitModel.getVisits()) {
+
+            if (visit.getStart().toLocalDate().isAfter(LocalDate.now())) {
+                visit.setStart(visit.getStart().plusDays(daysBetween).plusMinutes(minutesBetween));
+                visit.setEnd(visit.getEnd().plusDays(daysBetween).plusMinutes(minutesBetween));
+
+                // Check if it is a weekend
+                if (newVisitModel.getDayInterval() == 1 && WEEKEND.contains(visit.getStart().getDayOfWeek())) {
+                    if (daysBetween < 0) {
+                        visit.setStart(visit.getStart().plusDays(-2));
+                        visit.setEnd(visit.getEnd().plusDays(-2));
+                    } else {
+                        visit.setStart(visit.getStart().plusDays(2));
+                        visit.setEnd(visit.getEnd().plusDays(2));
+                    }
+
+                }
+            }
+            visit.setText(visit.getStart().getHour() + " : " + (visit.getStart().getMinute() < 10 ? visit.getStart().getMinute() + "0" : visit.getStart().getMinute()));
+        }
+    }
+
+    /**
+     * Method convert java.util.Date to java.sql.Date
+     */
     private static java.sql.Date convertFromJAVADateToSQLDate(java.util.Date javaDate) {
         java.sql.Date sqlDate = null;
         if (javaDate != null) {
