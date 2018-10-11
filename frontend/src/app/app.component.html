@@ -2,17 +2,14 @@
 <div id="top">
   <div class="container-fluid">
     <div class="col-md-offset-1">
-      <h1>
-        <a style="margin-left: 10px" routerLink="/home">Przychodnia</a>
-      </h1>
+      <h1><a id="title" routerLink="/home">Rejestracja pacjentów on-line</a></h1>
     </div>
 
-
-    <a style="margin-left: 10px" routerLink="/modelCalendar">Tworzenie modelu wizyty</a>
-    <a style="margin-left: 10px" routerLink="/patientCalendar">Kalendarz wizyt dla pacjenta</a>
-    <a style="margin-left: 10px" routerLink="/doctorCalendar">Kalendarz wizyt dla lekarza</a><br/>
-    <a href="{{url}}" (click)="logInOut()">{{login}}</a><br/>
-    <br/>
+    <ul>
+      <li *ngFor="let button of buttons"><a style="margin-left: 10px" routerLink="{{button.link}}">{{button.name}}</a>
+      </li>
+      <li><a id="x" href="{{url}}" (click)="logInOut()">{{login}}</a></li>
+    </ul>
 
 
     <router-outlet></router-outlet>

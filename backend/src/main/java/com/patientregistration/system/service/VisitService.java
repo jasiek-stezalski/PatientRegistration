@@ -26,6 +26,4 @@ public interface VisitService {
 
     void delete(Long idVisit);
 
-    List<Visit> findAllByVisitModel(VisitModel savedVisitModel);
-
 }

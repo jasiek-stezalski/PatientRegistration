@@ -161,7 +161,9 @@ public class VisitModelServiceImpl implements VisitModelService {
 
                 }
             }
-            visit.setText(visit.getStart().getHour() + " : " + (visit.getStart().getMinute() < 10 ? visit.getStart().getMinute() + "0" : visit.getStart().getMinute()));
+            visit.setText(visit.getUser() == null
+                    ? visit.getStart().getHour() + " : " + (visit.getStart().getMinute() < 10 ? visit.getStart().getMinute() + "0" : visit.getStart().getMinute())
+                    : "Zajęte");
         }
     }
 

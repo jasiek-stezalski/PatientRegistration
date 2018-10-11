@@ -1,5 +1,50 @@
-#top{
-  height:150px;
+#top {
+  height: 150px;
   width: 1100px;
   margin: auto;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+  overflow: hidden;
+  background-color: #a9c2d8;
+  border-radius: 5px;
+  margin-bottom: 5px;
+}
+
+li {
+  float: left;
+}
+
+li a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+li a:hover {
+  background-color: #566f88;
+}
+
+h1 {
+  width: 100%;
+  text-align: center;
+  margin: 10px 0 20px;
+}
+
+#title {
+  list-style-type: none;
+  overflow: hidden;
+  background-color: white;
+  border-radius: 5px;
+  margin-bottom: 5px;
+
+  display: block;
+  color: #a9c2d8;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
 }

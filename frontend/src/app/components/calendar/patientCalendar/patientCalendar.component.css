@@ -88,3 +88,7 @@ div {
   width: 100px;
   text-decoration: none;
 }
+
+.buttons a:hover {
+  background-color: #566f88;
+}

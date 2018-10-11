@@ -94,9 +94,4 @@ public class VisitServiceImpl implements VisitService {
         visitRepository.deleteById(idVisit);
     }
 
-    @Override
-    public List<Visit> findAllByVisitModel(VisitModel visitModel) {
-        return visitRepository.findAllByVisitModel(visitModel);
-    }
-
 }

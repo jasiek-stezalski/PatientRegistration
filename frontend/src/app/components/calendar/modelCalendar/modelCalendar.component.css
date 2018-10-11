@@ -20,6 +20,7 @@
 
 .buttons {
   margin-bottom: 10px;
+  margin-top: 10px;
 }
 
 .buttons a {
@@ -36,3 +37,8 @@
   width: 237px;
   text-decoration: none;
 }
+
+.buttons a:hover {
+  background-color: #566f88;
+}
+

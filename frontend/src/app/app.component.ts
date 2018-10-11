@@ -12,21 +12,43 @@ export class AppComponent implements OnInit {
   currentUser: User;
   login: String;
   url: String;
+  buttons: Button[] = [];
+  calendar: String;
+  modelCalendar: String;
 
   constructor(public userService: UserService, public router: Router) {
+  }
+
+  ngOnInit() {
     this.currentUser = JSON.parse(sessionStorage.getItem('currentUser'));
     if (sessionStorage.getItem('currentUser')) {
+      if (this.currentUser.role === 'DOCTOR') {
+        this.buttons.push({name: 'Tworzenie modelu kalendarza', link: '/modelCalendar'});
+        this.buttons.push({name: 'Kalendarz', link: '/doctorCalendar'});
+      }
+      else this.buttons.push({name: 'Kalendarz', link: '/patientCalendar'});
+
       this.url = '';
       this.login = 'Wyloguj';
+
     } else {
+
+      this.buttons.push({name: 'Kalendarz', link: '/patientCalendar'});
       this.url = 'login';
       this.login = 'Zaloguj';
     }
 
+    if (sessionStorage.getItem('currentUser')) {
+      if (this.currentUser.role === 'DOCTOR') {
+        this.calendar = '/doctorCalendar';
+        this.modelCalendar = '/modelCalendar';
+      }
 
-  }
 
-  ngOnInit() {
+    } else {
+      this.calendar = '/patientCalendar';
+
+    }
   }
 
   logInOut() {
@@ -37,4 +59,9 @@ export class AppComponent implements OnInit {
         });
 
   }
+}
+
+export class Button {
+  name: String;
+  link: String;
 }
