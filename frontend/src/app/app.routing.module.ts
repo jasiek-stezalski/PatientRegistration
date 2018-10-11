@@ -9,6 +9,8 @@ import {LoginComponent} from './components/authentication/login/login.component'
 import {RegisterComponent} from './components/authentication/register/register.component';
 import {UrlPermissionDoctor} from './components/authentication/urlPermission/url.permissionDoctor';
 import {DoctorCalendarComponent} from './components/calendar/doctorCalendar/doctorCalendar.component';
+import {UserPanelComponent} from "./components/userPanel/userPanel.component";
+import {UrlPermission} from "./components/authentication/urlPermission/url.permission";
 
 const routes: Routes = [
   {path: 'users', component: UserComponent},
@@ -16,6 +18,7 @@ const routes: Routes = [
   {path: 'modelCalendar', component: ModelCalendarComponent, canActivate: [UrlPermissionDoctor]},
   {path: 'patientCalendar', component: PatientCalendarComponent},
   {path: 'doctorCalendar', component: DoctorCalendarComponent, canActivate: [UrlPermissionDoctor]},
+  {path: 'userPanel', component: UserPanelComponent, canActivate: [UrlPermission]},
   {path: 'login', component: LoginComponent},
   {path: 'register', component: RegisterComponent},
 

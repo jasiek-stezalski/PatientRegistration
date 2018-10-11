@@ -17,6 +17,7 @@ import {HttpModule} from '@angular/http';
 import {UrlPermissionDoctor} from './components/authentication/urlPermission/url.permissionDoctor';
 import {VisitService} from './services/visit.services';
 import {ClinicService} from './services/clinic.service';
+import {UserPanelComponent} from "./components/userPanel/userPanel.component";
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import {ClinicService} from './services/clinic.service';
     AddUserComponent,
     LoginComponent,
     RegisterComponent,
+    UserPanelComponent
   ],
   imports: [
     BrowserModule,
@@ -32,7 +34,7 @@ import {ClinicService} from './services/clinic.service';
     HttpClientModule,
     HttpModule,
     FormsModule,
-    CalendarModule
+    CalendarModule,
   ],
   providers: [UserService, VisitModelService, VisitService, ClinicService, UrlPermission, UrlPermissionDoctor],
   bootstrap: [AppComponent]

@@ -17,6 +17,7 @@ export class AppComponent implements OnInit {
   modelCalendar: String;
 
   constructor(public userService: UserService, public router: Router) {
+    document.title = 'Rejestracja pancjentów';
   }
 
   ngOnInit() {
@@ -37,6 +38,8 @@ export class AppComponent implements OnInit {
       this.url = 'login';
       this.login = 'Zaloguj';
     }
+
+    this.buttons.push({name: 'Panel użytkownika', link: '/userPanel'});
 
     if (sessionStorage.getItem('currentUser')) {
       if (this.currentUser.role === 'DOCTOR') {
