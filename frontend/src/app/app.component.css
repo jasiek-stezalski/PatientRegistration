@@ -32,19 +32,22 @@ li a:hover {
 h1 {
   width: 100%;
   text-align: center;
-  margin: 10px 0 20px;
+  margin: 10px 0 10px;
 }
 
 #title {
   list-style-type: none;
   overflow: hidden;
-  background-color: white;
+  background-color: #566f88;
   border-radius: 5px;
-  margin-bottom: 5px;
 
   display: block;
   color: #a9c2d8;
   text-align: center;
   padding: 14px 16px;
   text-decoration: none;
+}
+
+#title:hover {
+  background-color: #566f88;
 }
