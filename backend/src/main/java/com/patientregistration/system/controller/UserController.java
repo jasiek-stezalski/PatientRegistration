@@ -25,6 +25,22 @@ public class UserController {
         this.userService = userService;
     }
 
+    @GetMapping("/login")
+    public Principal user(Principal principal) {
+        logger.info("user logged " + principal);
+        return principal;
+    }
+
+    @GetMapping("/")
+    public List<User> getUsers() {
+        return userService.findAllUsers();
+    }
+
+    @GetMapping("/role")
+    public List<User> getUsersByRole(@RequestParam String role) {
+        return userService.findUsersByRole(role);
+    }
+
     @PostMapping("/")
     public ResponseEntity<?> createUser(@RequestBody User newUser) {
         if (userService.findUserByUsername(newUser.getUsername()) != null) {
@@ -34,32 +50,6 @@ public class UserController {
                     HttpStatus.CONFLICT);
         }
         return new ResponseEntity<>(userService.saveOrUpdate(newUser), HttpStatus.CREATED);
-    }
-
-    @GetMapping("/login")
-    public Principal user(Principal principal) {
-        logger.info("user logged " + principal);
-        return principal;
-    }
-
-    @GetMapping("/")
-    public List<User> getAllUsers() {
-        return userService.findAllUsers();
-    }
-
-    @GetMapping("/{idUser}")
-    public User getUserById(@PathVariable Long idUser) {
-        return userService.findUserById(idUser);
-    }
-
-    @GetMapping("/username")
-    public User getUserByUsername(@RequestParam String username) {
-        return userService.findUserByUsername(username);
-    }
-
-    @GetMapping("/role")
-    public List<User> getUsersByRole(@RequestParam String role) {
-        return userService.findUsersByRole(role);
     }
 
     @DeleteMapping("/{id}")

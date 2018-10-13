@@ -2,7 +2,6 @@ package com.patientregistration.system.service.Impl;
 
 import com.patientregistration.system.domain.User;
 import com.patientregistration.system.domain.Visit;
-import com.patientregistration.system.domain.VisitModel;
 import com.patientregistration.system.exception.ResourceNotFoundException;
 import com.patientregistration.system.repository.VisitRepository;
 import com.patientregistration.system.service.EmailService;
@@ -44,20 +43,9 @@ public class VisitServiceImpl implements VisitService {
     }
 
     @Override
-    public List<Visit> findAllVisitsByIdUser(Long idUser) {
-        User user = userService.findUserById(idUser);
-        return visitRepository.findAllByUser(user);
-    }
-
-    @Override
     public Visit findByVisitId(Long idVisit) {
         return visitRepository.findById(idVisit)
                 .orElseThrow(() -> new ResourceNotFoundException("There is no Visit with id: " + idVisit.toString()));
-    }
-
-    @Override
-    public Visit save(Visit visit) {
-        return visitRepository.save(visit);
     }
 
     @Override

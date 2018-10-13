@@ -10,7 +10,6 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -28,23 +27,18 @@ public class VisitController {
     @GetMapping("/")
     @JsonSerialize(using = LocalDateTimeSerializer.class)
     @JsonView(Views.Basic.class)
-    public List<Visit> getAllVisitsInWeek(@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime from,
-                                          @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime to) {
+    public List<Visit> getVisitsInWeek(@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime from,
+                                       @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime to) {
         return visitService.findBetween(from, to);
     }
 
     @GetMapping("/doctor/{id}")
     @JsonSerialize(using = LocalDateTimeSerializer.class)
     @JsonView(Views.Basic.class)
-    public List<Visit> getAllVisitsInWeekByDoctor(@PathVariable(value = "id") Long idUser,
-                                                  @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime from,
-                                                  @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime to) {
+    public List<Visit> getVisitsInWeekByDoctor(@PathVariable(value = "id") Long idUser,
+                                               @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime from,
+                                               @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime to) {
         return visitService.findBetweenByDoctor(from, to, idUser);
-    }
-
-    @GetMapping("/{id}")
-    public Visit getVisitById(@PathVariable(value = "id") Long idVisit) {
-        return visitService.findByVisitId(idVisit);
     }
 
     @GetMapping("/book/{id}")
@@ -53,21 +47,11 @@ public class VisitController {
         return visitService.bookVisit(idVisit, idUser);
     }
 
-    @GetMapping("/user/{id}")
-    public List<Visit> getVisitByIdUser(@PathVariable(value = "id") Long idUser) {
-        return visitService.findAllVisitsByIdUser(idUser);
-    }
-
     @PutMapping("/")
     @JsonSerialize(using = LocalDateTimeSerializer.class)
     @JsonView(Views.Basic.class)
     public Visit moveEvent(@RequestBody Visit data) {
         return visitService.move(data);
-    }
-
-    @PostMapping("/")
-    public Visit createVisit(@Valid @RequestBody Visit visit) {
-        return visitService.save(visit);
     }
 
     @DeleteMapping("/{id}")

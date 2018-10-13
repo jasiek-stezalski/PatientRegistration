@@ -12,11 +12,7 @@ public interface VisitService {
 
     List<Visit> findBetweenByDoctor(LocalDateTime from, LocalDateTime to, Long idUser);
 
-    List<Visit> findAllVisitsByIdUser(Long idUser);
-
     Visit findByVisitId(Long idVisit);
-
-    Visit save(Visit visit);
 
     List<Visit> saveAll(List<Visit> visits);
 

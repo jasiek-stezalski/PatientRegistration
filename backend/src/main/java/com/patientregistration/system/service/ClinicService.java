@@ -10,10 +10,4 @@ public interface ClinicService {
 
     List<Clinic> findAllClinicsByUser(Long idUser);
 
-    Clinic findByClinicId(Long idClinic);
-
-    Clinic saveOrUpdate(Clinic clinic);
-
-    void delete(Long idClinic);
-
 }

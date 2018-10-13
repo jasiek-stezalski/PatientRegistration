@@ -24,7 +24,7 @@ export class AppComponent implements OnInit {
     this.currentUser = JSON.parse(sessionStorage.getItem('currentUser'));
     if (sessionStorage.getItem('currentUser')) {
       if (this.currentUser.role === 'DOCTOR') {
-        this.buttons.push({name: 'Tworzenie modelu kalendarza', link: '/modelCalendar'});
+        this.buttons.push({name: 'Tworzenie modelu wizyty', link: '/modelCalendar'});
         this.buttons.push({name: 'Kalendarz', link: '/doctorCalendar'});
       }
       else this.buttons.push({name: 'Kalendarz', link: '/patientCalendar'});

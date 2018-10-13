@@ -27,15 +27,9 @@ public class VisitModelController {
     @GetMapping("/")
     @JsonSerialize(using = LocalDateTimeSerializer.class)
     @JsonView(Views.Basic.class)
-    public List<VisitModel> getAllVisitModelsInWeek(@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime from,
-                                                    @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime to) {
+    public List<VisitModel> getVisitModelsInWeek(@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime from,
+                                                 @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime to) {
         return visitModelService.findBetween(from, to);
-    }
-
-    @GetMapping("/{id}")
-    @JsonView(Views.Basic.class)
-    public VisitModel getVisitModelById(@PathVariable(value = "id") Long idVisitModel) {
-        return visitModelService.findByIdVisitModel(idVisitModel);
     }
 
     @PostMapping("/")
