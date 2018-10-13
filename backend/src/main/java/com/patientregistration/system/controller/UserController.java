@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 import java.util.List;
+import java.util.Set;
 
 @CrossOrigin(origins = "http://localhost:4200", maxAge = 3600)
 @RestController
@@ -39,6 +40,11 @@ public class UserController {
     @GetMapping("/role")
     public List<User> getUsersByRole(@RequestParam String role) {
         return userService.findUsersByRole(role);
+    }
+
+    @GetMapping("/doctor/{idDoctor}")
+    public Set<User> getUsersByIdDoctor(@PathVariable Long idDoctor) {
+        return userService.findUsersByIdDoctor(idDoctor);
     }
 
     @PostMapping("/")

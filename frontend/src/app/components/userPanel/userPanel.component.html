@@ -1,0 +1,37 @@
+<div class="w3-container">
+  <h2>Lista pacjentów:</h2>
+
+  <div class="filter">
+    Imię:
+    <input type="text" class="form-control" name="firstName" id="firstName" [ngModel]="filter.firstName"
+           (ngModelChange)="changeFirstName($event)" placeholder="Imię" #firstName>
+    Nazwisko:
+    <input type="text" class="form-control" name="lastName" id="lastName" [ngModel]="filter.lastName"
+           (ngModelChange)="changeLastName($event)" placeholder="Nazwisko" #lastName/>
+
+    <div class="button">
+      <a href="#" (click)="firstName.value=''; lastName.value=''; clearFilter()">Anuluj wyszukiwanie</a>
+    </div>
+  </div>
+  <br/><br/>
+
+  <table class="w3-table-all w3-hoverable">
+    <thead>
+    <tr class="w3-light-grey">
+      <th>Imię</th>
+      <th>Nazwisko</th>
+      <th>Pesel</th>
+      <th>E-mail</th>
+      <th>Numer telefonu</th>
+    </tr>
+    </thead>
+    <tr *ngFor="let patient of patients">
+      <td>{{patient.firstName}}</td>
+      <td>{{patient.lastName}}</td>
+      <td>{{patient.pesel}}</td>
+      <td>{{patient.email}}</td>
+      <td>{{patient.phoneNumber}}</td>
+    </tr>
+  </table>
+</div>
+

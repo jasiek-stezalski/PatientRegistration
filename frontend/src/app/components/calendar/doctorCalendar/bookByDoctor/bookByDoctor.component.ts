@@ -45,10 +45,6 @@ export class BookByDoctorComponent {
     this.modal.hide();
   }
 
-  cancelBooking() {
-    this.modal.hide();
-  }
-
   closed(args) {
     this.close.emit(args);
   }

@@ -1,3 +1,7 @@
+<head>
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+</head>
+
 <body>
 <div id="top">
   <div class="container-fluid">
@@ -8,7 +12,7 @@
     <ul>
       <li *ngFor="let button of buttons"><a style="margin-left: 10px" routerLink="{{button.link}}">{{button.name}}</a>
       </li>
-      <li><a id="x" href="{{url}}" (click)="logInOut()">{{login}}</a></li>
+      <li><a href="{{url}}" (click)="logInOut()">{{login}}</a></li>
     </ul>
 
 
