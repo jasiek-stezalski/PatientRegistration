@@ -15,24 +15,27 @@
   </div>
   <br/><br/>
 
-  <table class="w3-table-all w3-hoverable">
-    <thead>
-    <tr class="w3-light-grey">
-      <th>Imię</th>
-      <th>Nazwisko</th>
-      <th>Pesel</th>
-      <th>E-mail</th>
-      <th>Numer telefonu</th>
-    </tr>
-    </thead>
-    <tr *ngFor="let patient of patients">
-      <td><a href="/userHistory/{{patient.id}}">{{patient.firstName}}</a></td>
-      <td><a href="/userHistory/{{patient.id}}">{{patient.lastName}}</a></td>
-      <td><a href="/userHistory/{{patient.id}}">{{patient.pesel}}</a></td>
-      <td><a href="/userHistory/{{patient.id}}">{{patient.email}}</a></td>
-      <td><a href="/userHistory/{{patient.id}}">{{patient.phoneNumber}}</a></td>
-    </tr>
-  </table>
+  <div class="wrap-table100">
+    <div class="table">
+
+      <div class="row header">
+        <div class="cell">Imię</div>
+        <div class="cell">Nazwisko</div>
+        <div class="cell">Pesel</div>
+        <div class="cell">E-mail</div>
+        <div class="cell">Numer telefonu</div>
+      </div>
+      <div class="row" *ngFor="let patient of patients" (click)="openUserHistory(patient.id)">
+        <div class="cell">{{patient.firstName}}</div>
+        <div class="cell">{{patient.lastName}}</div>
+        <div class="cell">{{patient.pesel}}</div>
+        <div class="cell">{{patient.email}}</div>
+        <div class="cell">{{patient.phoneNumber}}</div>
+      </div>
+
+    </div>
+  </div>
+
 
 </div>
 

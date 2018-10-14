@@ -7,7 +7,7 @@
     <tr>
       <td>
         Rodzaj usługi:
-        <select (ngModelChange)="changeCareType($event)" [ngModel]="filter.careType" id="DropList" title="careType" #careType>
+        <select (ngModelChange)="changeCareType($event)" [ngModel]="filter.careType" id="DropList" title="careType">
           <option *ngFor="let cat of careType" [ngValue]="cat">{{cat}}</option>
         </select>
       </td>

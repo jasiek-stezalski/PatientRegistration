@@ -2,6 +2,7 @@ import {AfterViewInit, Component} from '@angular/core';
 import {User} from '../../../models/user.model';
 import {UserService} from '../../../services/user.service';
 import {Item} from '../../calendar/patientCalendar/patientCalendar.component';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-usersList',
@@ -20,7 +21,7 @@ export class UsersListComponent implements AfterViewInit {
     lastName: '',
   };
 
-  constructor(private userService: UserService) {
+  constructor(private userService: UserService, private router: Router) {
     this.itemMap.set('firstName', {isFilter: false, name: '',});
     this.itemMap.set('lastName', {isFilter: false, name: '',});
   }
@@ -65,4 +66,7 @@ export class UsersListComponent implements AfterViewInit {
     return false;
   }
 
+  openUserHistory(id: string | number) {
+    this.router.navigate(['userHistory/', id]);
+  }
 }

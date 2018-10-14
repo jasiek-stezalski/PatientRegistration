@@ -11,7 +11,7 @@
       <div>Rodzaj usługi: {{visit.visitModel.careType}}</div>
       <div>Cena za wizytę: {{visit.visitModel.price + ' złotych'}}</div>
       <div>Placówka: {{clinic.name + ', ' + clinic.address + ', ' + clinic.city}}</div>
-      <div>Pacjent: {{user.firstName + ' ' + user.lastName}}</div>
+      <div><a href="/userHistory/{{user.id}}">Pacjent: {{user.firstName + ' ' + user.lastName}}</a> </div>
       <br>
 
       <div class="buttons">

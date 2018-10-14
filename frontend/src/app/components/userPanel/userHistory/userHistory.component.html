@@ -1,23 +1,26 @@
 <div class="w3-container">
   <h2>Historia wizyt:</h2>
 
-  <table class="w3-table-all w3-hoverable">
-    <thead>
-    <tr class="w3-light-grey">
-      <th>Placówka</th>
-      <th>Data</th>
-      <th>Specjalizacja</th>
-      <th>Lekarz</th>
-      <th>Opis</th>
-    </tr>
-    </thead>
-    <tr *ngFor="let visit of visits">
-      <td>{{visit.visitModel.clinic.name + ', ' + visit.visitModel.clinic.city}}</td>
-      <td>{{('' + visit.start + '').substring(0, 10)}}</td>
-      <td>{{visit.visitModel.specialization}}</td>
-      <td>{{visit.visitModel.user.firstName + ' ' + visit.visitModel.user.lastName}}</td>
-      <td>{{visit.text}}</td>
-    </tr>
-  </table>
+  <div class="wrap-table100">
+    <div class="table">
+
+      <div class="row header">
+        <div class="cell">Placówka</div>
+        <div class="cell">Data</div>
+        <div class="cell">Specjalizacja</div>
+        <div class="cell">Lekarz</div>
+        <div class="cell">Opis</div>
+      </div>
+      <div class="row" *ngFor="let visit of visits">
+        <div class="cell">{{visit.visitModel.clinic.name + ', ' + visit.visitModel.clinic.city}}</div>
+        <div class="cell">{{('' + visit.start + '').substring(0, 10)}}</div>
+        <div class="cell">{{visit.visitModel.specialization}}</div>
+        <div class="cell">{{visit.visitModel.user.firstName + ' ' + visit.visitModel.user.lastName}}</div>
+        <div class="cell">{{visit.text}}</div>
+      </div>
+
+    </div>
+  </div>
+
 </div>
 
