@@ -32,6 +32,10 @@ public class Visit {
     @JsonView(Views.Basic.class)
     private String text;
 
+    @Column(name = "description")
+    @JsonView(Views.Basic.class)
+    private String description;
+
     @ManyToOne
     @JoinColumn(name = "id_visit_model")
     @JsonView(Views.Basic.class)

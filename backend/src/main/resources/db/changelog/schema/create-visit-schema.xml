@@ -21,6 +21,7 @@
             <column name="STATUS" type="VARCHAR(255)">
                 <constraints nullable="false"/>
             </column>
+            <column name="DESCRIPTION" type="VARCHAR(255)"/>
             <column name="ID_USER" type="BIGINT">
                 <constraints foreignKeyName="ID_USER"/>
             </column>

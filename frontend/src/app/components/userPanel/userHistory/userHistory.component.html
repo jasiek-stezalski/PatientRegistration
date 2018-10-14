@@ -1,6 +1,19 @@
 <div class="w3-container">
   <h2>Historia wizyt:</h2>
 
+  <div class="filter">
+    Specjalizacja:
+    <select (ngModelChange)="changeSpecialization($event)" [ngModel]="filter.specialization"
+            title="specialization" #spec>
+      <option *ngFor="let spec of specialization" [ngValue]="spec">{{spec}}</option>
+    </select>
+
+    <div class="button">
+      <a href="#" (click)="spec.value=''; clearFilter()">Anuluj wyszukiwanie</a>
+    </div>
+  </div>
+  <br/><br/>
+
   <div class="wrap-table100">
     <div class="table">
 
@@ -16,7 +29,7 @@
         <div class="cell">{{('' + visit.start + '').substring(0, 10)}}</div>
         <div class="cell">{{visit.visitModel.specialization}}</div>
         <div class="cell">{{visit.visitModel.user.firstName + ' ' + visit.visitModel.user.lastName}}</div>
-        <div class="cell">{{visit.text}}</div>
+        <div class="cell">{{visit.description}}</div>
       </div>
 
     </div>

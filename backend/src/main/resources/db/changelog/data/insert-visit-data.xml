@@ -8,86 +8,86 @@
 
     <changeSet id="1" author="jstezalski" context="default">
 
-        <sql>INSERT INTO public.VISIT (start, end_, status, id_visit_model) VALUES ('2018-10-02 08:00:00', '2018-10-02
-            09:00:00', '08:00', '1');
+        <sql>INSERT INTO public.VISIT (start, end_, status, description, id_user, id_visit_model)
+            VALUES ('2018-10-02 08:00:00', '2018-10-02 09:00:00', 'Zakończona', 'Przykładowy opis', '4', '1');
         </sql>
-        <sql>INSERT INTO public.VISIT (start, end_, status, id_visit_model) VALUES ('2018-10-09 08:00:00', '2018-10-09
-            09:00:00', '08:00', '1');
+        <sql>INSERT INTO public.VISIT (start, end_, status, description, id_user, id_visit_model)
+            VALUES ('2018-10-09 08:00:00', '2018-10-09 09:00:00', 'Zakończona', 'Przykładowy opis', '4', '1');
         </sql>
-        <sql>INSERT INTO public.VISIT (start, end_, status, id_visit_model) VALUES ('2018-10-16 08:00:00', '2018-10-16
-            09:00:00', '08:00', '1');
+        <sql>INSERT INTO public.VISIT (start, end_, status, id_visit_model)
+            VALUES ('2018-10-16 08:00:00', '2018-10-16 09:00:00', '08:00', '1');
         </sql>
-        <sql>INSERT INTO public.VISIT (start, end_, status, id_visit_model) VALUES ('2018-10-23 08:00:00', '2018-10-23
-            09:00:00', '08:00', '1');
+        <sql>INSERT INTO public.VISIT (start, end_, status, id_visit_model)
+            VALUES ('2018-10-23 08:00:00', '2018-10-23 09:00:00', '08:00', '1');
         </sql>
-        <sql>INSERT INTO public.VISIT (start, end_, status, id_visit_model) VALUES ('2018-10-30 08:00:00', '2018-10-30
-            09:00:00', '08:00', '1');
+        <sql>INSERT INTO public.VISIT (start, end_, status, id_visit_model)
+            VALUES ('2018-10-30 08:00:00', '2018-10-30 09:00:00', '08:00', '1');
         </sql>
-        <sql>INSERT INTO public.VISIT (start, end_, status, id_visit_model) VALUES ('2018-10-03 10:15:00', '2018-10-03
-            11:15:00', '10:15', '2');
+        <sql>INSERT INTO public.VISIT (start, end_, status, description, id_user, id_visit_model)
+            VALUES ('2018-10-03 10:15:00', '2018-10-03 11:15:00', 'Zakończona', 'Przykładowy opis', '5', '2');
         </sql>
-        <sql>INSERT INTO public.VISIT (start, end_, status, id_visit_model) VALUES ('2018-10-10 10:15:00', '2018-10-10
-            11:15:00', '10:15', '2');
+        <sql>INSERT INTO public.VISIT (start, end_, status, description, id_user, id_visit_model)
+            VALUES ('2018-10-10 10:15:00', '2018-10-10 11:15:00', 'Zakończona', 'Przykładowy opis', '5', '2');
         </sql>
-        <sql>INSERT INTO public.VISIT (start, end_, status, id_visit_model) VALUES ('2018-10-17 10:15:00', '2018-10-17
-            11:15:00', '10:15', '2');
+        <sql>INSERT INTO public.VISIT (start, end_, status, id_visit_model)
+            VALUES ('2018-10-17 10:15:00', '2018-10-17 11:15:00', '10:15', '2');
         </sql>
-        <sql>INSERT INTO public.VISIT (start, end_, status, id_visit_model) VALUES ('2018-10-24 10:15:00', '2018-10-24
-            11:15:00', '10:15', '2');
+        <sql>INSERT INTO public.VISIT (start, end_, status, id_visit_model)
+            VALUES ('2018-10-24 10:15:00', '2018-10-24 11:15:00', '10:15', '2');
         </sql>
-        <sql>INSERT INTO public.VISIT (start, end_, status, id_visit_model) VALUES ('2018-10-31 10:15:00', '2018-10-31
-            11:15:00', '10:15', '2');
+        <sql>INSERT INTO public.VISIT (start, end_, status, id_visit_model)
+            VALUES ('2018-10-31 10:15:00', '2018-10-31 11:15:00', '10:15', '2');
         </sql>
-        <sql>INSERT INTO public.VISIT (start, end_, status, id_visit_model) VALUES ('2018-10-02 15:00:00', '2018-10-02
-            16:00:00', '15:00', '3');
+        <sql>INSERT INTO public.VISIT (start, end_, status, description, id_user, id_visit_model)
+            VALUES ('2018-10-02 15:00:00', '2018-10-02 16:00:00', 'Zakończona', 'Przykładowy opis', '6', '3');
         </sql>
-        <sql>INSERT INTO public.VISIT (start, end_, status, id_visit_model) VALUES ('2018-10-09 15:00:00', '2018-10-09
-            16:00:00', '15:00', '3');
+        <sql>INSERT INTO public.VISIT (start, end_, status, description, id_user, id_visit_model)
+            VALUES ('2018-10-09 15:00:00', '2018-10-09 16:00:00', 'Zakończona', 'Przykładowy opis', '6', '3');
         </sql>
-        <sql>INSERT INTO public.VISIT (start, end_, status, id_visit_model) VALUES ('2018-10-16 15:00:00', '2018-10-16
-            16:00:00', '15:00', '3');
+        <sql>INSERT INTO public.VISIT (start, end_, status, id_visit_model)
+            VALUES ('2018-10-16 15:00:00', '2018-10-16 16:00:00', '15:00', '3');
         </sql>
-        <sql>INSERT INTO public.VISIT (start, end_, status, id_visit_model) VALUES ('2018-10-23 15:00:00', '2018-10-23
-            16:00:00', '15:00', '3');
+        <sql>INSERT INTO public.VISIT (start, end_, status, id_visit_model)
+            VALUES ('2018-10-23 15:00:00', '2018-10-23 16:00:00', '15:00', '3');
         </sql>
-        <sql>INSERT INTO public.VISIT (start, end_, status, id_visit_model) VALUES ('2018-10-30 15:00:00', '2018-10-30
-            16:00:00', '15:00', '3');
+        <sql>INSERT INTO public.VISIT (start, end_, status, id_visit_model)
+            VALUES ('2018-10-30 15:00:00', '2018-10-30 16:00:00', '15:00', '3');
         </sql>
-        <sql>INSERT INTO public.VISIT (start, end_, status, id_visit_model) VALUES ('2018-10-05 12:45:00', '2018-10-05
-            13:45:00', '12:45', '4');
+        <sql>INSERT INTO public.VISIT (start, end_, status, description, id_user, id_visit_model)
+            VALUES ('2018-10-05 12:45:00', '2018-10-05 13:45:00', 'Zakończona', 'Przykładowy opis', '4', '4');
         </sql>
-        <sql>INSERT INTO public.VISIT (start, end_, status, id_visit_model) VALUES ('2018-10-12 12:45:00', '2018-10-12
-            13:45:00', '12:45', '4');
+        <sql>INSERT INTO public.VISIT (start, end_, status, description, id_user, id_visit_model)
+            VALUES ('2018-10-12 12:45:00', '2018-10-12 13:45:00', 'Zakończona', 'Przykładowy opis', '4', '4');
         </sql>
-        <sql>INSERT INTO public.VISIT (start, end_, status, id_visit_model) VALUES ('2018-10-19 12:45:00', '2018-10-19
-            13:45:00', '12:45', '4');
+        <sql>INSERT INTO public.VISIT (start, end_, status, id_visit_model)
+            VALUES ('2018-10-19 12:45:00', '2018-10-19 13:45:00', '12:45', '4');
         </sql>
-        <sql>INSERT INTO public.VISIT (start, end_, status, id_visit_model) VALUES ('2018-10-26 12:45:00', '2018-10-26
-            13:45:00', '12:45', '4');
+        <sql>INSERT INTO public.VISIT (start, end_, status, id_visit_model)
+            VALUES ('2018-10-26 12:45:00', '2018-10-26 13:45:00', '12:45', '4');
         </sql>
-        <sql>INSERT INTO public.VISIT (start, end_, status, id_visit_model) VALUES ('2018-10-05 09:30:00', '2018-10-05
-            10:30:00', '09:30', '5');
+        <sql>INSERT INTO public.VISIT (start, end_, status, description, id_user, id_visit_model)
+            VALUES ('2018-10-05 09:30:00', '2018-10-05 10:30:00', 'Zakończona', 'Przykładowy opis', '5', '5');
         </sql>
-        <sql>INSERT INTO public.VISIT (start, end_, status, id_visit_model) VALUES ('2018-10-12 09:30:00', '2018-10-12
-            10:30:00', '09:30', '5');
+        <sql>INSERT INTO public.VISIT (start, end_, status, description, id_user, id_visit_model)
+            VALUES ('2018-10-12 09:30:00', '2018-10-12 10:30:00', 'Zakończona', 'Przykładowy opis', '5', '5');
         </sql>
-        <sql>INSERT INTO public.VISIT (start, end_, status, id_visit_model) VALUES ('2018-10-19 09:30:00', '2018-10-19
-            10:30:00', '09:30', '5');
+        <sql>INSERT INTO public.VISIT (start, end_, status, id_visit_model)
+            VALUES ('2018-10-19 09:30:00', '2018-10-19 10:30:00', '09:30', '5');
         </sql>
-        <sql>INSERT INTO public.VISIT (start, end_, status, id_visit_model) VALUES ('2018-10-26 09:30:00', '2018-10-26
-            10:30:00', '09:30', '5');
+        <sql>INSERT INTO public.VISIT (start, end_, status, id_visit_model)
+            VALUES ('2018-10-26 09:30:00', '2018-10-26 10:30:00', '09:30', '5');
         </sql>
-        <sql>INSERT INTO public.VISIT (start, end_, status, id_visit_model) VALUES ('2018-10-04 15:30:00', '2018-10-04
-            16:30:00', '15:30', '6');
+        <sql>INSERT INTO public.VISIT (start, end_, status, description, id_user, id_visit_model)
+            VALUES ('2018-10-04 15:30:00', '2018-10-04 16:30:00', 'Zakończona', 'Przykładowy opis', '6', '6');
         </sql>
-        <sql>INSERT INTO public.VISIT (start, end_, status, id_visit_model) VALUES ('2018-10-11 15:30:00', '2018-10-11
-            16:30:00', '15:30', '6');
+        <sql>INSERT INTO public.VISIT (start, end_, status, description, id_user, id_visit_model)
+            VALUES ('2018-10-11 15:30:00', '2018-10-11 16:30:00', 'Zakończona', 'Przykładowy opis', '6', '6');
         </sql>
-        <sql>INSERT INTO public.VISIT (start, end_, status, id_visit_model) VALUES ('2018-10-18 15:30:00', '2018-10-18
-            16:30:00', '15:30', '6');
+        <sql>INSERT INTO public.VISIT (start, end_, status, id_visit_model)
+            VALUES ('2018-10-18 15:30:00', '2018-10-18 16:30:00', '15:30', '6');
         </sql>
-        <sql>INSERT INTO public.VISIT (start, end_, status, id_visit_model) VALUES ('2018-10-25 15:30:00', '2018-10-25
-            16:30:00', '15:30', '6');
+        <sql>INSERT INTO public.VISIT (start, end_, status, id_visit_model)
+            VALUES ('2018-10-25 15:30:00', '2018-10-25 16:30:00', '15:30', '6');
         </sql>
 
     </changeSet>
