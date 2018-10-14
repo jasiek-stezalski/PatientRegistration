@@ -26,12 +26,13 @@
     </tr>
     </thead>
     <tr *ngFor="let patient of patients">
-      <td>{{patient.firstName}}</td>
-      <td>{{patient.lastName}}</td>
-      <td>{{patient.pesel}}</td>
-      <td>{{patient.email}}</td>
-      <td>{{patient.phoneNumber}}</td>
+      <td><a href="/userHistory/{{patient.id}}">{{patient.firstName}}</a></td>
+      <td><a href="/userHistory/{{patient.id}}">{{patient.lastName}}</a></td>
+      <td><a href="/userHistory/{{patient.id}}">{{patient.pesel}}</a></td>
+      <td><a href="/userHistory/{{patient.id}}">{{patient.email}}</a></td>
+      <td><a href="/userHistory/{{patient.id}}">{{patient.phoneNumber}}</a></td>
     </tr>
   </table>
+
 </div>
 

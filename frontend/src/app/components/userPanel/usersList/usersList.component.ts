@@ -1,14 +1,14 @@
 import {AfterViewInit, Component} from '@angular/core';
-import {User} from '../../models/user.model';
-import {UserService} from '../../services/user.service';
-import {Item} from '../calendar/patientCalendar/patientCalendar.component';
+import {User} from '../../../models/user.model';
+import {UserService} from '../../../services/user.service';
+import {Item} from '../../calendar/patientCalendar/patientCalendar.component';
 
 @Component({
-  selector: 'app-userPanel',
-  templateUrl: './userPanel.component.html',
-  styleUrls: ['./userPanel.component.css']
+  selector: 'app-usersList',
+  templateUrl: './usersList.component.html',
+  styleUrls: ['./usersList.component.css']
 })
-export class UserPanelComponent implements AfterViewInit {
+export class UsersListComponent implements AfterViewInit {
 
   patients: User[] = [];
   patientsBase: User[] = [];

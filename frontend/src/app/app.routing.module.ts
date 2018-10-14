@@ -9,19 +9,21 @@ import {LoginComponent} from './components/authentication/login/login.component'
 import {RegisterComponent} from './components/authentication/register/register.component';
 import {UrlPermissionDoctor} from './components/authentication/urlPermission/url.permissionDoctor';
 import {DoctorCalendarComponent} from './components/calendar/doctorCalendar/doctorCalendar.component';
-import {UserPanelComponent} from "./components/userPanel/userPanel.component";
-import {UrlPermission} from "./components/authentication/urlPermission/url.permission";
+import {UsersListComponent} from './components/userPanel/usersList/usersList.component';
+import {UrlPermission} from './components/authentication/urlPermission/url.permission';
+import {UserHistoryComponent} from './components/userPanel/userHistory/userHistory.component';
 
 const routes: Routes = [
-  {path: 'users', component: UserComponent},
-  {path: 'add', component: AddUserComponent},
+  {path: 'login', component: LoginComponent},
+  {path: 'register', component: RegisterComponent},
   {path: 'modelCalendar', component: ModelCalendarComponent, canActivate: [UrlPermissionDoctor]},
   {path: 'patientCalendar', component: PatientCalendarComponent},
   {path: 'doctorCalendar', component: DoctorCalendarComponent, canActivate: [UrlPermissionDoctor]},
-  {path: 'userPanel', component: UserPanelComponent, canActivate: [UrlPermission]},
-  {path: 'login', component: LoginComponent},
-  {path: 'register', component: RegisterComponent},
+  {path: 'usersList', component: UsersListComponent, canActivate: [UrlPermissionDoctor]},
+  {path: 'userHistory/:id', component: UserHistoryComponent, canActivate: [UrlPermission]},
 
+  {path: 'users', component: UserComponent},
+  {path: 'add', component: AddUserComponent},
   // otherwise redirect to /
   {path: '**', redirectTo: '/'}
 ];

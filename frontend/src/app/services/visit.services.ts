@@ -20,6 +20,10 @@ export class VisitService {
     return this.http.get(this.url + 'doctor/' + idUser + '?from=' + from.toString() + '&to=' + to.toString()) as Observable<Visit[]>;
   }
 
+  getVisitsByIdUser(idUser: string | number): Observable<Visit[]> {
+    return this.http.get(this.url + 'user/' + idUser) as Observable<Visit[]>;
+  }
+
   bookVisit(idVisit: String | Number, idUser: String | Number): Observable<Visit> {
     return this.http.get(this.url + 'book/' + idVisit + '?idUser=' + idUser) as Observable<Visit>;
   }

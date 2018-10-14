@@ -13,6 +13,7 @@ export class AppComponent implements OnInit {
   login: String;
   url: String;
   buttons: Button[] = [];
+  userPanel: Button[] = [];
   calendar: String;
   modelCalendar: String;
 
@@ -23,11 +24,17 @@ export class AppComponent implements OnInit {
   ngOnInit() {
     this.currentUser = JSON.parse(sessionStorage.getItem('currentUser'));
     if (sessionStorage.getItem('currentUser')) {
+      window.document.getElementById('panel').hidden = false;
+      this.userPanel.push({name: 'Moje dane', link: '/userData'});
       if (this.currentUser.role === 'DOCTOR') {
         this.buttons.push({name: 'Tworzenie modelu wizyty', link: '/modelCalendar'});
         this.buttons.push({name: 'Kalendarz', link: '/doctorCalendar'});
+        this.userPanel.push({name: 'Lista pacjentów', link: '/usersList'});
       }
-      else this.buttons.push({name: 'Kalendarz', link: '/patientCalendar'});
+      else {
+        this.buttons.push({name: 'Kalendarz', link: '/patientCalendar'});
+        this.userPanel.push({name: 'Historia wizyt', link: '/userHistory/' + this.currentUser.id});
+      }
 
       this.url = '';
       this.login = 'Wyloguj';
@@ -38,8 +45,6 @@ export class AppComponent implements OnInit {
       this.url = 'login';
       this.login = 'Zaloguj';
     }
-
-    this.buttons.push({name: 'Panel użytkownika', link: '/userPanel'});
 
     if (sessionStorage.getItem('currentUser')) {
       if (this.currentUser.role === 'DOCTOR') {
