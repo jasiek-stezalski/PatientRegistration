@@ -1,0 +1,24 @@
+<div class="w3-container">
+  <h2>Aktualne wizyty:</h2>
+
+  <div class="wrap-table100">
+    <div class="table">
+
+      <div class="row header">
+        <div class="cell">Placówka</div>
+        <div class="cell">Data</div>
+        <div class="cell">Specjalizacja</div>
+        <div class="cell">Lekarz</div>
+      </div>
+      <div class="row" *ngFor="let visit of visits">
+        <div class="cell">{{visit.visitModel.clinic.name + ', ' + visit.visitModel.clinic.city}}</div>
+        <div class="cell">{{('' + visit.start + '').substring(0, 10)}}</div>
+        <div class="cell">{{visit.visitModel.specialization}}</div>
+        <div class="cell">{{visit.visitModel.user.firstName + ' ' + visit.visitModel.user.lastName}}</div>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+

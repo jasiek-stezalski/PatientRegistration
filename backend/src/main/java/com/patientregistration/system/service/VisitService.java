@@ -12,7 +12,9 @@ public interface VisitService {
 
     List<Visit> findBetweenByDoctor(LocalDateTime from, LocalDateTime to, Long idUser);
 
-    List<Visit> findAllByIdUser(Long idUser);
+    List<Visit> findAllHistoricalByIdUser(Long idUser);
+
+    List<Visit> findAllActualByIdUser(Long idUser);
 
     Visit findByVisitId(Long idVisit);
 

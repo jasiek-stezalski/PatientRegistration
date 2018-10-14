@@ -16,4 +16,6 @@ public interface VisitRepository extends JpaRepository<Visit, Long> {
     List<Visit> findBetween(@Param("from") LocalDateTime start, @Param("to") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime end);
 
     List<Visit> findAllByUserAndStartBeforeOrderByStartDesc(User user, LocalDateTime start);
+
+    List<Visit> findAllByUserAndStartAfterOrderByStartDesc(User user, LocalDateTime now);
 }

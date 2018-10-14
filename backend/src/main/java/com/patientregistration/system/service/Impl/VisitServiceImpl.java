@@ -43,9 +43,15 @@ public class VisitServiceImpl implements VisitService {
     }
 
     @Override
-    public List<Visit> findAllByIdUser(Long idUser) {
+    public List<Visit> findAllHistoricalByIdUser(Long idUser) {
         User user = userService.findUserById(idUser);
         return visitRepository.findAllByUserAndStartBeforeOrderByStartDesc(user, LocalDateTime.now());
+    }
+
+    @Override
+    public List<Visit> findAllActualByIdUser(Long idUser) {
+        User user = userService.findUserById(idUser);
+        return visitRepository.findAllByUserAndStartAfterOrderByStartDesc(user, LocalDateTime.now());
     }
 
     @Override

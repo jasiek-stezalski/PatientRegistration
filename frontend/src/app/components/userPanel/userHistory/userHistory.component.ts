@@ -1,4 +1,4 @@
-import {AfterViewInit, Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {UserService} from '../../../services/user.service';
 import {Visit} from '../../../models/visit.model';
 import {VisitService} from '../../../services/visit.services';
@@ -10,7 +10,7 @@ import {User} from '../../../models/user.model';
   templateUrl: './userHistory.component.html',
   styleUrls: ['./userHistory.component.css']
 })
-export class UserHistoryComponent implements AfterViewInit {
+export class UserHistoryComponent implements OnInit {
 
   visitsBase: Visit[] = [];
   visits: Visit[] = [];
@@ -27,7 +27,7 @@ export class UserHistoryComponent implements AfterViewInit {
   constructor(private userService: UserService, private visitService: VisitService, private route: ActivatedRoute) {
   }
 
-  ngAfterViewInit() {
+  ngOnInit() {
     this.sub = this.route.params.subscribe(params => {
       this.id = +params['id'];
     });
@@ -35,7 +35,7 @@ export class UserHistoryComponent implements AfterViewInit {
     let user: User = JSON.parse(sessionStorage.getItem('currentUser'));
     this.specialization.add('-');
     if (user.role === 'DOCTOR') {
-      this.visitService.getVisitsByIdUser(this.id)
+      this.visitService.getHistoricalVisitsByIdUser(this.id)
         .subscribe(data => {
           this.visitsBase = data;
           this.visits = data;
@@ -44,7 +44,7 @@ export class UserHistoryComponent implements AfterViewInit {
           });
         });
     } else {
-      this.visitService.getVisitsByIdUser(user.id)
+      this.visitService.getHistoricalVisitsByIdUser(user.id)
         .subscribe(data => {
           this.visitsBase = data;
           this.visits = data;

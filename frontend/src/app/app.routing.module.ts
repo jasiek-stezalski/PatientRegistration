@@ -12,6 +12,7 @@ import {DoctorCalendarComponent} from './components/calendar/doctorCalendar/doct
 import {UsersListComponent} from './components/userPanel/usersList/usersList.component';
 import {UrlPermission} from './components/authentication/urlPermission/url.permission';
 import {UserHistoryComponent} from './components/userPanel/userHistory/userHistory.component';
+import {UserVisitsComponent} from './components/userPanel/userVisits/userVisits.component';
 
 const routes: Routes = [
   {path: 'login', component: LoginComponent},
@@ -20,6 +21,7 @@ const routes: Routes = [
   {path: 'patientCalendar', component: PatientCalendarComponent},
   {path: 'doctorCalendar', component: DoctorCalendarComponent, canActivate: [UrlPermissionDoctor]},
   {path: 'usersList', component: UsersListComponent, canActivate: [UrlPermissionDoctor]},
+  {path: 'userVisits', component: UserVisitsComponent, canActivate: [UrlPermission]},
   {path: 'userHistory', component: UserHistoryComponent, canActivate: [UrlPermission]},
   {path: 'userHistory/:id', component: UserHistoryComponent, canActivate: [UrlPermissionDoctor]},
 

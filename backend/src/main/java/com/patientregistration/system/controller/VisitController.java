@@ -41,11 +41,18 @@ public class VisitController {
         return visitService.findBetweenByDoctor(from, to, idUser);
     }
 
-    @GetMapping("/user/{idUser}")
+    @GetMapping("/historical/user/{idUser}")
     @JsonSerialize(using = LocalDateTimeSerializer.class)
     @JsonView(Views.Basic.class)
-    public List<Visit> getVisitsByIdUser(@PathVariable Long idUser) {
-        return visitService.findAllByIdUser(idUser);
+    public List<Visit> getHistoricalVisitsByIdUser(@PathVariable Long idUser) {
+        return visitService.findAllHistoricalByIdUser(idUser);
+    }
+
+    @GetMapping("/actual/user/{idUser}")
+    @JsonSerialize(using = LocalDateTimeSerializer.class)
+    @JsonView(Views.Basic.class)
+    public List<Visit> getActualVisitsByIdUser(@PathVariable Long idUser) {
+        return visitService.findAllActualByIdUser(idUser);
     }
 
     @GetMapping("/book/{id}")

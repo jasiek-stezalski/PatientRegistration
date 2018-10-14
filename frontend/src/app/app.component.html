@@ -11,8 +11,8 @@
         <button class="dropbtn">Panel użytkownika
           <i class="fa fa-caret-down"></i>
         </button>
-        <div class="dropdown-content" *ngFor="let panel of userPanel">
-          <a href="{{panel.link}}">{{panel.name}}</a>
+        <div class="dropdown-content">
+          <a  *ngFor="let panel of userPanel" href="{{panel.link}}">{{panel.name}}</a>
         </div>
       </div>
 

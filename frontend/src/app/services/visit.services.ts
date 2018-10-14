@@ -20,8 +20,12 @@ export class VisitService {
     return this.http.get(this.url + 'doctor/' + idUser + '?from=' + from.toString() + '&to=' + to.toString()) as Observable<Visit[]>;
   }
 
-  getVisitsByIdUser(idUser: string | number): Observable<Visit[]> {
-    return this.http.get(this.url + 'user/' + idUser) as Observable<Visit[]>;
+  getHistoricalVisitsByIdUser(idUser: string | number): Observable<Visit[]> {
+    return this.http.get(this.url + 'historical/user/' + idUser) as Observable<Visit[]>;
+  }
+
+  getActualVisitsByIdUser(idUser: string | number): Observable<Visit[]> {
+    return this.http.get(this.url + 'actual/user/' + idUser) as Observable<Visit[]>;
   }
 
   bookVisit(idVisit: String | Number, idUser: String | Number): Observable<Visit> {

@@ -5,6 +5,7 @@ import {BrowserModule} from '@angular/platform-browser';
 import {HttpClientModule} from '@angular/common/http';
 import {DayPilotModule} from 'daypilot-pro-angular';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {UserVisitsComponent} from './userVisits/userVisits.component';
 
 
 @NgModule({
@@ -16,9 +17,10 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
   ],
   declarations: [
     UsersListComponent,
-    UserHistoryComponent
+    UserHistoryComponent,
+    UserVisitsComponent
   ],
-  exports: [UsersListComponent, UserHistoryComponent],
+  exports: [UsersListComponent, UserHistoryComponent, UserVisitsComponent],
   providers: []
 })
 export class UserPanelModule {
