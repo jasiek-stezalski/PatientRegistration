@@ -3,6 +3,7 @@ import {UserService} from '../../../services/user.service';
 import {Visit} from '../../../models/visit.model';
 import {VisitService} from '../../../services/visit.services';
 import {ActivatedRoute} from '@angular/router';
+import {User} from '../../../models/user.model';
 
 @Component({
   selector: 'app-userHistory',
@@ -24,10 +25,19 @@ export class UserHistoryComponent implements OnInit {
       this.id = +params['id'];
     });
 
-    this.visitService.getVisitsByIdUser(this.id)
-      .subscribe(data => {
-        this.visits = data;
-      });
+    let user: User = JSON.parse(sessionStorage.getItem('currentUser'));
+    if (user.role === 'DOCTOR') {
+      this.visitService.getVisitsByIdUser(this.id)
+        .subscribe(data => {
+          this.visits = data;
+        });
+    } else {
+      this.visitService.getVisitsByIdUser(user.id)
+        .subscribe(data => {
+          this.visits = data;
+        });
+    }
+
 
   }
 

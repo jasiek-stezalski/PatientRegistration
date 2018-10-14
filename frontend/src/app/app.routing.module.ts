@@ -20,7 +20,8 @@ const routes: Routes = [
   {path: 'patientCalendar', component: PatientCalendarComponent},
   {path: 'doctorCalendar', component: DoctorCalendarComponent, canActivate: [UrlPermissionDoctor]},
   {path: 'usersList', component: UsersListComponent, canActivate: [UrlPermissionDoctor]},
-  {path: 'userHistory/:id', component: UserHistoryComponent, canActivate: [UrlPermission]},
+  {path: 'userHistory', component: UserHistoryComponent, canActivate: [UrlPermission]},
+  {path: 'userHistory/:id', component: UserHistoryComponent, canActivate: [UrlPermissionDoctor]},
 
   {path: 'users', component: UserComponent},
   {path: 'add', component: AddUserComponent},

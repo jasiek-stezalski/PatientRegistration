@@ -33,7 +33,7 @@ export class AppComponent implements OnInit {
       }
       else {
         this.buttons.push({name: 'Kalendarz', link: '/patientCalendar'});
-        this.userPanel.push({name: 'Historia wizyt', link: '/userHistory/' + this.currentUser.id});
+        this.userPanel.push({name: 'Historia wizyt', link: '/userHistory'});
       }
 
       this.url = '';
