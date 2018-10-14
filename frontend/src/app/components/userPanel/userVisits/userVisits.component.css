@@ -20,7 +20,7 @@ div {
   text-align: center;
   background-color: #b1b8ba;
   border: 1px solid #c6ccc6;
-  color: #fff;
+  color: white;
   padding: 6px 15px;
   border-radius: 2px;
   cursor: pointer;
@@ -39,11 +39,11 @@ div {
 
 .row {
   display: table-row;
-  background: #fff;
+  background: white;
 }
 
 .row.header {
-  color: #ffffff;
+  color: white;
   background: #b1b8ba;
 }
 
@@ -63,7 +63,7 @@ div {
 
 .row.header .cell {
   font-size: 18px;
-  color: #fff;
+  color: white;
   padding-top: 10px;
   padding-bottom: 10px;
 }
@@ -76,5 +76,19 @@ div {
 
 .row:hover {
   background-color: #a9c2d8;
+}
+
+#cancel {
+  text-align: center;
   cursor: pointer;
+}
+
+#cancel a {
+  text-decoration: none;
+  color: black;
+  font-weight: bold;
+}
+
+#cancel:hover {
+  background-color: #85b2d8;
 }

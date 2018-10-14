@@ -22,4 +22,13 @@ export class UserVisitsComponent implements OnInit {
       .subscribe(data => this.visits = data);
   }
 
+  cancelVisit(id: string | number) {
+    if (confirm('Czy na pewno chcesz odwołać tą wizytę?')) {
+      this.visitService.deleteVisit(id.toString()).subscribe(() => {
+        alert('Wizyta została odwołana');
+        this.ngOnInit();
+      });
+    }
+  }
+
 }
