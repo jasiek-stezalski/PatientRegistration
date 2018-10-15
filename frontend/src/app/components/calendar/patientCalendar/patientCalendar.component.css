@@ -34,6 +34,10 @@
   text-decoration: none;
 }
 
+.buttons a:hover {
+  background-color: #566f88;
+}
+
 input[type=text], select {
   width: 100%;
   padding: 6px 20px;
@@ -52,21 +56,6 @@ input[type=number] {
   border: 1px solid #ccc;
   border-radius: 4px;
   box-sizing: border-box;
-}
-
-input[type=submit] {
-  width: 100%;
-  background-color: #4CAF50;
-  color: white;
-  padding: 6px 20px;
-  margin: 8px 0;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-input[type=submit]:hover {
-  background-color: #45a049;
 }
 
 div {
@@ -89,6 +78,6 @@ div {
   text-decoration: none;
 }
 
-.buttons a:hover {
-  background-color: #566f88;
+.buttons2 a:hover {
+  background-color: #595b5d;
 }

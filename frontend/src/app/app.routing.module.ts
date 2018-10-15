@@ -13,6 +13,7 @@ import {UsersListComponent} from './components/userPanel/usersList/usersList.com
 import {UrlPermission} from './components/authentication/urlPermission/url.permission';
 import {UserHistoryComponent} from './components/userPanel/userHistory/userHistory.component';
 import {UserVisitsComponent} from './components/userPanel/userVisits/userVisits.component';
+import {DoctorPanelComponent} from "./components/userPanel/doctorPanel/doctorPanel.component";
 
 const routes: Routes = [
   {path: 'login', component: LoginComponent},
@@ -24,6 +25,7 @@ const routes: Routes = [
   {path: 'userVisits', component: UserVisitsComponent, canActivate: [UrlPermission]},
   {path: 'userHistory', component: UserHistoryComponent, canActivate: [UrlPermission]},
   {path: 'userHistory/:id', component: UserHistoryComponent, canActivate: [UrlPermissionDoctor]},
+  {path: 'doctorPanel', component: DoctorPanelComponent, canActivate: [UrlPermissionDoctor]},
 
   {path: 'users', component: UserComponent},
   {path: 'add', component: AddUserComponent},

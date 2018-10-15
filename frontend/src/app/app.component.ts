@@ -25,10 +25,10 @@ export class AppComponent implements OnInit {
     this.currentUser = JSON.parse(sessionStorage.getItem('currentUser'));
     if (sessionStorage.getItem('currentUser')) {
       window.document.getElementById('panel').hidden = false;
-      this.userPanel.push({name: 'Moje dane', link: '/userData'});
       if (this.currentUser.role === 'DOCTOR') {
         this.buttons.push({name: 'Tworzenie modelu wizyty', link: '/modelCalendar'});
         this.buttons.push({name: 'Kalendarz', link: '/doctorCalendar'});
+        this.userPanel.push({name: 'Panel lekarza', link: '/doctorPanel'});
         this.userPanel.push({name: 'Lista pacjentów', link: '/usersList'});
       }
       else {

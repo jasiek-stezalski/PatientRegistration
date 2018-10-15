@@ -26,7 +26,7 @@ export class PatientCalendarComponent implements AfterViewInit {
 
   itemMap: Map<String, Item> = new Map<String, Item>();
 
-  careType: any[] = ['-', 'Publiczna', 'Prywatna',];
+  careType: String[] = ['-', 'Publiczna', 'Prywatna',];
   cities: Set<String> = new Set<String>();
   clinics: Array<String> = [];
   doctors: Array<String> = [];

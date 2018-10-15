@@ -6,6 +6,7 @@ import {HttpClientModule} from '@angular/common/http';
 import {DayPilotModule} from 'daypilot-pro-angular';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {UserVisitsComponent} from './userVisits/userVisits.component';
+import {DoctorPanelComponent} from './doctorPanel/doctorPanel.component';
 
 
 @NgModule({
@@ -18,9 +19,10 @@ import {UserVisitsComponent} from './userVisits/userVisits.component';
   declarations: [
     UsersListComponent,
     UserHistoryComponent,
-    UserVisitsComponent
+    UserVisitsComponent,
+    DoctorPanelComponent
   ],
-  exports: [UsersListComponent, UserHistoryComponent, UserVisitsComponent],
+  exports: [UsersListComponent, UserHistoryComponent, UserVisitsComponent, DoctorPanelComponent],
   providers: []
 })
 export class UserPanelModule {
