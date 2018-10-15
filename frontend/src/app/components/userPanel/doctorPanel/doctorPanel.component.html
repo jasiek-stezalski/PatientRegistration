@@ -1,8 +1,14 @@
 <div class="left">
   <daypilot-calendar [config]="config" [events]="events" #calendar></daypilot-calendar>
 </div>
-
-  <div class="cell">{{actualVisit.id}}</div>
-  <div class="cell">{{actualVisit.text}}</div>
-  <div class="cell">{{actualVisit.start}}</div>
-
+Aktualna wizyta:
+<div>
+  {{('' + actualVisit.start + '').substring(11)}}
+</div>
+Dane pacjenta:
+<div>
+  <a href="javascript:void(0);" (click)="openUserHistory(actualUser.id)">{{actualUser.lastName}}</a>
+</div>
+<div>
+  <a href="javascript:void(0);" (click)="confirmVisit(actualVisit.id)">Zatwierdź wizytę</a>
+</div>

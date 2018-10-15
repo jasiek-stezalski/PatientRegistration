@@ -61,6 +61,12 @@ public class VisitController {
         return visitService.bookVisit(idVisit, idUser);
     }
 
+    @GetMapping("/confirm/{id}")
+    @JsonView(Views.Basic.class)
+    public Visit confirmVisit(@PathVariable(value = "id") Long idVisit) {
+        return visitService.confirmVisit(idVisit);
+    }
+
     @PutMapping("/")
     @JsonSerialize(using = LocalDateTimeSerializer.class)
     @JsonView(Views.Basic.class)

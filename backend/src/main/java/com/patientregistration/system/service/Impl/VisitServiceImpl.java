@@ -10,6 +10,7 @@ import com.patientregistration.system.service.VisitService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.List;
@@ -45,13 +46,15 @@ public class VisitServiceImpl implements VisitService {
     @Override
     public List<Visit> findAllHistoricalByIdUser(Long idUser) {
         User user = userService.findUserById(idUser);
-        return visitRepository.findAllByUserAndStartBeforeOrderByStartDesc(user, LocalDateTime.now());
+        LocalDate today = LocalDate.now();
+        return visitRepository.findAllByUserAndStartBeforeOrderByStartDesc(user, today.atStartOfDay());
     }
 
     @Override
     public List<Visit> findAllActualByIdUser(Long idUser) {
         User user = userService.findUserById(idUser);
-        return visitRepository.findAllByUserAndStartAfterOrderByStartDesc(user, LocalDateTime.now());
+        LocalDate today = LocalDate.now();
+        return visitRepository.findAllByUserAndStartAfterOrderByStartDesc(user, today.atStartOfDay());
     }
 
     @Override
@@ -75,6 +78,13 @@ public class VisitServiceImpl implements VisitService {
         Visit save = visitRepository.save(visit);
         emailService.bookVisitEmail(visit);
         return save;
+    }
+
+    @Override
+    public Visit confirmVisit(Long idVisit) {
+        Visit visit = findByVisitId(idVisit);
+        visit.setText("Zakończone");
+        return visitRepository.save(visit);
     }
 
     @Override

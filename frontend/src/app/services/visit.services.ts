@@ -32,6 +32,10 @@ export class VisitService {
     return this.http.get(this.url + 'book/' + idVisit + '?idUser=' + idUser) as Observable<Visit>;
   }
 
+  confirmVisit(idVisit: String | Number): Observable<Visit> {
+    return this.http.get(this.url + 'confirm/' + idVisit) as Observable<Visit>;
+  }
+
   moveVisit(data: Visit): Observable<Visit> {
     return this.http.put(this.url, data) as Observable<Visit>;
   }
