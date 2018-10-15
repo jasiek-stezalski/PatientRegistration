@@ -12,7 +12,8 @@ import {User} from "../../../models/user.model";
 export class DoctorPanelComponent implements AfterViewInit {
 
   events: Visit[] = [];
-  userVisits: Visit[] = [];
+  eventsBase: Visit[] = [];
+  actualVisit: Visit = new Visit();
 
   constructor(private visitService: VisitService) {
   }
@@ -21,9 +22,12 @@ export class DoctorPanelComponent implements AfterViewInit {
     let user: User = JSON.parse(sessionStorage.getItem('currentUser'));
     this.visitService.getVisitsInWeekByDoctor(DayPilot.Date.today(), DayPilot.Date.today(), user.id).subscribe(result => {
       this.events = result;
+      this.eventsBase = result.sort((v1, v2) => v1.start > v2.start ? 1 : -1).filter(v=>v.start === DayPilot.Date.today().toString());
+      this.actualVisit = result.pop();
     });
 
   }
+
 
   config: any = {
     startDate: DayPilot.Date.today(),
@@ -44,11 +48,8 @@ export class DoctorPanelComponent implements AfterViewInit {
     eventMoveHandling: "Disabled",
     eventResizeHandling: "Disabled",
     eventHoverHandling: "Disabled",
+    eventClickHandling: "Disabled",
 
-    eventClickHandling: "Enabled",
-    onEventClicked: function (args) {
-      this.message("Event clicked");
-    },
 
   }
 
