@@ -4,7 +4,7 @@ export class List<T> {
 
   constructor() {
     this.items = [];
-    this.index = 0;
+    this.index = -1;
   }
 
   setIndex(value: number) {
@@ -27,21 +27,24 @@ export class List<T> {
     this.items.push(value);
   }
 
+  previous() {
+    if (this.index > 0)
+      return this.items[--this.index];
+    else return this.items[this.index];
+  }
+
   get(): T {
-    if (this.index < (this.size() - 1)) {
-      return this.items[++this.index];
-    }
     return this.items[this.index];
+  }
+
+  next(): T {
+    if (this.index < this.size() - 1)
+      return this.items[++this.index];
+    else return this.items[this.index];
   }
 
   getByIndex(index: number): T {
     return this.items[index];
   }
 
-  getPrevious(): T {
-    if (this.index > 0) {
-      return this.items[--this.index];
-    }
-    return this.items[this.index];
-  }
 }

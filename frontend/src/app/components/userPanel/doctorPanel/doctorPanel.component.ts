@@ -4,7 +4,8 @@ import {Visit} from '../../../models/visit.model';
 import {VisitService} from '../../../services/visit.services';
 import {User} from '../../../models/user.model';
 import {Router} from '@angular/router';
-import {List} from "../../../resources/list.model";
+import {List} from '../../../resources/list.model';
+import {isUndefined} from 'util';
 
 @Component({
   selector: 'app-doctorPanel',
@@ -30,18 +31,17 @@ export class DoctorPanelComponent implements AfterViewInit {
       let isVisitToDo: boolean = false;
 
       for (let i = 0; i < this.eventsBase.size(); i++) {
-        if (this.eventsBase.get().text === 'Zajęte') {
-          this.actualVisit = i == 0 ? this.eventsBase.getByIndex(i) : this.actualVisit = this.eventsBase.get();
+        if (this.eventsBase.next().text === 'Zajęte') {
+          this.actualVisit = this.eventsBase.get();
           this.actualUser = this.actualVisit.user;
           isVisitToDo = true;
           break;
         }
       }
-      if (!isVisitToDo) this.eventsBase.setIndex(this.eventsBase.size());
+      if (!isVisitToDo) this.eventsBase.setIndex(this.eventsBase.getIndex() + 1);
     });
 
   }
-
 
   config: any = {
     startDate: DayPilot.Date.today(),
@@ -62,7 +62,19 @@ export class DoctorPanelComponent implements AfterViewInit {
     eventMoveHandling: 'Disabled',
     eventResizeHandling: 'Disabled',
     eventHoverHandling: 'Disabled',
-    eventClickHandling: 'Disabled',
+
+    eventClickHandling: 'Enabled',
+    onEventClicked: args => {
+      for (let i = 0; i < this.eventsBase.size(); i++) {
+        if (this.eventsBase.getByIndex(i).id == args.e.id()) {
+          this.eventsBase.setIndex(i);
+          this.actualVisit = this.eventsBase.get();
+          this.actualUser = this.actualVisit.user;
+          break;
+        }
+      }
+
+    },
 
 
   };
@@ -81,15 +93,17 @@ export class DoctorPanelComponent implements AfterViewInit {
   }
 
   confirmVisit(id: string | number) {
-    this.visitService.confirmVisit(id).subscribe(() => {
-      this.events.find(v => v.id === this.actualVisit.id).text = 'Zakończone';
-      this.actualVisit = this.eventsBase.get();
-      this.actualUser = this.actualVisit.user;
-    });
+    if (!isUndefined(id)) {
+      this.visitService.confirmVisit(id).subscribe(() => {
+        this.events.find(v => v.id === this.actualVisit.id).text = 'Zakończone';
+        this.actualVisit = this.eventsBase.next();
+        this.actualUser = this.actualVisit.user;
+      });
+    }
   }
 
-  backToVisit() {
-    this.actualVisit = this.eventsBase.getPrevious();
+  previousVisit() {
+    this.actualVisit = this.eventsBase.previous();
     this.actualUser = this.actualVisit.user;
   }
 
