@@ -13,7 +13,7 @@ import {Router} from '@angular/router';
 export class DoctorPanelComponent implements AfterViewInit {
 
   events: Visit[] = [];
-  eventsBase: Visit[] = [];
+  eventsBase: List<Visit> = new List<Visit>();
   actualVisit: Visit = new Visit();
   actualUser: User = new User();
 
@@ -24,14 +24,18 @@ export class DoctorPanelComponent implements AfterViewInit {
     let user: User = JSON.parse(sessionStorage.getItem('currentUser'));
     this.visitService.getVisitsInWeekByDoctor(DayPilot.Date.today(), DayPilot.Date.today(), user.id).subscribe(result => {
       this.events = result;
-      this.eventsBase = result
-        .sort((v1, v2) => v1.start > v2.start ? -1 : 1)
-        .filter(v => v.text === 'Zajęte')
-        .filter(v =>
-          (v.start >= DayPilot.Date.today().toString()
-            && v.start < DayPilot.Date.today().addDays(1).toString()));
-      this.actualVisit = this.eventsBase.pop();
-      this.actualUser = this.actualVisit.user;
+      this.eventsBase.addAll(this.filterVisits(result));
+
+      for (let i = 0; i < this.eventsBase.size(); i++) {
+        if (this.eventsBase.get().text === 'Zajęte') {
+          this.eventsBase.setIndex(i);
+          this.actualVisit = i == 0 ? this.eventsBase.getByIndex(i) : this.actualVisit = this.eventsBase.get();
+          this.actualUser = this.actualVisit.user;
+          break;
+        }
+      }
+
+
     });
 
   }
@@ -61,22 +65,74 @@ export class DoctorPanelComponent implements AfterViewInit {
 
   };
 
+  filterVisits(data: Visit[]) {
+    return data
+      .sort((v1, v2) => v1.start > v2.start ? 1 : -1)
+      .filter(v => (v.text === 'Zajęte') || v.text === 'Zakończone')
+      .filter(v =>
+        (v.start >= DayPilot.Date.today().toString()
+          && v.start < DayPilot.Date.today().addDays(1).toString()));
+  }
+
   openUserHistory(id: string | number) {
     this.router.navigate(['userHistory/', id]);
   }
 
   confirmVisit(id: string | number) {
     this.visitService.confirmVisit(id).subscribe(() => {
-      alert('Wizyta została Zatwierdzona');
       this.events.find(v => v.id === this.actualVisit.id).text = 'Zakończone';
-      if (this.eventsBase.length === 0) {
-        this.actualVisit = new Visit();
-        this.actualUser = new User();
-      } else {
-        this.actualVisit = this.eventsBase.pop();
-        this.actualUser = this.actualVisit.user;
-      }
-
+      this.actualVisit = this.eventsBase.get();
+      this.actualUser = this.actualVisit.user;
     });
+  }
+
+  backToVisit() {
+    this.actualVisit = this.eventsBase.getPrevious();
+    this.actualUser = this.actualVisit.user;
+  }
+
+}
+
+class List<T> {
+  private items: Array<T>;
+  private index: number;
+
+  constructor() {
+    this.items = [];
+    this.index = 0;
+  }
+
+  setIndex(value: number) {
+    this.index = value;
+  }
+
+  size(): number {
+    return this.items.length;
+  }
+
+  addAll(array: Array<T>) {
+    this.items = array;
+  }
+
+  add(value: T): void {
+    this.items.push(value);
+  }
+
+  get(): T {
+    if (this.index < (this.size() - 1)) {
+      return this.items[++this.index];
+    }
+    return this.items[this.index];
+  }
+
+  getByIndex(index: number): T {
+    return this.items[index];
+  }
+
+  getPrevious(): T {
+    if (this.index > 0) {
+      return this.items[--this.index];
+    }
+    return this.items[this.index];
   }
 }
