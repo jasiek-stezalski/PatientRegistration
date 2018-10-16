@@ -11,6 +11,10 @@ export class List<T> {
     this.index = value;
   }
 
+  getIndex(): number {
+    return this.index;
+  }
+
   size(): number {
     return this.items.length;
   }

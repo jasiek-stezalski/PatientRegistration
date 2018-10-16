@@ -27,16 +27,17 @@ export class DoctorPanelComponent implements AfterViewInit {
       this.events = result;
       this.eventsBase.addAll(this.filterVisits(result));
 
+      let isVisitToDo: boolean = false;
+
       for (let i = 0; i < this.eventsBase.size(); i++) {
         if (this.eventsBase.get().text === 'Zajęte') {
-          this.eventsBase.setIndex(i);
           this.actualVisit = i == 0 ? this.eventsBase.getByIndex(i) : this.actualVisit = this.eventsBase.get();
           this.actualUser = this.actualVisit.user;
+          isVisitToDo = true;
           break;
         }
       }
-
-
+      if (!isVisitToDo) this.eventsBase.setIndex(this.eventsBase.size());
     });
 
   }
