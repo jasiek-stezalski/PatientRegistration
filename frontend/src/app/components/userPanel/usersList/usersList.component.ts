@@ -1,8 +1,8 @@
 import {AfterViewInit, Component} from '@angular/core';
 import {User} from '../../../models/user.model';
 import {UserService} from '../../../services/user.service';
-import {Item} from '../../calendar/patientCalendar/patientCalendar.component';
 import {Router} from '@angular/router';
+import {Item} from "../../../resources/item.model";
 
 @Component({
   selector: 'app-usersList',

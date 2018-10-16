@@ -9,6 +9,7 @@ import {BookComponent} from './book/book.component';
 import {Router} from '@angular/router';
 import {User} from "../../../models/user.model";
 import {Clinic} from "../../../models/clinic.model";
+import {Item} from "../../../resources/item.model";
 
 @Component({
   selector: 'patientCalendar-component',
@@ -233,9 +234,4 @@ export class PatientCalendarComponent implements AfterViewInit {
     this.itemMap.forEach(i => i.isFilter = false);
     return false;
   }
-}
-
-export class Item {
-  isFilter: Boolean;
-  name: String;
 }

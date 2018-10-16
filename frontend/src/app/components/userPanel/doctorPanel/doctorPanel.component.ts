@@ -4,6 +4,7 @@ import {Visit} from '../../../models/visit.model';
 import {VisitService} from '../../../services/visit.services';
 import {User} from '../../../models/user.model';
 import {Router} from '@angular/router';
+import {List} from "../../../resources/list.model";
 
 @Component({
   selector: 'app-doctorPanel',
@@ -91,48 +92,4 @@ export class DoctorPanelComponent implements AfterViewInit {
     this.actualUser = this.actualVisit.user;
   }
 
-}
-
-class List<T> {
-  private items: Array<T>;
-  private index: number;
-
-  constructor() {
-    this.items = [];
-    this.index = 0;
-  }
-
-  setIndex(value: number) {
-    this.index = value;
-  }
-
-  size(): number {
-    return this.items.length;
-  }
-
-  addAll(array: Array<T>) {
-    this.items = array;
-  }
-
-  add(value: T): void {
-    this.items.push(value);
-  }
-
-  get(): T {
-    if (this.index < (this.size() - 1)) {
-      return this.items[++this.index];
-    }
-    return this.items[this.index];
-  }
-
-  getByIndex(index: number): T {
-    return this.items[index];
-  }
-
-  getPrevious(): T {
-    if (this.index > 0) {
-      return this.items[--this.index];
-    }
-    return this.items[this.index];
-  }
 }
