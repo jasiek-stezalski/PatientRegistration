@@ -7,7 +7,7 @@ export class Visit {
   start?: string;
   end?: string;
   text?: string;
-  description?: string;
+  description?: string
   visitModel?: VisitModel;
   user?: User;
 
