@@ -35,7 +35,7 @@ export class BookByDoctorComponent {
   }
 
   submit() {
-    this.visitService.bookVisit(this.visit.id, this.patient.id).subscribe(result => {
+    this.visitService.bookVisit(this.visit, this.patient.id).subscribe(result => {
       this.visit.text = 'Zajęte';
       this.modal.hide(result);
     });

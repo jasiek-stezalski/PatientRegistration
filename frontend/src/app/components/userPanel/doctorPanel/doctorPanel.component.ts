@@ -93,6 +93,7 @@ export class DoctorPanelComponent implements AfterViewInit {
       this.events.find(v => v.id === this.actualVisit.id).text = 'Zakończone';
       this.actualVisit = this.eventsBase.next();
       this.actualUser = this.actualVisit.user;
+      alert('Wizyta została zatwierdzona');
     }
   }
 

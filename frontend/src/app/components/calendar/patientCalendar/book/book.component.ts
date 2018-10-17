@@ -34,7 +34,7 @@ export class BookComponent {
 
   submit() {
     let user: User = JSON.parse(sessionStorage.getItem('currentUser'));
-    this.visitService.bookVisit(this.visit.id, user.id).subscribe(result => {
+    this.visitService.bookVisit(this.visit, user.id).subscribe(result => {
       this.visit.text = 'Zajęte';
       this.modal.hide(result);
     });

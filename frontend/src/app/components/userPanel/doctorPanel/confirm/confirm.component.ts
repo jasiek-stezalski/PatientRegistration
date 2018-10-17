@@ -24,7 +24,7 @@ export class ConfirmComponent {
   }
 
   submit() {
-    this.visitService.confirmVisit(this.visit.id, this.visit.description).subscribe(result => {
+    this.visitService.confirmVisit(this.visit).subscribe(result => {
       this.modal.hide(result);
     });
   }

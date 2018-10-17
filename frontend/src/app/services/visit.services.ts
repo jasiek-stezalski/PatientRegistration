@@ -28,16 +28,16 @@ export class VisitService {
     return this.http.get(this.url + 'actual/user/' + idUser) as Observable<Visit[]>;
   }
 
-  bookVisit(idVisit: String | Number, idUser: String | Number): Observable<Visit> {
-    return this.http.get(this.url + 'book/' + idVisit + '?idUser=' + idUser) as Observable<Visit>;
+  bookVisit(visit: Visit, idUser: String | Number): Observable<Visit> {
+    return this.http.put(this.url + 'book/?idUser=' + idUser, visit) as Observable<Visit>;
   }
 
-  confirmVisit(idVisit: String | Number, description: string): Observable<Visit> {
-    return this.http.get(this.url + 'confirm/' + idVisit + '?description=' + description) as Observable<Visit>;
+  confirmVisit(visit: Visit): Observable<Visit> {
+    return this.http.put(this.url + 'confirm/', visit) as Observable<Visit>;
   }
 
-  moveVisit(data: Visit): Observable<Visit> {
-    return this.http.put(this.url, data) as Observable<Visit>;
+  moveVisit(visit: Visit): Observable<Visit> {
+    return this.http.put(this.url, visit) as Observable<Visit>;
   }
 
   deleteVisit(idVisit: String) {

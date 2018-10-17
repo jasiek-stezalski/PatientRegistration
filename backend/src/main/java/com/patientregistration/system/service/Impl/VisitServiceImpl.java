@@ -68,8 +68,8 @@ public class VisitServiceImpl implements VisitService {
 
     @Override
     @Transactional
-    public Visit bookVisit(Long idVisit, Long idUser) {
-        Visit visit = findByVisitId(idVisit);
+    public Visit bookVisit(Visit data, Long idUser) {
+        Visit visit = findByVisitId(data.getId());
         visit.setText("Zajęte");
         User user = userService.findUserById(idUser);
         visit.setUser(user);
@@ -79,10 +79,12 @@ public class VisitServiceImpl implements VisitService {
     }
 
     @Override
-    public Visit confirmVisit(Long idVisit, String description) {
-        Visit visit = findByVisitId(idVisit);
+    public Visit confirmVisit(Visit data) {
+        Visit visit = findByVisitId(data.getId());
         visit.setText("Zakończone");
-        visit.setDescription(description);
+        visit.setDescription(data.getDescription());
+        if (data.getDescription() == null)
+            visit.setDescription("-");
         return visitRepository.save(visit);
     }
 

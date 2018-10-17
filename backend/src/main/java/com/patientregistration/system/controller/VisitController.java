@@ -55,23 +55,23 @@ public class VisitController {
         return visitService.findAllActualByIdUser(idUser);
     }
 
-    @GetMapping("/book/{id}")
+    @PutMapping("/book/")
     @JsonView(Views.Basic.class)
-    public Visit bookVisit(@PathVariable(value = "id") Long idVisit, @RequestParam Long idUser) {
-        return visitService.bookVisit(idVisit, idUser);
+    public Visit bookVisit(@RequestBody Visit visit, @RequestParam Long idUser) {
+        return visitService.bookVisit(visit, idUser);
     }
 
-    @GetMapping("/confirm/{id}")
+    @PutMapping("/confirm/")
     @JsonView(Views.Basic.class)
-    public Visit confirmVisit(@PathVariable(value = "id") Long idVisit, @RequestParam String description) {
-        return visitService.confirmVisit(idVisit, description);
+    public Visit confirmVisit(@RequestBody Visit visit) {
+        return visitService.confirmVisit(visit);
     }
 
     @PutMapping("/")
     @JsonSerialize(using = LocalDateTimeSerializer.class)
     @JsonView(Views.Basic.class)
-    public Visit moveEvent(@RequestBody Visit data) {
-        return visitService.move(data);
+    public Visit moveEvent(@RequestBody Visit visit) {
+        return visitService.move(visit);
     }
 
     @DeleteMapping("/{id}")

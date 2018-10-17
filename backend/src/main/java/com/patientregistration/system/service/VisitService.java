@@ -19,11 +19,11 @@ public interface VisitService {
 
     List<Visit> saveAll(List<Visit> visits);
 
-    Visit bookVisit(Long idVisit, Long idUser);
+    Visit bookVisit(Visit visit, Long idUser);
 
-    Visit confirmVisit(Long idVisit, String description);
+    Visit confirmVisit(Visit visit);
 
-    Visit move(Visit data);
+    Visit move(Visit visit);
 
     void delete(Long idVisit);
 
