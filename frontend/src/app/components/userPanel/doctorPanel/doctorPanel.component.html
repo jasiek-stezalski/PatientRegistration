@@ -1,6 +1,15 @@
 <div class="left">
   <daypilot-calendar [config]="config" [events]="events" #calendar></daypilot-calendar>
 </div>
+
+<div class="buttons">
+  <a href="javascript:void(0);" (click)="previousVisit()">Wróć do poprzedniej wizyty</a>
+  <a href="javascript:void(0);" (click)="confirmVisit(actualVisit.id)">Zatwierdź wizytę</a>
+  <a href="javascript:void(0);" (click)="nextVisit()">Pomiń wizytę</a>
+</div>
+
+<confirm-dialog #confirm (close)="createClosed($event)"></confirm-dialog>
+
 Aktualna wizyta:
 <div>
   {{('' + actualVisit.start + '').substring(11)}}

@@ -1,4 +1,4 @@
-import {AfterViewInit, Component} from '@angular/core';
+import {AfterViewInit, Component, ViewChild} from '@angular/core';
 import {DayPilot} from 'daypilot-pro-angular';
 import {Visit} from '../../../models/visit.model';
 import {VisitService} from '../../../services/visit.services';
@@ -6,6 +6,7 @@ import {User} from '../../../models/user.model';
 import {Router} from '@angular/router';
 import {List} from '../../../resources/list.model';
 import {isUndefined} from 'util';
+import {ConfirmComponent} from "./confirm/confirm.component";
 
 @Component({
   selector: 'app-doctorPanel',
@@ -13,6 +14,8 @@ import {isUndefined} from 'util';
   styleUrls: ['./doctorPanel.component.css']
 })
 export class DoctorPanelComponent implements AfterViewInit {
+
+  @ViewChild('confirm') confirm: ConfirmComponent;
 
   events: Visit[] = [];
   eventsBase: List<Visit> = new List<Visit>();
@@ -79,6 +82,20 @@ export class DoctorPanelComponent implements AfterViewInit {
 
   };
 
+  confirmVisit(id: string | number) {
+    if (!isUndefined(id)) {
+      this.confirm.show(this.actualVisit);
+    }
+  }
+
+  createClosed(args) {
+    if (args.result) {
+      this.events.find(v => v.id === this.actualVisit.id).text = 'Zakończone';
+      this.actualVisit = this.eventsBase.next();
+      this.actualUser = this.actualVisit.user;
+    }
+  }
+
   filterVisits(data: Visit[]) {
     return data
       .sort((v1, v2) => v1.start > v2.start ? 1 : -1)
@@ -92,19 +109,13 @@ export class DoctorPanelComponent implements AfterViewInit {
     this.router.navigate(['userHistory/', id]);
   }
 
-  confirmVisit(id: string | number) {
-    if (!isUndefined(id)) {
-      this.visitService.confirmVisit(id).subscribe(() => {
-        this.events.find(v => v.id === this.actualVisit.id).text = 'Zakończone';
-        this.actualVisit = this.eventsBase.next();
-        this.actualUser = this.actualVisit.user;
-      });
-    }
-  }
-
   previousVisit() {
     this.actualVisit = this.eventsBase.previous();
     this.actualUser = this.actualVisit.user;
   }
 
+  nextVisit() {
+    this.actualVisit = this.eventsBase.next();
+    this.actualUser = this.actualVisit.user;
+  }
 }

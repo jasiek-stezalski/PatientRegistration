@@ -1,7 +1,6 @@
 package com.patientregistration.system.service;
 
 import com.patientregistration.system.domain.Visit;
-import com.patientregistration.system.domain.VisitModel;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -22,7 +21,7 @@ public interface VisitService {
 
     Visit bookVisit(Long idVisit, Long idUser);
 
-    Visit confirmVisit(Long idVisit);
+    Visit confirmVisit(Long idVisit, String description);
 
     Visit move(Visit data);
 

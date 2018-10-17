@@ -81,9 +81,10 @@ public class VisitServiceImpl implements VisitService {
     }
 
     @Override
-    public Visit confirmVisit(Long idVisit) {
+    public Visit confirmVisit(Long idVisit, String description) {
         Visit visit = findByVisitId(idVisit);
         visit.setText("Zakończone");
+        visit.setDescription(description);
         return visitRepository.save(visit);
     }
 

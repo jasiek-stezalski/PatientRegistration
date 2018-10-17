@@ -2,3 +2,26 @@
   float: left;
   width: 150px;
 }
+
+.buttons {
+  margin-bottom: 10px;
+}
+
+.buttons a {
+  display: inline-block;
+  text-align: center;
+  background-color: #84abd8;
+  border: 1px solid #c6ccc6;
+  color: #fff;
+  padding: 6px 20px;
+  border-radius: 2px;
+  cursor: pointer;
+  margin-right: 5px;
+  margin-left: 5px;
+  min-width: 200px;
+  text-decoration: none;
+}
+
+.buttons a:hover {
+  background-color: #566f88;
+}

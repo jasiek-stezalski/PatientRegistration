@@ -63,8 +63,8 @@ public class VisitController {
 
     @GetMapping("/confirm/{id}")
     @JsonView(Views.Basic.class)
-    public Visit confirmVisit(@PathVariable(value = "id") Long idVisit) {
-        return visitService.confirmVisit(idVisit);
+    public Visit confirmVisit(@PathVariable(value = "id") Long idVisit, @RequestParam String description) {
+        return visitService.confirmVisit(idVisit, description);
     }
 
     @PutMapping("/")

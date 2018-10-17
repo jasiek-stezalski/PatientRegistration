@@ -1,0 +1,20 @@
+<daypilot-modal #modal (close)="closed($event)">
+
+  <div class="col-md-6">
+    <h2 class="form-signin-heading">Opis wizyty</h2>
+
+    <div class="form-group">
+      <textarea rows="5" cols="100" [(ngModel)]="visit.description"></textarea>
+    </div>
+
+    <br/>
+
+    <div class="buttons">
+      <button class="btn btn-lg btn-primary btn-block" type="button" (click)="submit()">Zatwierdź wizytę</button>
+      <button class="btn btn-lg btn-danger btn-block btn-cancel" type="button" (click)="cancel()">Anuluj</button>
+    </div>
+
+  </div>
+
+
+</daypilot-modal>
