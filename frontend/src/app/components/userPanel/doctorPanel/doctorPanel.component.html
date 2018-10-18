@@ -12,19 +12,19 @@
   </div>
 
   <div class="tab">
-    <div>
-      Aktualna wizyta:
+    <p><b>Aktualna wizyta:
       {{('' + actualVisit.start + '').substring(11,16)}} -
-      {{('' + actualVisit.end + '').substring(11,16)}}
-    </div>
-    Dane pacjenta
+      {{('' + actualVisit.end + '').substring(11,16)}}</b></p>
+    <p><b>Dane pacjenta</b></p>
     <div class="tab">
       Imie i Nazwisko: {{actualUser.firstName + ' ' + actualUser.lastName}} <br/>
-      Dane kontaktowe:
-      <div class="tab">
-        E-mail: {{actualUser.email}} <br/>
-        Numer telefonu: {{actualUser.phoneNumber}}
-      </div>
+      Pesel: {{actualUser.pesel}}
+    </div>
+    <p><b>Dane kontaktowe</b></p>
+
+    <div class="tab">
+      E-mail: {{actualUser.email}} <br/>
+      Numer telefonu: {{actualUser.phoneNumber}}
     </div>
   </div>
 
