@@ -21,6 +21,7 @@ const routes: Routes = [
   {path: 'modelCalendar', component: ModelCalendarComponent, canActivate: [UrlPermissionDoctor]},
   {path: 'patientCalendar', component: PatientCalendarComponent},
   {path: 'doctorCalendar', component: DoctorCalendarComponent, canActivate: [UrlPermissionDoctor]},
+  {path: 'doctorCalendar/:id', component: DoctorCalendarComponent, canActivate: [UrlPermissionDoctor]},
   {path: 'usersList', component: UsersListComponent, canActivate: [UrlPermissionDoctor]},
   {path: 'userVisits', component: UserVisitsComponent, canActivate: [UrlPermission]},
   {path: 'userHistory', component: UserHistoryComponent, canActivate: [UrlPermission]},

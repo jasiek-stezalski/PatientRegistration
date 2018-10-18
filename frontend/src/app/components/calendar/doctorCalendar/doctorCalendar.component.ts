@@ -6,6 +6,7 @@ import {User} from "../../../models/user.model";
 import {VisitModel} from "../../../models/visitModel.model";
 import {InfoComponent} from "./info/info.component";
 import {BookByDoctorComponent} from "./bookByDoctor/bookByDoctor.component";
+import {ActivatedRoute} from "@angular/router";
 
 @Component({
   selector: 'doctorCalendar-component',
@@ -20,10 +21,15 @@ export class DoctorCalendarComponent implements AfterViewInit {
 
   events: Visit[] = [];
 
-  constructor(private visitService: VisitService) {
+  private sub: any;
+
+  constructor(private visitService: VisitService, private route: ActivatedRoute) {
   }
 
   ngAfterViewInit(): void {
+    this.sub = this.route.params.subscribe(params => {
+      this.info.user.id = +params['id'];
+    });
     let from = this.calendar.control.visibleStart();
     let to = this.calendar.control.visibleEnd();
     let user: User = JSON.parse(sessionStorage.getItem('currentUser'));

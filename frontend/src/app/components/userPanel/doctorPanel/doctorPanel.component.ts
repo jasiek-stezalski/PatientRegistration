@@ -127,4 +127,8 @@ export class DoctorPanelComponent implements AfterViewInit {
     this.isVisible = false;
   }
 
+  openUserHistorycopy(id: string | number) {
+    this.router.navigate(['doctorCalendar/', id]);
+  }
+
 }

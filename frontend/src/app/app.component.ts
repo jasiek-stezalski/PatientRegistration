@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {User} from './models/user.model';
 import {UserService} from './services/user.service';
 import {Router} from '@angular/router';
+import {Button} from "./resources/button.model";
 
 @Component({
   selector: 'app-root',
@@ -68,9 +69,4 @@ export class AppComponent implements OnInit {
         });
 
   }
-}
-
-export class Button {
-  name: String;
-  link: String;
 }
