@@ -2,7 +2,7 @@
   <daypilot-calendar [config]="config" [events]="events" #calendar></daypilot-calendar>
 </div>
 
-<div class="right">
+<div class="middle">
 
   <div class="buttons">
     <a href="javascript:void(0);" (click)="previousVisit()">Wróć do poprzedniej wizyty</a>
@@ -11,6 +11,9 @@
     <a href="javascript:void(0);" (click)="openUserHistory(actualUser.id)">Historia pacjenta</a>
     <a href="javascript:void(0);" (click)="openUserHistorycopy(actualUser.id)">Zarezerwuj następną wizytę</a>
   </div>
+
+</div>
+<div class="right">
 
   <div class="tab">
     <p><b>Aktualna wizyta:
@@ -29,10 +32,12 @@
     </div>
   </div>
 
-  <form [style.display]="isVisible ? 'block' : 'none'">
-    <app-userHistory #userHistory></app-userHistory>
-  </form>
+</div>
 
+<div class="history">
+<form [style.display]="isVisible ? 'block' : 'none'">
+  <app-userHistory #userHistory></app-userHistory>
+</form>
 </div>
 
 <confirm-dialog #confirm (close)="createClosed($event)"></confirm-dialog>

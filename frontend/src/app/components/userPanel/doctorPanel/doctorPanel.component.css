@@ -4,7 +4,18 @@
   display: inline-block;
 }
 
+.middle{
+  margin-left: 10px;
+  max-width: 200px;
+  display: inline-block;
+}
+
 .right {
+  margin-left: 100px;
+  display: inline-block;
+}
+
+.history {
   margin-left: 150px;
 }
 
@@ -20,12 +31,13 @@
   background-color: #84abd8;
   border: 1px solid #c6ccc6;
   color: #fff;
-  padding: 6px 20px;
+  padding: 7px 20px;
+  margin-bottom: 5px;
   border-radius: 2px;
   cursor: pointer;
   margin-right: 5px;
   margin-left: 5px;
-  min-width: 190px;
+  min-width: 200px;
   text-decoration: none;
 }
 

@@ -22,8 +22,12 @@ export class UserService {
     return this.httpClient.get(this.url + 'role?role=' + role) as Observable<User[]>;
   }
 
-  getUsersByIdDoctor(idDoctor: string | number): Observable<User[]> {
+  public getUsersByIdDoctor(idDoctor: string | number): Observable<User[]> {
     return this.httpClient.get(this.url + 'doctor/' + idDoctor) as Observable<User[]>;
+  }
+
+  getUserById(idUser: string | number): Observable<User> {
+    return this.httpClient.get(this.url + idUser) as Observable<User>;
   }
 
   public deleteUser(user) {

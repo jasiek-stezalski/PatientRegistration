@@ -47,6 +47,11 @@ public class UserController {
         return userService.findUsersByIdDoctor(idDoctor);
     }
 
+    @GetMapping("/{idUser}")
+    public User getUserById(@PathVariable Long idUser) {
+        return userService.findUserById(idUser);
+    }
+
     @PostMapping("/")
     public ResponseEntity<?> createUser(@RequestBody User newUser) {
         if (userService.findUserByUsername(newUser.getUsername()) != null) {

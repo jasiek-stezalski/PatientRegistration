@@ -128,6 +128,7 @@ export class DoctorPanelComponent implements AfterViewInit {
   }
 
   openUserHistorycopy(id: string | number) {
+    console.log(id);
     this.router.navigate(['doctorCalendar/', id]);
   }
 
