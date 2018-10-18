@@ -7,6 +7,7 @@ import {Router} from '@angular/router';
 import {List} from '../../../resources/list.model';
 import {isUndefined} from 'util';
 import {ConfirmComponent} from "./confirm/confirm.component";
+import {UserHistoryComponent} from "../userHistory/userHistory.component";
 
 @Component({
   selector: 'app-doctorPanel',
@@ -16,11 +17,13 @@ import {ConfirmComponent} from "./confirm/confirm.component";
 export class DoctorPanelComponent implements AfterViewInit {
 
   @ViewChild('confirm') confirm: ConfirmComponent;
+  @ViewChild('userHistory') userHistory: UserHistoryComponent;
 
   events: Visit[] = [];
   eventsBase: List<Visit> = new List<Visit>();
   actualVisit: Visit = new Visit();
   actualUser: User = new User();
+  isVisible: boolean;
 
   constructor(private visitService: VisitService, private router: Router) {
   }
@@ -41,7 +44,7 @@ export class DoctorPanelComponent implements AfterViewInit {
           break;
         }
       }
-      if (!isVisitToDo) this.eventsBase.setIndex(this.eventsBase.getIndex() + 1);
+      if (!isVisitToDo) this.eventsBase.setIndex(this.eventsBase.getIndex());
     });
 
   }
@@ -76,7 +79,7 @@ export class DoctorPanelComponent implements AfterViewInit {
           break;
         }
       }
-
+      this.isVisible = false;
     },
 
 
@@ -95,6 +98,7 @@ export class DoctorPanelComponent implements AfterViewInit {
       this.actualUser = this.actualVisit.user;
       alert('Wizyta została zatwierdzona');
     }
+    this.isVisible = false;
   }
 
   filterVisits(data: Visit[]) {
@@ -107,16 +111,20 @@ export class DoctorPanelComponent implements AfterViewInit {
   }
 
   openUserHistory(id: string | number) {
-    this.router.navigate(['userHistory/', id]);
+    this.isVisible = !this.isVisible;
+    this.userHistory.setVisit(id);
   }
 
   previousVisit() {
     this.actualVisit = this.eventsBase.previous();
     this.actualUser = this.actualVisit.user;
+    this.isVisible = false;
   }
 
   nextVisit() {
     this.actualVisit = this.eventsBase.next();
     this.actualUser = this.actualVisit.user;
+    this.isVisible = false;
   }
+
 }

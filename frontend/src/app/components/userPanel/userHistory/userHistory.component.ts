@@ -56,6 +56,17 @@ export class UserHistoryComponent implements OnInit {
 
   }
 
+  setVisit(idUser: string | number) {
+    this.visitService.getHistoricalVisitsByIdUser(idUser)
+      .subscribe(data => {
+        this.visitsBase = data;
+        this.visits = data;
+        this.visitsBase.forEach(value => {
+          this.specialization.add(value.visitModel.specialization);
+        });
+      });
+  }
+
   ngOnDestroy() {
     this.sub.unsubscribe();
   }

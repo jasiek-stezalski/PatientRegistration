@@ -2,19 +2,40 @@
   <daypilot-calendar [config]="config" [events]="events" #calendar></daypilot-calendar>
 </div>
 
-<div class="buttons">
-  <a href="javascript:void(0);" (click)="previousVisit()">Wróć do poprzedniej wizyty</a>
-  <a href="javascript:void(0);" (click)="confirmVisit(actualVisit.id)">Zatwierdź wizytę</a>
-  <a href="javascript:void(0);" (click)="nextVisit()">Pomiń wizytę</a>
+<div class="right">
+
+  <div class="buttons">
+    <a href="javascript:void(0);" (click)="previousVisit()">Wróć do poprzedniej wizyty</a>
+    <a href="javascript:void(0);" (click)="confirmVisit(actualVisit.id)">Zatwierdź wizytę</a>
+    <a href="javascript:void(0);" (click)="nextVisit()">Pomiń wizytę</a>
+    <a href="javascript:void(0);" (click)="openUserHistory(actualUser.id)">Historia pacjenta</a>
+  </div>
+
+  <div class="tab">
+    <div>
+      Aktualna wizyta:
+      {{('' + actualVisit.start + '').substring(11,16)}} -
+      {{('' + actualVisit.end + '').substring(11,16)}}
+    </div>
+    Dane pacjenta
+    <div class="tab">
+      Imie i Nazwisko: {{actualUser.firstName + ' ' + actualUser.lastName}} <br/>
+      Dane kontaktowe:
+      <div class="tab">
+        E-mail: {{actualUser.email}} <br/>
+        Numer telefonu: {{actualUser.phoneNumber}}
+      </div>
+    </div>
+  </div>
+
+  <form [style.display]="isVisible ? 'block' : 'none'">
+    <app-userHistory #userHistory></app-userHistory>
+  </form>
+
 </div>
 
 <confirm-dialog #confirm (close)="createClosed($event)"></confirm-dialog>
 
-Aktualna wizyta:
-<div>
-  {{('' + actualVisit.start + '').substring(11)}}
-</div>
-Dane pacjenta:
-<div>
-  <a href="javascript:void(0);" (click)="openUserHistory(actualUser.id)">{{actualUser.lastName}}</a>
-</div>
+
+
+
