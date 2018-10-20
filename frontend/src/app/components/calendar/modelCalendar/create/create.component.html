@@ -47,7 +47,7 @@
         <label for="specialization">Specializacja </label>
         <select [(ngModel)]="visitModel.specialization" name="specialization" type="text" id="specialization"
                 required>
-          <option *ngFor="let clinic of specialization" value={{clinic}}>{{clinic}}</option>
+          <option *ngFor="let spec of specialization" value={{spec}}>{{spec}}</option>
         </select>
       </div>
 

@@ -5,9 +5,7 @@ import {DayPilotModule} from "daypilot-pro-angular";
 import {HttpClientModule} from "@angular/common/http";
 import {VisitModelService} from '../../services/visitModel.service';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {PatientCalendarComponent} from './patientCalendar/patientCalendar.component';
 import {CreateComponent} from './modelCalendar/create/create.component';
-import {BookComponent} from "./patientCalendar/book/book.component";
 import {DoctorCalendarComponent} from './doctorCalendar/doctorCalendar.component';
 import {InfoComponent} from "./doctorCalendar/info/info.component";
 import {BookByDoctorComponent} from "./doctorCalendar/bookByDoctor/bookByDoctor.component";
@@ -22,14 +20,12 @@ import {BookByDoctorComponent} from "./doctorCalendar/bookByDoctor/bookByDoctor.
   ],
   declarations: [
     ModelCalendarComponent,
-    PatientCalendarComponent,
     DoctorCalendarComponent,
     CreateComponent,
-    BookComponent,
     InfoComponent,
     BookByDoctorComponent
   ],
-  exports: [ModelCalendarComponent, PatientCalendarComponent, DoctorCalendarComponent],
+  exports: [ModelCalendarComponent, DoctorCalendarComponent],
   providers: [VisitModelService]
 })
 export class CalendarModule {

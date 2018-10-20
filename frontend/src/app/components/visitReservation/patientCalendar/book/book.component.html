@@ -1,0 +1,25 @@
+<daypilot-modal #modal (close)="closed($event)">
+
+  <div class="col-md-6">
+    <form name="form" (ngSubmit)="submit()" #f="ngForm" novalidate class="form-signin">
+
+      <h2>Rezerwacja wizyty</h2>
+
+      <div>Termin: {{('' + visit.start + '').substring(0, 10) + ' ' + visit.text}}</div>
+      <div>Czas trwania wizyty: {{visit.visitModel.minuteInterval + ' minut'}}</div>
+      <div>Specializacja: {{visit.visitModel.specialization}}</div>
+      <div>Rodzaj usługi: {{visit.visitModel.careType}}</div>
+      <div>Cena za wizytę: {{visit.visitModel.price + ' złotych'}}</div>
+      <div>Placówka: {{clinic.name + ', ' + clinic.address + ', ' + clinic.city}}</div>
+      <div>Lekarz: {{user.firstName + ' ' + user.lastName}}</div>
+      <br>
+
+      <div class="buttons">
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Zarezerwuj wizytę</button>
+        <button class="btn btn-lg btn-danger btn-block btn-cancel" type="button" (click)="cancel()">Anuluj</button>
+      </div>
+
+    </form>
+  </div>
+
+</daypilot-modal>

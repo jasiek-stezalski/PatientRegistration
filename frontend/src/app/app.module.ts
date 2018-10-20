@@ -18,6 +18,7 @@ import {UrlPermissionDoctor} from './components/authentication/urlPermission/url
 import {VisitService} from './services/visit.services';
 import {ClinicService} from './services/clinic.service';
 import {UserPanelModule} from './components/userPanel/userPanel.module';
+import {VisitReservationModule} from "./components/visitReservation/visitReservation.module";
 
 @NgModule({
   declarations: [
@@ -34,6 +35,7 @@ import {UserPanelModule} from './components/userPanel/userPanel.module';
     HttpModule,
     FormsModule,
     CalendarModule,
+    VisitReservationModule,
     UserPanelModule
   ],
   providers: [UserService, VisitModelService, VisitService, ClinicService, UrlPermission, UrlPermissionDoctor],

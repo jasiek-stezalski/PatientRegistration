@@ -4,7 +4,7 @@ import {RouterModule, Routes} from '@angular/router';
 import {UserComponent} from './components/user/user.component';
 import {AddUserComponent} from './components/user/add/add-user.component';
 import {ModelCalendarComponent} from './components/calendar/modelCalendar/modelCalendar.component';
-import {PatientCalendarComponent} from './components/calendar/patientCalendar/patientCalendar.component';
+import {PatientCalendarComponent} from './components/visitReservation/patientCalendar/patientCalendar.component';
 import {LoginComponent} from './components/authentication/login/login.component';
 import {RegisterComponent} from './components/authentication/register/register.component';
 import {UrlPermissionDoctor} from './components/authentication/urlPermission/url.permissionDoctor';
@@ -14,11 +14,13 @@ import {UrlPermission} from './components/authentication/urlPermission/url.permi
 import {UserHistoryComponent} from './components/userPanel/userHistory/userHistory.component';
 import {UserVisitsComponent} from './components/userPanel/userVisits/userVisits.component';
 import {DoctorPanelComponent} from "./components/userPanel/doctorPanel/doctorPanel.component";
+import {SearchVisitsComponent} from "./components/visitReservation/searchVisits/searchVisits.component";
 
 const routes: Routes = [
   {path: 'login', component: LoginComponent},
   {path: 'register', component: RegisterComponent},
   {path: 'modelCalendar', component: ModelCalendarComponent, canActivate: [UrlPermissionDoctor]},
+  {path: 'searchVisits', component: SearchVisitsComponent},
   {path: 'patientCalendar', component: PatientCalendarComponent},
   {path: 'doctorCalendar', component: DoctorCalendarComponent, canActivate: [UrlPermissionDoctor]},
   {path: 'doctorCalendar/:id', component: DoctorCalendarComponent, canActivate: [UrlPermissionDoctor]},

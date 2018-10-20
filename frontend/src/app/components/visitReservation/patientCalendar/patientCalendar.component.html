@@ -1,0 +1,12 @@
+<div class="left">
+  <daypilot-navigator [config]="navigatorConfig" [(date)]="config.startDate" #navigator></daypilot-navigator>
+</div>
+<div class="main">
+  <div class="buttons">
+    <a href="#" (click)="navigatePrevious($event)"><<< Poprzedni tydzień</a>
+    <a href="#" (click)="navigateToday($event)">Aktualny tydzień</a>
+    <a href="#" (click)="navigateNext($event)">Nastpępny tydzień >>></a>
+  </div>
+  <daypilot-calendar [config]="config" [events]="events" #calendar></daypilot-calendar>
+</div>
+<book-dialog #book (close)="createClosed($event)"></book-dialog>

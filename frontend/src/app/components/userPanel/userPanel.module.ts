@@ -11,7 +11,8 @@ import {ConfirmComponent} from "./doctorPanel/confirm/confirm.component";
 
 
 @NgModule({
-  imports: [BrowserModule,
+  imports: [
+    BrowserModule,
     HttpClientModule,
     DayPilotModule,
     FormsModule,
