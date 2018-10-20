@@ -1,6 +1,7 @@
 package com.patientregistration.system.service.Impl;
 
 import com.patientregistration.system.domain.User;
+import com.patientregistration.system.domain.View.VisitFilter;
 import com.patientregistration.system.domain.Visit;
 import com.patientregistration.system.exception.ResourceNotFoundException;
 import com.patientregistration.system.repository.VisitRepository;
@@ -41,6 +42,12 @@ public class VisitServiceImpl implements VisitService {
                 .stream()
                 .filter(v -> v.getVisitModel().getUser().getId().equals(idUser))
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<Visit> findAllByVisitFilter(VisitFilter visitFilter) {
+        return visitRepository.findAllByCareTypeAndCityAndSpecializationLimit5("Zajęte", "Zakończone",
+                visitFilter.getCareType(), visitFilter.getCity(), visitFilter.getSpecialization());
     }
 
     @Override

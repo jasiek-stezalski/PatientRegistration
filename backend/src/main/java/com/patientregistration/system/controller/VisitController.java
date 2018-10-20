@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonView;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 import com.patientregistration.system.domain.View.Views;
+import com.patientregistration.system.domain.View.VisitFilter;
 import com.patientregistration.system.domain.Visit;
 import com.patientregistration.system.service.VisitService;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -39,6 +40,14 @@ public class VisitController {
                                                @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime from,
                                                @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime to) {
         return visitService.findBetweenByDoctor(from, to, idUser);
+    }
+
+    @PostMapping("/filter/")
+    @JsonSerialize(using = LocalDateTimeSerializer.class)
+    @JsonView(Views.Basic.class)
+    public List<Visit> getVisitsByVisitFilter(@RequestBody VisitFilter visitFilter) {
+        System.out.println(visitFilter.toString());
+        return visitService.findAllByVisitFilter(visitFilter);
     }
 
     @GetMapping("/historical/user/{idUser}")

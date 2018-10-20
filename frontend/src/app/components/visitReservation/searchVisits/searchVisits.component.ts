@@ -4,6 +4,7 @@ import {Clinic} from "../../../models/clinic.model";
 import {UserService} from "../../../services/user.service";
 import {User} from "../../../models/user.model";
 import {VisitModelService} from "../../../services/visitModel.service";
+import {VisitService} from '../../../services/visit.services';
 
 @Component({
   selector: 'app-searchVisits',
@@ -22,7 +23,7 @@ export class SearchVisitsComponent implements AfterViewInit {
 
 
   constructor(private clinicService: ClinicService, private userService: UserService,
-              private visitModelService: VisitModelService) {
+              private visitModelService: VisitModelService, private visitService: VisitService) {
   }
 
   ngAfterViewInit(): void {
@@ -38,6 +39,10 @@ export class SearchVisitsComponent implements AfterViewInit {
 
   submit() {
     console.log(this.visitFilter);
+    this.visitService.getVisitsByVisitFilter(this.visitFilter)
+      .subscribe(data => {
+        console.log(data)
+      });
   }
 
 }
