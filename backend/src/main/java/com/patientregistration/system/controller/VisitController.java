@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonView;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 import com.patientregistration.system.domain.View.Views;
-import com.patientregistration.system.domain.View.VisitFilter;
 import com.patientregistration.system.domain.Visit;
 import com.patientregistration.system.service.VisitService;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -42,12 +41,22 @@ public class VisitController {
         return visitService.findBetweenByDoctor(from, to, idUser);
     }
 
-    @PostMapping("/filter/")
+    @GetMapping("/filterLimited/")
     @JsonSerialize(using = LocalDateTimeSerializer.class)
     @JsonView(Views.Basic.class)
-    public List<Visit> getVisitsByVisitFilter(@RequestBody VisitFilter visitFilter) {
-        System.out.println(visitFilter.toString());
-        return visitService.findAllByVisitFilter(visitFilter);
+    public List<Visit> getVisitsByVisitFilterLimited(@RequestParam String careType,
+                                                     @RequestParam String city,
+                                                     @RequestParam String specialization) {
+        return visitService.findAllByFilter(careType, city, specialization);
+    }
+
+    @GetMapping("/filter/")
+    @JsonSerialize(using = LocalDateTimeSerializer.class)
+    @JsonView(Views.Basic.class)
+    public List<Visit> getVisitsByVisitFilter(@RequestParam String careType,
+                                              @RequestParam String city,
+                                              @RequestParam String specialization) {
+        return visitService.findAllByFilter(careType, city, specialization);
     }
 
     @GetMapping("/historical/user/{idUser}")

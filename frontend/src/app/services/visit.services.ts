@@ -3,7 +3,6 @@ import {Observable} from 'rxjs';
 import {DayPilot} from 'daypilot-pro-angular';
 import {HttpClient} from '@angular/common/http';
 import {Visit} from '../models/visit.model';
-import {VisitFilter} from '../components/visitReservation/searchVisits/searchVisits.component';
 
 @Injectable()
 export class VisitService {
@@ -21,8 +20,12 @@ export class VisitService {
     return this.http.get(this.url + 'doctor/' + idUser + '?from=' + from.toString() + '&to=' + to.toString()) as Observable<Visit[]>;
   }
 
-  getVisitsByVisitFilter(visitFilter: VisitFilter): Observable<Visit[]> {
-    return this.http.post(this.url + 'filter/', visitFilter) as Observable<Visit[]>
+  getVisitsByVisitFilter(careType: String, city: String, specialization: String): Observable<Visit[]> {
+    return this.http.get(this.url + 'filter/?careType=' + careType + '&city=' + city + '&specialization=' + specialization) as Observable<Visit[]>;
+  }
+
+  getVisitsByVisitFilterLimited(careType: String, city: String, specialization: String): Observable<Visit[]> {
+    return this.http.get(this.url + 'filterLimited/?careType=' + careType + '&city=' + city + '&specialization=' + specialization) as Observable<Visit[]>;
   }
 
   getHistoricalVisitsByIdUser(idUser: string | number): Observable<Visit[]> {

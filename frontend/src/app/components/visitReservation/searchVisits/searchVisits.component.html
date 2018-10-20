@@ -2,51 +2,24 @@
 
   <div class="form-group">
     <label for="careType">Rodzaj usługi </label>
-    <select [(ngModel)]="visitFilter.careType" name="careType" type="text" id="careType" required>
-      <option *ngFor="let cat of careType" [ngValue]="cat">{{cat}}</option>
+    <select [(ngModel)]="careType" name="careType" type="text" id="careType" required>
+      <option *ngFor="let cat of careTypes" [ngValue]="cat">{{cat}}</option>
     </select>
   </div>
 
   <div class="form-group">
     <label for="city">Miasto </label>
-    <select [(ngModel)]="visitFilter.city" name="city" type="text" id="city" required>
+    <select [(ngModel)]="city" name="city" type="text" id="city" required>
       <option *ngFor="let city of cities" [ngValue]="city">{{city}}</option>
     </select>
   </div>
 
   <div class="form-group">
-    <label for="clinic">Placówka </label>
-    <select [(ngModel)]="visitFilter.idClinic" name="clinic" type="text" id="clinic" required>
-      <option *ngFor="let clinic of clinics" [ngValue]="clinic.id">{{clinic.name + ', ' + clinic.address}}</option>
-    </select>
-  </div>
-
-  <div class="form-group">
-    <label for="doctor">Lekarz </label>
-    <select [(ngModel)]="visitFilter.idDoctor" name="doctor" type="text" id="doctor" required>
-      <option *ngFor="let doctor of doctors" [ngValue]="doctor.id">{{doctor.firstName + ', ' + doctor.lastName}}
-      </option>
-    </select>
-  </div>
-
-  <div class="form-group">
     <label for="specialization">Specjalizacja </label>
-    <select [(ngModel)]="visitFilter.specialization" name="specialization" type="text" id="specialization" required>
+    <select [(ngModel)]="specialization" name="specialization" type="text" id="specialization" required>
       <option *ngFor="let spec of specializations" [ngValue]="spec">{{spec}}
       </option>
     </select>
-  </div>
-
-  <div class="form-group">
-    <label for="minPrice">Minimalna cena za wizytę </label>
-    <input [(ngModel)]="visitFilter.minPrice" type="number" class="form-control" name="minPrice" id="minPrice"
-           required/>
-  </div>
-
-  <div class="form-group">
-    <label for="maxPrice">Maksymalna cena za wizytę </label>
-    <input [(ngModel)]="visitFilter.maxPrice" type="number" class="form-control" name="maxPrice" id="maxPrice"
-           required/>
   </div>
 
   <div class="buttons">

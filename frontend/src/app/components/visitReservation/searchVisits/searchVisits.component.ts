@@ -1,9 +1,6 @@
 import {AfterViewInit, Component} from '@angular/core';
-import {ClinicService} from "../../../services/clinic.service";
-import {Clinic} from "../../../models/clinic.model";
-import {UserService} from "../../../services/user.service";
-import {User} from "../../../models/user.model";
-import {VisitModelService} from "../../../services/visitModel.service";
+import {ClinicService} from '../../../services/clinic.service';
+import {VisitModelService} from '../../../services/visitModel.service';
 import {VisitService} from '../../../services/visit.services';
 
 @Component({
@@ -13,46 +10,31 @@ import {VisitService} from '../../../services/visit.services';
 })
 export class SearchVisitsComponent implements AfterViewInit {
 
-  visitFilter: VisitFilter = new VisitFilter();
-
-  careType: String[] = ['Publiczna', 'Prywatna'];
+  careTypes: String[] = ['Publiczna', 'Prywatna'];
   cities: Set<String> = new Set<String>();
-  clinics: Clinic[] = [];
-  doctors: User[] = [];
   specializations: String[] = this.visitModelService.specialization;
 
+  careType: String;
+  city: String;
+  specialization: String;
 
-  constructor(private clinicService: ClinicService, private userService: UserService,
-              private visitModelService: VisitModelService, private visitService: VisitService) {
+  constructor(private clinicService: ClinicService, private visitModelService: VisitModelService,
+              private visitService: VisitService) {
   }
 
   ngAfterViewInit(): void {
     this.clinicService.getClinics()
       .subscribe(data => {
-        this.clinics = data;
         data.forEach(i => this.cities.add(i.city));
       });
 
-    this.userService.getUsersByRole('DOCTOR')
-      .subscribe(data => this.doctors = data);
   }
 
   submit() {
-    console.log(this.visitFilter);
-    this.visitService.getVisitsByVisitFilter(this.visitFilter)
+    this.visitService.getVisitsByVisitFilter(this.careType, this.city, this.specialization)
       .subscribe(data => {
-        console.log(data)
+        console.log(data);
       });
   }
 
-}
-
-export class VisitFilter {
-  careType?: string;
-  city?: string;
-  idClinic?: number;
-  idDoctor?: number;
-  specialization?: string;
-  minPrice?: number;
-  maxPrice?: number;
 }

@@ -1,6 +1,5 @@
 package com.patientregistration.system.service;
 
-import com.patientregistration.system.domain.View.VisitFilter;
 import com.patientregistration.system.domain.Visit;
 
 import java.time.LocalDateTime;
@@ -12,7 +11,9 @@ public interface VisitService {
 
     List<Visit> findBetweenByDoctor(LocalDateTime from, LocalDateTime to, Long idUser);
 
-    List<Visit> findAllByVisitFilter(VisitFilter visitFilter);
+    List<Visit> findAllByFilter(String careType, String city, String specialization);
+
+    List<Visit> findAllByFilterLimit5(String careType, String city, String specialization);
 
     List<Visit> findAllHistoricalByIdUser(Long idUser);
 

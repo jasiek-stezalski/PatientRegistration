@@ -65,8 +65,8 @@ public interface VisitRepository extends JpaRepository<Visit, Long> {
                     "AND c.city =:city " +
                     "AND vm.specialization =:specialization " +
                     "ORDER BY v.start ")
-    List<Visit> findAllByCareTypeAndCityAndSpecialization(@Param("status") String status1,
-                                                          @Param("status") String status2,
+    List<Visit> findAllByCareTypeAndCityAndSpecialization(@Param("status1") String status1,
+                                                          @Param("status2") String status2,
                                                           @Param("careType") String careType,
                                                           @Param("city") String city,
                                                           @Param("specialization") String specialization);
