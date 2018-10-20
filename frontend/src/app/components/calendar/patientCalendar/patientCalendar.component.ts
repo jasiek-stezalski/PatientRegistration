@@ -60,6 +60,18 @@ export class PatientCalendarComponent implements AfterViewInit {
     this.visitService.getVisitsInWeek(from, to).subscribe(result => {
       this.events = result;
       this.events2 = result;
+      this.events.forEach(v => {
+        if (v.text === 'Zajęte')
+          v.barColor = 'grey';
+        else if (v.text === 'Zakończone')
+          v.barColor = '#c6ccc6';
+      })
+      this.events2.forEach(v => {
+        if (v.text === 'Zajęte')
+          v.barColor = 'grey';
+        else if (v.text === 'Zakończone')
+          v.barColor = '#c6ccc6';
+      })
     });
     this.cities.add('-');
     this.clinics.push('-');

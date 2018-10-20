@@ -43,6 +43,12 @@ export class DoctorCalendarComponent implements AfterViewInit {
     let user: User = JSON.parse(sessionStorage.getItem('currentUser'));
     this.visitService.getVisitsInWeekByDoctor(from, to, user.id).subscribe(result => {
       this.events = result;
+      this.events.forEach(v => {
+        if (v.text === 'Zajęte')
+          v.barColor = 'grey';
+        else if (v.text === 'Zakończone')
+          v.barColor = '#c6ccc6';
+      })
     });
 
   }
