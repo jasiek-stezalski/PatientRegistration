@@ -46,6 +46,10 @@ export class CreateComponent implements OnInit {
       end: args.end.toString(),
     });
     this.minDate = ('' + args.start + '').substring(0, 10);
+
+    // clear selection
+    this.cancel();
+
     this.modal.show();
   }
 

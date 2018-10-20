@@ -85,8 +85,8 @@ export class DoctorPanelComponent implements AfterViewInit {
 
   };
 
-  confirmVisit(id: string | number) {
-    if (!isUndefined(id)) {
+  confirmVisit() {
+    if (!isUndefined(this.actualUser.id)) {
       this.confirm.show(this.actualVisit);
     }
   }
@@ -110,26 +110,32 @@ export class DoctorPanelComponent implements AfterViewInit {
           && v.start < DayPilot.Date.today().addDays(1).toString()));
   }
 
-  openUserHistory(id: string | number) {
+  openUserHistory() {
     this.isVisible = !this.isVisible;
-    this.userHistory.setVisit(id);
+    if (!isUndefined(this.actualUser.id))
+      this.userHistory.setVisit(this.actualUser.id);
   }
 
   previousVisit() {
-    this.actualVisit = this.eventsBase.previous();
-    this.actualUser = this.actualVisit.user;
-    this.isVisible = false;
+    if (this.eventsBase.size() > 0) {
+      this.actualVisit = this.eventsBase.previous();
+      this.actualUser = this.actualVisit.user;
+      this.isVisible = false;
+    }
   }
 
   nextVisit() {
-    this.actualVisit = this.eventsBase.next();
-    this.actualUser = this.actualVisit.user;
-    this.isVisible = false;
+    if (this.eventsBase.size() > 0) {
+      this.actualVisit = this.eventsBase.next();
+      this.actualUser = this.actualVisit.user;
+      this.isVisible = false;
+    }
   }
 
-  openUserHistorycopy(id: string | number) {
-    console.log(id);
-    this.router.navigate(['doctorCalendar/', id]);
+  bookNextVisit() {
+    if (!isUndefined(this.actualUser.id))
+      this.router.navigate(['doctorCalendar/', this.actualUser.id]);
+
   }
 
 }

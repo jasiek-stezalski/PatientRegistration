@@ -51,6 +51,7 @@ export class ModelCalendarComponent implements AfterViewInit {
         this.calendar.control.message('Model wizyty nie może być utworzony ze wsteczną datą!');
       else
         this.create.show(args);
+
     },
 
     eventMoveHandling: 'Update',

@@ -34,7 +34,7 @@ export class UserHistoryComponent implements OnInit {
 
     let user: User = JSON.parse(sessionStorage.getItem('currentUser'));
     this.specialization.add('-');
-    if (user.role === 'DOCTOR') {
+    if (user.role === 'DOCTOR' && !isNaN(this.id)) {
       this.visitService.getHistoricalVisitsByIdUser(this.id)
         .subscribe(data => {
           this.visitsBase = data;

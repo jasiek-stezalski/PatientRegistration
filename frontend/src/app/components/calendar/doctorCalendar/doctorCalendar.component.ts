@@ -29,14 +29,14 @@ export class DoctorCalendarComponent implements AfterViewInit {
 
   ngAfterViewInit(): void {
     this.sub = this.route.params.subscribe(params => {
-      this.userService.getUserById(+params['id']).subscribe(result => {
-        this.info.user = result;
-      })
+      let idUser = +params['id'];
+      if (!isNaN(idUser)) {
+        this.userService.getUserById(idUser).subscribe(result => {
+          this.info.user = result;
+        })
+      }
 
     });
-    console.log(this.info.user);
-
-
 
     let from = this.calendar.control.visibleStart();
     let to = this.calendar.control.visibleEnd();
@@ -78,7 +78,7 @@ export class DoctorCalendarComponent implements AfterViewInit {
       else if (('' + visit.start + '').substring(0, 10) <= ('' + DayPilot.Date.today() + '').substring(0, 10)) {
         this.calendar.control.message('Ten termin jest już nieaktualny!');
       }
-      else if (this.info.user.id != null)  {
+      else if (this.info.user.id != null) {
         this.book.show(visit, this.info.user);
       }
     },
