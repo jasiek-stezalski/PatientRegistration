@@ -19,6 +19,8 @@ export class SearchVisitsComponent implements AfterViewInit {
   visits: Visit[] = [];
 
   isVisible: boolean;
+  isVisible2: boolean;
+  info: string;
 
   careTypes: string[] = ['Publiczna', 'Prywatna'];
   cities: Set<string> = new Set<string>();
@@ -51,8 +53,19 @@ export class SearchVisitsComponent implements AfterViewInit {
     this.visitService.getVisitsByVisitFilterLimited(this.careType, this.city, this.clinic.id, this.specialization)
       .subscribe(data => {
         this.visits = data;
+
+        if (this.visits.length === 0) {
+          this.isVisible = false;
+          this.info = 'Brak pasujących wizyt!';
+        }
+        else {
+          this.isVisible = true;
+          this.info = '';
+        }
+
       });
-    this.isVisible = true;
+    this.isVisible2 = false;
+
   }
 
   bookVisit(visit: Visit) {
@@ -76,4 +89,10 @@ export class SearchVisitsComponent implements AfterViewInit {
       }
     });
   }
+
+  changeCity(val) {
+    this.clinics = [];
+    this.clinics = this.clinicsBase.filter(v => v.city === val);
+  }
+
 }

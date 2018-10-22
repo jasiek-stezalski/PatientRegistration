@@ -1,4 +1,10 @@
-<form name="form" (ngSubmit)="submit()">
+<form name="form" (ngSubmit)="f.form.valid && submit()" #f="ngForm" novalidate class="form-signin">
+  <h2 class="form-signin-heading">Wyszukaj wizytę:</h2>
+
+  <form [style.display]="isVisible2 ? 'block' : 'none'">
+    <div class="help-block" role="alert" *ngIf="f.submitted">Wypełnij wszystkie pola!</div>
+    <br/><br>
+  </form>
 
   <div class="form-group">
     <label for="careType">Rodzaj usługi </label>
@@ -9,7 +15,7 @@
 
   <div class="form-group">
     <label for="city">Miasto </label>
-    <select [(ngModel)]="city" name="city" type="text" id="city" required>
+    <select (ngModelChange)="changeCity($event)" [(ngModel)]="city" name="city" type="text" id="city" required>
       <option *ngFor="let city of cities" [ngValue]="city">{{city}}</option>
     </select>
   </div>
@@ -34,6 +40,8 @@
   </div>
 
 </form>
+
+<h3>{{info}}</h3>
 
 <form [style.display]="isVisible ? 'block' : 'none'">
 
