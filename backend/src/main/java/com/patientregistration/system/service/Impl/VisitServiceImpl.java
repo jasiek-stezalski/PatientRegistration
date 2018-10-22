@@ -30,11 +30,6 @@ public class VisitServiceImpl implements VisitService {
     }
 
     @Override
-    public List<Visit> findBetween(LocalDateTime from, LocalDateTime to) {
-        return visitRepository.findBetween(from, to);
-    }
-
-    @Override
     public List<Visit> findBetweenByDoctor(LocalDateTime from, LocalDateTime to, Long idUser) {
         List<Visit> visits = visitRepository.findBetween(from, to);
         return visits
@@ -44,15 +39,15 @@ public class VisitServiceImpl implements VisitService {
     }
 
     @Override
-    public List<Visit> findAllByFilter(String careType, String city, String specialization) {
-        return visitRepository.findAllByCareTypeAndCityAndSpecialization("Zajęte", "Zakończone",
-                careType, city, specialization);
+    public List<Visit> findAllByFilterLimit5(String careType, String city, Long idClinic, String specialization) {
+        return visitRepository.findAllByCareTypeAndCityAndClinicAndSpecializationLimit5("Zajęte", "Zakończone",
+                careType, city, idClinic, specialization);
     }
 
     @Override
-    public List<Visit> findAllByFilterLimit5(String careType, String city, String specialization) {
-        return visitRepository.findAllByCareTypeAndCityAndSpecializationLimit5("Zajęte", "Zakończone",
-                careType, city, specialization);
+    public List<Visit> findAllByFilter(String careType, String city, Long idClinic, String specialization) {
+        return visitRepository.findAllByCareTypeAndCityAndClinicAndSpecialization("Zajęte", "Zakończone",
+                careType, city, idClinic, specialization);
     }
 
     @Override

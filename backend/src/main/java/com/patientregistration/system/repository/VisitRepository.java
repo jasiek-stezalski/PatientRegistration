@@ -45,14 +45,16 @@ public interface VisitRepository extends JpaRepository<Visit, Long> {
                     "AND v.status != :status2 " +
                     "AND vm.care_type =:careType " +
                     "AND c.city =:city " +
+                    "AND c.id =:idClinic " +
                     "AND vm.specialization =:specialization " +
                     "ORDER BY v.start " +
                     "LIMIT 5")
-    List<Visit> findAllByCareTypeAndCityAndSpecializationLimit5(@Param("status1") String status1,
-                                                                @Param("status2") String status2,
-                                                                @Param("careType") String careType,
-                                                                @Param("city") String city,
-                                                                @Param("specialization") String specialization);
+    List<Visit> findAllByCareTypeAndCityAndClinicAndSpecializationLimit5(@Param("status1") String status1,
+                                                                         @Param("status2") String status2,
+                                                                         @Param("careType") String careType,
+                                                                         @Param("city") String city,
+                                                                         @Param("idClinic") Long idClinic,
+                                                                         @Param("specialization") String specialization);
 
     @Query(nativeQuery = true,
             value = "SELECT v.* " +
@@ -63,13 +65,14 @@ public interface VisitRepository extends JpaRepository<Visit, Long> {
                     "AND v.status != :status2 " +
                     "AND vm.care_type =:careType " +
                     "AND c.city =:city " +
+                    "AND c.id =:idClinic " +
                     "AND vm.specialization =:specialization " +
                     "ORDER BY v.start ")
-    List<Visit> findAllByCareTypeAndCityAndSpecialization(@Param("status1") String status1,
-                                                          @Param("status2") String status2,
-                                                          @Param("careType") String careType,
-                                                          @Param("city") String city,
-                                                          @Param("specialization") String specialization);
-
+    List<Visit> findAllByCareTypeAndCityAndClinicAndSpecialization(@Param("status1") String status1,
+                                                                   @Param("status2") String status2,
+                                                                   @Param("careType") String careType,
+                                                                   @Param("city") String city,
+                                                                   @Param("idClinic") Long idClinic,
+                                                                   @Param("specialization") String specialization);
 
 }

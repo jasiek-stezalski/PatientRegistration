@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface VisitModelService {
 
-    List<VisitModel> findBetween(LocalDateTime from, LocalDateTime to);
+    List<VisitModel> findBetweenByDoctor(LocalDateTime from, LocalDateTime to, Long idUser);
 
     VisitModel findByIdVisitModel(Long idVisitModel);
 
@@ -16,4 +16,5 @@ public interface VisitModelService {
     void delete(Long idVisitModel);
 
     VisitModel move(VisitModel data);
+
 }

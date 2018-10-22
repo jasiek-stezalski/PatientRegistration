@@ -24,14 +24,6 @@ public class VisitController {
         this.visitService = visitService;
     }
 
-    @GetMapping("/")
-    @JsonSerialize(using = LocalDateTimeSerializer.class)
-    @JsonView(Views.Basic.class)
-    public List<Visit> getVisitsInWeek(@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime from,
-                                       @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime to) {
-        return visitService.findBetween(from, to);
-    }
-
     @GetMapping("/doctor/{id}")
     @JsonSerialize(using = LocalDateTimeSerializer.class)
     @JsonView(Views.Basic.class)
@@ -46,8 +38,9 @@ public class VisitController {
     @JsonView(Views.Basic.class)
     public List<Visit> getVisitsByVisitFilterLimited(@RequestParam String careType,
                                                      @RequestParam String city,
+                                                     @RequestParam Long idClinic,
                                                      @RequestParam String specialization) {
-        return visitService.findAllByFilterLimit5(careType, city, specialization);
+        return visitService.findAllByFilterLimit5(careType, city, idClinic, specialization);
     }
 
     @GetMapping("/filter/")
@@ -55,8 +48,9 @@ public class VisitController {
     @JsonView(Views.Basic.class)
     public List<Visit> getVisitsByVisitFilter(@RequestParam String careType,
                                               @RequestParam String city,
+                                              @RequestParam Long idClinic,
                                               @RequestParam String specialization) {
-        return visitService.findAllByFilter(careType, city, specialization);
+        return visitService.findAllByFilter(careType, city, idClinic, specialization);
     }
 
     @GetMapping("/historical/user/{idUser}")

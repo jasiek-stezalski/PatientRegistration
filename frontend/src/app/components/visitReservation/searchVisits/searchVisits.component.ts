@@ -5,6 +5,7 @@ import {VisitService} from '../../../services/visit.services';
 import {Visit} from "../../../models/visit.model";
 import {BookComponent} from "../book/book.component";
 import {Router} from "@angular/router";
+import {Clinic} from "../../../models/clinic.model";
 
 @Component({
   selector: 'app-searchVisits',
@@ -19,13 +20,16 @@ export class SearchVisitsComponent implements AfterViewInit {
 
   isVisible: boolean;
 
-  careTypes: String[] = ['Publiczna', 'Prywatna'];
-  cities: Set<String> = new Set<String>();
-  specializations: String[] = this.visitModelService.specialization;
+  careTypes: string[] = ['Publiczna', 'Prywatna'];
+  cities: Set<string> = new Set<string>();
+  clinicsBase: Clinic[] = [];
+  clinics: Clinic[] = [];
+  specializations: string[] = this.visitModelService.specialization;
 
-  careType: String;
-  city: String;
-  specialization: String;
+  careType: string;
+  city: string;
+  clinic: Clinic;
+  specialization: string;
 
   constructor(private clinicService: ClinicService, private visitModelService: VisitModelService,
               private visitService: VisitService, private router: Router) {
@@ -34,6 +38,9 @@ export class SearchVisitsComponent implements AfterViewInit {
   ngAfterViewInit(): void {
     this.clinicService.getClinics()
       .subscribe(data => {
+        this.clinicsBase = data;
+        this.clinics = data;
+
         data.forEach(i => this.cities.add(i.city));
       });
 
@@ -41,7 +48,7 @@ export class SearchVisitsComponent implements AfterViewInit {
   }
 
   submit() {
-    this.visitService.getVisitsByVisitFilterLimited(this.careType, this.city, this.specialization)
+    this.visitService.getVisitsByVisitFilterLimited(this.careType, this.city, this.clinic.id, this.specialization)
       .subscribe(data => {
         this.visits = data;
       });
@@ -64,6 +71,7 @@ export class SearchVisitsComponent implements AfterViewInit {
       queryParams: {
         careType: this.careType,
         city: this.city,
+        idClinic: this.clinic.id,
         specialization: this.specialization
       }
     });

@@ -24,6 +24,11 @@ export class ModelCalendarComponent implements AfterViewInit {
     this.currentUser = JSON.parse(sessionStorage.getItem('currentUser'));
   }
 
+  ngAfterViewInit(): void {
+    let from = this.calendar.control.visibleStart();
+    let to = this.calendar.control.visibleEnd();
+    this.service.getVisitModelsInWeekByDoctor(from, to, this.currentUser.id).subscribe(result => this.events = result);
+  }
 
   navigatorConfig: any = {
     locale: 'pl-pl',
@@ -75,13 +80,6 @@ export class ModelCalendarComponent implements AfterViewInit {
       } else this.ngAfterViewInit();
     },
   };
-
-
-  ngAfterViewInit(): void {
-    let from = this.calendar.control.visibleStart();
-    let to = this.calendar.control.visibleEnd();
-    this.service.getVisitModelsInWeek(from, to).subscribe(result => this.events = result);
-  }
 
   createClosed(args) {
     if (args.result) {

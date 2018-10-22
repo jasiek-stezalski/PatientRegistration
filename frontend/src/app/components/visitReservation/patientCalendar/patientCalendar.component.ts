@@ -6,6 +6,9 @@ import {BookComponent} from '../book/book.component';
 import {ActivatedRoute, Router} from '@angular/router';
 import {User} from "../../../models/user.model";
 import {isUndefined} from "util";
+import {Item} from "../../../resources/item.model";
+import {ClinicService} from "../../../services/clinic.service";
+import {UserService} from "../../../services/user.service";
 
 @Component({
   selector: 'patientCalendar-component',
@@ -18,8 +21,24 @@ export class PatientCalendarComponent implements AfterViewInit {
   @ViewChild('book') book: BookComponent;
 
   events: Visit[] = [];
+  events2: Visit[] = [];
 
-  constructor(private visitService: VisitService, private router: Router, private route: ActivatedRoute) {
+  doctors: Set<string> = new Set<string>();
+
+  itemMap: Map<String, Item> = new Map<String, Item>();
+
+
+  filter: any = {
+    doctor: '',
+    minPrice: '',
+    maxPrice: ''
+  };
+
+  constructor(private visitService: VisitService, private clinicService: ClinicService, private userService: UserService,
+              private router: Router, private route: ActivatedRoute) {
+    this.itemMap.set('doctor', {isFilter: false, name: '',});
+    this.itemMap.set('minPrice', {isFilter: false, name: '',});
+    this.itemMap.set('maxPrice', {isFilter: false, name: '',});
   }
 
   ngAfterViewInit(): void {
@@ -28,9 +47,16 @@ export class PatientCalendarComponent implements AfterViewInit {
         if (isUndefined(params.careType) || isUndefined(params.city) || isUndefined(params.specialization))
           this.router.navigate(['/']);
 
-        this.visitService.getVisitsByVisitFilter(params.careType, params.city, params.specialization).subscribe(result => {
+        this.visitService.getVisitsByVisitFilter(params.careType, params.city, params.idClinic, params.specialization).subscribe(result => {
           this.events = result;
-        })
+          this.events2 = result;
+
+          this.doctors.add('-');
+
+          result.forEach(v => this.doctors.add(v.visitModel.user.firstName + ' ' + v.visitModel.user.lastName));
+
+        });
+
       });
 
   }
@@ -66,7 +92,6 @@ export class PatientCalendarComponent implements AfterViewInit {
       this.book.show(visit);
       visit.user = new User();
       this.calendar.control.clearSelection();
-
     }
 
   };
@@ -91,6 +116,41 @@ export class PatientCalendarComponent implements AfterViewInit {
   navigateToday(event): void {
     event.preventDefault();
     this.config.startDate = DayPilot.Date.today();
+  }
+
+  changeDoctor(val) {
+    this.itemMap.get('doctor').name = val;
+    this.itemMap.get('doctor').isFilter = val != '-';
+    this.doFilter();
+  }
+
+  changeMinPrice(val) {
+    this.itemMap.get('minPrice').name = val;
+    this.itemMap.get('minPrice').isFilter = val != '-';
+    this.doFilter();
+  }
+
+  changeMaxPrice(val) {
+    this.itemMap.get('maxPrice').name = val;
+    this.itemMap.get('maxPrice').isFilter = val != '-';
+    this.doFilter();
+  }
+
+  doFilter() {
+    this.events = this.events2;
+
+    if (this.itemMap.get('doctor').isFilter)
+      this.events = this.events.filter(value =>
+        (value.visitModel.user.firstName + ' ' + value.visitModel.user.lastName) === this.itemMap.get('doctor').name);
+    if (this.itemMap.get('minPrice').isFilter)
+      this.events = this.events.filter(value => value.visitModel.price >= +this.itemMap.get('minPrice').name);
+    if (this.itemMap.get('maxPrice').isFilter)
+      this.events = this.events.filter(value => value.visitModel.price <= +this.itemMap.get('maxPrice').name);
+  }
+
+  clearFilter() {
+    this.events = this.events2;
+    this.itemMap.forEach(i => i.isFilter = false);
   }
 
 }

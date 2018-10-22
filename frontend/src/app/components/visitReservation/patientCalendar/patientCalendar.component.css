@@ -38,9 +38,46 @@
   background-color: #566f88;
 }
 
+input[type=text], select {
+  width: 100%;
+  padding: 6px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+input[type=number] {
+  width: 50%;
+  padding: 6px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
 div {
   border-radius: 5px;
   background-color: #f2f2f2;
   padding: 3px;
 }
 
+.buttons2 a {
+  display: inline-block;
+  text-align: center;
+  background-color: #b1b8ba;
+  border: 1px solid #c6ccc6;
+  color: #fff;
+  padding: 6px 15px;
+  border-radius: 2px;
+  cursor: pointer;
+  margin-right: 5px;
+  width: 100px;
+  text-decoration: none;
+}
+
+.buttons2 a:hover {
+  background-color: #595b5d;
+}

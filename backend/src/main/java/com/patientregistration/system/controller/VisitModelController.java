@@ -24,12 +24,13 @@ public class VisitModelController {
         this.visitModelService = visitModelService;
     }
 
-    @GetMapping("/")
+    @GetMapping("/doctor/{id}")
     @JsonSerialize(using = LocalDateTimeSerializer.class)
     @JsonView(Views.Basic.class)
-    public List<VisitModel> getVisitModelsInWeek(@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime from,
+    public List<VisitModel> getVisitModelsInWeek(@PathVariable(value = "id") Long idUser,
+                                                 @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime from,
                                                  @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime to) {
-        return visitModelService.findBetween(from, to);
+        return visitModelService.findBetweenByDoctor(from, to, idUser);
     }
 
     @PostMapping("/")

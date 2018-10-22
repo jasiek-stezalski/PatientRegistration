@@ -12,8 +12,8 @@ export class VisitModelService {
   constructor(private http: HttpClient) {
   }
 
-  getVisitModelsInWeek(from: DayPilot.Date, to: DayPilot.Date): Observable<VisitModel[]> {
-    return this.http.get(this.url + '?from=' + from.toString() + '&to=' + to.toString()) as Observable<VisitModel[]>;
+  getVisitModelsInWeekByDoctor(from: DayPilot.Date, to: DayPilot.Date, idUser: string | number): Observable<VisitModel[]> {
+    return this.http.get(this.url + 'doctor/' + idUser + '?from=' + from.toString() + '&to=' + to.toString()) as Observable<VisitModel[]>;
   }
 
   createVisitModel(data): Observable<VisitModel> {
@@ -24,7 +24,7 @@ export class VisitModelService {
     return this.http.put(this.url, data) as Observable<VisitModel>;
   }
 
-  deleteVisitModel(idVisitModel: String) {
+  deleteVisitModel(idVisitModel: string) {
     return this.http.delete(this.url + idVisitModel);
   }
 
@@ -46,7 +46,7 @@ export class VisitModelService {
     return today.getFullYear() + '-' + mm + '-' + dd;
   }
 
-  specialization: String[] = [
+  specialization: string[] = [
     'Alergolog',
     'Dermatolog',
     'Diabetolog',

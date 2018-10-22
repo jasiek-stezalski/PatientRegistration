@@ -12,20 +12,16 @@ export class VisitService {
   constructor(private http: HttpClient) {
   }
 
-  getVisitsInWeek(from: DayPilot.Date, to: DayPilot.Date): Observable<Visit[]> {
-    return this.http.get(this.url + '?from=' + from.toString() + '&to=' + to.toString()) as Observable<Visit[]>;
-  }
-
   getVisitsInWeekByDoctor(from: DayPilot.Date, to: DayPilot.Date, idUser: string | number): Observable<Visit[]> {
     return this.http.get(this.url + 'doctor/' + idUser + '?from=' + from.toString() + '&to=' + to.toString()) as Observable<Visit[]>;
   }
 
-  getVisitsByVisitFilter(careType: String, city: String, specialization: String): Observable<Visit[]> {
-    return this.http.get(this.url + 'filter/?careType=' + careType + '&city=' + city + '&specialization=' + specialization) as Observable<Visit[]>;
+  getVisitsByVisitFilter(careType: String, city: string, idClinic: string | number, specialization: String): Observable<Visit[]> {
+    return this.http.get(this.url + 'filter/?careType=' + careType + '&city=' + city + '&idClinic=' + idClinic + '&specialization=' + specialization) as Observable<Visit[]>;
   }
 
-  getVisitsByVisitFilterLimited(careType: String, city: String, specialization: String): Observable<Visit[]> {
-    return this.http.get(this.url + 'filterLimited/?careType=' + careType + '&city=' + city + '&specialization=' + specialization) as Observable<Visit[]>;
+  getVisitsByVisitFilterLimited(careType: string, city: string, idClinic: string | number, specialization: String): Observable<Visit[]> {
+    return this.http.get(this.url + 'filterLimited/?careType=' + careType + '&city=' + city + '&idClinic=' + idClinic + '&specialization=' + specialization) as Observable<Visit[]>;
   }
 
   getHistoricalVisitsByIdUser(idUser: string | number): Observable<Visit[]> {

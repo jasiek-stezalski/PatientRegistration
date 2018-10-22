@@ -2,6 +2,31 @@
   <daypilot-navigator [config]="navigatorConfig" [(date)]="config.startDate" #navigator></daypilot-navigator>
 </div>
 <div class="main">
+
+  <table>
+    <tr>
+      <td>
+        Lekarz:
+        <select (ngModelChange)="changeDoctor($event)" [ngModel]="filter.doctor" title="doctor">
+          <option *ngFor="let doc of doctors" [ngValue]="doc">{{doc}}</option>
+        </select>
+      </td>
+
+      <td>
+        Cena za wizytę:<br>
+        <input type="number" class="form-control" name="minPrice" id="minPrice" [ngModel]="filter.minPrice"
+               (ngModelChange)="changeMinPrice($event)" placeholder="min"/>
+        <input type="number" class="form-control" name="maxPrice" id="maxPrice" [ngModel]="filter.maxPrice"
+               (ngModelChange)="changeMaxPrice($event)" placeholder="max"/>
+      </td>
+      <td>
+        <div class="buttons2">
+          <a href="javascript:void(0);" (click)=" clearFilter()">Anuluj wyszukiwanie</a>
+        </div>
+      </td>
+    </tr>
+  </table>
+
   <div class="buttons">
     <a href="#" (click)="navigatePrevious($event)"><<< Poprzedni tydzień</a>
     <a href="#" (click)="navigateToday($event)">Aktualny tydzień</a>

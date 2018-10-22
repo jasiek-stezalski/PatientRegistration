@@ -7,13 +7,11 @@ import java.util.List;
 
 public interface VisitService {
 
-    List<Visit> findBetween(LocalDateTime from, LocalDateTime to);
-
     List<Visit> findBetweenByDoctor(LocalDateTime from, LocalDateTime to, Long idUser);
 
-    List<Visit> findAllByFilter(String careType, String city, String specialization);
+    List<Visit> findAllByFilterLimit5(String careType, String city, Long idClinic, String specialization);
 
-    List<Visit> findAllByFilterLimit5(String careType, String city, String specialization);
+    List<Visit> findAllByFilter(String careType, String city, Long idClinic, String specialization);
 
     List<Visit> findAllHistoricalByIdUser(Long idUser);
 

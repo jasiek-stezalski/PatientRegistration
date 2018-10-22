@@ -39,8 +39,12 @@ public class VisitModelServiceImpl implements VisitModelService {
     }
 
     @Override
-    public List<VisitModel> findBetween(LocalDateTime from, LocalDateTime to) {
-        return visitModelRepository.findBetween(from, to);
+    public List<VisitModel> findBetweenByDoctor(LocalDateTime from, LocalDateTime to, Long idUser) {
+        List<VisitModel> visitModels = visitModelRepository.findBetween(from, to);
+        return visitModels
+                .stream()
+                .filter(v -> v.getUser().getId().equals(idUser))
+                .collect(Collectors.toList());
     }
 
     @Override
