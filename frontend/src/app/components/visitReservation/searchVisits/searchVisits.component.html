@@ -14,6 +14,14 @@
   </div>
 
   <div class="form-group">
+    <label for="specialization">Specjalizacja </label>
+    <select [(ngModel)]="specialization" name="specialization" type="text" id="specialization" required>
+      <option *ngFor="let spec of specializations" [ngValue]="spec">{{spec}}
+      </option>
+    </select>
+  </div>
+
+  <div class="form-group">
     <label for="city">Miasto </label>
     <select (ngModelChange)="changeCity($event)" [(ngModel)]="city" name="city" type="text" id="city" required>
       <option *ngFor="let city of cities" [ngValue]="city">{{city}}</option>
@@ -27,15 +35,7 @@
     </select>
   </div>
 
-  <div class="form-group">
-    <label for="specialization">Specjalizacja </label>
-    <select [(ngModel)]="specialization" name="specialization" type="text" id="specialization" required>
-      <option *ngFor="let spec of specializations" [ngValue]="spec">{{spec}}
-      </option>
-    </select>
-  </div>
-
-  <div class="buttons">
+  <div class="buttons2">
     <button class="btn btn-lg btn-primary btn-block" type="submit">Szukaj</button>
   </div>
 
@@ -71,8 +71,10 @@
 
   </div>
 
-  <a href="javascript:void(0);" (click)="openCalendar()">Wybierz inny termin</a>
-
+  <br>
+  <div class="buttons2">
+    <a href="javascript:void(0);" (click)="openCalendar()">Wybierz inny termin</a>
+  </div>
 
 </form>
 

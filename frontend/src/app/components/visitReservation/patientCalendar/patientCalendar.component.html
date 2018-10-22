@@ -6,7 +6,7 @@
   <table>
     <tr>
       <td>
-        Lekarz:
+        Lekarz:<br>
         <select (ngModelChange)="changeDoctor($event)" [ngModel]="filter.doctor" title="doctor">
           <option *ngFor="let doc of doctors" [ngValue]="doc">{{doc}}</option>
         </select>

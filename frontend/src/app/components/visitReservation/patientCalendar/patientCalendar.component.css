@@ -30,7 +30,7 @@
   cursor: pointer;
   margin-right: 5px;
   margin-left: 5px;
-  width: 237px;
+  width: 247px;
   text-decoration: none;
 }
 
@@ -39,7 +39,8 @@
 }
 
 input[type=text], select {
-  width: 100%;
+  width: 250px;
+  height: 25px;
   padding: 6px 20px;
   margin: 8px 0;
   display: inline-block;
@@ -58,23 +59,18 @@ input[type=number] {
   box-sizing: border-box;
 }
 
-div {
-  border-radius: 5px;
-  background-color: #f2f2f2;
-  padding: 3px;
-}
-
 .buttons2 a {
   display: inline-block;
   text-align: center;
   background-color: #b1b8ba;
   border: 1px solid #c6ccc6;
   color: #fff;
+  margin-left: 10px;
   padding: 6px 15px;
+  margin-top: 20px;
   border-radius: 2px;
   cursor: pointer;
   margin-right: 5px;
-  width: 100px;
   text-decoration: none;
 }
 

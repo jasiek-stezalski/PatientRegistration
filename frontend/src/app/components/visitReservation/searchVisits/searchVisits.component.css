@@ -1,12 +1,12 @@
 input[type=text], select {
-  width: 100%;
+  min-width: 200px;
+  height: 25px;
   padding: 6px 20px;
+  margin: 8px 0;
   display: inline-block;
   border: 1px solid #ccc;
   border-radius: 4px;
   box-sizing: border-box;
-  max-width: 200px;
-  margin: 8px 20px 8px 0;
 }
 
 div {
@@ -15,7 +15,7 @@ div {
   padding: 3px;
 }
 
-.button a {
+.button a, button {
   display: inline-block;
   text-align: center;
   background-color: #b1b8ba;
@@ -79,3 +79,21 @@ div {
   background-color: #a9c2d8;
 }
 
+.buttons2 a {
+  display: inline-block;
+  text-align: center;
+  background-color: #b1b8ba;
+  border: 1px solid #c6ccc6;
+  color: #fff;
+  margin-left: 10px;
+  padding: 6px 15px;
+  margin-top: 20px;
+  border-radius: 2px;
+  cursor: pointer;
+  margin-right: 5px;
+  text-decoration: none;
+}
+
+.buttons2 a:hover {
+  background-color: #595b5d;
+}
