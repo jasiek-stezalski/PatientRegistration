@@ -1,11 +1,11 @@
 import {Component, EventEmitter, Output, ViewChild} from '@angular/core';
 import {DayPilotModalComponent} from 'daypilot-pro-angular';
-import {VisitModel} from "../../../../models/visitModel.model";
+import {VisitModel} from "../../../models/visitModel.model";
 import {Router} from "@angular/router";
-import {Visit} from "../../../../models/visit.model";
-import {User} from "../../../../models/user.model";
-import {VisitService} from "../../../../services/visit.services";
-import {Clinic} from "../../../../models/clinic.model";
+import {Visit} from "../../../models/visit.model";
+import {User} from "../../../models/user.model";
+import {VisitService} from "../../../services/visit.services";
+import {Clinic} from "../../../models/clinic.model";
 
 @Component({
   selector: 'book-dialog',

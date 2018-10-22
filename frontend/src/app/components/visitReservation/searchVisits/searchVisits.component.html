@@ -27,3 +27,39 @@
   </div>
 
 </form>
+
+<form [style.display]="isVisible ? 'block' : 'none'">
+
+  <div class="w3-container">
+    <h2>Najbliższ terminy wizyt:</h2>
+
+    <div class="wrap-table100">
+      <div class="table">
+
+        <div class="row header">
+          <div class="cell">Placówka</div>
+          <div class="cell">Data</div>
+          <div class="cell">Specjalizacja</div>
+          <div class="cell">Lekarz</div>
+        </div>
+        <div class="row" *ngFor="let visit of visits" (click)="bookVisit(visit)">
+          <div class="cell">{{visit.visitModel.clinic.name + ', ' + visit.visitModel.clinic.city}}</div>
+          <div class="cell">{{('' + visit.start + '').substring(0, 10) + ' ' + ('' + visit.start + '').substring(11,
+            16)}}
+          </div>
+          <div class="cell">{{visit.visitModel.specialization}}</div>
+          <div class="cell">{{visit.visitModel.user.firstName + ' ' + visit.visitModel.user.lastName}}</div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+  <a href="javascript:void(0);" (click)="openCalendar()">Wybierz inny termin</a>
+
+
+</form>
+
+<book-dialog #book (close)="createClosed($event)"></book-dialog>
+

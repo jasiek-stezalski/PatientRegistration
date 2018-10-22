@@ -47,7 +47,7 @@ public class VisitController {
     public List<Visit> getVisitsByVisitFilterLimited(@RequestParam String careType,
                                                      @RequestParam String city,
                                                      @RequestParam String specialization) {
-        return visitService.findAllByFilter(careType, city, specialization);
+        return visitService.findAllByFilterLimit5(careType, city, specialization);
     }
 
     @GetMapping("/filter/")

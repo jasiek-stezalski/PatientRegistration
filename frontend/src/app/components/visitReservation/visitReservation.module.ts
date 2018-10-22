@@ -4,7 +4,7 @@ import {HttpClientModule} from "@angular/common/http";
 import {DayPilotModule} from "daypilot-pro-angular";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {PatientCalendarComponent} from "./patientCalendar/patientCalendar.component";
-import {BookComponent} from "./patientCalendar/book/book.component";
+import {BookComponent} from "./book/book.component";
 import {SearchVisitsComponent} from "./searchVisits/searchVisits.component";
 import {VisitService} from "../../services/visit.services";
 

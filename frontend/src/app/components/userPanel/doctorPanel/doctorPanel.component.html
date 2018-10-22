@@ -35,9 +35,9 @@
 </div>
 
 <div class="history">
-<form [style.display]="isVisible ? 'block' : 'none'">
-  <app-userHistory #userHistory></app-userHistory>
-</form>
+  <form [style.display]="isVisible ? 'block' : 'none'">
+    <app-userHistory #userHistory></app-userHistory>
+  </form>
 </div>
 
 <confirm-dialog #confirm (close)="createClosed($event)"></confirm-dialog>

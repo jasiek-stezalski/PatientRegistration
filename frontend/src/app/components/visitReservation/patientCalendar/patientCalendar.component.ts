@@ -1,14 +1,11 @@
 import {AfterViewInit, Component, ViewChild} from '@angular/core';
-import {VisitModelService} from '../../../services/visitModel.service';
 import {DayPilot, DayPilotCalendarComponent} from 'daypilot-pro-angular';
 import {Visit} from '../../../models/visit.model';
 import {VisitService} from '../../../services/visit.services';
-import {UserService} from '../../../services/user.service';
-import {ClinicService} from '../../../services/clinic.service';
-import {BookComponent} from './book/book.component';
-import {Router} from '@angular/router';
+import {BookComponent} from '../book/book.component';
+import {ActivatedRoute, Router} from '@angular/router';
 import {User} from "../../../models/user.model";
-import {Clinic} from "../../../models/clinic.model";
+import {isUndefined} from "util";
 
 @Component({
   selector: 'patientCalendar-component',
@@ -21,52 +18,21 @@ export class PatientCalendarComponent implements AfterViewInit {
   @ViewChild('book') book: BookComponent;
 
   events: Visit[] = [];
-  events2: Visit[] = [];
-  clinicsBase: Clinic[] = [];
 
-  constructor(private visitModelService: VisitModelService, private visitService: VisitService,
-              private userService: UserService, private clinicService: ClinicService, private router: Router) {
+  constructor(private visitService: VisitService, private router: Router, private route: ActivatedRoute) {
   }
 
   ngAfterViewInit(): void {
-    // let from = this.calendar.control.visibleStart();
-    // let to = this.calendar.control.visibleEnd();
-    // this.visitService.getVisitsInWeek(from, to).subscribe(result => {
-    //   this.events = result;
-    //   this.events2 = result;
-    //   this.events.forEach(v => {
-    //     if (v.text === 'Zajęte')
-    //       v.barColor = 'grey';
-    //     else if (v.text === 'Zakończone')
-    //       v.barColor = '#c6ccc6';
-    //   })
-    //   this.events2.forEach(v => {
-    //     if (v.text === 'Zajęte')
-    //       v.barColor = 'grey';
-    //     else if (v.text === 'Zakończone')
-    //       v.barColor = '#c6ccc6';
-    //   })
-    // });
-    // this.cities.add('-');
-    // this.clinics.push('-');
-    // this.clinicService.getClinics()
-    //   .subscribe(data => {
-    //     this.clinicsBase = data;
-    //     data.forEach(i => {
-    //       this.cities.add(i.city);
-    //       this.clinics.push(i.name + ', ' + i.address);
-    //     });
-    //   });
-    //
-    // this.doctors.push('-');
-    // this.userService.getUsersByRole('DOCTOR')
-    //   .subscribe(data => {
-    //     data.forEach(i => {
-    //       this.doctors.push(i.firstName + ' ' + i.lastName);
-    //     });
-    //   });
-    // this.specialization.push('-');
-    // this.specialization.sort();
+    this.route.queryParams
+      .subscribe(params => {
+        if (isUndefined(params.careType) || isUndefined(params.city) || isUndefined(params.specialization))
+          this.router.navigate(['/']);
+
+        this.visitService.getVisitsByVisitFilter(params.careType, params.city, params.specialization).subscribe(result => {
+          this.events = result;
+        })
+      });
+
   }
 
   navigatorConfig: any = {
@@ -97,27 +63,18 @@ export class PatientCalendarComponent implements AfterViewInit {
 
     onEventClicked: args => {
       let visit: Visit = this.events.find(a => a.id == args.e.id());
-      if (('' + visit.start + '').substring(0, 10) <= ('' + DayPilot.Date.today() + '').substring(0, 10)) {
-        this.calendar.control.message('Ten termin jest już nieaktualny!');
-      }
-      else if (visit.user != null)
-        this.calendar.control.message('Ten termin jest już zarezerwowany!');
-      else {
-        if (sessionStorage.getItem('currentUser') != null) {
-          this.book.show(visit);
-          visit.user = new User();
-          this.calendar.control.clearSelection();
-        }
-        else
-          this.router.navigate(['/login']);
-      }
-    },
+      this.book.show(visit);
+      visit.user = new User();
+      this.calendar.control.clearSelection();
+
+    }
 
   };
 
   createClosed(args) {
     if (args.result) {
-      this.calendar.control.message('Zostałeś zapisany na wizytę!');
+      alert('Zostałeś zapisany na wizytę!');
+      this.router.navigate(['/userVisits']);
     }
   }
 
