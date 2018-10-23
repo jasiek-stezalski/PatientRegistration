@@ -18,8 +18,8 @@ export class SearchVisitsComponent implements AfterViewInit {
 
   visits: Visit[] = [];
 
-  isVisible: boolean;
-  isVisible2: boolean;
+  isVisible: boolean = false;
+  isVisible2: boolean = true;
   info: string;
 
   careTypes: string[] = ['Publiczna', 'Prywatna'];
@@ -46,7 +46,6 @@ export class SearchVisitsComponent implements AfterViewInit {
         data.forEach(i => this.cities.add(i.city));
       });
 
-    this.isVisible = false;
   }
 
   submit() {
@@ -65,7 +64,6 @@ export class SearchVisitsComponent implements AfterViewInit {
 
       });
     this.isVisible2 = false;
-
   }
 
   bookVisit(visit: Visit) {

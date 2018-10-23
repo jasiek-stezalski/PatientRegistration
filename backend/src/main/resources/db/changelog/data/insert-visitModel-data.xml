@@ -10,9 +10,9 @@
 
         <insert tableName="VISIT_MODEL">
             <column name="name" value="wizyta1"/>
-            <column name="start" value="2018-10-02 08:00:00"/>
-            <column name="end_" value="2018-10-02 09:00:00"/>
-            <column name="end_date" value="2018-10-31"/>
+            <column name="start" value="2018-11-02 08:00:00"/>
+            <column name="end_" value="2018-11-02 09:00:00"/>
+            <column name="end_date" value="2018-11-30"/>
             <column name="day_interval" value="7"/>
             <column name="minute_interval" value="60"/>
             <column name="specialization" value="Kardiolog"/>
@@ -23,9 +23,9 @@
         </insert>
         <insert tableName="VISIT_MODEL">
             <column name="name" value="wizyta2"/>
-            <column name="start" value="2018-10-03 10:15:00"/>
-            <column name="end_" value="2018-10-03 11:15:00"/>
-            <column name="end_date" value="2018-10-31"/>
+            <column name="start" value="2018-11-03 10:15:00"/>
+            <column name="end_" value="2018-11-03 11:15:00"/>
+            <column name="end_date" value="2018-11-30"/>
             <column name="day_interval" value="7"/>
             <column name="minute_interval" value="60"/>
             <column name="specialization" value="Stomatolog"/>
@@ -36,9 +36,9 @@
         </insert>
         <insert tableName="VISIT_MODEL">
             <column name="name" value="wizyta3"/>
-            <column name="start" value="2018-10-02 15:00:00"/>
-            <column name="end_" value="2018-10-02 16:00:00"/>
-            <column name="end_date" value="2018-10-31"/>
+            <column name="start" value="2018-11-02 15:00:00"/>
+            <column name="end_" value="2018-11-02 16:00:00"/>
+            <column name="end_date" value="2018-11-30"/>
             <column name="day_interval" value="7"/>
             <column name="minute_interval" value="60"/>
             <column name="specialization" value="Urolog"/>
@@ -49,9 +49,9 @@
         </insert>
         <insert tableName="VISIT_MODEL">
             <column name="name" value="wizyta4"/>
-            <column name="start" value="2018-10-05 12:45:00"/>
-            <column name="end_" value="2018-10-05 13:45:00"/>
-            <column name="end_date" value="2018-10-31"/>
+            <column name="start" value="2018-11-05 12:45:00"/>
+            <column name="end_" value="2018-11-05 13:45:00"/>
+            <column name="end_date" value="2018-11-30"/>
             <column name="day_interval" value="7"/>
             <column name="minute_interval" value="60"/>
             <column name="specialization" value="Dermatolog"/>
@@ -62,9 +62,9 @@
         </insert>
         <insert tableName="VISIT_MODEL">
             <column name="name" value="wizyta5"/>
-            <column name="start" value="2018-10-05 09:30:00"/>
-            <column name="end_" value="2018-10-05 10:30:00"/>
-            <column name="end_date" value="2018-10-31"/>
+            <column name="start" value="2018-11-05 09:30:00"/>
+            <column name="end_" value="2018-11-05 10:30:00"/>
+            <column name="end_date" value="2018-11-30"/>
             <column name="day_interval" value="7"/>
             <column name="minute_interval" value="60"/>
             <column name="specialization" value="Dermatolog"/>
@@ -75,9 +75,9 @@
         </insert>
         <insert tableName="VISIT_MODEL">
             <column name="name" value="wizyta6"/>
-            <column name="start" value="2018-10-04 15:30:00"/>
-            <column name="end_" value="2018-10-04 16:30:00"/>
-            <column name="end_date" value="2018-10-31"/>
+            <column name="start" value="2018-11-04 15:30:00"/>
+            <column name="end_" value="2018-11-04 16:30:00"/>
+            <column name="end_date" value="2018-11-30"/>
             <column name="day_interval" value="7"/>
             <column name="minute_interval" value="60"/>
             <column name="specialization" value="Stomatolog"/>

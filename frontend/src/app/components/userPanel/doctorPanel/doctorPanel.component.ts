@@ -45,6 +45,14 @@ export class DoctorPanelComponent implements AfterViewInit {
         }
       }
       if (!isVisitToDo) this.eventsBase.setIndex(this.eventsBase.getIndex());
+
+      this.events.forEach(v => {
+        if (v.text === 'Zajęte')
+          v.barColor = '#487bcc';
+        else if (v.text === 'Zakończone')
+          v.barColor = '#c6ccc6';
+        else v.barColor = 'grey';
+      })
     });
 
   }
@@ -94,6 +102,7 @@ export class DoctorPanelComponent implements AfterViewInit {
   createClosed(args) {
     if (args.result) {
       this.events.find(v => v.id === this.actualVisit.id).text = 'Zakończone';
+      this.actualVisit.barColor = '#c6ccc6';
       this.actualVisit = this.eventsBase.next();
       this.actualUser = this.actualVisit.user;
       alert('Wizyta została zatwierdzona');

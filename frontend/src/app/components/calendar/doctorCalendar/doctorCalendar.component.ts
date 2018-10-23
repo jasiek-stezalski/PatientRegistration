@@ -45,9 +45,10 @@ export class DoctorCalendarComponent implements AfterViewInit {
       this.events = result;
       this.events.forEach(v => {
         if (v.text === 'Zajęte')
-          v.barColor = 'grey';
+          v.barColor = '#487bcc';
         else if (v.text === 'Zakończone')
           v.barColor = '#c6ccc6';
+        else v.barColor = 'grey';
       })
     });
 
