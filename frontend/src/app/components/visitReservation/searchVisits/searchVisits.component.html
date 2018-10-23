@@ -53,7 +53,6 @@
         <div class="row header">
           <div class="cell">Placówka</div>
           <div class="cell">Data</div>
-          <div class="cell">Specjalizacja</div>
           <div class="cell">Lekarz</div>
         </div>
         <div class="row" *ngFor="let visit of visits" (click)="bookVisit(visit)">
@@ -61,7 +60,6 @@
           <div class="cell">{{('' + visit.start + '').substring(0, 10) + ' ' + ('' + visit.start + '').substring(11,
             16)}}
           </div>
-          <div class="cell">{{visit.visitModel.specialization}}</div>
           <div class="cell">{{visit.visitModel.user.firstName + ' ' + visit.visitModel.user.lastName}}</div>
         </div>
 

@@ -15,7 +15,6 @@
             <column name="end_date" value="2018-11-30"/>
             <column name="day_interval" value="7"/>
             <column name="minute_interval" value="60"/>
-            <column name="specialization" value="Kardiolog"/>
             <column name="care_type" value="Publiczna"/>
             <column name="price" value="0"/>
             <column name="id_clinic" value="1"/>
@@ -28,7 +27,6 @@
             <column name="end_date" value="2018-11-30"/>
             <column name="day_interval" value="7"/>
             <column name="minute_interval" value="60"/>
-            <column name="specialization" value="Stomatolog"/>
             <column name="care_type" value="Prywatna"/>
             <column name="price" value="50"/>
             <column name="id_clinic" value="2"/>
@@ -41,7 +39,6 @@
             <column name="end_date" value="2018-11-30"/>
             <column name="day_interval" value="7"/>
             <column name="minute_interval" value="60"/>
-            <column name="specialization" value="Urolog"/>
             <column name="care_type" value="Publiczna"/>
             <column name="price" value="0"/>
             <column name="id_clinic" value="3"/>
@@ -54,10 +51,9 @@
             <column name="end_date" value="2018-11-30"/>
             <column name="day_interval" value="7"/>
             <column name="minute_interval" value="60"/>
-            <column name="specialization" value="Dermatolog"/>
             <column name="care_type" value="Publiczna"/>
             <column name="price" value="0"/>
-            <column name="id_clinic" value="4"/>
+            <column name="id_clinic" value="3"/>
             <column name="id_doctor" value="1"/>
         </insert>
         <insert tableName="VISIT_MODEL">
@@ -67,10 +63,9 @@
             <column name="end_date" value="2018-11-30"/>
             <column name="day_interval" value="7"/>
             <column name="minute_interval" value="60"/>
-            <column name="specialization" value="Dermatolog"/>
             <column name="care_type" value="Prywatna"/>
             <column name="price" value="70"/>
-            <column name="id_clinic" value="3"/>
+            <column name="id_clinic" value="5"/>
             <column name="id_doctor" value="1"/>
         </insert>
         <insert tableName="VISIT_MODEL">
@@ -80,7 +75,6 @@
             <column name="end_date" value="2018-11-30"/>
             <column name="day_interval" value="7"/>
             <column name="minute_interval" value="60"/>
-            <column name="specialization" value="Stomatolog"/>
             <column name="care_type" value="Prywatna"/>
             <column name="price" value="90"/>
             <column name="id_clinic" value="1"/>

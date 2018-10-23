@@ -45,10 +45,6 @@ public class VisitModel {
     @JsonView(Views.Basic.class)
     private Integer minuteInterval;
 
-    @Column(name = "specialization", nullable = false)
-    @JsonView(Views.Basic.class)
-    private String specialization;
-
     @Column(name = "care_type", nullable = false)
     @JsonView(Views.Basic.class)
     private String careType;

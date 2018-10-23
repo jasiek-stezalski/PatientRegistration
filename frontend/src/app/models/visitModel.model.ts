@@ -10,7 +10,6 @@ export class VisitModel {
   endDate?: string;
   dayInterval?: number;
   minuteInterval?: number;
-  specialization?: string;
   careType?: string;
   price?: Number;
   user?: User;

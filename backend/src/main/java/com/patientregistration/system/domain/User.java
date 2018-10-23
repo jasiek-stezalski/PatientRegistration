@@ -64,13 +64,13 @@ public class User implements UserDetails {
     @JsonView(Views.Basic.class)
     private String pesel;
 
-    @Column(name = "blocked")
-    @JsonView(Views.Basic.class)
-    private Boolean blocked;
-
     @Column(name = "phone_number")
     @JsonView(Views.Basic.class)
     private String phoneNumber;
+
+    @Column(name = "specialization")
+    @JsonView(Views.Basic.class)
+    private String specialization;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     @JsonIgnore

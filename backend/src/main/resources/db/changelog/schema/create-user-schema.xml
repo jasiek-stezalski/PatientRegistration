@@ -30,9 +30,9 @@
             <column name="EMAIL" type="VARCHAR(255)">
                 <constraints nullable="false"/>
             </column>
-            <column name="BLOCKED" type="BOOLEAN"/>
             <column name="PESEL" type="VARCHAR(255)"/>
             <column name="PHONE_NUMBER" type="VARCHAR(255)"/>
+            <column name="SPECIALIZATION" type="VARCHAR(255)"/>
 
         </createTable>
         <addAutoIncrement tableName="USERS" columnDataType="BIGINT" columnName="ID"/>

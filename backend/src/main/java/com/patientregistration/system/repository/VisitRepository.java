@@ -41,12 +41,13 @@ public interface VisitRepository extends JpaRepository<Visit, Long> {
                     "FROM visit v " +
                     "JOIN visit_model vm ON v.id_visit_model = vm.id " +
                     "JOIN clinic c ON vm.id_clinic = c.id " +
+                    "JOIN users u ON u.id = vm.id_doctor " +
                     "WHERE v.status != :status1 " +
                     "AND v.status != :status2 " +
                     "AND vm.care_type =:careType " +
                     "AND c.city =:city " +
                     "AND c.id =:idClinic " +
-                    "AND vm.specialization =:specialization " +
+                    "AND u.specialization =:specialization " +
                     "ORDER BY v.start " +
                     "LIMIT 5")
     List<Visit> findAllByCareTypeAndCityAndClinicAndSpecializationLimit5(@Param("status1") String status1,
@@ -61,12 +62,13 @@ public interface VisitRepository extends JpaRepository<Visit, Long> {
                     "FROM visit v " +
                     "JOIN visit_model vm ON v.id_visit_model = vm.id " +
                     "JOIN clinic c ON vm.id_clinic = c.id " +
+                    "JOIN users u ON u.id = vm.id_doctor " +
                     "WHERE v.status != :status1 " +
                     "AND v.status != :status2 " +
                     "AND vm.care_type =:careType " +
                     "AND c.city =:city " +
                     "AND c.id =:idClinic " +
-                    "AND vm.specialization =:specialization " +
+                    "AND u.specialization =:specialization " +
                     "ORDER BY v.start ")
     List<Visit> findAllByCareTypeAndCityAndClinicAndSpecialization(@Param("status1") String status1,
                                                                    @Param("status2") String status2,

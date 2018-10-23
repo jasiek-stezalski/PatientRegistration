@@ -30,9 +30,6 @@
             <column name="MINUTE_INTERVAL" type="INTEGER(10)">
                 <constraints nullable="false"/>
             </column>
-            <column name="SPECIALIZATION" type="VARCHAR(255)">
-                <constraints nullable="false"/>
-            </column>
             <column name="CARE_TYPE" type="VARCHAR(255)">
                 <constraints nullable="false"/>
             </column>

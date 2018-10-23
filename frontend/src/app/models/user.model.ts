@@ -11,8 +11,8 @@ export class User {
   role?: string;
   pesel?: string;
   email?: string;
-  blocked?: boolean;
   phoneNumber?: string;
+  specialization?:string;
   doctorClinic?: DoctorClinic[];
 
 }

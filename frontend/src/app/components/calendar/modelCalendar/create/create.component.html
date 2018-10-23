@@ -43,14 +43,6 @@
         </select>
       </div>
 
-      <div class="form-group">
-        <label for="specialization">Specializacja </label>
-        <select [(ngModel)]="visitModel.specialization" name="specialization" type="text" id="specialization"
-                required>
-          <option *ngFor="let spec of specialization" value={{spec}}>{{spec}}</option>
-        </select>
-      </div>
-
       <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !careType.valid }">
         <label for="careType">Rodzaj usługi </label>
         <select [(ngModel)]="visitModel.careType" name="careType" id="careType" type="text" #careType="ngModel"
