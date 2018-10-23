@@ -40,7 +40,7 @@ export class UserHistoryComponent implements OnInit {
           this.visitsBase = data;
           this.visits = data;
           this.visitsBase.forEach(value => {
-            this.specialization.add(value.visitModel.specialization);
+            this.specialization.add(value.visitModel.user.specialization);
           });
         });
     } else {
@@ -49,7 +49,7 @@ export class UserHistoryComponent implements OnInit {
           this.visitsBase = data;
           this.visits = data;
           this.visitsBase.forEach(value => {
-            this.specialization.add(value.visitModel.specialization);
+            this.specialization.add(value.visitModel.user.specialization);
           });
         });
     }
@@ -62,7 +62,7 @@ export class UserHistoryComponent implements OnInit {
         this.visitsBase = data;
         this.visits = data;
         this.visitsBase.forEach(value => {
-          this.specialization.add(value.visitModel.specialization);
+          this.specialization.add(value.visitModel.user.specialization);
         });
       });
   }
@@ -73,7 +73,7 @@ export class UserHistoryComponent implements OnInit {
 
   changeSpecialization(val) {
     this.visits = this.visitsBase;
-    this.visits = this.visits.filter(value => value.visitModel.specialization === val);
+    this.visits = this.visits.filter(value => value.visitModel.user.specialization === val);
   }
 
   clearFilter() {

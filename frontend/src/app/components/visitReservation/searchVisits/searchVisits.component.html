@@ -6,14 +6,14 @@
   </form>
 
   <div class="form-group">
-    <label for="careType">Rodzaj usługi </label>
+    <label for="careType">Rodzaj usługi* </label>
     <select [(ngModel)]="careType" name="careType" type="text" id="careType" required>
       <option *ngFor="let cat of careTypes" [ngValue]="cat">{{cat}}</option>
     </select>
   </div>
 
   <div class="form-group">
-    <label for="specialization">Specjalizacja </label>
+    <label for="specialization">Specjalizacja* </label>
     <select [(ngModel)]="specialization" name="specialization" type="text" id="specialization" required>
       <option *ngFor="let spec of specializations" [ngValue]="spec">{{spec}}
       </option>
@@ -21,7 +21,7 @@
   </div>
 
   <div class="form-group">
-    <label for="city">Miasto </label>
+    <label for="city">Miasto* </label>
     <select (ngModelChange)="changeCity($event)" [(ngModel)]="city" name="city" type="text" id="city" required>
       <option *ngFor="let city of cities" [ngValue]="city">{{city}}</option>
     </select>
@@ -29,7 +29,7 @@
 
   <div class="form-group">
     <label for="clinic">Placówka </label>
-    <select [(ngModel)]="clinic" name="clinic" type="text" id="clinic" required>
+    <select [(ngModel)]="clinic" name="clinic" type="text" id="clinic">
       <option *ngFor="let cli of clinics" [ngValue]="cli">{{cli.name + ', ' + cli.address}}</option>
     </select>
   </div>
@@ -70,7 +70,7 @@
 
   <br>
   <div class="buttons2">
-    <a href="javascript:void(0);" (click)="openCalendar()">Wybierz inny termin</a>
+    <a href="javascript:void(0);" (click)="openCalendar()">Wybierz inny termin</a> {{info2}}
   </div>
 
 </form>

@@ -34,6 +34,7 @@ export class AppComponent implements OnInit {
       }
       else {
         this.buttons.push({name: 'Umów mnie na wizytę', link: '/searchVisits'});
+        this.buttons.push({name: 'Wyszukaj lekarza', link: '/searchDoctor'});
         this.userPanel.push({name: 'Aktualne wizyty', link: '/userVisits'});
         this.userPanel.push({name: 'Historia wizyt', link: '/userHistory'});
       }

@@ -77,4 +77,23 @@ public interface VisitRepository extends JpaRepository<Visit, Long> {
                                                                    @Param("idClinic") Long idClinic,
                                                                    @Param("specialization") String specialization);
 
+    @Query(nativeQuery = true,
+            value = "SELECT v.* " +
+                    "FROM visit v " +
+                    "JOIN visit_model vm ON v.id_visit_model = vm.id " +
+                    "JOIN clinic c ON vm.id_clinic = c.id " +
+                    "JOIN users u ON u.id = vm.id_doctor " +
+                    "WHERE v.status != :status1 " +
+                    "AND v.status != :status2 " +
+                    "AND vm.care_type =:careType " +
+                    "AND c.city =:city " +
+                    "AND u.specialization =:specialization " +
+                    "ORDER BY v.start " +
+                    "LIMIT 5")
+    List<Visit> findAllByCareTypeAndCityAndSpecializationLimit5(@Param("status1") String status1,
+                                                                         @Param("status2") String status2,
+                                                                         @Param("careType") String careType,
+                                                                         @Param("city") String city,
+                                                                         @Param("specialization") String specialization);
+
 }

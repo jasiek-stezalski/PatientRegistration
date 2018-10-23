@@ -6,6 +6,7 @@ import {Visit} from "../../../models/visit.model";
 import {BookComponent} from "../book/book.component";
 import {Router} from "@angular/router";
 import {Clinic} from "../../../models/clinic.model";
+import {isUndefined} from "util";
 
 @Component({
   selector: 'app-searchVisits',
@@ -21,6 +22,7 @@ export class SearchVisitsComponent implements AfterViewInit {
   isVisible: boolean = false;
   isVisible2: boolean = true;
   info: string;
+  info2: string;
 
   careTypes: string[] = ['Publiczna', 'Prywatna'];
   cities: Set<string> = new Set<string>();
@@ -49,7 +51,7 @@ export class SearchVisitsComponent implements AfterViewInit {
   }
 
   submit() {
-    this.visitService.getVisitsByVisitFilterLimited(this.careType, this.city, this.clinic.id, this.specialization)
+    this.visitService.getVisitsByVisitFilterLimited(this.careType, this.city, isUndefined(this.clinic) ? -1 : this.clinic.id, this.specialization)
       .subscribe(data => {
         this.visits = data;
 
@@ -78,14 +80,18 @@ export class SearchVisitsComponent implements AfterViewInit {
   }
 
   openCalendar() {
-    this.router.navigate(['/patientCalendar'], {
-      queryParams: {
-        careType: this.careType,
-        city: this.city,
-        idClinic: this.clinic.id,
-        specialization: this.specialization
-      }
-    });
+    if (isUndefined(this.clinic))
+      this.info2 = 'Wybierz placówkę';
+    else {
+      this.router.navigate(['/patientCalendar'], {
+        queryParams: {
+          careType: this.careType,
+          city: this.city,
+          idClinic: this.clinic.id,
+          specialization: this.specialization
+        }
+      });
+    }
   }
 
   changeCity(val) {

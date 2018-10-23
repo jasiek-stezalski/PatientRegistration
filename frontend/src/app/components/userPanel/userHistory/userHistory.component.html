@@ -27,7 +27,7 @@
       <div class="row" *ngFor="let visit of visits">
         <div class="cell">{{visit.visitModel.clinic.name + ', ' + visit.visitModel.clinic.city}}</div>
         <div class="cell">{{('' + visit.start + '').substring(0, 10)}}</div>
-        <div class="cell">{{visit.visitModel.specialization}}</div>
+        <div class="cell">{{visit.visitModel.user.specialization}}</div>
         <div class="cell">{{visit.visitModel.user.firstName + ' ' + visit.visitModel.user.lastName}}</div>
         <div class="cell">{{visit.description}}</div>
       </div>

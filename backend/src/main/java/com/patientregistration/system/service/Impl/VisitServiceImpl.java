@@ -40,8 +40,12 @@ public class VisitServiceImpl implements VisitService {
 
     @Override
     public List<Visit> findAllByFilterLimit5(String careType, String city, Long idClinic, String specialization) {
-        return visitRepository.findAllByCareTypeAndCityAndClinicAndSpecializationLimit5("Zajęte", "Zakończone",
-                careType, city, idClinic, specialization);
+        if (idClinic == -1)
+            return visitRepository.findAllByCareTypeAndCityAndSpecializationLimit5("Zajęte", "Zakończone",
+                    careType, city, specialization);
+        else
+            return visitRepository.findAllByCareTypeAndCityAndClinicAndSpecializationLimit5("Zajęte", "Zakończone",
+                    careType, city, idClinic, specialization);
     }
 
     @Override
