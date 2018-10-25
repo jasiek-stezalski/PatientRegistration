@@ -2,6 +2,7 @@ package com.patientregistration.system.service.Impl;
 
 import com.patientregistration.system.domain.User;
 import com.patientregistration.system.domain.Visit;
+import com.patientregistration.system.exception.DataConflictException;
 import com.patientregistration.system.exception.ResourceNotFoundException;
 import com.patientregistration.system.repository.VisitRepository;
 import com.patientregistration.system.service.EmailService;
@@ -67,6 +68,11 @@ public class VisitServiceImpl implements VisitService {
     }
 
     @Override
+    public List<Visit> findAllActualByUserBySpecialization(Long idUser, String specialization) {
+        return visitRepository.findAllByStatusAndUserAndSpecialization("Zajęte", idUser, specialization);
+    }
+
+    @Override
     public Visit findByVisitId(Long idVisit) {
         return visitRepository.findById(idVisit)
                 .orElseThrow(() -> new ResourceNotFoundException("There is no Visit with id: " + idVisit.toString()));
@@ -81,12 +87,18 @@ public class VisitServiceImpl implements VisitService {
     @Transactional
     public Visit bookVisit(Visit data, Long idUser) {
         Visit visit = findByVisitId(data.getId());
-        visit.setText("Zajęte");
-        User user = userService.findUserById(idUser);
-        visit.setUser(user);
-        Visit save = visitRepository.save(visit);
-        emailService.bookVisitEmail(visit);
-        return save;
+
+        List<Visit> theSameVisits = findAllActualByUserBySpecialization(idUser, visit.getVisitModel().getUser().getSpecialization());
+
+        if (theSameVisits.isEmpty()) {
+            visit.setText("Zajęte");
+            User user = userService.findUserById(idUser);
+            visit.setUser(user);
+            Visit save = visitRepository.save(visit);
+            emailService.bookVisitEmail(visit);
+            return save;
+        } else throw new DataConflictException("You cannot book another visit to the same specialist!");
+
     }
 
     @Override
@@ -108,6 +120,15 @@ public class VisitServiceImpl implements VisitService {
         Visit savedVisit = visitRepository.save(visit);
         emailService.moveVisitEmail(Collections.singletonList(visit), Collections.singletonList(term));
         return savedVisit;
+    }
+
+    @Override
+    public Visit cancel(Visit data) {
+        Visit visit = findByVisitId(data.getId());
+        visit.setUser(null);
+        visit.setText(visit.getStart().toLocalTime().toString());
+        return visitRepository.save(visit);
+
     }
 
     @Override

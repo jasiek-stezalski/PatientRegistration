@@ -24,7 +24,8 @@ export class UserVisitsComponent implements OnInit {
 
   cancelVisit(id: string | number) {
     if (confirm('Czy na pewno chcesz odwołać tą wizytę?')) {
-      this.visitService.deleteVisit(id.toString()).subscribe(() => {
+      let visit = this.visits.find(v => v.id === id);
+      this.visitService.cancelVisit(visit).subscribe(() => {
         alert('Wizyta została odwołana');
         this.ngOnInit();
       });

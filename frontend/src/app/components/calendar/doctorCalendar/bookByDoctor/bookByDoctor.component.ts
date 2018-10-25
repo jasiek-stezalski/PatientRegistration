@@ -24,6 +24,8 @@ export class BookByDoctorComponent {
   constructor(private router: Router, private visitService: VisitService) {
     this.visit.user = new User();
     this.visit.visitModel = new VisitModel();
+    this.visit.visitModel.user = new User();
+
   }
 
   show(visit: Visit, user: User) {

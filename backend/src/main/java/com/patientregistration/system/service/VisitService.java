@@ -17,6 +17,8 @@ public interface VisitService {
 
     List<Visit> findAllActualByIdUser(Long idUser);
 
+    List<Visit> findAllActualByUserBySpecialization(Long idUser, String specialization);
+
     Visit findByVisitId(Long idVisit);
 
     List<Visit> saveAll(List<Visit> visits);
@@ -27,6 +29,7 @@ public interface VisitService {
 
     Visit move(Visit visit);
 
-    void delete(Long idVisit);
+    Visit cancel(Visit visit);
 
+    void delete(Long idVisit);
 }

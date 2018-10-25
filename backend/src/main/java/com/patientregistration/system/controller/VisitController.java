@@ -86,6 +86,12 @@ public class VisitController {
         return visitService.move(visit);
     }
 
+    @PutMapping("/cancel/")
+    @JsonView(Views.Basic.class)
+    public Visit cancelVisit(@RequestBody Visit visit) {
+        return visitService.cancel(visit);
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteVisit(@PathVariable(value = "id") Long idVisit) {
         visitService.delete(idVisit);

@@ -44,7 +44,11 @@ export class VisitService {
     return this.http.put(this.url, visit) as Observable<Visit>;
   }
 
-  deleteVisit(idVisit: String) {
+  cancelVisit(visit: Visit): Observable<Visit>  {
+    return this.http.put(this.url + 'cancel/', visit) as Observable<Visit>;
+  }
+
+  deleteVisit(idVisit: string) {
     return this.http.delete(this.url + idVisit);
   }
 

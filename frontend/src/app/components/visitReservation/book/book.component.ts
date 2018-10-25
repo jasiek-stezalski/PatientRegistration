@@ -36,9 +36,14 @@ export class BookComponent {
   submit() {
     let user: User = JSON.parse(sessionStorage.getItem('currentUser'));
     this.visitService.bookVisit(this.visit, user.id).subscribe(result => {
-      this.visit.text = 'Zajęte';
-      this.modal.hide(result);
-    });
+        this.visit.text = 'Zajęte';
+        this.modal.hide(result);
+      }, err => {
+        console.log(err);
+        this.modal.hide();
+        alert('Nie możesz być zapisany na dwie wizyty o tej samej specjalizacji jednocześnie!');
+      }
+    );
   }
 
   cancel() {

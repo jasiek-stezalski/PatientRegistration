@@ -7,7 +7,7 @@
 
       <div>Termin: {{(visit.start + '').substring(0, 10) + ' ' + (visit.start + '').substring(11)}}</div>
       <div>Czas trwania wizyty: {{visit.visitModel.minuteInterval + ' minut'}}</div>
-      <div>Specializacja: {{visit.visitModel.specialization}}</div>
+      <div>Specializacja: {{visit.visitModel.user.specialization}}</div>
       <div>Rodzaj usługi: {{visit.visitModel.careType}}</div>
       <div>Cena za wizytę: {{visit.visitModel.price + ' złotych'}}</div>
       <div>Placówka: {{clinic.name + ', ' + clinic.address + ', ' + clinic.city}}</div>

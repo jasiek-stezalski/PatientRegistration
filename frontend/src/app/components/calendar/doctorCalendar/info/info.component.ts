@@ -22,6 +22,7 @@ export class InfoComponent {
   constructor() {
     this.visit.user = new User();
     this.visit.visitModel = new VisitModel();
+    this.visit.visitModel.user = new User();
   }
 
   show(visit: Visit) {
