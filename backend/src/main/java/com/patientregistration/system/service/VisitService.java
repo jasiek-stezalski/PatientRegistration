@@ -17,7 +17,7 @@ public interface VisitService {
 
     List<Visit> findAllActualByIdUser(Long idUser);
 
-    List<Visit> findAllActualByUserBySpecialization(Long idUser, String specialization);
+    List<Visit> findAllActualByUser(Long idUser);
 
     Visit findByVisitId(Long idVisit);
 

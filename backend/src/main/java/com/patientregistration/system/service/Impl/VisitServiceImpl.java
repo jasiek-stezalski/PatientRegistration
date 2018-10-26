@@ -68,8 +68,8 @@ public class VisitServiceImpl implements VisitService {
     }
 
     @Override
-    public List<Visit> findAllActualByUserBySpecialization(Long idUser, String specialization) {
-        return visitRepository.findAllByStatusAndUserAndSpecialization("Zajęte", idUser, specialization);
+    public List<Visit> findAllActualByUser(Long idUser) {
+        return visitRepository.findAllByStatusAndUser("Zajęte", idUser);
     }
 
     @Override
@@ -88,7 +88,10 @@ public class VisitServiceImpl implements VisitService {
     public Visit bookVisit(Visit data, Long idUser) {
         Visit visit = findByVisitId(data.getId());
 
-        List<Visit> theSameVisits = findAllActualByUserBySpecialization(idUser, visit.getVisitModel().getUser().getSpecialization());
+        List<Visit> theSameVisits = findAllActualByUser(idUser)
+                .stream()
+                .filter(v -> v.getVisitModel().getUser().getSpecialization().equals(data.getVisitModel().getUser().getSpecialization()))
+                .collect(Collectors.toList());
 
         if (theSameVisits.isEmpty()) {
             visit.setText("Zajęte");
