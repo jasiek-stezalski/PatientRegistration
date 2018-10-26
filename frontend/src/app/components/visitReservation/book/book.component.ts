@@ -44,7 +44,7 @@ export class BookComponent {
         if (err.valueOf().status === 409) {
           alert('Nie możesz być zapisany na dwie wizyty o tej samej specjalizacji jednocześnie!');
         } else if (err.valueOf().status === 406) {
-          alert('W tym czasie masz już zaplanowaną wizytę!');
+          alert('W tym terminie masz już zaplanowaną wizytę!');
         }
 
         console.log(err);

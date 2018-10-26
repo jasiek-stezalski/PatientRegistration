@@ -36,6 +36,10 @@ export class VisitService {
     return this.http.put(this.url + 'book/?idUser=' + idUser, visit) as Observable<Visit>;
   }
 
+  bookVisitByDoctor(visit: Visit, idUser: String | Number): Observable<Visit> {
+    return this.http.put(this.url + 'bookByDoctor/?idUser=' + idUser, visit) as Observable<Visit>;
+  }
+
   confirmVisit(visit: Visit): Observable<Visit> {
     return this.http.put(this.url + 'confirm/', visit) as Observable<Visit>;
   }

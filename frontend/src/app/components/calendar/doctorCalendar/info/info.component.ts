@@ -33,11 +33,6 @@ export class InfoComponent {
   }
 
   submit() {
-    this.user = new User();
-    this.modal.hide();
-  }
-
-  book() {
     this.modal.hide();
   }
 

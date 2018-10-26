@@ -73,6 +73,12 @@ public class VisitController {
         return visitService.bookVisit(visit, idUser);
     }
 
+    @PutMapping("/bookByDoctor/")
+    @JsonView(Views.Basic.class)
+    public Visit bookVisitByDoctor(@RequestBody Visit visit, @RequestParam Long idUser) {
+        return visitService.bookVisitByDoctor(visit, idUser);
+    }
+
     @PutMapping("/confirm/")
     @JsonView(Views.Basic.class)
     public Visit confirmVisit(@RequestBody Visit visit) {

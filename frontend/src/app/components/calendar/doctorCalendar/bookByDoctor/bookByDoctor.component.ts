@@ -37,10 +37,21 @@ export class BookByDoctorComponent {
   }
 
   submit() {
-    this.visitService.bookVisit(this.visit, this.patient.id).subscribe(result => {
-      this.visit.text = 'Zajęte';
-      this.modal.hide(result);
-    });
+    this.visitService.bookVisitByDoctor(this.visit, this.patient.id).subscribe(result => {
+        this.visit.text = 'Zajęte';
+        this.modal.hide(result);
+        this.router.navigate(['doctorPanel']);
+        alert('Wizyta ostała zarezerwowana');
+      }, err => {
+        this.modal.hide();
+
+        if (err.valueOf().status === 406) {
+          alert('W tym terminie pacjent ma już zaplanowaną wizytę!');
+        }
+
+        console.log(err);
+      }
+    );
   }
 
   cancel() {

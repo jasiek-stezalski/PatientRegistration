@@ -25,6 +25,8 @@ public interface VisitService {
 
     Visit bookVisit(Visit visit, Long idUser);
 
+    Visit bookVisitByDoctor(Visit visit, Long idUser);
+
     Visit confirmVisit(Visit visit);
 
     Visit move(Visit visit);
@@ -32,4 +34,5 @@ public interface VisitService {
     Visit cancel(Visit visit);
 
     void delete(Long idVisit);
+
 }

@@ -94,19 +94,31 @@ public class VisitServiceImpl implements VisitService {
                 .filter(v -> v.getVisitModel().getUser().getSpecialization().equals(data.getVisitModel().getUser().getSpecialization()))
                 .collect(Collectors.toList());
 
-        List<Visit> existingVisits = visitRepository.findAllByUserAndStartAfterAndEndBefore(userService.findUserById(idUser).getId(), visit.getStart(), visit.getEnd());
-
         if (theSameVisits.isEmpty()) {
-            if (existingVisits.isEmpty()) {
-                visit.setText("Zajęte");
-                User user = userService.findUserById(idUser);
-                visit.setUser(user);
-                Visit save = visitRepository.save(visit);
-                emailService.bookVisitEmail(visit);
-                return save;
-            } else throw new VisitsInTheSameTimeException("You cannot have two visits at once");
+            return checkAvailableTerm(idUser, visit);
         } else throw new DataConflictException("You cannot book another visit to the same specialist!");
 
+    }
+
+    @Override
+    public Visit bookVisitByDoctor(Visit data, Long idUser) {
+        Visit visit = findByVisitId(data.getId());
+
+        return checkAvailableTerm(idUser, visit);
+    }
+
+    private Visit checkAvailableTerm(Long idUser, Visit visit) {
+
+        List<Visit> existingVisits = visitRepository.findAllByUserAndStartAfterAndEndBefore(userService.findUserById(idUser).getId(), visit.getStart(), visit.getEnd());
+
+        if (existingVisits.isEmpty()) {
+            visit.setText("Zajęte");
+            User user = userService.findUserById(idUser);
+            visit.setUser(user);
+            Visit save = visitRepository.save(visit);
+            emailService.bookVisitEmail(visit);
+            return save;
+        } else throw new VisitsInTheSameTimeException("You cannot have two visits at once");
     }
 
     @Override
