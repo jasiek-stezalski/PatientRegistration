@@ -74,6 +74,11 @@ public class VisitServiceImpl implements VisitService {
     }
 
     @Override
+    public List<Visit> findAllByIdUserAndDay(Long idUser, LocalDateTime day) {
+        return visitRepository.findAllByUserAndStartAfterAndStartBefore(userService.findUserById(idUser), day.toLocalDate().atTime(0, 0), day.toLocalDate().plusDays(1).atTime(0, 0));
+    }
+
+    @Override
     public Visit findByVisitId(Long idVisit) {
         return visitRepository.findById(idVisit)
                 .orElseThrow(() -> new ResourceNotFoundException("There is no Visit with id: " + idVisit.toString()));

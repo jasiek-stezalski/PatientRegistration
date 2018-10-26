@@ -35,21 +35,33 @@ export class BookComponent {
 
   submit() {
     let user: User = JSON.parse(sessionStorage.getItem('currentUser'));
-    this.visitService.bookVisit(this.visit, user.id).subscribe(result => {
-        this.visit.text = 'Zajęte';
-        this.modal.hide(result);
-      }, err => {
-        this.modal.hide();
 
-        if (err.valueOf().status === 409) {
-          alert('Nie możesz być zapisany na dwie wizyty o tej samej specjalizacji jednocześnie!');
-        } else if (err.valueOf().status === 406) {
-          alert('W tym terminie masz już zaplanowaną wizytę!');
+    this.visitService.getVisitsByIdUserAndDay(user.id, this.visit.start).subscribe(result => {
+
+      if (result.length > 0) {
+        if (confirm('Masz w tym dniu zaplanowaną wizytę o ' + result.pop().start.substring(11, 16) + '. Czy na pewno chcesz zarezerwować tą wizytę?')) {
+
+          this.visitService.bookVisit(this.visit, user.id).subscribe(result => {
+              this.visit.text = 'Zajęte';
+              this.modal.hide(result);
+            }, err => {
+              this.modal.hide();
+
+              if (err.valueOf().status === 409) {
+                alert('Nie możesz być zapisany na dwie wizyty o tej samej specjalizacji jednocześnie!');
+              } else if (err.valueOf().status === 406) {
+                alert('W tym terminie masz już zaplanowaną wizytę!');
+              }
+
+              console.log(err);
+            }
+          );
+
         }
-
-        console.log(err);
+        else this.modal.hide();
       }
-    );
+    });
+
   }
 
   cancel() {

@@ -19,6 +19,8 @@ public interface VisitService {
 
     List<Visit> findAllActualByUser(Long idUser);
 
+    List<Visit> findAllByIdUserAndDay(Long idUser, LocalDateTime day);
+
     Visit findByVisitId(Long idVisit);
 
     List<Visit> saveAll(List<Visit> visits);

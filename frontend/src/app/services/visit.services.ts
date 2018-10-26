@@ -32,6 +32,10 @@ export class VisitService {
     return this.http.get(this.url + 'actual/user/' + idUser) as Observable<Visit[]>;
   }
 
+  getVisitsByIdUserAndDay(idUser: string | number, day: string): Observable<Visit[]> {
+    return this.http.get(this.url + 'user/day/?idUser=' + idUser + '&day=' + day) as Observable<Visit[]>;
+  }
+
   bookVisit(visit: Visit, idUser: String | Number): Observable<Visit> {
     return this.http.put(this.url + 'book/?idUser=' + idUser, visit) as Observable<Visit>;
   }

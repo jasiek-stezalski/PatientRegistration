@@ -67,6 +67,14 @@ public class VisitController {
         return visitService.findAllActualByIdUser(idUser);
     }
 
+    @GetMapping("/user/day/")
+    @JsonSerialize(using = LocalDateTimeSerializer.class)
+    @JsonView(Views.Basic.class)
+    public List<Visit> getVisitsByIdUserAndDay(@RequestParam Long idUser,
+                                              @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime day) {
+        return visitService.findAllByIdUserAndDay(idUser, day);
+    }
+
     @PutMapping("/book/")
     @JsonView(Views.Basic.class)
     public Visit bookVisit(@RequestBody Visit visit, @RequestParam Long idUser) {

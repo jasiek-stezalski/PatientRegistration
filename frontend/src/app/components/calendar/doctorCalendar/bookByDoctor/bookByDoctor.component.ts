@@ -37,22 +37,34 @@ export class BookByDoctorComponent {
   }
 
   submit() {
-    this.visitService.bookVisitByDoctor(this.visit, this.patient.id).subscribe(result => {
-        this.visit.text = 'Zajęte';
-        this.modal.hide(result);
-        this.router.navigate(['doctorPanel']);
-        alert('Wizyta ostała zarezerwowana');
-      }, err => {
-        this.modal.hide();
+    this.visitService.getVisitsByIdUserAndDay(this.patient.id, this.visit.start).subscribe(result => {
 
-        if (err.valueOf().status === 406) {
-          alert('W tym terminie pacjent ma już zaplanowaną wizytę!');
+      if (result.length > 0) {
+        if (confirm('Pacjent już ma w tym dniu wizytę o ' + result.pop().start.substring(11, 16) + '. Czy na pewno chcesz zarezerwować tą wizytę?')) {
+
+          this.visitService.bookVisitByDoctor(this.visit, this.patient.id).subscribe(result => {
+              this.visit.text = 'Zajęte';
+              this.modal.hide(result);
+              this.router.navigate(['doctorPanel']);
+              alert('Wizyta ostała zarezerwowana');
+            }, err => {
+              this.modal.hide();
+
+              if (err.valueOf().status === 406) {
+                alert('W tym terminie pacjent ma już zaplanowaną wizytę!');
+              }
+
+              console.log(err);
+            }
+          );
+
         }
-
-        console.log(err);
+        else this.modal.hide();
       }
-    );
+    });
+
   }
+
 
   cancel() {
     this.modal.hide();
