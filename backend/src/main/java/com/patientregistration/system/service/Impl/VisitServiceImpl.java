@@ -4,6 +4,7 @@ import com.patientregistration.system.domain.User;
 import com.patientregistration.system.domain.Visit;
 import com.patientregistration.system.exception.DataConflictException;
 import com.patientregistration.system.exception.ResourceNotFoundException;
+import com.patientregistration.system.exception.VisitsInTheSameTimeException;
 import com.patientregistration.system.repository.VisitRepository;
 import com.patientregistration.system.service.EmailService;
 import com.patientregistration.system.service.UserService;
@@ -93,13 +94,17 @@ public class VisitServiceImpl implements VisitService {
                 .filter(v -> v.getVisitModel().getUser().getSpecialization().equals(data.getVisitModel().getUser().getSpecialization()))
                 .collect(Collectors.toList());
 
+        List<Visit> existingVisits = visitRepository.findAllByUserAndStartAfterAndEndBefore(userService.findUserById(idUser).getId(), visit.getStart(), visit.getEnd());
+
         if (theSameVisits.isEmpty()) {
-            visit.setText("Zajęte");
-            User user = userService.findUserById(idUser);
-            visit.setUser(user);
-            Visit save = visitRepository.save(visit);
-            emailService.bookVisitEmail(visit);
-            return save;
+            if (existingVisits.isEmpty()) {
+                visit.setText("Zajęte");
+                User user = userService.findUserById(idUser);
+                visit.setUser(user);
+                Visit save = visitRepository.save(visit);
+                emailService.bookVisitEmail(visit);
+                return save;
+            } else throw new VisitsInTheSameTimeException("You cannot have two visits at once");
         } else throw new DataConflictException("You cannot book another visit to the same specialist!");
 
     }

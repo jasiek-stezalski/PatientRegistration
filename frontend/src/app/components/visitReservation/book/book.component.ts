@@ -39,9 +39,15 @@ export class BookComponent {
         this.visit.text = 'Zajęte';
         this.modal.hide(result);
       }, err => {
-        console.log(err);
         this.modal.hide();
-        alert('Nie możesz być zapisany na dwie wizyty o tej samej specjalizacji jednocześnie!');
+
+        if (err.valueOf().status === 409) {
+          alert('Nie możesz być zapisany na dwie wizyty o tej samej specjalizacji jednocześnie!');
+        } else if (err.valueOf().status === 406) {
+          alert('W tym czasie masz już zaplanowaną wizytę!');
+        }
+
+        console.log(err);
       }
     );
   }

@@ -91,10 +91,10 @@ public interface VisitRepository extends JpaRepository<Visit, Long> {
                     "ORDER BY v.start " +
                     "LIMIT 5")
     List<Visit> findAllByCareTypeAndCityAndSpecializationLimit5(@Param("status1") String status1,
-                                                                         @Param("status2") String status2,
-                                                                         @Param("careType") String careType,
-                                                                         @Param("city") String city,
-                                                                         @Param("specialization") String specialization);
+                                                                @Param("status2") String status2,
+                                                                @Param("careType") String careType,
+                                                                @Param("city") String city,
+                                                                @Param("specialization") String specialization);
 
     @Query(nativeQuery = true,
             value = "SELECT v.* " +
@@ -104,5 +104,15 @@ public interface VisitRepository extends JpaRepository<Visit, Long> {
                     "WHERE v.status =:status " +
                     "AND v.id_user =:idUser")
     List<Visit> findAllByStatusAndUser(@Param("status") String status,
-                                                        @Param("idUser") Long idUser);
+                                       @Param("idUser") Long idUser);
+
+    @Query(nativeQuery = true,
+            value = "SELECT v.* " +
+                    "FROM visit v " +
+                    "WHERE v.id_user =:idUser " +
+                    "AND v.start < :end AND v.end_ > :start")
+    List<Visit> findAllByUserAndStartAfterAndEndBefore(@Param("idUser") Long idUser,
+                                                       @Param("start") LocalDateTime start,
+                                                       @Param("end") LocalDateTime end);
+
 }
