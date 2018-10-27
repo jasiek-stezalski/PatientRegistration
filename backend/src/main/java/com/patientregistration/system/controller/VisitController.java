@@ -71,7 +71,7 @@ public class VisitController {
     @JsonSerialize(using = LocalDateTimeSerializer.class)
     @JsonView(Views.Basic.class)
     public List<Visit> getVisitsByIdUserAndDay(@RequestParam Long idUser,
-                                              @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime day) {
+                                               @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime day) {
         return visitService.findAllByIdUserAndDay(idUser, day);
     }
 
@@ -86,6 +86,13 @@ public class VisitController {
     public Visit bookVisitByDoctor(@RequestBody Visit visit, @RequestParam Long idUser) {
         return visitService.bookVisitByDoctor(visit, idUser);
     }
+
+    @PutMapping("/change/")
+    @JsonView(Views.Basic.class)
+    public Visit changeVisit(@RequestBody Visit newVisit, @RequestParam Long idOldVisit) {
+        return visitService.changeVisit(newVisit, idOldVisit);
+    }
+
 
     @PutMapping("/confirm/")
     @JsonView(Views.Basic.class)

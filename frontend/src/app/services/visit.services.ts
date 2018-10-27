@@ -44,6 +44,10 @@ export class VisitService {
     return this.http.put(this.url + 'bookByDoctor/?idUser=' + idUser, visit) as Observable<Visit>;
   }
 
+  changeVisit(newVisit: Visit, idOldVisit: number): Observable<Visit> {
+    return this.http.put(this.url + 'change/?idOldVisit=' + idOldVisit, newVisit) as Observable<Visit>;
+  }
+
   confirmVisit(visit: Visit): Observable<Visit> {
     return this.http.put(this.url + 'confirm/', visit) as Observable<Visit>;
   }
@@ -52,7 +56,7 @@ export class VisitService {
     return this.http.put(this.url, visit) as Observable<Visit>;
   }
 
-  cancelVisit(visit: Visit): Observable<Visit>  {
+  cancelVisit(visit: Visit): Observable<Visit> {
     return this.http.put(this.url + 'cancel/', visit) as Observable<Visit>;
   }
 

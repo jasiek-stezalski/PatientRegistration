@@ -4,11 +4,11 @@ import {Visit} from '../../../models/visit.model';
 import {VisitService} from '../../../services/visit.services';
 import {BookComponent} from '../book/book.component';
 import {ActivatedRoute, Router} from '@angular/router';
-import {User} from "../../../models/user.model";
-import {isUndefined} from "util";
-import {Item} from "../../../resources/item.model";
-import {ClinicService} from "../../../services/clinic.service";
-import {UserService} from "../../../services/user.service";
+import {User} from '../../../models/user.model';
+import {isUndefined} from 'util';
+import {Item} from '../../../resources/item.model';
+import {ClinicService} from '../../../services/clinic.service';
+import {UserService} from '../../../services/user.service';
 
 @Component({
   selector: 'patientCalendar-component',
@@ -34,6 +34,10 @@ export class PatientCalendarComponent implements AfterViewInit {
     maxPrice: ''
   };
 
+  idOldVisit: number;
+  private sub: any;
+
+
   constructor(private visitService: VisitService, private clinicService: ClinicService, private userService: UserService,
               private router: Router, private route: ActivatedRoute) {
     this.itemMap.set('doctor', {isFilter: false, name: '',});
@@ -42,6 +46,10 @@ export class PatientCalendarComponent implements AfterViewInit {
   }
 
   ngAfterViewInit(): void {
+    this.sub = this.route.params.subscribe(params => {
+      this.idOldVisit = +params['id'];
+    });
+
     this.route.queryParams
       .subscribe(params => {
         if (isUndefined(params.careType) || isUndefined(params.city) || isUndefined(params.specialization))
@@ -89,7 +97,7 @@ export class PatientCalendarComponent implements AfterViewInit {
 
     onEventClicked: args => {
       let visit: Visit = this.events.find(a => a.id == args.e.id());
-      this.book.show(visit);
+      this.book.show(visit, this.idOldVisit);
       visit.user = new User();
       this.calendar.control.clearSelection();
     }
@@ -98,7 +106,11 @@ export class PatientCalendarComponent implements AfterViewInit {
 
   createClosed(args) {
     if (args.result) {
-      alert('Zostałeś zapisany na wizytę!');
+      if (isNaN(this.idOldVisit))
+        alert('Zostałeś zapisany na wizytę!');
+      else
+        alert('Termin twojej wizyty został zmieniony!');
+
       this.router.navigate(['/userVisits']);
     }
   }

@@ -3,6 +3,7 @@ import {UserService} from '../../../services/user.service';
 import {Visit} from '../../../models/visit.model';
 import {VisitService} from '../../../services/visit.services';
 import {User} from '../../../models/user.model';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-userVisits',
@@ -13,7 +14,7 @@ export class UserVisitsComponent implements OnInit {
 
   visits: Visit[] = [];
 
-  constructor(private userService: UserService, private visitService: VisitService) {
+  constructor(private userService: UserService, private visitService: VisitService, private router: Router) {
   }
 
   ngOnInit() {
@@ -32,4 +33,17 @@ export class UserVisitsComponent implements OnInit {
     }
   }
 
+  changeVisit(id: string | number) {
+    let visit = this.visits.find(v => v.id === id);
+    if (confirm('Czy na pewno chcesz zmienić termin wizyty?')) {
+      this.router.navigate(['/patientCalendar', id], {
+        queryParams: {
+          careType: visit.visitModel.careType,
+          city: visit.visitModel.clinic.city,
+          idClinic: visit.visitModel.clinic.id,
+          specialization: visit.visitModel.user.specialization
+        }
+      });
+    }
+  }
 }

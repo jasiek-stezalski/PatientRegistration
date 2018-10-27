@@ -36,6 +36,9 @@ export class DoctorPanelComponent implements AfterViewInit {
 
       let isVisitToDo: boolean = false;
 
+      this.actualUser.firstName = '';
+      this.actualUser.lastName = '';
+
       for (let i = 0; i < this.eventsBase.size(); i++) {
         if (this.eventsBase.next().text === 'Zajęte') {
           this.actualVisit = this.eventsBase.get();

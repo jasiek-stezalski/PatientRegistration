@@ -112,18 +112,20 @@ public class VisitServiceImpl implements VisitService {
         return checkAvailableTerm(idUser, visit);
     }
 
-    private Visit checkAvailableTerm(Long idUser, Visit visit) {
+    @Override
+    @Transactional
+    public Visit changeVisit(Visit newVisit, Long idOldVisit) {
+        Visit oldVisit = findByVisitId(idOldVisit);
 
-        List<Visit> existingVisits = visitRepository.findAllByUserAndStartAfterAndEndBefore(userService.findUserById(idUser).getId(), visit.getStart(), visit.getEnd());
+        Visit visit = findByVisitId(newVisit.getId());
 
-        if (existingVisits.isEmpty()) {
-            visit.setText("Zajęte");
-            User user = userService.findUserById(idUser);
-            visit.setUser(user);
-            Visit save = visitRepository.save(visit);
-            emailService.bookVisitEmail(visit);
-            return save;
-        } else throw new VisitsInTheSameTimeException("You cannot have two visits at once");
+        Visit newSavedVisit = checkAvailableTerm(oldVisit.getUser().getId(), visit);
+
+        oldVisit.setUser(null);
+        oldVisit.setText(oldVisit.getStart().toString().substring(11,16));
+        visitRepository.save(oldVisit);
+
+        return newSavedVisit;
     }
 
     @Override
@@ -160,6 +162,20 @@ public class VisitServiceImpl implements VisitService {
     public void delete(Long idVisit) {
         emailService.cancelVisitEmail(Collections.singletonList(findByVisitId(idVisit)));
         visitRepository.deleteById(idVisit);
+    }
+
+    private Visit checkAvailableTerm(Long idUser, Visit visit) {
+
+        List<Visit> existingVisits = visitRepository.findAllByUserAndStartAfterAndEndBefore(userService.findUserById(idUser).getId(), visit.getStart(), visit.getEnd());
+
+        if (existingVisits.isEmpty()) {
+            visit.setText("Zajęte");
+            User user = userService.findUserById(idUser);
+            visit.setUser(user);
+            Visit save = visitRepository.save(visit);
+            emailService.bookVisitEmail(visit);
+            return save;
+        } else throw new VisitsInTheSameTimeException("You cannot have two visits at once");
     }
 
 }

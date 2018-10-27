@@ -29,6 +29,8 @@ public interface VisitService {
 
     Visit bookVisitByDoctor(Visit visit, Long idUser);
 
+    Visit changeVisit(Visit newVisit, Long idOldVisit);
+
     Visit confirmVisit(Visit visit);
 
     Visit move(Visit visit);
