@@ -20,7 +20,7 @@ export class BookComponent {
   user: User = new User();
   clinic: Clinic = new Clinic();
 
-  idOldVisite: number;
+  idOldVisit: number;
 
   constructor(private router: Router, private visitService: VisitService) {
     this.visit.user = new User();
@@ -28,12 +28,12 @@ export class BookComponent {
     this.visit.visitModel.user = new User();
   }
 
-  show(visit: Visit, idVisitToChange: number) {
+  show(visit: Visit, idVisitToChange?: number) {
     this.visit = visit;
     this.user = visit.visitModel.user;
     this.clinic = visit.visitModel.clinic;
 
-    this.idOldVisite = idVisitToChange;
+    this.idOldVisit = idVisitToChange;
 
     this.modal.show();
   }
@@ -43,7 +43,7 @@ export class BookComponent {
 
     this.visitService.getVisitsByIdUserAndDay(user.id, this.visit.start).subscribe(result => {
 
-      if (isNaN(this.idOldVisite)) {
+      if (isNaN(this.idOldVisit)) {
 
         if (result.length === 0
           || (result.length > 0
@@ -58,7 +58,7 @@ export class BookComponent {
 
       } else {
         if (result.length === 0
-          || (result.length === 1 && result.pop().id === this.idOldVisite)
+          || (result.length === 1 && result.pop().id === this.idOldVisit)
           || (result.length > 0
             && confirm('Masz w tym dniu zaplanowaną wizytę o ' + result.pop().start.substring(11, 16) +
               '. Czy na pewno chcesz zarezerwować tą wizytę?'))) {
@@ -92,7 +92,7 @@ export class BookComponent {
   }
 
   private changeVisit() {
-    this.visitService.changeVisit(this.visit, this.idOldVisite).subscribe(result => {
+    this.visitService.changeVisit(this.visit, this.idOldVisit).subscribe(result => {
         this.visit.text = 'Zajęte';
         this.modal.hide(result);
       }, err => {

@@ -1,6 +1,7 @@
 package com.patientregistration.system.service;
 
 import com.patientregistration.system.domain.Visit;
+import com.patientregistration.system.domain.VisitModel;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -12,6 +13,8 @@ public interface VisitService {
     List<Visit> findAllByFilterLimit5(String careType, String city, Long idClinic, String specialization);
 
     List<Visit> findAllByFilter(String careType, String city, Long idClinic, String specialization);
+
+    List<Visit> findAllByVisitModelInNextMonth(VisitModel visitModel, Visit visit);
 
     List<Visit> findAllHistoricalByIdUser(Long idUser);
 

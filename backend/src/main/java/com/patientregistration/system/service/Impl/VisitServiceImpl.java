@@ -2,6 +2,7 @@ package com.patientregistration.system.service.Impl;
 
 import com.patientregistration.system.domain.User;
 import com.patientregistration.system.domain.Visit;
+import com.patientregistration.system.domain.VisitModel;
 import com.patientregistration.system.exception.DataConflictException;
 import com.patientregistration.system.exception.ResourceNotFoundException;
 import com.patientregistration.system.exception.VisitsInTheSameTimeException;
@@ -52,8 +53,12 @@ public class VisitServiceImpl implements VisitService {
 
     @Override
     public List<Visit> findAllByFilter(String careType, String city, Long idClinic, String specialization) {
-        return visitRepository.findAllByCareTypeAndCityAndClinicAndSpecialization("Zajęte", "Zakończone",
-                careType, city, idClinic, specialization);
+        return visitRepository.findAllByCareTypeAndCityAndClinicAndSpecialization(careType, city, idClinic, specialization);
+    }
+
+    @Override
+    public List<Visit> findAllByVisitModelInNextMonth(VisitModel visitModel, Visit visit) {
+        return visitRepository.findAllByVisitModelAndStartAfterAndStartBefore(visitModel.getId(), "Zajęte", visit.getStart(), visit.getStart().plusMonths(1));
     }
 
     @Override
@@ -100,7 +105,9 @@ public class VisitServiceImpl implements VisitService {
                 .collect(Collectors.toList());
 
         if (theSameVisits.isEmpty()) {
-            return checkAvailableTerm(idUser, visit);
+            Visit newVisit = checkAvailableTerm(idUser, visit);
+            emailService.bookVisitEmail(newVisit);
+            return newVisit;
         } else throw new DataConflictException("You cannot book another visit to the same specialist!");
 
     }
@@ -109,7 +116,9 @@ public class VisitServiceImpl implements VisitService {
     public Visit bookVisitByDoctor(Visit data, Long idUser) {
         Visit visit = findByVisitId(data.getId());
 
-        return checkAvailableTerm(idUser, visit);
+        Visit newVisit = checkAvailableTerm(idUser, visit);
+        emailService.bookVisitEmail(newVisit);
+        return newVisit;
     }
 
     @Override
@@ -121,10 +130,13 @@ public class VisitServiceImpl implements VisitService {
 
         Visit newSavedVisit = checkAvailableTerm(oldVisit.getUser().getId(), visit);
 
+        emailService.freeSlotVisitEmail(oldVisit, findAllByVisitModelInNextMonth(oldVisit.getVisitModel(), oldVisit), oldVisit.getUser());
+
         oldVisit.setUser(null);
-        oldVisit.setText(oldVisit.getStart().toString().substring(11,16));
+        oldVisit.setText(oldVisit.getStart().toString().substring(11, 16));
         visitRepository.save(oldVisit);
 
+        emailService.changeVisitEmail(newSavedVisit);
         return newSavedVisit;
     }
 
@@ -139,28 +151,34 @@ public class VisitServiceImpl implements VisitService {
     }
 
     @Override
+    @Transactional
     public Visit move(Visit data) {
         Visit visit = findByVisitId(data.getId());
         LocalDateTime term = visit.getStart();
         visit.setEnd(data.getEnd());
         visit.setStart(data.getStart());
-        Visit savedVisit = visitRepository.save(visit);
         emailService.moveVisitEmail(Collections.singletonList(visit), Collections.singletonList(term));
-        return savedVisit;
+        return visitRepository.save(visit);
     }
 
     @Override
+    @Transactional
     public Visit cancel(Visit data) {
         Visit visit = findByVisitId(data.getId());
+
+        emailService.cancelVisitEmail(visit);
+        emailService.freeSlotVisitEmail(visit, findAllByVisitModelInNextMonth(visit.getVisitModel(), visit), visit.getUser());
+
         visit.setUser(null);
         visit.setText(visit.getStart().toLocalTime().toString());
-        return visitRepository.save(visit);
 
+        return visitRepository.save(visit);
     }
 
     @Override
     public void delete(Long idVisit) {
-        emailService.cancelVisitEmail(Collections.singletonList(findByVisitId(idVisit)));
+        Visit visit = findByVisitId(idVisit);
+        emailService.cancelVisitEmail(visit);
         visitRepository.deleteById(idVisit);
     }
 
@@ -172,9 +190,7 @@ public class VisitServiceImpl implements VisitService {
             visit.setText("Zajęte");
             User user = userService.findUserById(idUser);
             visit.setUser(user);
-            Visit save = visitRepository.save(visit);
-            emailService.bookVisitEmail(visit);
-            return save;
+            return visitRepository.save(visit);
         } else throw new VisitsInTheSameTimeException("You cannot have two visits at once");
     }
 

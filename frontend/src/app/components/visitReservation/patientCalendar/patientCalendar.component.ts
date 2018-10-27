@@ -59,6 +59,14 @@ export class PatientCalendarComponent implements AfterViewInit {
           this.events = result;
           this.events2 = result;
 
+          this.events.forEach(v => {
+            if (v.text === 'Zajęte')
+              v.barColor = 'grey';
+            else if (v.text === 'Zakończone')
+              v.barColor = '#c6ccc6';
+            else v.barColor = '#487bcc';
+          });
+
           this.doctors.add('-');
 
           result.forEach(v => this.doctors.add(v.visitModel.user.firstName + ' ' + v.visitModel.user.lastName));

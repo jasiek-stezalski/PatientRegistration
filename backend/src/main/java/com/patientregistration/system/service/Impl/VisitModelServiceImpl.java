@@ -124,7 +124,7 @@ public class VisitModelServiceImpl implements VisitModelService {
     @Override
     @Transactional
     public void delete(Long idVisitModel) {
-        emailService.cancelVisitEmail(findByIdVisitModel(idVisitModel).getVisits());
+        emailService.cancelVisitsEmail(findByIdVisitModel(idVisitModel).getVisits());
         visitModelRepository.deleteById(idVisitModel);
     }
 

@@ -7,7 +7,6 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -65,16 +64,12 @@ public interface VisitRepository extends JpaRepository<Visit, Long> {
                     "JOIN visit_model vm ON v.id_visit_model = vm.id " +
                     "JOIN clinic c ON vm.id_clinic = c.id " +
                     "JOIN users u ON u.id = vm.id_doctor " +
-                    "WHERE v.status != :status1 " +
-                    "AND v.status != :status2 " +
-                    "AND vm.care_type =:careType " +
+                    "WHERE vm.care_type =:careType " +
                     "AND c.city =:city " +
                     "AND c.id =:idClinic " +
                     "AND u.specialization =:specialization " +
                     "ORDER BY v.start ")
-    List<Visit> findAllByCareTypeAndCityAndClinicAndSpecialization(@Param("status1") String status1,
-                                                                   @Param("status2") String status2,
-                                                                   @Param("careType") String careType,
+    List<Visit> findAllByCareTypeAndCityAndClinicAndSpecialization(@Param("careType") String careType,
                                                                    @Param("city") String city,
                                                                    @Param("idClinic") Long idClinic,
                                                                    @Param("specialization") String specialization);
@@ -119,4 +114,14 @@ public interface VisitRepository extends JpaRepository<Visit, Long> {
 
     List<Visit> findAllByUserAndStartAfterAndStartBefore(User user, LocalDateTime day1, LocalDateTime day2);
 
+    @Query(nativeQuery = true,
+            value = "SELECT v.* " +
+                    "FROM visit v " +
+                    "WHERE v.id_visit_model =:idVisitModel " +
+                    "AND v.status = :status " +
+                    "AND v.start > :start1 AND v.start < :start2")
+    List<Visit> findAllByVisitModelAndStartAfterAndStartBefore(@Param("idVisitModel") Long idVisitModel,
+                                                               @Param("status") String status,
+                                                               @Param("start1") LocalDateTime start1,
+                                                               @Param("start2") LocalDateTime start2);
 }
