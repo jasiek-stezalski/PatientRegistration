@@ -46,4 +46,12 @@ export class UserVisitsComponent implements OnInit {
       });
     }
   }
+
+  doctorCalendar(idDoctor: string | number) {
+    this.router.navigate(['/patientCalendar'], {
+      queryParams: {
+        idDoctor: idDoctor,
+      }
+    });
+  }
 }

@@ -40,7 +40,7 @@
 
 input[type=text], select {
   width: 250px;
-  height: 25px;
+  min-height: 25px;
   padding: 6px 20px;
   margin: 8px 0;
   display: inline-block;

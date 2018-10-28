@@ -12,6 +12,10 @@ export class VisitService {
   constructor(private http: HttpClient) {
   }
 
+  getVisitsByDoctor(idDoctor: number): Observable<Visit[]> {
+    return this.http.get(this.url + 'idDoctor/' + idDoctor) as Observable<Visit[]>;
+  }
+
   getVisitsInWeekByDoctor(from: DayPilot.Date, to: DayPilot.Date, idUser: string | number): Observable<Visit[]> {
     return this.http.get(this.url + 'doctor/' + idUser + '?from=' + from.toString() + '&to=' + to.toString()) as Observable<Visit[]>;
   }

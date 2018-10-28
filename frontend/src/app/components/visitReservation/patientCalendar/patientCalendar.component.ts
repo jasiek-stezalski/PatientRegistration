@@ -52,26 +52,32 @@ export class PatientCalendarComponent implements AfterViewInit {
 
     this.route.queryParams
       .subscribe(params => {
-        if (isUndefined(params.careType) || isUndefined(params.city) || isUndefined(params.specialization))
-          this.router.navigate(['/']);
+        if (isNaN(params.idDoctor)) {
+          if (isUndefined(params.careType) || isUndefined(params.city) || isUndefined(params.specialization))
+            this.router.navigate(['/']);
 
-        this.visitService.getVisitsByVisitFilter(params.careType, params.city, params.idClinic, params.specialization).subscribe(result => {
-          this.events = result;
-          this.events2 = result;
+          this.visitService.getVisitsByVisitFilter(params.careType, params.city, params.idClinic, params.specialization).subscribe(result => {
+            this.events = result;
+            this.events2 = result;
 
-          this.events.forEach(v => {
-            if (v.text === 'Zajęte')
-              v.barColor = 'grey';
-            else if (v.text === 'Zakończone')
-              v.barColor = '#c6ccc6';
-            else v.barColor = '#487bcc';
+            this.setColors();
+
+            this.doctors.add('-');
+
+            result.forEach(v => this.doctors.add(v.visitModel.user.firstName + ' ' + v.visitModel.user.lastName));
+
           });
+        } else {
+          this.visitService.getVisitsByDoctor(params.idDoctor).subscribe(result => {
+            this.events = result;
+            this.events2 = result;
 
-          this.doctors.add('-');
+            this.setColors();
 
-          result.forEach(v => this.doctors.add(v.visitModel.user.firstName + ' ' + v.visitModel.user.lastName));
+            result.forEach(v => this.doctors.add(v.visitModel.user.firstName + ' ' + v.visitModel.user.lastName));
 
-        });
+          });
+        }
 
       });
 
@@ -105,9 +111,11 @@ export class PatientCalendarComponent implements AfterViewInit {
 
     onEventClicked: args => {
       let visit: Visit = this.events.find(a => a.id == args.e.id());
-      this.book.show(visit, this.idOldVisit);
-      visit.user = new User();
-      this.calendar.control.clearSelection();
+      if (visit.text != 'Zakończone' && visit.text != 'Zajęte') {
+        this.book.show(visit, this.idOldVisit);
+        visit.user = new User();
+        this.calendar.control.clearSelection();
+      }
     }
 
   };
@@ -171,6 +179,16 @@ export class PatientCalendarComponent implements AfterViewInit {
   clearFilter() {
     this.events = this.events2;
     this.itemMap.forEach(i => i.isFilter = false);
+  }
+
+  setColors() {
+    this.events.forEach(v => {
+      if (v.text === 'Zajęte')
+        v.barColor = 'grey';
+      else if (v.text === 'Zakończone')
+        v.barColor = '#c6ccc6';
+      else v.barColor = '#487bcc';
+    });
   }
 
 }

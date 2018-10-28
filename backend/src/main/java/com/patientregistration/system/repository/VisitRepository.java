@@ -124,4 +124,12 @@ public interface VisitRepository extends JpaRepository<Visit, Long> {
                                                                @Param("status") String status,
                                                                @Param("start1") LocalDateTime start1,
                                                                @Param("start2") LocalDateTime start2);
+
+    @Query(nativeQuery = true,
+            value = "SELECT v.* " +
+                    "FROM visit v " +
+                    "JOIN visit_model vm ON v.id_visit_model = vm.id " +
+                    "WHERE vm.id_doctor =:idDoctor")
+    List<Visit> findAllByDoctor(@Param("idDoctor") Long idDoctor);
+
 }

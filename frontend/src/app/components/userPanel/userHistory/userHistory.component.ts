@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {UserService} from '../../../services/user.service';
 import {Visit} from '../../../models/visit.model';
 import {VisitService} from '../../../services/visit.services';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {User} from '../../../models/user.model';
 
 @Component({
@@ -24,7 +24,8 @@ export class UserHistoryComponent implements OnInit {
   id: number;
   private sub: any;
 
-  constructor(private userService: UserService, private visitService: VisitService, private route: ActivatedRoute) {
+  constructor(private userService: UserService, private visitService: VisitService,
+              private route: ActivatedRoute, private router: Router) {
   }
 
   ngOnInit() {
@@ -79,6 +80,14 @@ export class UserHistoryComponent implements OnInit {
   clearFilter() {
     this.visits = this.visitsBase;
     return false;
+  }
+
+  doctorCalendar(idDoctor: string | number) {
+    this.router.navigate(['/patientCalendar'], {
+      queryParams: {
+        idDoctor: idDoctor,
+      }
+    });
   }
 
 }

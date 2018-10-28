@@ -14,9 +14,12 @@
       </div>
       <div class="row" *ngFor="let visit of visits">
         <div class="cell">{{visit.visitModel.clinic.name + ', ' + visit.visitModel.clinic.city}}</div>
-        <div class="cell">{{('' + visit.start + '').substring(0, 10) + ' ' + ('' + visit.start + '').substring(11, 16)}}</div>
+        <div class="cell">{{('' + visit.start + '').substring(0, 10) + ' ' + ('' + visit.start + '').substring(11,
+          16)}}
+        </div>
         <div class="cell">{{visit.visitModel.user.specialization}}</div>
-        <div class="cell">{{visit.visitModel.user.firstName + ' ' + visit.visitModel.user.lastName}}</div>
+        <div class="cell" id="cancel3"><a href="javascript:void(0);" (click)="doctorCalendar(visit.visitModel.user.id)">
+          {{visit.visitModel.user.firstName + ' ' + visit.visitModel.user.lastName}}</a></div>
         <div class="cell" id="cancel1"><a href="javascript:void(0);" (click)="cancelVisit(visit.id)">Anuluj</a></div>
         <div class="cell" id="cancel2"><a href="javascript:void(0);" (click)="changeVisit(visit.id)">Zmień</a></div>
       </div>

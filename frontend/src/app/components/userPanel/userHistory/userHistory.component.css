@@ -78,3 +78,17 @@ div {
   background-color: #a9c2d8;
 }
 
+#cancel {
+  text-align: center;
+  cursor: pointer;
+}
+
+#cancel a {
+  text-decoration: none;
+  color: black;
+  font-weight: bold;
+}
+
+#cancel:hover {
+  background-color: #85b2d8;
+}

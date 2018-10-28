@@ -14,6 +14,10 @@ export class UserService {
 
   private url = 'http://localhost:8080/users/';
 
+  getUsersByRole(role: string): Observable<User[]> {
+    return this.httpClient.get(this.url + 'role/' + role) as Observable<User[]>;
+  }
+
   public getUsersByIdDoctor(idDoctor: string | number): Observable<User[]> {
     return this.httpClient.get(this.url + 'doctor/' + idDoctor) as Observable<User[]>;
   }

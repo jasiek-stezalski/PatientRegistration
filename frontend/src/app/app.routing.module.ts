@@ -11,14 +11,16 @@ import {UsersListComponent} from './components/userPanel/usersList/usersList.com
 import {UrlPermission} from './components/authentication/urlPermission/url.permission';
 import {UserHistoryComponent} from './components/userPanel/userHistory/userHistory.component';
 import {UserVisitsComponent} from './components/userPanel/userVisits/userVisits.component';
-import {DoctorPanelComponent} from "./components/userPanel/doctorPanel/doctorPanel.component";
-import {SearchVisitsComponent} from "./components/visitReservation/searchVisits/searchVisits.component";
+import {DoctorPanelComponent} from './components/userPanel/doctorPanel/doctorPanel.component';
+import {SearchVisitsComponent} from './components/visitReservation/searchVisits/searchVisits.component';
+import {SearchDoctorComponent} from './components/visitReservation/searchDoctor/searchDoctor.component';
 
 const routes: Routes = [
   {path: 'login', component: LoginComponent},
   {path: 'register', component: RegisterComponent},
   {path: 'modelCalendar', component: ModelCalendarComponent, canActivate: [UrlPermissionDoctor]},
   {path: 'searchVisits', component: SearchVisitsComponent},
+  {path: 'searchDoctor', component: SearchDoctorComponent},
   {path: 'patientCalendar', component: PatientCalendarComponent},
   {path: 'patientCalendar/:id', component: PatientCalendarComponent},
   {path: 'doctorCalendar', component: DoctorCalendarComponent, canActivate: [UrlPermissionDoctor]},

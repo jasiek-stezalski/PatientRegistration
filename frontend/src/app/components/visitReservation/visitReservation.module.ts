@@ -7,6 +7,7 @@ import {PatientCalendarComponent} from "./patientCalendar/patientCalendar.compon
 import {BookComponent} from "./book/book.component";
 import {SearchVisitsComponent} from "./searchVisits/searchVisits.component";
 import {VisitService} from "../../services/visit.services";
+import { SearchDoctorComponent } from './searchDoctor/searchDoctor.component';
 
 
 @NgModule({
@@ -20,9 +21,10 @@ import {VisitService} from "../../services/visit.services";
   declarations: [
     PatientCalendarComponent,
     BookComponent,
-    SearchVisitsComponent
+    SearchVisitsComponent,
+    SearchDoctorComponent
   ],
-  exports: [PatientCalendarComponent, SearchVisitsComponent],
+  exports: [PatientCalendarComponent, SearchVisitsComponent, SearchDoctorComponent],
   providers: [VisitService]
 })
 export class VisitReservationModule {

@@ -33,6 +33,13 @@ public class VisitServiceImpl implements VisitService {
     }
 
     @Override
+    public List<Visit> findAllByDoctor(Long idDoctor) {
+
+        return visitRepository.findAllByDoctor(idDoctor);
+
+    }
+
+    @Override
     public List<Visit> findBetweenByDoctor(LocalDateTime from, LocalDateTime to, Long idUser) {
         List<Visit> visits = visitRepository.findBetween(from, to);
         return visits
@@ -187,7 +194,7 @@ public class VisitServiceImpl implements VisitService {
     public void dataUpdate() {
         List<Visit> visits = visitRepository.findAll();
         for (Visit visit : visits) {
-            if (visit.getText().equals("Zajęte") && visit.getStart().isBefore(LocalDate.now().atStartOfDay())) {
+            if (!visit.getText().equals("Zakończone") && visit.getStart().isBefore(LocalDate.now().atStartOfDay())) {
                 visit.setText("Zakończone");
             }
         }

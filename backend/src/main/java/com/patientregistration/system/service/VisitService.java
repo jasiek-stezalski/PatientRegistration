@@ -8,6 +8,8 @@ import java.util.List;
 
 public interface VisitService {
 
+    List<Visit> findAllByDoctor(Long idDoctor);
+
     List<Visit> findBetweenByDoctor(LocalDateTime from, LocalDateTime to, Long idUser);
 
     List<Visit> findAllByFilterLimit5(String careType, String city, Long idClinic, String specialization);
@@ -43,4 +45,5 @@ public interface VisitService {
     void delete(Long idVisit);
 
     void dataUpdate();
+
 }

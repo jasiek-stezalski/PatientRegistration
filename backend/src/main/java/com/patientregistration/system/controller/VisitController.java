@@ -24,6 +24,13 @@ public class VisitController {
         this.visitService = visitService;
     }
 
+    @GetMapping("/idDoctor/{idDoctor}")
+    @JsonSerialize(using = LocalDateTimeSerializer.class)
+    @JsonView(Views.Basic.class)
+    public List<Visit> getVisitsByDoctor(@PathVariable(value = "idDoctor") Long idDoctor) {
+        return visitService.findAllByDoctor(idDoctor);
+    }
+
     @GetMapping("/doctor/{id}")
     @JsonSerialize(using = LocalDateTimeSerializer.class)
     @JsonView(Views.Basic.class)

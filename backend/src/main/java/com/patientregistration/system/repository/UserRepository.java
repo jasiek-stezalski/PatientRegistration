@@ -20,4 +20,5 @@ public interface UserRepository extends JpaRepository<User, Long> {
                     "WHERE vm.id_doctor =:idDoctor")
     List<User> findAllByIdDoctor(@Param("idDoctor") Long idDoctor);
 
+    List<User> findAllByRole(String role);
 }
