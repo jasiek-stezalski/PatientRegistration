@@ -42,4 +42,5 @@ public interface VisitService {
 
     void delete(Long idVisit);
 
+    void dataUpdate();
 }

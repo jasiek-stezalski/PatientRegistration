@@ -2,7 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {User} from './models/user.model';
 import {UserService} from './services/user.service';
 import {Router} from '@angular/router';
-import {Button} from "./resources/button.model";
+import {Button} from './resources/button.model';
+import {VisitService} from './services/visit.services';
 
 @Component({
   selector: 'app-root',
@@ -18,7 +19,7 @@ export class AppComponent implements OnInit {
   calendar: string;
   modelCalendar: string;
 
-  constructor(public userService: UserService, public router: Router) {
+  constructor(private userService: UserService, private router: Router, private visitService: VisitService) {
     document.title = 'Rejestracja pancjentów';
   }
 
@@ -68,6 +69,13 @@ export class AppComponent implements OnInit {
         () => {
           this.router.navigate(['/']);
         });
+
+  }
+
+  dataUpdate() {
+    this.visitService.dataUpdate()
+      .subscribe(() => {
+      });
 
   }
 }

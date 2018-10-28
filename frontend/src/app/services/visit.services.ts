@@ -64,6 +64,10 @@ export class VisitService {
     return this.http.delete(this.url + idVisit);
   }
 
+  dataUpdate() {
+    return this.http.get(this.url + 'dataUpdate/');
+  }
+
 }
 
 

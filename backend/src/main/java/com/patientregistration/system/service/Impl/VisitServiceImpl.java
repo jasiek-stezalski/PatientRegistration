@@ -182,6 +182,18 @@ public class VisitServiceImpl implements VisitService {
         visitRepository.deleteById(idVisit);
     }
 
+    @Override
+    @Transactional
+    public void dataUpdate() {
+        List<Visit> visits = visitRepository.findAll();
+        for (Visit visit : visits) {
+            if (visit.getText().equals("Zajęte") && visit.getStart().isBefore(LocalDate.now().atStartOfDay())) {
+                visit.setText("Zakończone");
+            }
+        }
+        visitRepository.saveAll(visits);
+    }
+
     private Visit checkAvailableTerm(Long idUser, Visit visit) {
 
         List<Visit> existingVisits = visitRepository.findAllByUserAndStartAfterAndEndBefore(userService.findUserById(idUser).getId(), visit.getStart(), visit.getEnd());

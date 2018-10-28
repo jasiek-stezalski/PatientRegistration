@@ -120,4 +120,9 @@ public class VisitController {
         return ResponseEntity.ok().build();
     }
 
+    @GetMapping("/dataUpdate/")
+    public void dataUpdate() {
+        visitService.dataUpdate();
+    }
+
 }
