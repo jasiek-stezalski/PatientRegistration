@@ -14,7 +14,7 @@ export class UsersListComponent implements AfterViewInit {
   patients: User[] = [];
   patientsBase: User[] = [];
 
-  itemMap: Map<String, Item> = new Map<String, Item>();
+  itemMap: Map<string, Item> = new Map<string, Item>();
 
   filter: any = {
     firstName: '',

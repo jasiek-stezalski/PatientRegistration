@@ -14,24 +14,12 @@ export class UserService {
 
   private url = 'http://localhost:8080/users/';
 
-  public getUsers(): Observable<User[]> {
-    return this.httpClient.get(this.url) as Observable<User[]>;
-  }
-
-  public getUsersByRole(role: String): Observable<User[]> {
-    return this.httpClient.get(this.url + 'role?role=' + role) as Observable<User[]>;
-  }
-
   public getUsersByIdDoctor(idDoctor: string | number): Observable<User[]> {
     return this.httpClient.get(this.url + 'doctor/' + idDoctor) as Observable<User[]>;
   }
 
   getUserById(idUser: string | number): Observable<User> {
     return this.httpClient.get(this.url + idUser) as Observable<User>;
-  }
-
-  public deleteUser(user) {
-    return this.httpClient.delete(this.url + user.id);
   }
 
   public createUser(user: User) {

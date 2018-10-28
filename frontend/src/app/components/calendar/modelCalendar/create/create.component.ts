@@ -20,7 +20,7 @@ export class CreateComponent implements OnInit {
   form: FormGroup;
   visitModel: VisitModel = new VisitModel;
   clinics: Clinic[];
-  minDate: String;
+  minDate: string;
   errorMessage: string;
 
   constructor(private fb: FormBuilder, private router: Router, private visitModelService: VisitModelService, private clinicService: ClinicService) {

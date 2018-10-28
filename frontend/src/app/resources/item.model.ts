@@ -1,4 +1,4 @@
 export class Item {
   isFilter: Boolean;
-  name: String;
+  name: string;
 }

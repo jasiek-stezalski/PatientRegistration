@@ -11,12 +11,12 @@ import {Button} from "./resources/button.model";
 })
 export class AppComponent implements OnInit {
   currentUser: User;
-  login: String;
-  url: String;
+  login: string;
+  url: string;
   buttons: Button[] = [];
   userPanel: Button[] = [];
-  calendar: String;
-  modelCalendar: String;
+  calendar: string;
+  modelCalendar: string;
 
   constructor(public userService: UserService, public router: Router) {
     document.title = 'Rejestracja pancjentów';

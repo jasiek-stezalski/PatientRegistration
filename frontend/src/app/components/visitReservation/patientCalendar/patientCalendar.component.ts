@@ -25,7 +25,7 @@ export class PatientCalendarComponent implements AfterViewInit {
 
   doctors: Set<string> = new Set<string>();
 
-  itemMap: Map<String, Item> = new Map<String, Item>();
+  itemMap: Map<string, Item> = new Map<string, Item>();
 
 
   filter: any = {

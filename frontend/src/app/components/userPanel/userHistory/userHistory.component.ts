@@ -15,7 +15,7 @@ export class UserHistoryComponent implements OnInit {
   visitsBase: Visit[] = [];
   visits: Visit[] = [];
 
-  specialization: Set<String> = new Set<String>();
+  specialization: Set<string> = new Set<string>();
 
   filter: any = {
     specialization: '',

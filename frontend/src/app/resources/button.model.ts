@@ -1,4 +1,4 @@
 export class Button {
-  name: String;
-  link: String;
+  name: string;
+  link: string;
 }

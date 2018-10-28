@@ -1,8 +1,6 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 
-import {UserComponent} from './components/user/user.component';
-import {AddUserComponent} from './components/user/add/add-user.component';
 import {ModelCalendarComponent} from './components/calendar/modelCalendar/modelCalendar.component';
 import {PatientCalendarComponent} from './components/visitReservation/patientCalendar/patientCalendar.component';
 import {LoginComponent} from './components/authentication/login/login.component';
@@ -31,8 +29,6 @@ const routes: Routes = [
   {path: 'userHistory/:id', component: UserHistoryComponent, canActivate: [UrlPermissionDoctor]},
   {path: 'doctorPanel', component: DoctorPanelComponent, canActivate: [UrlPermissionDoctor]},
 
-  {path: 'users', component: UserComponent},
-  {path: 'add', component: AddUserComponent},
   // otherwise redirect to /
   {path: '**', redirectTo: '/'}
 ];

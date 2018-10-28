@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -28,11 +27,6 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         return userRepository.findByUsername(username).orElse(null);
-    }
-
-    @Override
-    public List<User> findAllUsers() {
-        return userRepository.findAll();
     }
 
     @Override
@@ -58,16 +52,6 @@ public class UserServiceImpl implements UserService {
         user.setRole("USER");
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         return userRepository.save(user);
-    }
-
-    @Override
-    public void delete(Long idUser) {
-        userRepository.deleteById(idUser);
-    }
-
-    @Override
-    public List<User> findUsersByRole(String role) {
-        return userRepository.findAllByRole(role);
     }
 
 }

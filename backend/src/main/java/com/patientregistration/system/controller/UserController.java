@@ -10,7 +10,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
-import java.util.List;
 import java.util.Set;
 
 @CrossOrigin(origins = "http://localhost:4200", maxAge = 3600)
@@ -32,16 +31,6 @@ public class UserController {
         return principal;
     }
 
-    @GetMapping("/")
-    public List<User> getUsers() {
-        return userService.findAllUsers();
-    }
-
-    @GetMapping("/role")
-    public List<User> getUsersByRole(@RequestParam String role) {
-        return userService.findUsersByRole(role);
-    }
-
     @GetMapping("/doctor/{idDoctor}")
     public Set<User> getUsersByIdDoctor(@PathVariable Long idDoctor) {
         return userService.findUsersByIdDoctor(idDoctor);
@@ -61,13 +50,6 @@ public class UserController {
                     HttpStatus.CONFLICT);
         }
         return new ResponseEntity<>(userService.saveOrUpdate(newUser), HttpStatus.CREATED);
-    }
-
-    @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteUser(@PathVariable(value = "id") Long idUser) {
-        userService.delete(idUser);
-
-        return ResponseEntity.ok().build();
     }
 
 }
