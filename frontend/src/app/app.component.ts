@@ -44,8 +44,8 @@ export class AppComponent implements OnInit {
       this.login = 'Wyloguj';
 
     } else {
-
-      this.buttons.push({name: 'Kalendarz', link: '/patientCalendar'});
+      this.buttons.push({name: 'Umów mnie na wizytę', link: '/searchVisits'});
+      this.buttons.push({name: 'Wyszukaj lekarza', link: '/searchDoctor'});
       this.url = 'login';
       this.login = 'Zaloguj';
     }

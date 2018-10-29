@@ -6,6 +6,7 @@ import {Visit} from '../../../models/visit.model';
 import {User} from '../../../models/user.model';
 import {VisitService} from '../../../services/visit.services';
 import {Clinic} from '../../../models/clinic.model';
+import {isNull} from "util";
 
 @Component({
   selector: 'book-dialog',
@@ -40,6 +41,13 @@ export class BookComponent {
 
   submit() {
     let user: User = JSON.parse(sessionStorage.getItem('currentUser'));
+
+    if (isNull(user)) {
+      this.router.navigate(['login']);
+      return;
+    }
+
+
 
     this.visitService.getVisitsByIdUserAndDay(user.id, this.visit.start).subscribe(result => {
 
