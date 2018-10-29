@@ -23,7 +23,13 @@ export class DoctorPanelComponent implements AfterViewInit {
   eventsBase: List<Visit> = new List<Visit>();
   actualVisit: Visit = new Visit();
   actualUser: User = new User();
-  isVisible: boolean;
+
+  months: string[] = ['3 miesiące', '6 miesięcy', '9 miesięcy', '12 miesięcy'];
+  month: number;
+  visits: Visit[] = [];
+  isHistory: boolean;
+  isMonth: boolean;
+  isVisits: boolean;
 
   constructor(private visitService: VisitService, private router: Router) {
   }
@@ -90,7 +96,9 @@ export class DoctorPanelComponent implements AfterViewInit {
           break;
         }
       }
-      this.isVisible = false;
+      this.isHistory = false;
+      this.isMonth = false;
+      this.isVisits = false;
     },
 
 
@@ -110,7 +118,8 @@ export class DoctorPanelComponent implements AfterViewInit {
       this.actualUser = this.actualVisit.user;
       alert('Wizyta została zatwierdzona');
     }
-    this.isVisible = false;
+    this.isHistory = false;
+    this.isMonth = false;
   }
 
   filterVisits(data: Visit[]) {
@@ -123,7 +132,9 @@ export class DoctorPanelComponent implements AfterViewInit {
   }
 
   openUserHistory() {
-    this.isVisible = !this.isVisible;
+    this.isMonth = false;
+    this.isVisits = false;
+    this.isHistory = !this.isHistory;
     if (!isUndefined(this.actualUser.id))
       this.userHistory.setVisit(this.actualUser.id);
   }
@@ -132,7 +143,9 @@ export class DoctorPanelComponent implements AfterViewInit {
     if (this.eventsBase.size() > 0) {
       this.actualVisit = this.eventsBase.previous();
       this.actualUser = this.actualVisit.user;
-      this.isVisible = false;
+      this.isHistory = false;
+      this.isMonth = false;
+      this.isVisits = false;
     }
   }
 
@@ -140,7 +153,9 @@ export class DoctorPanelComponent implements AfterViewInit {
     if (this.eventsBase.size() > 0) {
       this.actualVisit = this.eventsBase.next();
       this.actualUser = this.actualVisit.user;
-      this.isVisible = false;
+      this.isHistory = false;
+      this.isMonth = false;
+      this.isVisits = false;
     }
   }
 
@@ -148,6 +163,24 @@ export class DoctorPanelComponent implements AfterViewInit {
     if (!isUndefined(this.actualUser.id))
       this.router.navigate(['doctorCalendar/', this.actualUser.id]);
 
+  }
+
+  getMonth() {
+    this.isHistory = false;
+    this.isVisits = false;
+    this.isMonth = !this.isMonth;
+  }
+
+  showVisits() {
+    this.visitService.getVisitsByVisitFilterMonthly(this.actualVisit.visitModel.careType,
+      this.actualVisit.visitModel.clinic.city, this.actualVisit.visitModel.clinic.id,
+      this.actualVisit.visitModel.user.specialization, this.month)
+      .subscribe(data => {
+        this.visits = data;
+      });
+    this.isHistory = false;
+    this.isMonth = false;
+    this.isVisits = true;
   }
 
 }

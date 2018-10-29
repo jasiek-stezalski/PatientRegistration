@@ -49,6 +49,11 @@ public class VisitServiceImpl implements VisitService {
     }
 
     @Override
+    public List<Visit> findAllByFilter(String careType, String city, Long idClinic, String specialization) {
+        return visitRepository.findAllByCareTypeAndCityAndClinicAndSpecialization(careType, city, idClinic, specialization);
+    }
+
+    @Override
     public List<Visit> findAllByFilterLimit5(String careType, String city, Long idClinic, String specialization) {
         if (idClinic == -1)
             return visitRepository.findAllByCareTypeAndCityAndSpecializationLimit5("Zajęte", "Zakończone",
@@ -59,8 +64,8 @@ public class VisitServiceImpl implements VisitService {
     }
 
     @Override
-    public List<Visit> findAllByFilter(String careType, String city, Long idClinic, String specialization) {
-        return visitRepository.findAllByCareTypeAndCityAndClinicAndSpecialization(careType, city, idClinic, specialization);
+    public List<Visit> findAllByFilterMonthly(String careType, String city, Long idClinic, String specialization, Integer month) {
+        return visitRepository.findAllByCareTypeAndCityAndClinicAndSpecializationMonthly(careType, city, idClinic, specialization, LocalDateTime.now().plusMonths(month));
     }
 
     @Override

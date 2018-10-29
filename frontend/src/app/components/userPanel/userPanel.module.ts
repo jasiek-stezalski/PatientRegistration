@@ -23,7 +23,7 @@ import {ConfirmComponent} from "./doctorPanel/confirm/confirm.component";
     UserHistoryComponent,
     UserVisitsComponent,
     DoctorPanelComponent,
-    ConfirmComponent
+    ConfirmComponent,
   ],
   exports: [UsersListComponent, UserHistoryComponent, UserVisitsComponent, DoctorPanelComponent, ConfirmComponent],
   providers: []

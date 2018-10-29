@@ -14,6 +14,8 @@ public interface VisitService {
 
     List<Visit> findAllByFilterLimit5(String careType, String city, Long idClinic, String specialization);
 
+    List<Visit> findAllByFilterMonthly(String careType, String city, Long idClinic, String specialization, Integer month);
+
     List<Visit> findAllByFilter(String careType, String city, Long idClinic, String specialization);
 
     List<Visit> findAllByVisitModelInNextMonth(VisitModel visitModel, Visit visit);
@@ -45,5 +47,4 @@ public interface VisitService {
     void delete(Long idVisit);
 
     void dataUpdate();
-
 }

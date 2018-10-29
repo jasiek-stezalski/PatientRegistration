@@ -50,6 +50,17 @@ public class VisitController {
         return visitService.findAllByFilterLimit5(careType, city, idClinic, specialization);
     }
 
+    @GetMapping("/filterMonthly")
+    @JsonSerialize(using = LocalDateTimeSerializer.class)
+    @JsonView(Views.Basic.class)
+    public List<Visit> getVisitsByVisitFilterMonthly(@RequestParam String careType,
+                                                     @RequestParam String city,
+                                                     @RequestParam Long idClinic,
+                                                     @RequestParam String specialization,
+                                                     @RequestParam Integer month) {
+        return visitService.findAllByFilterMonthly(careType, city, idClinic, specialization, month);
+    }
+
     @GetMapping("/filter/")
     @JsonSerialize(using = LocalDateTimeSerializer.class)
     @JsonView(Views.Basic.class)

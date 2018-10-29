@@ -10,6 +10,7 @@
     <a href="javascript:void(0);" (click)="nextVisit()">Pomiń wizytę</a>
     <a href="javascript:void(0);" (click)="openUserHistory()">Historia pacjenta</a>
     <a href="javascript:void(0);" (click)="bookNextVisit()">Zarezerwuj następną wizytę</a>
+    <a href="javascript:void(0);" (click)="getMonth()">Zarezerwuj wizytę kontrolną</a>
   </div>
 
 </div>
@@ -35,10 +36,52 @@
 </div>
 
 <div class="history">
-  <form [style.display]="isVisible ? 'block' : 'none'">
+  <form [style.display]="isHistory ? 'block' : 'none'">
     <app-userHistory #userHistory></app-userHistory>
   </form>
 </div>
+
+<form name="form" (ngSubmit)="f.form.valid && showVisits()" #f="ngForm" novalidate class="form-signin"
+      [style.display]="isMonth ? 'block' : 'none'">
+
+  <div class="filter">
+    Wizyta za
+    <select [(ngModel)]="month" name="month" type="text" id="month" required>
+      <option *ngFor="let mon of months" [ngValue]="('' + mon + '').substring(0,2)">{{mon}}</option>
+    </select>
+  </div>
+
+  <div class="buttons">
+    <button class="btn btn-lg btn-primary btn-block" type="submit">Szukaj</button>
+  </div>
+
+</form>
+
+<form [style.display]="isVisits ? 'block' : 'none'">
+  <div class="w3-container">
+    <h2>Najbliższe terminy wizyt:</h2>
+
+    <div class="wrap-table100">
+      <div class="table">
+
+        <div class="row header">
+          <div class="cell">Placówka</div>
+          <div class="cell">Data</div>
+          <div class="cell">Lekarz</div>
+        </div>
+        <div class="row" *ngFor="let visit of visits" (click)="bookVisit(visit)">
+          <div class="cell">{{visit.visitModel.clinic.name + ', ' + visit.visitModel.clinic.city}}</div>
+          <div class="cell">{{('' + visit.start + '').substring(0, 10) + ' ' + ('' + visit.start + '').substring(11,
+            16)}}
+          </div>
+          <div class="cell">{{visit.visitModel.user.firstName + ' ' + visit.visitModel.user.lastName}}</div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</form>
 
 <confirm-dialog #confirm (close)="createClosed($event)"></confirm-dialog>
 

@@ -28,6 +28,10 @@ export class VisitService {
     return this.http.get(this.url + 'filterLimited/?careType=' + careType + '&city=' + city + '&idClinic=' + idClinic + '&specialization=' + specialization) as Observable<Visit[]>;
   }
 
+  getVisitsByVisitFilterMonthly(careType: string, city: string, idClinic: string | number, specialization: string, month: number): Observable<Visit[]> {
+    return this.http.get(this.url + 'filterMonthly/?careType=' + careType + '&city=' + city + '&idClinic=' + idClinic + '&specialization=' + specialization + '&month=' + month) as Observable<Visit[]>;
+  }
+
   getHistoricalVisitsByIdUser(idUser: string | number): Observable<Visit[]> {
     return this.http.get(this.url + 'historical/user/' + idUser) as Observable<Visit[]>;
   }
