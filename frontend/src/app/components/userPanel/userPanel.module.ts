@@ -8,6 +8,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {UserVisitsComponent} from './userVisits/userVisits.component';
 import {DoctorPanelComponent} from './doctorPanel/doctorPanel.component';
 import {ConfirmComponent} from "./doctorPanel/confirm/confirm.component";
+import {BookInFutureComponent} from "./doctorPanel/bookInFuture/bookInFuture.component";
 
 
 @NgModule({
@@ -24,8 +25,9 @@ import {ConfirmComponent} from "./doctorPanel/confirm/confirm.component";
     UserVisitsComponent,
     DoctorPanelComponent,
     ConfirmComponent,
+    BookInFutureComponent
   ],
-  exports: [UsersListComponent, UserHistoryComponent, UserVisitsComponent, DoctorPanelComponent, ConfirmComponent],
+  exports: [UsersListComponent, UserHistoryComponent, UserVisitsComponent, DoctorPanelComponent, ConfirmComponent, BookInFutureComponent],
   providers: []
 })
 export class UserPanelModule {

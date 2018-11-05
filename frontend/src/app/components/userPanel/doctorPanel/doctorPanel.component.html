@@ -45,21 +45,28 @@
       [style.display]="isMonth ? 'block' : 'none'">
 
   <div class="filter">
-    Wizyta za
-    <select [(ngModel)]="month" name="month" type="text" id="month" required>
-      <option *ngFor="let mon of months" [ngValue]="('' + mon + '').substring(0,2)">{{mon}}</option>
-    </select>
-  </div>
+    <h2>Termin wizyty kontrolnej za</h2>
 
-  <div class="buttons">
-    <button class="btn btn-lg btn-primary btn-block" type="submit">Szukaj</button>
+    <table>
+      <tr>
+        <td>
+          <select [(ngModel)]="month" name="month" type="text" id="month" required style="display: inline-block">
+            <option *ngFor="let mon of months" [ngValue]="('' + mon + '').substring(0,2)">{{mon}}</option>
+          </select>
+        </td>
+        <td>
+          <div class="button2">
+            <a href="javascript:void(0);" (click)="f.form.valid && showVisits()">Szukaj</a>
+          </div>
+        </td>
+      </tr>
+    </table>
   </div>
 
 </form>
 
-<form [style.display]="isVisits ? 'block' : 'none'">
+<form [style.display]="isVisits ? 'block' : 'none'" style="margin-left: 150px">
   <div class="w3-container">
-    <h2>Najbliższe terminy wizyt:</h2>
 
     <div class="wrap-table100">
       <div class="table">
@@ -84,6 +91,7 @@
 </form>
 
 <confirm-dialog #confirm (close)="createClosed($event)"></confirm-dialog>
+<bookInFuture-dialog #book (close)="bookClosed()"></bookInFuture-dialog>
 
 
 

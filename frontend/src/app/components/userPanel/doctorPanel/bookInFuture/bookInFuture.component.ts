@@ -8,11 +8,11 @@ import {VisitService} from "../../../../services/visit.services";
 import {Clinic} from "../../../../models/clinic.model";
 
 @Component({
-  selector: 'bookByDoctor-dialog',
-  templateUrl: './bookByDoctor.component.html',
-  styleUrls: ['./bookByDoctor.component.css']
+  selector: 'bookInFuture-dialog',
+  templateUrl: './bookInFuture.component.html',
+  styleUrls: ['./bookInFuture.component.css']
 })
-export class BookByDoctorComponent {
+export class BookInFutureComponent {
   @ViewChild('modal') modal: DayPilotModalComponent;
   @Output() close = new EventEmitter();
 

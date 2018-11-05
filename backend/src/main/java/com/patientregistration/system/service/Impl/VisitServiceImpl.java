@@ -65,7 +65,7 @@ public class VisitServiceImpl implements VisitService {
 
     @Override
     public List<Visit> findAllByFilterMonthly(String careType, String city, Long idClinic, String specialization, Integer month) {
-        return visitRepository.findAllByCareTypeAndCityAndClinicAndSpecializationMonthly(careType, city, idClinic, specialization, LocalDateTime.now().plusMonths(month));
+        return visitRepository.findAllByCareTypeAndCityAndClinicAndSpecializationMonthly("Zajęte", "Zakończone", careType, city, idClinic, specialization, LocalDateTime.now().plusMonths(month));
     }
 
     @Override

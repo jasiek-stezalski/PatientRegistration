@@ -8,6 +8,7 @@ import {List} from '../../../resources/list.model';
 import {isUndefined} from 'util';
 import {ConfirmComponent} from "./confirm/confirm.component";
 import {UserHistoryComponent} from "../userHistory/userHistory.component";
+import {BookInFutureComponent} from "./bookInFuture/bookInFuture.component";
 
 @Component({
   selector: 'app-doctorPanel',
@@ -18,6 +19,7 @@ export class DoctorPanelComponent implements AfterViewInit {
 
   @ViewChild('confirm') confirm: ConfirmComponent;
   @ViewChild('userHistory') userHistory: UserHistoryComponent;
+  @ViewChild('book') book: BookInFutureComponent;
 
   events: Visit[] = [];
   eventsBase: List<Visit> = new List<Visit>();
@@ -122,6 +124,13 @@ export class DoctorPanelComponent implements AfterViewInit {
     this.isMonth = false;
   }
 
+  bookVisit(visit: Visit) {
+    this.book.show(visit, this.actualUser);
+  }
+
+  bookClosed() {
+  }
+
   filterVisits(data: Visit[]) {
     return data
       .sort((v1, v2) => v1.start > v2.start ? 1 : -1)
@@ -179,7 +188,6 @@ export class DoctorPanelComponent implements AfterViewInit {
         this.visits = data;
       });
     this.isHistory = false;
-    this.isMonth = false;
     this.isVisits = true;
   }
 
