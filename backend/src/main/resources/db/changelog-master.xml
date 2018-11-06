@@ -11,11 +11,15 @@
     <include file="changelog/schema/create-clinic-schema.xml" relativeToChangelogFile="true"/>
     <include file="changelog/schema/create-visitModel-schema.xml" relativeToChangelogFile="true"/>
     <include file="changelog/schema/create-doctorClinic-schema.xml" relativeToChangelogFile="true"/>
+    <include file="changelog/schema/create-person-schema.xml" relativeToChangelogFile="true"/>
+
 
     <include file="changelog/data/insert-user-data.xml" relativeToChangelogFile="true"/>
     <include file="changelog/data/insert-clinic-data.xml" relativeToChangelogFile="true"/>
     <include file="changelog/data/insert-visit-data.xml" relativeToChangelogFile="true"/>
     <include file="changelog/data/insert-visitModel-data.xml" relativeToChangelogFile="true"/>
     <include file="changelog/data/insert-doctorClinic-data.xml" relativeToChangelogFile="true"/>
+    <include file="changelog/data/insert-person-data.xml" relativeToChangelogFile="true"/>
+
 
 </databaseChangeLog>
