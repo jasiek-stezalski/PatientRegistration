@@ -15,12 +15,16 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
 public class VisitServiceImpl implements VisitService {
+
+
+    private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
     private VisitRepository visitRepository;
     private UserService userService;
@@ -37,6 +41,20 @@ public class VisitServiceImpl implements VisitService {
 
         return visitRepository.findAllByDoctor(idDoctor);
 
+    }
+
+    @Override
+    public List<Visit> findAllByDoctorInThisTerm(Long idUser, LocalDateTime startTerm, LocalDateTime endTerm) {
+        return visitRepository.findAllByDoctorInThisTerm(idUser, startTerm, endTerm);
+    }
+
+    @Override
+    public List<Visit> findAllByDoctorInThisTermFromOtherModel(Long idDoctor, LocalDateTime startTerm, LocalDateTime endTerm, Long idVisitModel) {
+        return visitRepository.findAllByDoctorInThisTermFromOtherModel(idDoctor, startTerm, endTerm, idVisitModel);
+    }
+
+    private List<Visit> findAllByDoctorInThisTermFromOtherVisit(Long idDoctor, LocalDateTime startTerm, LocalDateTime endTerm, Long idVisit) {
+        return visitRepository.findAllByDoctorInThisTermFromOtherVisit(idDoctor, startTerm, endTerm, idVisit);
     }
 
     @Override
@@ -167,18 +185,28 @@ public class VisitServiceImpl implements VisitService {
     public Visit move(Visit data) {
         Visit visit = findByVisitId(data.getId());
         LocalDateTime term = visit.getStart();
-        visit.setEnd(data.getEnd());
-        visit.setStart(data.getStart());
-        emailService.moveVisitEmail(Collections.singletonList(visit), Collections.singletonList(term));
+        visit.setEnd(LocalDateTime.parse(data.getEnd().toLocalDate() + " " + data.getEnd().toLocalTime(), FORMATTER));
+        visit.setStart(LocalDateTime.parse(data.getStart().toLocalDate() + " " + data.getStart().toLocalTime(), FORMATTER));
+        visit.setText(visit.getStart().toLocalTime().toString());
+
+        List<Visit> visitsInThisTerm = findAllByDoctorInThisTermFromOtherVisit(visit.getVisitModel().getUser().getId(), visit.getStart(), visit.getEnd(), visit.getId());
+
+        if (!visitsInThisTerm.isEmpty())
+            throw new DataConflictException("You cannot have two visits at once");
+
+        if (visit.getUser() != null)
+            emailService.moveVisitEmail(Collections.singletonList(visit), Collections.singletonList(term));
         return visitRepository.save(visit);
     }
+
 
     @Override
     @Transactional
     public Visit cancel(Visit data) {
         Visit visit = findByVisitId(data.getId());
 
-        emailService.cancelVisitEmail(visit);
+        if (visit.getUser() != null)
+            emailService.cancelVisitEmail(visit);
         emailService.freeSlotVisitEmail(visit, findAllByVisitModelInNextMonth(visit.getVisitModel(), visit), visit.getUser());
 
         visit.setUser(null);
@@ -190,7 +218,8 @@ public class VisitServiceImpl implements VisitService {
     @Override
     public void delete(Long idVisit) {
         Visit visit = findByVisitId(idVisit);
-        emailService.cancelVisitEmail(visit);
+        if (visit.getUser() != null)
+            emailService.cancelVisitEmail(visit);
         visitRepository.deleteById(idVisit);
     }
 

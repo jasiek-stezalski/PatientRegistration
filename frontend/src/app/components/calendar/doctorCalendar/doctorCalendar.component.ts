@@ -113,14 +113,22 @@ export class DoctorCalendarComponent implements AfterViewInit {
         this.ngAfterViewInit();
         return;
       }
-      if (confirm('Czy na pewno chcesz odwołać tą wizytę?')) {
+      if (confirm('Czy na pewno chcesz zmienić termin tej wizyty?')) {
         let data: VisitModel = {
           id: args.e.id(),
           start: args.newStart.toString(),
           end: args.newEnd.toString()
         };
         this.visitService.moveVisit(data).subscribe(() => {
+          visit.text = ('' + data.start + '').substring(11, 16);
           this.calendar.control.message('Termin wizyty został zmieniony');
+        }, err => {
+          console.log(err);
+          if (err.valueOf().status === 409) {
+            console.log(err);
+            alert('W tym terminie masz już zaplanowaną wizytę!');
+            this.ngAfterViewInit();
+          }
         });
       } else this.ngAfterViewInit();
     },

@@ -68,6 +68,13 @@ export class ModelCalendarComponent implements AfterViewInit {
       };
       this.service.moveVisitModel(data).subscribe(() => {
         this.calendar.control.message('Model wizyty został zmieniony');
+      }, err => {
+        console.log(err);
+        if (err.valueOf().status === 409) {
+          console.log(err);
+          alert('W tym terminie masz już zaplanowaną wizytę!');
+          this.ngAfterViewInit();
+        }
       });
     },
 

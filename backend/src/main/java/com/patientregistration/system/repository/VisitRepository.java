@@ -155,4 +155,43 @@ public interface VisitRepository extends JpaRepository<Visit, Long> {
                     "WHERE vm.id_doctor =:idDoctor")
     List<Visit> findAllByDoctor(@Param("idDoctor") Long idDoctor);
 
+    @Query(nativeQuery = true,
+            value = "SELECT v.* " +
+                    "FROM visit v " +
+                    "JOIN visit_model vm ON v.id_visit_model = vm.id " +
+                    "WHERE vm.id_doctor =:idDoctor " +
+                    "AND (v.start = :startTerm " +
+                    "OR (v.start > :startTerm AND v.start < :endTerm) " +
+                    "OR (v.start < :startTerm AND v.end_ > :startTerm) )")
+    List<Visit> findAllByDoctorInThisTerm(@Param("idDoctor") Long idDoctor,
+                                          @Param("startTerm") LocalDateTime startTerm,
+                                          @Param("endTerm") LocalDateTime endTerm);
+
+    @Query(nativeQuery = true,
+            value = "SELECT v.* " +
+                    "FROM visit v " +
+                    "JOIN visit_model vm ON v.id_visit_model = vm.id " +
+                    "WHERE vm.id_doctor =:idDoctor " +
+                    "AND vm.id != :idVisitModel " +
+                    "AND (v.start = :startTerm " +
+                    "OR (v.start > :startTerm AND v.start < :endTerm) " +
+                    "OR (v.start < :startTerm AND v.end_ > :startTerm) )")
+    List<Visit> findAllByDoctorInThisTermFromOtherModel(@Param("idDoctor") Long idDoctor,
+                                                        @Param("startTerm") LocalDateTime startTerm,
+                                                        @Param("endTerm") LocalDateTime endTerm,
+                                                        @Param("idVisitModel") Long idVisitModel);
+
+    @Query(nativeQuery = true,
+            value = "SELECT v.* " +
+                    "FROM visit v " +
+                    "JOIN visit_model vm ON v.id_visit_model = vm.id " +
+                    "WHERE vm.id_doctor =:idDoctor " +
+                    "AND v.id != :idVisit " +
+                    "AND (v.start = :startTerm " +
+                    "OR (v.start > :startTerm AND v.start < :endTerm) " +
+                    "OR (v.start < :startTerm AND v.end_ > :startTerm) )")
+    List<Visit> findAllByDoctorInThisTermFromOtherVisit(@Param("idDoctor") Long idDoctor,
+                                                        @Param("startTerm") LocalDateTime startTerm,
+                                                        @Param("endTerm") LocalDateTime endTerm,
+                                                        @Param("idVisit") Long idVisit);
 }

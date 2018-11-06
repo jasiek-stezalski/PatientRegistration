@@ -69,7 +69,13 @@ export class CreateComponent implements OnInit {
         this.modal.hide(result);
       }, err => {
         console.log(err);
-        this.errorMessage = 'Błąd : Żadna wizyta nie pasuje do tego modelu!';
+        if (err.valueOf().status === 404) {
+          alert('Błąd : Żadna wizyta nie pasuje do tego modelu!');
+          this.errorMessage = 'Błąd : Żadna wizyta nie pasuje do tego modelu!';
+        } else if (err.valueOf().status === 409) {
+          console.log(err);
+          alert('W tym terminie masz już zaplanowaną wizytę!');
+        }
       });
     }
   }

@@ -2,6 +2,7 @@ package com.patientregistration.system.service.Impl;
 
 import com.patientregistration.system.domain.Visit;
 import com.patientregistration.system.domain.VisitModel;
+import com.patientregistration.system.exception.DataConflictException;
 import com.patientregistration.system.exception.ResourceNotFoundException;
 import com.patientregistration.system.repository.VisitModelRepository;
 import com.patientregistration.system.service.EmailService;
@@ -69,14 +70,21 @@ public class VisitModelServiceImpl implements VisitModelService {
                 continue;
             }
 
+
             LocalTime visitHour = visitModel.getStart().toLocalTime();
             LocalTime endHour = visitModel.getEnd().toLocalTime();
 
             while (visitHour.isBefore(endHour)) {
 
+
                 LocalDateTime startTerm = LocalDateTime.parse(visitDate.toString() + " " + visitHour.toString(), FORMATTER);
                 visitHour = visitHour.plusMinutes(visitModel.getMinuteInterval());
                 LocalDateTime endTerm = LocalDateTime.parse(visitDate.toString() + " " + visitHour.toString(), FORMATTER);
+
+                List<Visit> visitsInThisTerm = visitService.findAllByDoctorInThisTerm(visitModel.getUser().getId(), startTerm, endTerm);
+
+                if (!visitsInThisTerm.isEmpty())
+                    throw new DataConflictException("You cannot have two visits at once");
 
                 visits.add(new Visit(
                         startTerm,
@@ -152,6 +160,11 @@ public class VisitModelServiceImpl implements VisitModelService {
             if (visit.getStart().toLocalDate().isAfter(LocalDate.now())) {
                 visit.setStart(visit.getStart().plusDays(daysBetween).plusMinutes(minutesBetween));
                 visit.setEnd(visit.getEnd().plusDays(daysBetween).plusMinutes(minutesBetween));
+
+                List<Visit> visitsInThisTerm = visitService.findAllByDoctorInThisTermFromOtherModel(newVisitModel.getUser().getId(), visit.getStart(), visit.getEnd(), oldVisitModel.getId());
+
+                if (!visitsInThisTerm.isEmpty())
+                    throw new DataConflictException("You cannot have two visits at once");
 
                 // Check if it is a weekend
                 if (newVisitModel.getDayInterval() == 1 && WEEKEND.contains(visit.getStart().getDayOfWeek())) {
