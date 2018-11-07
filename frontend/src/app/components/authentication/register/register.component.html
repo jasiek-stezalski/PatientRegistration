@@ -67,7 +67,7 @@
       <span id="reauth-email" class="reauth-email"></span>
       <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !email.valid }">
         <label for="email">Adres e-mail*</label>
-        <input type="text" class="form-control" name="email" id="email" pattern="[^ @]*@[^ @]*"
+        <input type="email" class="form-control" name="email" id="email" pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
                [(ngModel)]="user.email" #email="ngModel" required/>
         <div *ngIf="f.submitted && !email.valid" class="help-block">
 

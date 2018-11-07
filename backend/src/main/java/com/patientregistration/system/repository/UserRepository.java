@@ -12,6 +12,8 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     Optional<User> findByUsername(String username);
 
+    Optional<User> findByPesel(String pesel);
+
     @Query(nativeQuery = true,
             value = "SELECT u.* " +
                     "FROM users u " +
@@ -21,4 +23,5 @@ public interface UserRepository extends JpaRepository<User, Long> {
     List<User> findAllByIdDoctor(@Param("idDoctor") Long idDoctor);
 
     List<User> findAllByRole(String role);
+
 }

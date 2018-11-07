@@ -17,6 +17,8 @@ export class RegisterComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.user.role = 'USER';
+    this.user.insurance = false;
   }
 
   register() {
@@ -27,6 +29,8 @@ export class RegisterComponent implements OnInit {
           console.log(err);
           if (err.valueOf().status === 409)
             this.errorMessage = 'Błąd : Taki użytkownik już istnieje';
+          if (err.valueOf().status === 406)
+            this.errorMessage = 'Błąd : Ten Pesel jest zajęty. Sprawdź czy posiadasz już konto';
         }
       );
     } else {
