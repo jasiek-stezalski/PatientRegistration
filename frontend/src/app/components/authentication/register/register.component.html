@@ -78,9 +78,10 @@
       </div>
 
       <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !pesel.valid }">
-        <label for="pesel">Pesel</label>
+        <label for="pesel">Pesel*</label>
         <input type="number" class="form-control" name="pesel" id="pesel" [(ngModel)]="user.pesel"
-               #pesel="ngModel"/>
+               #pesel="ngModel" required/>
+        <div *ngIf="f.submitted && !pesel.valid" class="help-block">Pesel jest wymagany</div>
       </div>
 
       <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !phoneNumber.valid }">

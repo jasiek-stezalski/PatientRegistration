@@ -25,7 +25,8 @@ export class RegisterComponent implements OnInit {
           this.router.navigate(['/login']);
         }, err => {
           console.log(err);
-          this.errorMessage = 'Błąd : Taki użytkownik już istnieje';
+          if (err.valueOf().status === 409)
+            this.errorMessage = 'Błąd : Taki użytkownik już istnieje';
         }
       );
     } else {

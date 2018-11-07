@@ -1,6 +1,7 @@
 package com.patientregistration.system.controller;
 
 import com.patientregistration.system.domain.User;
+import com.patientregistration.system.exception.DataConflictException;
 import com.patientregistration.system.exception.ResourceNotFoundException;
 import com.patientregistration.system.service.UserService;
 import org.slf4j.Logger;
@@ -51,9 +52,7 @@ public class UserController {
     public ResponseEntity<?> createUser(@RequestBody User newUser) {
         if (userService.findUserByUsername(newUser.getUsername()) != null) {
             logger.error("username Already exist " + newUser.getUsername());
-            return new ResponseEntity<>(
-                    new ResourceNotFoundException("User with username " + newUser.getUsername() + "already exist "),
-                    HttpStatus.CONFLICT);
+            throw new DataConflictException("User with username " + newUser.getUsername() + "already exist ");
         }
         return new ResponseEntity<>(userService.saveOrUpdate(newUser), HttpStatus.CREATED);
     }
