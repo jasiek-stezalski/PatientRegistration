@@ -1,10 +1,12 @@
 package com.patientregistration.system.service.Impl;
 
 import com.patientregistration.system.controller.UserController;
+import com.patientregistration.system.domain.Person;
 import com.patientregistration.system.domain.User;
 import com.patientregistration.system.exception.DataConflictException;
 import com.patientregistration.system.exception.DataNotAcceptableException;
 import com.patientregistration.system.exception.ResourceNotFoundException;
+import com.patientregistration.system.repository.PersonRepository;
 import com.patientregistration.system.repository.UserRepository;
 import com.patientregistration.system.service.UserService;
 import org.slf4j.Logger;
@@ -24,10 +26,12 @@ public class UserServiceImpl implements UserService {
     private static final Logger logger = LoggerFactory.getLogger(UserController.class);
 
     private UserRepository userRepository;
+    private PersonRepository personRepository;
     private PasswordEncoder passwordEncoder;
 
-    public UserServiceImpl(UserRepository userRepository, PasswordEncoder passwordEncoder) {
+    public UserServiceImpl(UserRepository userRepository, PersonRepository personRepository, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
+        this.personRepository = personRepository;
         this.passwordEncoder = passwordEncoder;
     }
 
@@ -74,6 +78,19 @@ public class UserServiceImpl implements UserService {
             logger.error("Pesel already exist " + user.getPesel());
             throw new DataNotAcceptableException("User with pesel " + user.getPesel() + "already exist ");
         }
+
+        Person person = personRepository.findPersonByFirstNameAndLastNameAndPesel(user.getFirstName(), user.getLastName(), user.getPesel());
+        if (person == null) {
+            logger.error("Person not exist in external database " + user.getUsername());
+            throw new ResourceNotFoundException("Person with username " + user.getUsername() + " not exist in external database");
+        }
+
+        if (person.getSpecialization() != null) {
+            user.setRole("DOCTOR");
+            user.setSpecialization(person.getSpecialization());
+            System.out.println("To lekarz");
+        }
+
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         return userRepository.save(user);
     }

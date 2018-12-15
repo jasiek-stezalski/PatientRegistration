@@ -31,6 +31,8 @@ export class RegisterComponent implements OnInit {
             this.errorMessage = 'Błąd : Taki użytkownik już istnieje';
           if (err.valueOf().status === 406)
             this.errorMessage = 'Błąd : Ten Pesel jest zajęty. Sprawdź czy posiadasz już konto';
+          if (err.valueOf().status === 404)
+            this.errorMessage = 'Błąd : Podałeś niepoprawne dane osobowe';
         }
       );
     } else {
