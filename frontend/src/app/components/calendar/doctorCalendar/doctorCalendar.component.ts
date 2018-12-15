@@ -2,12 +2,12 @@ import {AfterViewInit, Component, ViewChild} from '@angular/core';
 import {DayPilot, DayPilotCalendarComponent} from 'daypilot-pro-angular';
 import {Visit} from '../../../models/visit.model';
 import {VisitService} from '../../../services/visit.services';
-import {User} from "../../../models/user.model";
-import {VisitModel} from "../../../models/visitModel.model";
-import {InfoComponent} from "./info/info.component";
-import {BookByDoctorComponent} from "./bookByDoctor/bookByDoctor.component";
-import {ActivatedRoute} from "@angular/router";
-import {UserService} from "../../../services/user.service";
+import {User} from '../../../models/user.model';
+import {VisitModel} from '../../../models/visitModel.model';
+import {InfoComponent} from './info/info.component';
+import {BookByDoctorComponent} from './bookByDoctor/bookByDoctor.component';
+import {ActivatedRoute} from '@angular/router';
+import {UserService} from '../../../services/user.service';
 
 @Component({
   selector: 'doctorCalendar-component',
@@ -33,7 +33,7 @@ export class DoctorCalendarComponent implements AfterViewInit {
       if (!isNaN(idUser)) {
         this.userService.getUserById(idUser).subscribe(result => {
           this.info.user = result;
-        })
+        });
       }
 
     });
@@ -49,7 +49,7 @@ export class DoctorCalendarComponent implements AfterViewInit {
         else if (v.text === 'Zakończone')
           v.barColor = '#c6ccc6';
         else v.barColor = 'grey';
-      })
+      });
     });
 
   }
@@ -69,7 +69,7 @@ export class DoctorCalendarComponent implements AfterViewInit {
     locale: 'pl-pl',
     viewType: 'Week',
     businessBeginsHour: 7,
-    businessEndsHour: 20,
+    businessEndsHour: 19,
     dayBeginsHour: 7,
     dayEndsHour: 20,
     cellDuration: 15,
@@ -143,7 +143,7 @@ export class DoctorCalendarComponent implements AfterViewInit {
     this.calendar.control.clearSelection();
   }
 
-  infoClosed(args) {
+  infoClosed() {
     if (this.info.user.id != null) {
       this.calendar.control.message('Wybierz termin następnej wizyty');
     }

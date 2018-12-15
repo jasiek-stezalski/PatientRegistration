@@ -92,6 +92,8 @@ export class BookComponent {
           alert('Nie możesz być zapisany na dwie wizyty o tej samej specjalizacji jednocześnie!');
         } else if (err.valueOf().status === 406) {
           alert('W tym terminie masz już zaplanowaną wizytę!');
+        } else if (err.valueOf().status === 404) {
+          alert('Nie jesteś ubezpieczony. Nie możesz skorzystać z publicznej opieki medycznej!');
         }
 
         console.log(err);

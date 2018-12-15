@@ -7,4 +7,6 @@ import javax.validation.constraints.NotEmpty;
 
 public interface PersonRepository extends JpaRepository<Person, Long> {
     Person findPersonByFirstNameAndLastNameAndPesel(@NotEmpty String firstName, @NotEmpty String lastName, String pesel);
+
+    Person findPersonByPesel(String pesel);
 }

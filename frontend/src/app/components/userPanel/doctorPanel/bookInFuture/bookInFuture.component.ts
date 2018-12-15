@@ -1,11 +1,11 @@
 import {Component, EventEmitter, Output, ViewChild} from '@angular/core';
 import {DayPilotModalComponent} from 'daypilot-pro-angular';
-import {VisitModel} from "../../../../models/visitModel.model";
-import {Router} from "@angular/router";
-import {Visit} from "../../../../models/visit.model";
-import {User} from "../../../../models/user.model";
-import {VisitService} from "../../../../services/visit.services";
-import {Clinic} from "../../../../models/clinic.model";
+import {VisitModel} from '../../../../models/visitModel.model';
+import {Router} from '@angular/router';
+import {Visit} from '../../../../models/visit.model';
+import {User} from '../../../../models/user.model';
+import {VisitService} from '../../../../services/visit.services';
+import {Clinic} from '../../../../models/clinic.model';
 
 @Component({
   selector: 'bookInFuture-dialog',
@@ -62,6 +62,8 @@ export class BookInFutureComponent {
 
         if (err.valueOf().status === 406) {
           alert('W tym terminie pacjent ma już zaplanowaną wizytę!');
+        } else if (err.valueOf().status === 404) {
+          alert('Pacjent nie jest ubezpieczony. Nie może skorzystać z publicznej opieki medycznej!');
         }
 
         console.log(err);

@@ -1,11 +1,13 @@
 package com.patientregistration.system.service.Impl;
 
+import com.patientregistration.system.domain.Person;
 import com.patientregistration.system.domain.User;
 import com.patientregistration.system.domain.Visit;
 import com.patientregistration.system.domain.VisitModel;
 import com.patientregistration.system.exception.DataConflictException;
-import com.patientregistration.system.exception.ResourceNotFoundException;
 import com.patientregistration.system.exception.DataNotAcceptableException;
+import com.patientregistration.system.exception.ResourceNotFoundException;
+import com.patientregistration.system.repository.PersonRepository;
 import com.patientregistration.system.repository.VisitRepository;
 import com.patientregistration.system.service.EmailService;
 import com.patientregistration.system.service.UserService;
@@ -28,11 +30,13 @@ public class VisitServiceImpl implements VisitService {
 
     private VisitRepository visitRepository;
     private UserService userService;
+    private PersonRepository personRepository;
     private EmailService emailService;
 
-    public VisitServiceImpl(VisitRepository visitRepository, UserService userService, EmailService emailService) {
+    public VisitServiceImpl(VisitRepository visitRepository, UserService userService, PersonRepository personRepository, EmailService emailService) {
         this.visitRepository = visitRepository;
         this.userService = userService;
+        this.personRepository = personRepository;
         this.emailService = emailService;
     }
 
@@ -129,6 +133,8 @@ public class VisitServiceImpl implements VisitService {
     public Visit bookVisit(Visit data, Long idUser) {
         Visit visit = findByVisitId(data.getId());
 
+        checkInsurance(idUser, visit);
+
         List<Visit> theSameVisits = findAllActualByUser(idUser)
                 .stream()
                 .filter(v -> v.getVisitModel().getUser().getSpecialization().equals(data.getVisitModel().getUser().getSpecialization()))
@@ -145,6 +151,8 @@ public class VisitServiceImpl implements VisitService {
     @Override
     public Visit bookVisitByDoctor(Visit data, Long idUser) {
         Visit visit = findByVisitId(data.getId());
+
+        checkInsurance(idUser, visit);
 
         Visit newVisit = checkAvailableTerm(idUser, visit);
         emailService.bookVisitEmail(newVisit);
@@ -245,6 +253,16 @@ public class VisitServiceImpl implements VisitService {
             visit.setUser(user);
             return visitRepository.save(visit);
         } else throw new DataNotAcceptableException("You cannot have two visits at once");
+    }
+
+    private void checkInsurance(Long idUser, Visit visit) {
+        if (visit.getVisitModel().getCareType().equals("Publiczna")) {
+            User user = userService.findUserById(idUser);
+            Person person = personRepository.findPersonByPesel(user.getPesel());
+
+            if (!person.getInsurance())
+                throw new ResourceNotFoundException("User doesn't have insurance!");
+        }
     }
 
 }

@@ -46,7 +46,7 @@ export class ModelCalendarComponent implements AfterViewInit {
     locale: 'pl-pl',
     viewType: 'Week',
     businessBeginsHour: 7,
-    businessEndsHour: 20,
+    businessEndsHour: 19,
     dayBeginsHour: 7,
     dayEndsHour: 20,
     cellDuration: 15,
