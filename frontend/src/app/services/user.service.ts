@@ -26,8 +26,8 @@ export class UserService {
     return this.httpClient.get(this.url + idUser) as Observable<User>;
   }
 
-  public createUser(user: User) {
-    return this.httpClient.post(this.url, user);
+  public createUser(user: User): Observable<User> {
+    return this.httpClient.post(this.url, user) as Observable<User>;
   }
 
   public logIn(user: User) {

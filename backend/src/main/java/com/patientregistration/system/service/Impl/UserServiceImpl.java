@@ -1,9 +1,14 @@
 package com.patientregistration.system.service.Impl;
 
+import com.patientregistration.system.controller.UserController;
 import com.patientregistration.system.domain.User;
+import com.patientregistration.system.exception.DataConflictException;
+import com.patientregistration.system.exception.DataNotAcceptableException;
 import com.patientregistration.system.exception.ResourceNotFoundException;
 import com.patientregistration.system.repository.UserRepository;
 import com.patientregistration.system.service.UserService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -15,6 +20,8 @@ import java.util.Set;
 
 @Service
 public class UserServiceImpl implements UserService {
+
+    private static final Logger logger = LoggerFactory.getLogger(UserController.class);
 
     private UserRepository userRepository;
     private PasswordEncoder passwordEncoder;
@@ -52,9 +59,21 @@ public class UserServiceImpl implements UserService {
                 .orElse(null);
     }
 
+    private User findUserByPesel(String pesel) {
+        return userRepository.findByPesel(pesel)
+                .orElse(null);
+    }
+
     @Override
-    public User saveOrUpdate(User user) {
-        user.setRole("USER");
+    public User create(User user) {
+        if (findUserByUsername(user.getUsername()) != null) {
+            logger.error("Username already exist " + user.getUsername());
+            throw new DataConflictException("User with username " + user.getUsername() + "already exist ");
+        }
+        if (findUserByPesel(user.getPesel()) != null) {
+            logger.error("Pesel already exist " + user.getPesel());
+            throw new DataNotAcceptableException("User with pesel " + user.getPesel() + "already exist ");
+        }
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         return userRepository.save(user);
     }

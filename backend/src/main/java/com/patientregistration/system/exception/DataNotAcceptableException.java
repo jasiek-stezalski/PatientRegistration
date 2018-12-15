@@ -4,9 +4,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 @ResponseStatus(value = HttpStatus.NOT_ACCEPTABLE)
-public class VisitsInTheSameTimeException extends RuntimeException {
+public class DataNotAcceptableException extends RuntimeException {
 
-    public VisitsInTheSameTimeException(String message) {
+    public DataNotAcceptableException(String message) {
         super(message);
     }
 

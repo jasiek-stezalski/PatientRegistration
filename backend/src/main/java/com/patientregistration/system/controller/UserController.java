@@ -1,12 +1,9 @@
 package com.patientregistration.system.controller;
 
 import com.patientregistration.system.domain.User;
-import com.patientregistration.system.exception.ResourceNotFoundException;
 import com.patientregistration.system.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
@@ -28,7 +25,7 @@ public class UserController {
 
     @GetMapping("/login")
     public Principal user(Principal principal) {
-        logger.info("user logged " + principal);
+        logger.info("User logged " + principal);
         return principal;
     }
 
@@ -48,14 +45,8 @@ public class UserController {
     }
 
     @PostMapping("/")
-    public ResponseEntity<?> createUser(@RequestBody User newUser) {
-        if (userService.findUserByUsername(newUser.getUsername()) != null) {
-            logger.error("username Already exist " + newUser.getUsername());
-            return new ResponseEntity<>(
-                    new ResourceNotFoundException("User with username " + newUser.getUsername() + "already exist "),
-                    HttpStatus.CONFLICT);
-        }
-        return new ResponseEntity<>(userService.saveOrUpdate(newUser), HttpStatus.CREATED);
+    public User createUser(@RequestBody User newUser) {
+        return userService.create(newUser);
     }
 
 }

@@ -5,7 +5,7 @@ import com.patientregistration.system.domain.Visit;
 import com.patientregistration.system.domain.VisitModel;
 import com.patientregistration.system.exception.DataConflictException;
 import com.patientregistration.system.exception.ResourceNotFoundException;
-import com.patientregistration.system.exception.VisitsInTheSameTimeException;
+import com.patientregistration.system.exception.DataNotAcceptableException;
 import com.patientregistration.system.repository.VisitRepository;
 import com.patientregistration.system.service.EmailService;
 import com.patientregistration.system.service.UserService;
@@ -244,7 +244,7 @@ public class VisitServiceImpl implements VisitService {
             User user = userService.findUserById(idUser);
             visit.setUser(user);
             return visitRepository.save(visit);
-        } else throw new VisitsInTheSameTimeException("You cannot have two visits at once");
+        } else throw new DataNotAcceptableException("You cannot have two visits at once");
     }
 
 }

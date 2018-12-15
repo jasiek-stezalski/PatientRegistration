@@ -12,6 +12,7 @@ export class User {
   pesel?: string;
   email?: string;
   phoneNumber?: string;
+  insurance?: boolean;
   specialization?:string;
   doctorClinic?: DoctorClinic[];
 
