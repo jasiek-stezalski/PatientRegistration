@@ -36,18 +36,26 @@
       <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !username.valid }">
         <label for="username">Login*</label>
         <input type="text" class="form-control" name="username" id="username" [(ngModel)]="user.username"
-               #username="ngModel" required/>
-        <div *ngIf="f.submitted && !username.valid" class="help-block">Login jest wymagany</div>
+               #username="ngModel" required minlength="6" pattern="^[a-zA-Z0-9_.-]*$"/>
+        <div *ngIf="f.submitted && !username.valid" class="help-block">
+
+          <div *ngIf="username.errors.required">Login jest wymagany</div>
+          <div *ngIf="username.errors.minlength">Login musi mieć co najmniej 6 znaków</div>
+          <div *ngIf="username.errors.pattern">Login nie może zawierać znaków szczególnych</div>
+
+        </div>
       </div>
 
       <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !password.valid }">
         <label for="password">Hasło*</label>
         <input type="password" class="form-control" name="password" id="password" [(ngModel)]="user.password"
-               #password="ngModel" required minlength="6"/>
+               #password="ngModel" required minlength="8" pattern=".*[0-9].*"/>
         <div *ngIf="f.submitted && !password.valid" class="help-block">
 
           <div *ngIf="password.errors.required">Hasło jest wymagane</div>
-          <div *ngIf="password.errors.minlength">Hasło musi mieć co najmniej 6 znaków</div>
+          <div *ngIf="password.errors.minlength">Hasło musi mieć co najmniej 8 znaków</div>
+          <div *ngIf="password.errors.pattern">Hasło musi zawierać co najmniej jedną cyfrę</div>
+
 
         </div>
       </div>
@@ -55,11 +63,13 @@
       <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !confirmPassword.valid }">
         <label for="confirmPassword">Powtórz hasło*</label>
         <input type="password" class="form-control" name="confirmPassword" id="confirmPassword"
-               [(ngModel)]="user.confirmPassword" #confirmPassword="ngModel" required minlength="6"/>
+               [(ngModel)]="user.confirmPassword" #confirmPassword="ngModel" required minlength="8"
+               pattern=".*[0-9].*"/>
         <div *ngIf="f.submitted && !confirmPassword.valid" class="help-block">
 
           <div *ngIf="confirmPassword.errors.required">Powtórzone hasło jest wymagane</div>
-          <div *ngIf="confirmPassword.errors.minlength">Powtórzone hasło musi mieć co najmniej 6 znaków</div>
+          <div *ngIf="confirmPassword.errors.minlength">Powtórzone hasło musi mieć co najmniej 8 znaków</div>
+          <div *ngIf="confirmPassword.errors.pattern">Powtórzone hasło musi zawierać co najmniej jedną cyfrę</div>
 
         </div>
       </div>
@@ -72,15 +82,21 @@
         <div *ngIf="f.submitted && !email.valid" class="help-block">
 
           <div *ngIf="email.errors.required">E-mail jest wymagany</div>
-          <div *ngIf="email.errors.pattern">Niepoprawny e-mail</div>
+          <div *ngIf="email.errors.pattern">E-mail jest niepoprawny</div>
 
         </div>
       </div>
 
       <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !pesel.valid }">
-        <label for="pesel">Pesel</label>
+        <label for="pesel">Pesel*</label>
         <input type="number" class="form-control" name="pesel" id="pesel" [(ngModel)]="user.pesel"
-               #pesel="ngModel"/>
+               #pesel="ngModel" required pattern="^[0-9]{11}$"/>
+        <div *ngIf="f.submitted && !pesel.valid" class="help-block">
+
+          <div *ngIf="pesel.errors.required">Pesel jest wymagany</div>
+          <div *ngIf="pesel.errors.pattern">Pesel jest niepoprawny</div>
+
+        </div>
       </div>
 
       <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !phoneNumber.valid }">

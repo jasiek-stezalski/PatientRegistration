@@ -68,10 +68,6 @@ public class User implements UserDetails {
     @JsonView(Views.Basic.class)
     private String phoneNumber;
 
-    @Column(name = "insurance", nullable = false)
-    @JsonView(Views.Basic.class)
-    private Boolean insurance;
-
     @Column(name = "specialization")
     @JsonView(Views.Basic.class)
     private String specialization;
