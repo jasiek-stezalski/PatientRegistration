@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet id="1" author="jstezalski" context="default">
+
+        <createTable tableName="RATE">
+            <column name="ID" type="BIGINT">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="VALUE" type="INTEGER(10)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="ID_VISIT" type="BIGINT">
+                <constraints foreignKeyName="ID_VISIT" nullable="false"/>
+            </column>
+            <column name="ID_USER" type="BIGINT">
+                <constraints foreignKeyName="ID_USER" nullable="false"/>
+            </column>
+        </createTable>
+        <addAutoIncrement tableName="RATE" columnDataType="BIGINT" columnName="ID"/>
+    </changeSet>
+
+</databaseChangeLog>

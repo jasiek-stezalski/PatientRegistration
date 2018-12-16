@@ -12,6 +12,7 @@
     <include file="changelog/schema/create-visitModel-schema.xml" relativeToChangelogFile="true"/>
     <include file="changelog/schema/create-doctorClinic-schema.xml" relativeToChangelogFile="true"/>
     <include file="changelog/schema/create-person-schema.xml" relativeToChangelogFile="true"/>
+    <include file="changelog/schema/create-rate-schema.xml" relativeToChangelogFile="true"/>
 
 
     <include file="changelog/data/insert-user-data.xml" relativeToChangelogFile="true"/>

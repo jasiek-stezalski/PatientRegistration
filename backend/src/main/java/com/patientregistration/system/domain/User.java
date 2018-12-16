@@ -11,6 +11,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -72,6 +73,10 @@ public class User implements UserDetails {
     @JsonView(Views.Basic.class)
     private String specialization;
 
+    @Column(name = "avg_rate")
+    @JsonView(Views.Basic.class)
+    private BigDecimal avgRate;
+
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     @JsonIgnore
     private List<VisitModel> visitModels;
@@ -80,6 +85,9 @@ public class User implements UserDetails {
     @JsonIgnore
     private List<DoctorClinic> doctorClinics;
 
+    @OneToMany
+    @JoinColumn(name = "id_user")
+    private List<Rate> rates;
 
     @JsonIgnore
     @Override

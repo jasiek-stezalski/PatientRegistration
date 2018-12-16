@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name = "visit")
@@ -45,6 +46,10 @@ public class Visit {
     @JoinColumn(name = "id_user")
     @JsonView(Views.Basic.class)
     private User user;
+
+    @OneToMany
+    @JoinColumn(name = "id_visit")
+    private List<Rate> rates;
 
     public Visit(LocalDateTime start, LocalDateTime end, String text, VisitModel visitModel) {
         this.start = start;

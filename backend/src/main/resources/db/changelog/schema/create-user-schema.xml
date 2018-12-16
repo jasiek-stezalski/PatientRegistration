@@ -37,6 +37,7 @@
                 <constraints unique="true"/>
             </column>
             <column name="SPECIALIZATION" type="VARCHAR(255)"/>
+            <column name="AVG_RATE" type="DECIMAL(19, 2))"/>
 
         </createTable>
         <addAutoIncrement tableName="USERS" columnDataType="BIGINT" columnName="ID"/>
