@@ -1,9 +1,10 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {UserService} from '../../../services/user.service';
 import {Visit} from '../../../models/visit.model';
 import {VisitService} from '../../../services/visit.services';
 import {ActivatedRoute, Router} from '@angular/router';
 import {User} from '../../../models/user.model';
+import {RatingComponent} from './Rating/rating.component';
 
 @Component({
   selector: 'app-userHistory',
@@ -11,6 +12,8 @@ import {User} from '../../../models/user.model';
   styleUrls: ['./userHistory.component.css']
 })
 export class UserHistoryComponent implements OnInit {
+
+  @ViewChild('rating') rating: RatingComponent;
 
   visitsBase: Visit[] = [];
   visits: Visit[] = [];
@@ -88,6 +91,17 @@ export class UserHistoryComponent implements OnInit {
         idDoctor: idDoctor,
       }
     });
+  }
+
+  rateVisit(visit: Visit) {
+    this.rating.show(visit);
+  }
+
+  createClosed(args) {
+    if (args.result) {
+      alert('Oceniłeś wizytę!');
+      this.router.navigate(['/userHistory']);
+    }
   }
 
 }

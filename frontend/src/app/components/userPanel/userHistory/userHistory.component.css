@@ -92,3 +92,18 @@ div {
 #cancel:hover {
   background-color: #85b2d8;
 }
+
+#cancel2 {
+  text-align: center;
+  cursor: pointer;
+}
+
+#cancel2 a {
+  text-decoration: none;
+  color: black;
+  font-weight: bold;
+}
+
+#cancel2:hover {
+  background-color: #85b2d8;
+}

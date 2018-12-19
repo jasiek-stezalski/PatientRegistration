@@ -22,6 +22,7 @@
                 <constraints nullable="false"/>
             </column>
             <column name="DESCRIPTION" type="VARCHAR(1000)"/>
+            <column name="RATE" type="INTEGER(10)"/>
             <column name="ID_USER" type="BIGINT">
                 <constraints foreignKeyName="ID_USER"/>
             </column>

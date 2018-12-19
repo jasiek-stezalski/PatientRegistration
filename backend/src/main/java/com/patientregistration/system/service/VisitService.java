@@ -50,6 +50,8 @@ public interface VisitService {
 
     void delete(Long idVisit);
 
+    Visit rateVisit(Long idVisit, int rate);
+
     void dataUpdate();
 
 }

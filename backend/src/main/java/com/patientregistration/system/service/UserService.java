@@ -17,4 +17,6 @@ public interface UserService extends UserDetailsService {
     User findUserByUsername(String username);
 
     User create(User user);
+
+    User save(User user);
 }

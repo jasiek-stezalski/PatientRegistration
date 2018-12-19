@@ -138,6 +138,12 @@ public class VisitController {
         return ResponseEntity.ok().build();
     }
 
+    @PutMapping("/rate/")
+    @JsonView(Views.Basic.class)
+    public Visit rateVisit(@RequestBody Visit visit, @RequestParam int rate) {
+        return visitService.rateVisit(visit.getId(), rate);
+    }
+
     @GetMapping("/dataUpdate/")
     public void dataUpdate() {
         visitService.dataUpdate();

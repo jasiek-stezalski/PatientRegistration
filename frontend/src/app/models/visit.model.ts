@@ -8,6 +8,7 @@ export class Visit {
   end?: string;
   text?: string;
   description?: string;
+  rate?: number;
   visitModel?: VisitModel;
   user?: User;
 

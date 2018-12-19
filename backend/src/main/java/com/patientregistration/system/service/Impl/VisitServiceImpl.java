@@ -15,6 +15,7 @@ import com.patientregistration.system.service.VisitService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -24,7 +25,6 @@ import java.util.stream.Collectors;
 
 @Service
 public class VisitServiceImpl implements VisitService {
-
 
     private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
@@ -229,6 +229,29 @@ public class VisitServiceImpl implements VisitService {
         if (visit.getUser() != null)
             emailService.cancelVisitEmail(visit);
         visitRepository.deleteById(idVisit);
+    }
+
+    @Override
+    @Transactional
+    public Visit rateVisit(Long idVisit, int rate) {
+        Visit visit = findByVisitId(idVisit);
+        visit.setRate(rate);
+
+        Visit save = visitRepository.save(visit);
+
+        User user = visit.getVisitModel().getUser();
+
+        List<Visit> visits = visitRepository.findAllDoctorsPatient(user.getId());
+
+        double average = visits.stream()
+                .mapToDouble(Visit::getRate)
+                .average()
+                .getAsDouble();
+
+        user.setAvgRate(BigDecimal.valueOf(average));
+        userService.save(user);
+
+        return save;
     }
 
     @Override

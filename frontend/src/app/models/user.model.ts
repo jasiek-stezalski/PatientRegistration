@@ -13,7 +13,8 @@ export class User {
   email?: string;
   phoneNumber?: string;
   insurance?: boolean;
-  specialization?:string;
+  specialization?: string;
+  avgRate?: number;
   doctorClinic?: DoctorClinic[];
 
 }

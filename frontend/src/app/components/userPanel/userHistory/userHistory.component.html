@@ -24,6 +24,7 @@
         <div class="cell">Specjalizacja</div>
         <div class="cell">Lekarz</div>
         <div class="cell">Opis</div>
+        <div class="cell">Ocena</div>
       </div>
       <div class="row" *ngFor="let visit of visits">
         <div class="cell">{{visit.visitModel.clinic.name + ', ' + visit.visitModel.clinic.city}}</div>
@@ -32,10 +33,14 @@
         <div class="cell" id="cancel"><a href="javascript:void(0);" (click)="doctorCalendar(visit.visitModel.user.id)">
           {{visit.visitModel.user.firstName + ' ' + visit.visitModel.user.lastName}}</a></div>
         <div class="cell">{{visit.description}}</div>
+        <div class="cell" id="cancel2"><a href="javascript:void(0);" (click)="rateVisit(visit)">
+          {{(visit.rate != null) ? visit.rate : "Oceń"}}</a></div>
       </div>
 
     </div>
   </div>
 
 </div>
+
+<rating-dialog #rating (close)="createClosed($event)"></rating-dialog>
 

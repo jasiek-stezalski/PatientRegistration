@@ -72,10 +72,13 @@ export class VisitService {
     return this.http.delete(this.url + idVisit);
   }
 
+  rateVisit(visit: Visit): Observable<Visit> {
+    return this.http.put(this.url + 'rate/?rate=' + visit.rate, visit) as Observable<Visit>;
+  }
+
   dataUpdate() {
     return this.http.get(this.url + 'dataUpdate/');
   }
-
 }
 
 

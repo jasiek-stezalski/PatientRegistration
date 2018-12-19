@@ -7,8 +7,9 @@ import {DayPilotModule} from 'daypilot-pro-angular';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {UserVisitsComponent} from './userVisits/userVisits.component';
 import {DoctorPanelComponent} from './doctorPanel/doctorPanel.component';
-import {ConfirmComponent} from "./doctorPanel/confirm/confirm.component";
-import {BookInFutureComponent} from "./doctorPanel/bookInFuture/bookInFuture.component";
+import {ConfirmComponent} from './doctorPanel/confirm/confirm.component';
+import {BookInFutureComponent} from './doctorPanel/bookInFuture/bookInFuture.component';
+import {RatingComponent} from './userHistory/Rating/rating.component';
 
 
 @NgModule({
@@ -25,9 +26,10 @@ import {BookInFutureComponent} from "./doctorPanel/bookInFuture/bookInFuture.com
     UserVisitsComponent,
     DoctorPanelComponent,
     ConfirmComponent,
-    BookInFutureComponent
+    BookInFutureComponent,
+    RatingComponent
   ],
-  exports: [UsersListComponent, UserHistoryComponent, UserVisitsComponent, DoctorPanelComponent, ConfirmComponent, BookInFutureComponent],
+  exports: [UsersListComponent, UserHistoryComponent, UserVisitsComponent, DoctorPanelComponent, ConfirmComponent, BookInFutureComponent, RatingComponent],
   providers: []
 })
 export class UserPanelModule {

@@ -85,10 +85,6 @@ public class User implements UserDetails {
     @JsonIgnore
     private List<DoctorClinic> doctorClinics;
 
-    @OneToMany
-    @JoinColumn(name = "id_user")
-    private List<Rate> rates;
-
     @JsonIgnore
     @Override
     public boolean isEnabled() {

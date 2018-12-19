@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+
+<daypilot-modal #modal (close)="closed($event)">
+
+  <div class="col-md-6">
+    <h2 class="form-signin-heading">Ocena wizyty</h2>
+
+    <select [(ngModel)]="visit.rate" name="rate" type="text" id="rate" required>
+      <option *ngFor="let number of [1,2,3,4,5,6,7,8,9,10]" [ngValue]="number">{{number}}</option>
+    </select>
+
+    <div class="buttons">
+      <button class="btn btn-lg btn-primary btn-block" type="button" (click)="submit()">Zatwierdź ocenę</button>
+      <button class="btn btn-lg btn-danger btn-block btn-cancel" type="button" (click)="cancel()">Anuluj</button>
+    </div>
+
+  </div>
+
+
+</daypilot-modal>
+
+
+
+
+
