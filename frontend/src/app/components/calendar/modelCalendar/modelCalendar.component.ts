@@ -27,7 +27,16 @@ export class ModelCalendarComponent implements AfterViewInit {
   ngAfterViewInit(): void {
     let from = this.calendar.control.visibleStart();
     let to = this.calendar.control.visibleEnd();
-    this.service.getVisitModelsInWeekByDoctor(from, to, this.currentUser.id).subscribe(result => this.events = result);
+    this.service.getVisitModelsInWeekByDoctor(from, to, this.currentUser.id).subscribe(result => {
+      this.events = result;
+
+      this.events.forEach(v => {
+        if (v.careType === 'Prywatna')
+          v.barColor = '#2a8b65';
+        else v.barColor = '#487bcc';
+      });
+
+    });
   }
 
   navigatorConfig: any = {

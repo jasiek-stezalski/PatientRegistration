@@ -44,9 +44,11 @@ export class DoctorCalendarComponent implements AfterViewInit {
     this.visitService.getVisitsInWeekByDoctor(from, to, user.id).subscribe(result => {
       this.events = result;
       this.events.forEach(v => {
-        if (v.text === 'Zajęte')
-          v.barColor = '#487bcc';
-        else if (v.text === 'Zakończone')
+        if (v.text === 'Zajęte') {
+          if (v.visitModel.careType === 'Prywatna')
+            v.barColor = '#2a8b65';
+          else v.barColor = '#487bcc';
+        } else if (v.text === 'Zakończone')
           v.barColor = '#c6ccc6';
         else v.barColor = 'grey';
       });
@@ -84,8 +86,7 @@ export class DoctorCalendarComponent implements AfterViewInit {
         this.info.show(visit);
       else if (('' + visit.start + '').substring(0, 10) <= ('' + DayPilot.Date.today() + '').substring(0, 10)) {
         this.calendar.control.message('Ten termin jest już nieaktualny!');
-      }
-      else if (this.info.user.id != null) {
+      } else if (this.info.user.id != null) {
         this.book.show(visit, this.info.user);
       }
     },

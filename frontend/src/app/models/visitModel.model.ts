@@ -15,4 +15,5 @@ export class VisitModel {
   user?: User;
   clinic?: Clinic;
 
+  barColor?: string;
 }

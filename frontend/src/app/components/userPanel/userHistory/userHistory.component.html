@@ -34,7 +34,7 @@
           {{visit.visitModel.user.firstName + ' ' + visit.visitModel.user.lastName}}</a></div>
         <div class="cell">{{visit.description}}</div>
         <div class="cell" id="cancel2"><a href="javascript:void(0);" (click)="rateVisit(visit)">
-          {{(visit.rate != null) ? visit.rate : "Oceń"}}</a></div>
+          {{(user.role == 'USER' ? (visit.rate != null ? visit.rate : 'Oceń') : '')}}</a></div>
       </div>
 
     </div>

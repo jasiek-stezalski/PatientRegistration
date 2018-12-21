@@ -89,7 +89,7 @@ public class VisitModelServiceImpl implements VisitModelService {
                 visits.add(new Visit(
                         startTerm,
                         endTerm,
-                        startTerm.getHour() + " : " + (startTerm.getMinute() < 10 ? startTerm.getMinute() + "0" : startTerm.getMinute())
+                        (startTerm.getHour() < 10 ? "0" + startTerm.getHour() : startTerm.getHour()) + ":" + (startTerm.getMinute() < 10 ? startTerm.getMinute() + "0" : startTerm.getMinute())
                         , visitModel));
 
                 if (endTerm.toLocalTime().isAfter(endHour)) {

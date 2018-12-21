@@ -18,8 +18,8 @@
 
   <div class="tab">
     <p><b>Aktualna wizyta:
-      {{('' + actualVisit.start + '').substring(11,16)}} -
-      {{('' + actualVisit.end + '').substring(11,16)}}</b></p>
+      {{('' + actualVisit.start + '').substring(11, 16)}} -
+      {{('' + actualVisit.end + '').substring(11, 16)}}</b></p>
     <p><b>Dane pacjenta</b></p>
     <div class="tab">
       Imie i Nazwisko: {{actualUser.firstName + ' ' + actualUser.lastName}} <br/>
@@ -74,14 +74,12 @@
         <div class="row header">
           <div class="cell">Placówka</div>
           <div class="cell">Data</div>
-          <div class="cell">Lekarz</div>
         </div>
         <div class="row" *ngFor="let visit of visits" (click)="bookVisit(visit)">
           <div class="cell">{{visit.visitModel.clinic.name + ', ' + visit.visitModel.clinic.city}}</div>
           <div class="cell">{{('' + visit.start + '').substring(0, 10) + ' ' + ('' + visit.start + '').substring(11,
             16)}}
           </div>
-          <div class="cell">{{visit.visitModel.user.firstName + ' ' + visit.visitModel.user.lastName}}</div>
         </div>
 
       </div>

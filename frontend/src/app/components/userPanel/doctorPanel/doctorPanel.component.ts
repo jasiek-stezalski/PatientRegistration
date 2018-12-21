@@ -58,9 +58,11 @@ export class DoctorPanelComponent implements AfterViewInit {
       if (!isVisitToDo) this.eventsBase.setIndex(this.eventsBase.getIndex());
 
       this.events.forEach(v => {
-        if (v.text === 'Zajęte')
-          v.barColor = '#487bcc';
-        else if (v.text === 'Zakończone')
+        if (v.text === 'Zajęte') {
+          if (v.visitModel.careType === 'Prywatna')
+            v.barColor = '#2a8b65';
+          else v.barColor = '#487bcc';
+        } else if (v.text === 'Zakończone')
           v.barColor = '#c6ccc6';
         else v.barColor = 'grey';
       })

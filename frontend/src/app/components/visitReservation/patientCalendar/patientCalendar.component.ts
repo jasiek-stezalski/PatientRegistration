@@ -187,6 +187,8 @@ export class PatientCalendarComponent implements AfterViewInit {
         v.barColor = 'grey';
       else if (v.text === 'Zakończone')
         v.barColor = '#c6ccc6';
+      else if (v.visitModel.careType === 'Prywatna')
+        v.barColor = '#2a8b65';
       else v.barColor = '#487bcc';
     });
   }

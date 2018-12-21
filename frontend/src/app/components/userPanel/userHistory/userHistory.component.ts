@@ -17,6 +17,7 @@ export class UserHistoryComponent implements OnInit {
 
   visitsBase: Visit[] = [];
   visits: Visit[] = [];
+  user: User;
 
   specialization: Set<string> = new Set<string>();
 
@@ -36,9 +37,9 @@ export class UserHistoryComponent implements OnInit {
       this.id = +params['id'];
     });
 
-    let user: User = JSON.parse(sessionStorage.getItem('currentUser'));
+    this.user = JSON.parse(sessionStorage.getItem('currentUser'));
     this.specialization.add('-');
-    if (user.role === 'DOCTOR' && !isNaN(this.id)) {
+    if (this.user.role === 'DOCTOR' && !isNaN(this.id)) {
       this.visitService.getHistoricalVisitsByIdUser(this.id)
         .subscribe(data => {
           this.visitsBase = data;
@@ -48,7 +49,7 @@ export class UserHistoryComponent implements OnInit {
           });
         });
     } else {
-      this.visitService.getHistoricalVisitsByIdUser(user.id)
+      this.visitService.getHistoricalVisitsByIdUser(this.user.id)
         .subscribe(data => {
           this.visitsBase = data;
           this.visits = data;
